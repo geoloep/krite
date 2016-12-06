@@ -1,0 +1,34 @@
+<h3>Inspecteren</h3>
+<form>
+  <div class="form-group">
+    <label for="inspecteerlaag">Laag: </label>
+    <select class="form-control input-sm" value="{{layer}}">
+      <option selected></option>
+      {{#each layers}}
+          <option>{{name}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+
+  {{#if allowed}}
+    {{#if error}}
+      <div class="alert alert-danger" role="alert">Er is een fout opgetreden bij het bevragen van deze laag.</div>
+    {{/if}}
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>Attribuut</th>
+          <th>Waarde</th>
+        </tr>
+        {{#each properties:name}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{this}}</td>
+        </tr>
+        {{/each}}
+    </table>
+  {{else}}
+    <div class="alert alert-warning" role="alert">Deze laag ontsluit geen informatie over losse features.</div>
+  {{/if}}
+</form>

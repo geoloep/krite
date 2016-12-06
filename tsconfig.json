@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "dom",
+            "es6",
+            "scripthost"
+        ],
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "strictNullChecks": true,
+        "allowJs": false,
+        "outDir": "lib",
+        "typeRoots": [
+            "./node_modles/@types",
+            "./types"
+        ]
+    },
+    "include": [
+        "src/**/*",
+        "types/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

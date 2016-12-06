@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Kaartlaag toevoegen</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+            <form>
+                <div class="form-group">
+                    <label>Databron:</label>
+                    <select class="form-control input-sm" value="{{selectedSource}}">
+                        <option selected></option>
+                        {{#each sourceList}}
+                            <option>{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </form>
+            
+            <div class="form-group has-feedback">
+                <input class="form-control input-sm" placeholder="Filteren" value="{{layerFilter}}" />
+                <span class="fa fa-search form-control-feedback"></span>
+            </div>
+
+            {{#if loading}}
+                <p class="text-center"><span class="fa fa-circle-o-notch fa-spin"></span></p>
+            {{else}}
+                <div class="list-group list">
+                    <!--<input class="search" />-->
+                    {{#each filteredLayerList(layerList, layerFilter) }}
+                        <a href="#" class="list-group-item" on-click="selectLayer"><span class="laag">{{this}}</span></a>
+                    {{/each}}
+                </div>
+            {{/if}}
+        </div>
+
+        <div class="col-md-6">
+            <h4>{{selectedLayer.title}}</h4>
+            <img style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto" src="{{selectedLayer.image}}">
+            <p>{{selectedLayer.abstract}}</p>
+        </div>
+    </div>
+    
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+    <button type="button" class="btn btn-success" on-click="addLayer" {{^selectedLayer.addable}}disabled="disabled"{{/selectedLayer.addable}}><span class="fa fa-plus"></span>&nbsp;Laag toevoegen</button>
+</div>

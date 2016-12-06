@@ -1,0 +1,20 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+        "quotemark": [
+            true,
+            "single",
+            "avoid-escape"
+        ],
+        "max-line-length": [
+            false
+        ],
+        "member-access": [
+            false
+        ],
+        "object-literal-sort-keys": false
+    },
+    "rulesDirectory": [
+        
+    ]
+}
