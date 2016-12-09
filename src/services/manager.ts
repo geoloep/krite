@@ -13,6 +13,8 @@ export class ServiceManager {
     }
 
     getService<T>(name: string): T {
+        console.assert(name in this.dependencies);
+
         return this.dependencies[name];
     }
 
