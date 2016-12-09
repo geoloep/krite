@@ -20,6 +20,10 @@ export class NumeralService {
         return numeral(parseFloat(n)).format('(0,0.00)');
     }
 
+    int(n: any) {
+        return numeral(parseFloat(n)).format('(0,0)');
+    }
+
     percentage(n: any) {
         return numeral(parseFloat(n) / 100).format('0%');
     }

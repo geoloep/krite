@@ -4,5 +4,6 @@ export declare class NumeralService {
     setLanguage(language: NumeralJSLanguage): void;
     number(n: any): Numeral;
     float(n: any): string;
+    int(n: any): string;
     percentage(n: any): string;
 }
