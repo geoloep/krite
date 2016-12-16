@@ -1,5 +1,5 @@
 import * as $ from 'jquery';
-import * as geocodeParser from  '../../../openls-geocode-parser'; // @todo: pakket van maken
+import * as geocodeParser from  'openls-geocode-parser';
 
 export class GeocodeService {
     constructor(readonly baseurl: string) {

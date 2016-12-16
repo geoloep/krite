@@ -1,3 +1,4 @@
+/// <reference types="numeral" />
 export declare class NumeralService {
     numeral: Numeral;
     constructor(language: NumeralJSLanguage);

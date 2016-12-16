@@ -1,9 +1,10 @@
 import * as $ from 'jquery';
 import * as L from 'leaflet';
+import * as wellknown from 'wellknown';
 
 import { GeoServerSource } from './source';
 
-import { ILayer } from '../../types';
+import { ILayer, toWKT } from '../../types';
 
 export class GeoserverLayer implements ILayer {
     _leaflet: L.WMS;
@@ -13,6 +14,10 @@ export class GeoserverLayer implements ILayer {
     };
 
     get canGetInfoAtPoint() {
+        return Boolean(this.source.options.wfs);
+    }
+
+    get hasOperations() {
         return Boolean(this.source.options.wfs);
     }
 
@@ -50,6 +55,36 @@ export class GeoserverLayer implements ILayer {
 
         return bbox;
     };
+
+    intersects(feature: string | toWKT | GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject) {
+        return new Promise<any>((resolve, reject) => {
+            let wkt: string;
+
+            if (typeof feature === 'object') {
+                if ((feature as toWKT).toWKT) {
+                    wkt = (feature as toWKT).toWKT();
+                } else {
+                    wkt = wellknown.stringify(feature as GeoJSON.GeometryObject);
+                }
+            } else {
+                wkt = feature;
+            }
+
+            $.getJSON(this.source.url, {
+                cql_filter: `INTERSECTS(${this.geomField}, ${wkt})`,
+                outputformat: 'application/json',
+                request: 'GetFeature',
+                service: 'WFS',
+                typenames: this.typename,
+                version: '2.0.0',
+            }).done(function (data) {
+                resolve(data);
+            }).fail(function (data) {
+                console.error('Fout in verzoek!');
+                reject('AJAX error');
+            });
+        });
+    }
 
     getInfoAtPoint(point: any): Promise<any> {
         return new Promise<any>(
@@ -127,4 +162,20 @@ export class GeoserverLayer implements ILayer {
             return '<p>-</p>';
         }
     };
+
+    private get typename() {
+        if (this.source.options.wfsNamespace) {
+            return this.source.options.wfsNamespace + ':' + this.name;
+        } else {
+            return this.name;
+        }
+    }
+
+    private get geomField() {
+        if (this.source.options.field) {
+            return this.source.options.field;
+        } else {
+            return 'geom';
+        }
+    }
 }

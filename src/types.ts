@@ -2,6 +2,7 @@ import { RactiveApp } from './apps/ractiveApp';
 
 export interface ILayer {
     canGetInfoAtPoint?: boolean; //@todo: verwijderen
+    hasOperations?: boolean;
     hasOnClick?: boolean;
     title: string;
     name: string;
@@ -12,6 +13,7 @@ export interface ILayer {
     legend: string;
 
     onClick?(func: ILayerClickHandler): void;
+    intersects?(feature: string | toWKT | GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject): Promise<any>;
     getInfoAtPoint?(point: L.Point): Promise<any>;
     getType?(attr: string): TAttributes | IAttributeTypeFunc;
 }
@@ -50,3 +52,6 @@ export interface IAttributeTypeFunc {
     (attr: any): string;
 }
 
+export interface toWKT {
+    toWKT(): string;
+}

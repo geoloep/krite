@@ -1,3 +1,4 @@
+/// <reference types="leaflet" />
 import * as L from 'leaflet';
 import { ILayer, ILayerClickHandler, TAttributes, IAttributeTypeFunc } from '../../types';
 export declare class AardbevingLayer implements ILayer {

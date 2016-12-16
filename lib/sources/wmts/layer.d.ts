@@ -1,3 +1,4 @@
+/// <reference types="leaflet" />
 import * as L from 'leaflet';
 import { WMTSSource } from './source';
 import { ILayer } from '../../types';

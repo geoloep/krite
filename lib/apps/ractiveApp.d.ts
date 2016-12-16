@@ -1,3 +1,4 @@
+/// <reference types="ractive" />
 import { IContainer } from '../types';
 export declare class RactiveApp {
     protected ractive: Ractive.Ractive;
