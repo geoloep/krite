@@ -32,7 +32,7 @@ export class LegendApp extends RactiveApp {
     protected createRactive(element: string) {
 
         this.ractive = new Ractive({
-            magic: true, // @todo: in 0.8.0 weer proberen
+            //magic: true, // @todo: in 0.8.0 weer proberen
             modifyArrays: true,
             el: element,
             template: require('./template.html'),

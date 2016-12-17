@@ -48,6 +48,6 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
-    <a type="button" class="btn btn-default xs-hidden" href="http://{{@global.location.hostname}}{{@global.location.pathname}}?source={{selectedSource}}&layer={{selectedLayer.name}}&fitBounds=true" target="_blank"{{^selectedLayer.addable}}disabled="disabled"{{/selectedLayer.addable}}><span class="fa fa-link"></span>&nbsp;Permalink</a>
+    <a type="button" class="btn btn-default xs-hidden" href="http://{{@global.location.hostname}}{{@global.location.pathname}}?source={{selectedSource}}&layer={{selectedLayer.name}}&fitBounds=true" target="_blank"{{^layerAddable}}disabled="disabled"{{/layerAddable}}><span class="fa fa-link"></span>&nbsp;Permalink</a>
     <button type="button" class="btn btn-success" on-click="addLayer" {{^layerAddable}}disabled="disabled"{{/}}><span class="fa fa-plus"></span>&nbsp;Laag toevoegen</button>
 </div>
