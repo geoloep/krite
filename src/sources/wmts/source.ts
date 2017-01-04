@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+import * as url from 'url';
 import { WMTSLayer } from './layer';
 
 import { IDataSource, ILayer } from '../../types';
@@ -68,33 +68,37 @@ export class WMTSSource implements IDataSource {
     private getCapabilities(): Promise<void> {
         return new Promise(
             (resolve, reject) => {
-                $.ajax({
-                    data: {
-                        request: 'GetCapabilities',
-                    },
-                    dataType: 'text',
-                    url: this.url,
-                }).done((data) => {
-                    parseString(data, {
-                        async: true,
-                        explicitArray: false,
-                        tagNameProcessors: [processors.stripPrefix],
-                    },
-                    (err, result) => {
-                        this.capabilities = result;
+                fetch(
+                    this.url +
+                    url.format({
+                        query: {
+                            request: 'GetCapabilities',
+                        },
+                    })
+                ).then((response) => {
+                    if (response.ok) {
+                        response.text().then((data) => {
+                            parseString(data, {
+                                async: true,
+                                explicitArray: false,
+                                tagNameProcessors: [processors.stripPrefix],
+                            },
+                            (err, result) => {
+                                this.capabilities = result;
 
-                        for (let layer of this.capabilities.Capabilities.Contents.Layer) {
-                            this.layerNames.push(layer.Title);
-                            this.layers[layer.Title] = new WMTSLayer(layer, this);
-                        }
+                                for (let layer of this.capabilities.Capabilities.Contents.Layer) {
+                                    this.layerNames.push(layer.Title);
+                                    this.layers[layer.Title] = new WMTSLayer(layer, this);
+                                }
 
-                        this.layersLoaded = true;
-                        resolve();
-                    });
-                }).fail(function (e) {
-                    // @todo: fail verwerken
-                    reject();
-                });
+                                this.layersLoaded = true;
+                                resolve();
+                            });
+                        }).catch(reject);
+                    } else {
+                        reject();
+                    }
+                }).catch(reject);
             }
         );
     }

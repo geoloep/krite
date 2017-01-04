@@ -61,23 +61,24 @@ export class BuienradarSource implements IDataSource {
     private makeLayer() {
         return new Promise<BuienradarLayer>(
             (resolve, reject) => {
-                $.ajax({
-                    url: 'http://xml.buienradar.nl/',
-                    dataType: 'text',
-                }).done((data) => {
-                    parseString(data,
-                    {
-                        async: true,
-                        explicitArray: false,
-                    },
-                    (err, result) => {
-                        this.capabilities = result;
-                        this.layer = new BuienradarLayer(result);
-                        resolve(this.layer)
-                    });
-                }).fail((err) => {
-                    reject();
-                });
+                fetch('http://xml.buienradar.nl/').then((response) => {
+                    if (response.ok) {
+                        response.text().then((data) => {
+                            parseString(data,
+                            {
+                                async: true,
+                                explicitArray: false,
+                            },
+                            (err, result) => {
+                                this.capabilities = result;
+                                this.layer = new BuienradarLayer(result);
+                                resolve(this.layer);
+                            });
+                        }).catch(reject);
+                    } else {
+                        reject();
+                    }
+                }).catch(reject);
             });
     }
 }

@@ -4,6 +4,7 @@ import { ILayer, IClickHandler, ILayerClickHandler } from '../types';
 export declare class MapService {
     readonly element: string;
     readonly customOptions: L.MapOptions;
+    HTMLElement: HTMLElement;
     layers: ILayer[];
     layerByName: {
         [index: string]: ILayer;

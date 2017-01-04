@@ -1,5 +1,3 @@
-import * as $ from 'jquery';
-
 export interface IStateChangeCallback {
     (newState: string): void;
 }
@@ -10,7 +8,8 @@ export class WindowService {
 
     constructor() {
         this.setState();
-        $(window).resize(this.setState);
+
+        window.onresize = this.setState;
     }
 
     onStateChange(func: IStateChangeCallback) {

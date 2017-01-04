@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import * as L from 'leaflet';
 import * as rd from 'leaflet-rd';
 import * as reproject from 'reproject';
@@ -8,6 +7,8 @@ import * as towkt from 'leaflet-towkt';
 import {ILayer, IClickHandler, ILayerClickHandler} from '../types';
 
 export class MapService {
+    HTMLElement: HTMLElement;
+
     layers: ILayer[] = [];
     layerByName: {
         [index: string]: ILayer
@@ -36,8 +37,6 @@ export class MapService {
     private layerClickCallbacks: ILayerClickHandler[] = [];
 
     constructor(readonly element: string, readonly customOptions?: L.MapOptions) {
-        // let self = this;
-
         this.map = L.map((this.element as any),
             Object.assign(this.defaultOptions, this.customOptions)
         );
@@ -49,6 +48,9 @@ export class MapService {
                 func(rd.projection.project(e.latlng));
             }
         });
+
+        // @todo: is dit element gegarandeerd aanwezig op dit moment?
+        this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;        
     };
 
     // Alleen voor het toevoegen van nieuwe lagen
@@ -158,11 +160,11 @@ export class MapService {
     };
 
     startInspect() {
-        $('.leaflet-container').css('cursor', 'help');
+        this.HTMLElement.style.cursor = 'help';
     }
 
     endInspect() {
-        $('.leaflet-container').css('cursor', '');
+        this.HTMLElement.style.cursor = '';
     }
 
     fitBounds(bounds: L.LatLngBounds | undefined) {

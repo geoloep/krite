@@ -1,4 +1,4 @@
-import * as $ from 'jquery';
+import * as url from 'url';
 import { GeoserverLayer } from './layer';
 
 import { IDataSource, ILayer } from '../../types';
@@ -68,27 +68,32 @@ export class GeoServerSource implements IDataSource {
     private getCapabilities(): Promise<void> {
         return new Promise(
             (resolve, reject) => {
-                $.ajax({
-                    data: {
-                        request: 'GetCapabilities',
-                        service: 'WMS',
-                    },
-                    dataType: 'text',
-                    url: this.url,
-                }).done((data) => {
-                    this.capabilities = new WMSCapabilities(data).toJSON();
+                fetch(
+                    this.url +
+                    url.format({
+                        query: {
+                            request: 'GetCapabilities',
+                            service: 'WMS',
+                        },
+                    })
+                ).then((response) => {
+                    if (response.ok) {
+                        response.text().then((data) => {
+                                this.capabilities = new WMSCapabilities(data).toJSON();
 
-                    for (let layer of this.capabilities.Capability.Layer.Layer) {
-                        this.layerNames.push(layer.Name);
-                        this.layers[layer.Name] = new GeoserverLayer(layer, this);
+                                for (let layer of this.capabilities.Capability.Layer.Layer) {
+                                    this.layerNames.push(layer.Name);
+                                    this.layers[layer.Name] = new GeoserverLayer(layer, this);
+                                }
+
+                                this.layersLoaded = true;
+
+                                resolve();
+                        }).catch(reject);
+                    } else {
+                        reject();
                     }
-
-                    this.layersLoaded = true;
-                    resolve();
-                }).fail(function (e) {
-                    // @todo: fail verwerken
-                    reject();
-                });
+                }).catch(reject);
             }
         );
     }

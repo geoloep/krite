@@ -1,6 +1,6 @@
-import * as $ from 'jquery';
 import * as L from 'leaflet';
 import * as wellknown from 'wellknown';
+import * as url from 'url';
 
 import { GeoServerSource } from './source';
 
@@ -70,19 +70,22 @@ export class GeoserverLayer implements ILayer {
                 wkt = feature;
             }
 
-            $.getJSON(this.source.url, {
-                cql_filter: `INTERSECTS(${this.geomField}, ${wkt})`,
-                outputformat: 'application/json',
-                request: 'GetFeature',
-                service: 'WFS',
-                typenames: this.typename,
-                version: '2.0.0',
-            }).done(function (data) {
-                resolve(data);
-            }).fail(function (data) {
-                console.error('Fout in verzoek!');
-                reject('AJAX error');
-            });
+            fetch(this.source.url + url.format({
+                query: {
+                    cql_filter: `INTERSECTS(${this.geomField}, ${wkt})`,
+                    outputformat: 'application/json',
+                    request: 'GetFeature',
+                    service: 'WFS',
+                    typenames: this.typename,
+                    version: '2.0.0',
+                },
+            })).then((response) => {
+                if (response.ok) {
+                    response.json().then(resolve);
+                } else {
+                    reject();
+                }
+            }).catch(reject);
         });
     }
 
@@ -100,19 +103,22 @@ export class GeoserverLayer implements ILayer {
                     field = this.source.options.field;
                 }
 
-                $.getJSON(this.source.url, {
-                    cql_filter: `INTERSECTS(${field}, POINT(${point.x} ${point.y}))`,
-                    outputformat: 'application/json',
-                    request: 'GetFeature',
-                    service: 'WFS',
-                    typenames: typename,
-                    version: '2.0.0',
-                }).done(function (data) {
-                    resolve(data);
-                }).fail(function (data) {
-                    console.error('Fout in verzoek!');
-                    reject('AJAX error');
-                });
+                fetch(this.source.url + url.format({
+                    query: {
+                        cql_filter: `INTERSECTS(${field}, POINT(${point.x} ${point.y}))`,
+                        outputformat: 'application/json',
+                        request: 'GetFeature',
+                        service: 'WFS',
+                        typenames: typename,
+                        version: '2.0.0',
+                    },
+                })).then((response) => {
+                    if (response.ok) {
+                        response.json().then(resolve);
+                    } else {
+                        reject();
+                    }
+                }).catch(reject);
             }
         );
     };

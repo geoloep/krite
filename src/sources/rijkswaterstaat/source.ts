@@ -65,19 +65,20 @@ export class RijkswaterstaatSource implements IDataSource {
     private makeLayers() {
         return new Promise<{ [index: string]: ILayer }>(
             (resolve, reject) => {
-                $.ajax({
-                    url: 'http://service.geoloep.nl/proxy/rijkswaterstaat/rwsnl/?mode=features&projecttype=windsnelheden_en_windstoten',
-                    dataType: 'json',
-                }).done((data) => {
-                    this.capabilities = data;
-                    for (let layerName of this.layerNames) {
-                        this.layers[layerName] = new this.nameToType[layerName](this.capabilities);
-                    }
+                fetch('http://service.geoloep.nl/proxy/rijkswaterstaat/rwsnl/?mode=features&projecttype=windsnelheden_en_windstoten').then((response) => {
+                    if (response.ok) {
+                        response.json().then((data) => {
+                            this.capabilities = data;
+                            for (let layerName of this.layerNames) {
+                                this.layers[layerName] = new this.nameToType[layerName](this.capabilities);
+                            }
 
-                    resolve(this.layers);
-                }).fail((err) => {
-                    console.error(err);
-                });
+                            resolve(this.layers);
+                        }).catch(reject);
+                    } else {
+                        reject();
+                    }
+                }).catch(reject);
             });
     }
 }

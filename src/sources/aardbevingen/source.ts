@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+import * as url from 'url';
 
 import { parseString } from 'xml2js';
 
@@ -62,22 +63,23 @@ export class AardbevingenSource implements IDataSource {
     private makeLayer() {
         return new Promise<AardbevingLayer>(
             (resolve, reject) => {
-                $.ajax({
-                    url: 'http://service.geoloep.nl/proxy/aardbevingen/GQuake_KNMI_RSS.xml',
-                    dataType: 'text',
-                }).done((data) => {
-                    parseString(data, {
-                        async: true,
-                        explicitArray: false,
-                    },
-                    (err, result) => {
-                        this.capabilities = result;
-                        this.layer = new AardbevingLayer(result);
-                        resolve(this.layer);
-                    });
-                }).fail((err) => {
-                    reject();
-                });
+                fetch('http://service.geoloep.nl/proxy/aardbevingen/GQuake_KNMI_RSS.xml').then((response) => {
+                    if (response.ok) {
+                        response.text().then((data) => {
+                            parseString(data, {
+                                async: true,
+                                explicitArray: false,
+                            },
+                            (err, result) => {
+                                this.capabilities = result;
+                                this.layer = new AardbevingLayer(result);
+                                resolve(this.layer);
+                            });
+                        }).catch(reject);
+                    } else {
+                        reject();
+                    }
+                }).catch(reject);
             });
     }
 }
