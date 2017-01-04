@@ -3,21 +3,19 @@ import * as L from 'leaflet';
 import { ILayer, IClickHandler, ILayerClickHandler } from '../types';
 export declare class MapService {
     readonly element: string;
+    readonly customOptions: L.MapOptions;
     layers: ILayer[];
     layerByName: {
         [index: string]: ILayer;
     };
     map: L.Map;
-    private minZoom;
-    private maxZoom;
-    private initialCenter;
-    private initialZoom;
+    defaultOptions: L.MapOptions;
     private basemap;
     private highlight;
     private pointer;
     private clickHandlers;
     private layerClickCallbacks;
-    constructor(element: string);
+    constructor(element: string, customOptions?: L.MapOptions);
     addLayer(layer: ILayer): void;
     showLayer(layer: ILayer): void;
     hasLayerByName(name: string): boolean;
@@ -35,4 +33,5 @@ export declare class MapService {
     endInspect(): void;
     fitBounds(bounds: L.LatLngBounds | undefined): void;
     zoomToPoint(point: number[], zoom: number): void;
+    zoomToWgsPoint(point: [number, number], zoom: number): void;
 }

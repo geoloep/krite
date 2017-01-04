@@ -10,12 +10,7 @@
         "type": "git",
         "url": "https://github.com/geoloep/krite.git"
     },
-    "peerDependencies": {
-        "jquery": "^2.2.4",
-
-        "leaflet": "^1.0.2",
-        "proj4": "^2.3.15",
-        "leaflet-rd": "^1.0.0",
+    "dependencies": {
         "reproject": "^1.1.1",
 
         "xml2js": "^0.4.17",
@@ -24,7 +19,14 @@
         "wms-capabilities": "^0.3.4",
         "wellknown": "^0.5.0",
 
-        "numeral": "^1.5.6",
+        "numeral": "^1.5.6"
+    },
+    "peerDependencies": {
+        "jquery": "^2.2.4",
+
+        "leaflet": "^1.0.2",
+        "proj4": "^2.3.15",
+        "leaflet-rd": "^1.0.0",
 
         "ractive": "^0.8.5"
     },
@@ -36,6 +38,7 @@
         "@types/xml2js": "*",
         "@types/numeral": "*",
         "@types/geojson": "*",
+        "@types/whatwg-fetch": "*",
 
         "typescript": "^2.1.4",
 

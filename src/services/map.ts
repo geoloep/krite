@@ -16,11 +16,15 @@ export class MapService {
     map: L.Map;
 
     // Kaartinstellingen
-    private minZoom: number = 3;
-    private maxZoom: number = 16;
+    // private minZoom: number = 3;
+    // private maxZoom: number = 16;
 
-    private initialCenter: [number, number] = [52.156, 5.389];
-    private initialZoom: number = 4;
+    // private initialCenter: [number, number] = [52.156, 5.389];
+    // private initialZoom: number = 4;
+
+    defaultOptions: L.MapOptions = {
+        crs: rd,
+    };
 
     // Lagen bijhouden
     private basemap: L.TileLayer;
@@ -31,18 +35,12 @@ export class MapService {
     private clickHandlers: IClickHandler[] = [];
     private layerClickCallbacks: ILayerClickHandler[] = [];
 
-    constructor(readonly element: string) {
+    constructor(readonly element: string, readonly customOptions?: L.MapOptions) {
         // let self = this;
 
         this.map = L.map((this.element as any),
-            {
-                center: this.initialCenter,
-                crs: rd,
-                maxZoom: this.maxZoom,
-                minZoom: this.minZoom,
-                zoom: this.initialZoom,
-                touchZoom: true,
-            });
+            Object.assign(this.defaultOptions, this.customOptions)
+        );
 
         this.pointer = L.marker([0, 0]).addTo(this.map);
 
@@ -175,7 +173,13 @@ export class MapService {
 
     zoomToPoint(point: number[], zoom: number) {
         let reprojected = rd.projection.unproject(L.point(point[0], point[1]));
-        this.pointer.setLatLng(reprojected);
-        this.map.setView(reprojected, zoom);
+        // this.pointer.setLatLng(reprojected);
+        // this.map.setView(reprojected, zoom);
+        this.zoomToWgsPoint(reprojected, zoom);
     };
+
+    zoomToWgsPoint(point: [number, number], zoom: number) {
+        this.pointer.setLatLng(point);
+        this.map.setView(point, zoom);
+    }
 };
