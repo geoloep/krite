@@ -8,17 +8,18 @@ import { ILayer, toWKT } from '../../types';
 
 export class GeoserverLayer implements ILayer {
     _leaflet: L.WMS;
+    _geomField: string;
     private ZIndex: number = 100;
 
-    constructor(readonly capabilities: any, readonly source: GeoServerSource) {
+    constructor(readonly capabilities: any, readonly wfscapabilities: any, readonly type: any, readonly source: GeoServerSource) {
     };
 
     get canGetInfoAtPoint() {
-        return Boolean(this.source.options.wfs);
+        return Boolean(this.wfscapabilities);
     }
 
     get hasOperations() {
-        return Boolean(this.source.options.wfs);
+        return Boolean(this.wfscapabilities);
     }
 
     get hasOnClick() {
@@ -92,33 +93,27 @@ export class GeoserverLayer implements ILayer {
     getInfoAtPoint(point: any): Promise<any> {
         return new Promise<any>(
             (resolve, reject) => {
-                let typename = this.name;
-                let field = 'geom';
+                if (this.wfscapabilities) {
+                    let typename = this.wfscapabilities.Title[0];
+                    let field = this.geomField;
 
-                if (this.source.options.wfsNamespace) {
-                    typename = this.source.options.wfsNamespace + ':' + typename;
+                    fetch(this.source.url + url.format({
+                        query: {
+                            cql_filter: `INTERSECTS(${field}, POINT(${point.x} ${point.y}))`,
+                            outputformat: 'application/json',
+                            request: 'GetFeature',
+                            service: 'WFS',
+                            typenames: typename,
+                            version: '2.0.0',
+                        },
+                    })).then((response) => {
+                        if (response.ok) {
+                            response.json().then(resolve);
+                        } else {
+                            reject();
+                        }
+                    }).catch(reject);
                 }
-
-                if (this.source.options.field) {
-                    field = this.source.options.field;
-                }
-
-                fetch(this.source.url + url.format({
-                    query: {
-                        cql_filter: `INTERSECTS(${field}, POINT(${point.x} ${point.y}))`,
-                        outputformat: 'application/json',
-                        request: 'GetFeature',
-                        service: 'WFS',
-                        typenames: typename,
-                        version: '2.0.0',
-                    },
-                })).then((response) => {
-                    if (response.ok) {
-                        response.json().then(resolve);
-                    } else {
-                        reject();
-                    }
-                }).catch(reject);
             }
         );
     };
@@ -178,10 +173,23 @@ export class GeoserverLayer implements ILayer {
     }
 
     private get geomField() {
-        if (this.source.options.field) {
-            return this.source.options.field;
+        if (this._geomField) {
+            return this._geomField;
         } else {
-            return 'geom';
+            if (this.type) {
+                for (let field of this.type) {
+                    if (field.$.type.split(':')[0] === 'gml') {
+                        this._geomField = field.$.name;
+                    }
+                }
+            }
+
+            if (!(this._geomField)) {
+                console.warn(`Using default geometry field name for ${this.name}`);
+                this._geomField = 'geom';
+            }
+
+            return this._geomField;
         }
     }
 }

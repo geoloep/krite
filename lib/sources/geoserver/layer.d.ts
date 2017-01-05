@@ -5,10 +5,13 @@ import { GeoServerSource } from './source';
 import { ILayer, toWKT } from '../../types';
 export declare class GeoserverLayer implements ILayer {
     readonly capabilities: any;
+    readonly wfscapabilities: any;
+    readonly type: any;
     readonly source: GeoServerSource;
     _leaflet: L.WMS;
+    _geomField: string;
     private ZIndex;
-    constructor(capabilities: any, source: GeoServerSource);
+    constructor(capabilities: any, wfscapabilities: any, type: any, source: GeoServerSource);
     readonly canGetInfoAtPoint: boolean;
     readonly hasOperations: boolean;
     readonly hasOnClick: boolean;

@@ -7,7 +7,11 @@ export interface IGeoServerSourceOptions {
 export declare class GeoServerSource implements IDataSource {
     readonly url: string;
     readonly options: IGeoServerSourceOptions;
-    capabilities: any | undefined;
+    capabilities: any;
+    wfscapabilities: any;
+    private wfsFeature;
+    private wfsFeatureTypes;
+    private wfsFeatureToType;
     private layersLoaded;
     private layerNames;
     private layers;
