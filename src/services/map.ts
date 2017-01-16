@@ -1,5 +1,5 @@
 import * as L from 'leaflet';
-import * as rd from 'leaflet-rd';
+// import * as rd from 'leaflet-rd';
 import * as reproject from 'reproject';
 
 import * as towkt from 'leaflet-towkt';
@@ -24,7 +24,7 @@ export class MapService {
     // private initialZoom: number = 4;
 
     defaultOptions: L.MapOptions = {
-        crs: rd,
+        // crs: rd,
     };
 
     // Lagen bijhouden
@@ -45,7 +45,7 @@ export class MapService {
 
         this.map.on('click', (e: L.MouseEvent) => {
             for (let func of this.clickHandlers) {
-                func(rd.projection.project(e.latlng));
+                func(this.map.options.crs.project(e.latlng));
             }
         });
 
@@ -123,7 +123,7 @@ export class MapService {
             this.highlight.remove();
         }
 
-        let reprojected = reproject.toWgs84(geojson, rd.projection.proj4def);
+        let reprojected = reproject.toWgs84(geojson, this.map.options.crs.projection.proj4def);
 
         this.highlight = L.geoJSON(reprojected);
         this.highlight.addTo(this.map);
@@ -174,13 +174,13 @@ export class MapService {
     }
 
     zoomToPoint(point: number[], zoom: number) {
-        let reprojected = rd.projection.unproject(L.point(point[0], point[1]));
+        let reprojected = this.map.options.crs.projection.unproject(L.point(point[0], point[1]));
         // this.pointer.setLatLng(reprojected);
         // this.map.setView(reprojected, zoom);
         this.zoomToWgsPoint(reprojected, zoom);
     };
 
-    zoomToWgsPoint(point: [number, number], zoom: number) {
+    zoomToWgsPoint(point: [number, number] | L.LatLng, zoom: number) {
         this.pointer.setLatLng(point);
         this.map.setView(point, zoom);
     }

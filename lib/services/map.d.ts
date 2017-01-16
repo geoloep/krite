@@ -34,5 +34,5 @@ export declare class MapService {
     endInspect(): void;
     fitBounds(bounds: L.LatLngBounds | undefined): void;
     zoomToPoint(point: number[], zoom: number): void;
-    zoomToWgsPoint(point: [number, number], zoom: number): void;
+    zoomToWgsPoint(point: [number, number] | L.LatLng, zoom: number): void;
 }

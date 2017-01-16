@@ -94,7 +94,7 @@ export class GeoserverLayer implements ILayer {
         return new Promise<any>(
             (resolve, reject) => {
                 if (this.wfscapabilities) {
-                    let typename = this.wfscapabilities.Title[0];
+                    let typename = this.wfscapabilities.Name[0];
                     let field = this.geomField;
 
                     fetch(this.source.url + url.format({
@@ -165,8 +165,8 @@ export class GeoserverLayer implements ILayer {
     };
 
     private get typename() {
-        if (this.source.options.wfsNamespace) {
-            return this.source.options.wfsNamespace + ':' + this.name;
+        if (this.wfscapabilities) {
+            return this.wfscapabilities.Name[0];
         } else {
             return this.name;
         }
@@ -180,6 +180,7 @@ export class GeoserverLayer implements ILayer {
                 for (let field of this.type) {
                     if (field.$.type.split(':')[0] === 'gml') {
                         this._geomField = field.$.name;
+                        break;
                     }
                 }
             }
