@@ -56,6 +56,18 @@ export class ESRISource implements IDataSource {
 
     getLayer(name: string) {
         return new Promise<ILayer>((resolve, reject) => {
+            if (this.services) {
+                this._getLayer(name).then(resolve).catch(reject);
+            } else {
+                this.getServices().then(() => {
+                    this._getLayer(name).then(resolve).catch(reject);
+                });
+            }
+        });
+    }
+
+    _getLayer(name: string) {
+        return new Promise<ILayer>((resolve, reject) => {
             for (let service of this.services.services) {
                 if (service.name === name) {
                     if (service.type in this.typeToLayer) {

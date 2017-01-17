@@ -23,5 +23,6 @@ export declare class ESRISource implements IDataSource {
     getLayerNames(): Promise<string[]>;
     _getLayerNames(): string[];
     getLayer(name: string): Promise<ILayer>;
+    _getLayer(name: string): Promise<ILayer>;
     private getServices();
 }
