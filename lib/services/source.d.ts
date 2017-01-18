@@ -4,5 +4,5 @@ export declare class SourceService {
         [index: string]: IDataSource;
     };
     sourceList: string[];
-    add(name: string, source: IDataSource): void;
+    add<T extends IDataSource>(name: string, source: T): T;
 }

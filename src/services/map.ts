@@ -50,7 +50,7 @@ export class MapService {
         });
 
         // @todo: is dit element gegarandeerd aanwezig op dit moment?
-        this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;        
+        this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
     };
 
     // Alleen voor het toevoegen van nieuwe lagen

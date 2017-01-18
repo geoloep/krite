@@ -4,8 +4,9 @@ export class SourceService {
     sources: { [index: string]: IDataSource } = {};
     sourceList: string[] = [];
 
-    add(name: string, source: IDataSource) {
+    add<T extends IDataSource>(name: string, source: T): T {
         this.sources[name] = source;
         this.sourceList.push(name);
+        return source;
     };
 }
