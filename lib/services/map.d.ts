@@ -1,4 +1,5 @@
 /// <reference types="leaflet" />
+import 'leaflet-towkt';
 import * as L from 'leaflet';
 import { ILayer, IClickHandler, ILayerClickHandler } from '../types';
 export declare class MapService {

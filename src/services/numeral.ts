@@ -3,13 +3,12 @@ import * as numeral from 'numeral';
 export class NumeralService {
     numeral = numeral;
 
-    constructor(language: NumeralJSLanguage) {
-        this.setLanguage(language);
+    constructor(locale: string) {
+        this.setLocale(locale);
     }
-
-    setLanguage(language: NumeralJSLanguage) {
-        this.numeral.language('krite', language);
-        this.numeral.language('krite');
+    
+    setLocale(locale: string) {
+        this.numeral.locale(locale);
     }
 
     number(n: any) {

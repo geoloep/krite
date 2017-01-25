@@ -1,8 +1,8 @@
 /// <reference types="numeral" />
 export declare class NumeralService {
     numeral: Numeral;
-    constructor(language: NumeralJSLanguage);
-    setLanguage(language: NumeralJSLanguage): void;
+    constructor(locale: string);
+    setLocale(locale: string): void;
     number(n: any): Numeral;
     float(n: any): string;
     int(n: any): string;

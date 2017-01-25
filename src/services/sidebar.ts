@@ -30,8 +30,8 @@ export class SidebarService {
 
     apps: IApps = {};
 
-    activeApp: SidebarServiceApp;
-    activeName: string;
+    activeApp: SidebarServiceApp | undefined;
+    activeName: string | undefined;
 
     private onChangeCallbacks: ISidebarCallback[] = [];
 
@@ -45,17 +45,29 @@ export class SidebarService {
 
     setApp(appName: string) {
         if (this.apps[appName] && this.apps[appName].app) {
-            if (this.activeApp) {
-                this.activeApp.app.detatch();
-            }
+            if (appName !== this.activeName) {
+                if (this.activeApp) {
+                    this.activeApp.app.detatch();
+                }
 
-            this.activeApp = this.apps[appName];
-            this.activeApp.app.insert(this.target);
-            this.activeName = appName;
-            this.onChange();
+                this.activeApp = this.apps[appName];
+                this.activeApp.app.insert(this.target);
+                this.activeName = appName;
+                this.onChange();
+            }
         } else {
             console.warn(`Tried to set unkown app: ${appName}`);
         }
+    }
+
+    clear() {
+        if (this.activeApp) {
+            this.activeApp.app.detatch();
+        }
+
+        this.activeApp = undefined;
+        this.activeName = undefined;
+        this.onChange();
     }
 
     registerOnChange(func: () => void) {

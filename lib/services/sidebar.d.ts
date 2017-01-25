@@ -18,12 +18,13 @@ export declare class SidebarServiceApp implements IContainer {
 export declare class SidebarService {
     readonly target: string;
     apps: IApps;
-    activeApp: SidebarServiceApp;
-    activeName: string;
+    activeApp: SidebarServiceApp | undefined;
+    activeName: string | undefined;
     private onChangeCallbacks;
     constructor(target?: string);
     addApp(app: SidebarServiceApp): SidebarServiceApp;
     setApp(appName: string): void;
+    clear(): void;
     registerOnChange(func: () => void): void;
     private onChange();
 }
