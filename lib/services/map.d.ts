@@ -26,7 +26,7 @@ export declare class MapService {
     onLayerClick(func: ILayerClickHandler): void;
     layerClick: (layer: ILayer, attr: any) => void;
     setZIndexes(): void;
-    addHighlight(geojson: any): void;
+    addHighlight(geojson: any, zoomTo?: boolean): void;
     hideHighlight(): void;
     showHighlight(): void;
     removeLayer(layer: ILayer): void;

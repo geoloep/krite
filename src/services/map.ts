@@ -117,7 +117,7 @@ export class MapService {
     }
 
     // Verwacht vooralsnog geojson in de crs van de WFS
-    addHighlight(geojson: any) {
+    addHighlight(geojson: any, zoomTo: boolean = false) {
         if (this.highlight) {
             this.highlight.remove();
         }
@@ -126,6 +126,10 @@ export class MapService {
 
         this.highlight = L.geoJSON(reprojected);
         this.highlight.addTo(this.map);
+
+        if (zoomTo) {
+            this.map.fitBounds(this.highlight.getBounds());
+        }
     };
 
     hideHighlight() {

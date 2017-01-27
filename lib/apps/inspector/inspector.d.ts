@@ -1,4 +1,3 @@
-/// <reference types="leaflet" />
 import { RactiveApp } from '../ractiveApp';
 import { ILayerClickHandler, IContainer } from '../../types';
 export declare class InspectorApp extends RactiveApp {
