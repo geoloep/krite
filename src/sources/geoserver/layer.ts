@@ -9,6 +9,8 @@ import { ILayer, toWKT } from '../../types';
 export class GeoserverLayer implements ILayer {
     _leaflet: L.WMS;
     _geomField: string;
+    private _isPoint: boolean;
+    private _withinDistance = 5;
     private ZIndex: number = 100;
 
     constructor(readonly capabilities: any, readonly wfscapabilities: any, readonly type: any, readonly source: GeoServerSource) {
@@ -90,33 +92,13 @@ export class GeoserverLayer implements ILayer {
         });
     }
 
-    getInfoAtPoint(point: any): Promise<any> {
-        return new Promise<any>(
-            (resolve, reject) => {
-                if (this.wfscapabilities) {
-                    let typename = this.wfscapabilities.Name[0];
-                    let field = this.geomField;
-
-                    fetch(this.source.url + url.format({
-                        query: {
-                            cql_filter: `INTERSECTS(${field}, POINT(${point.x} ${point.y}))`,
-                            outputformat: 'application/json',
-                            request: 'GetFeature',
-                            service: 'WFS',
-                            typenames: typename,
-                            version: '2.0.0',
-                        },
-                    })).then((response) => {
-                        if (response.ok) {
-                            response.json().then(resolve);
-                        } else {
-                            reject();
-                        }
-                    }).catch(reject);
-                }
-            }
-        );
-    };
+    async getInfoAtPoint(point: any) {
+        if (this.isPoint) {
+            return this._getInfoNearPoint(point);
+        } else {
+            return this._getInfoAtPoint(point);
+        }
+    }
 
     getPreviewSize(bbox: number[], width: number) {
         let dx = bbox[2] - bbox[0];
@@ -164,6 +146,55 @@ export class GeoserverLayer implements ILayer {
         }
     };
 
+    private _getInfoAtPoint(point: any): Promise<any> {
+        return new Promise<any>(
+            (resolve, reject) => {
+                if (this.wfscapabilities) {
+                    let typename = this.wfscapabilities.Name[0];
+                    let field = this.geomField;
+
+                    fetch(this.source.url + url.format({
+                        query: {
+                            cql_filter: `INTERSECTS(${field}, POINT(${point.x} ${point.y}))`,
+                            outputformat: 'application/json',
+                            request: 'GetFeature',
+                            service: 'WFS',
+                            typenames: typename,
+                            version: '2.0.0',
+                        },
+                    })).then((response) => {
+                        if (response.ok) {
+                            response.json().then(resolve);
+                        } else {
+                            reject();
+                        }
+                    }).catch(reject);
+                }
+            }
+        );
+    };
+
+    private async _getInfoNearPoint(point: any): Promise<any> {
+        let typename = this.wfscapabilities.Name[0];
+
+        let response = await fetch(this.source.url + url.format({
+            query: {
+                cql_filter: `DWITHIN(${this.geomField}, POINT(${point.x} ${point.y}), ${this._withinDistance}, meters)`,
+                outputformat: 'application/json',
+                request: 'GetFeature',
+                service: 'WFS',
+                typenames: typename,
+                version: '2.0.0',
+            },
+        }));
+
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Fetch failed');
+        }
+    }
+
     private get typename() {
         if (this.wfscapabilities) {
             return this.wfscapabilities.Name[0];
@@ -191,6 +222,25 @@ export class GeoserverLayer implements ILayer {
             }
 
             return this._geomField;
+        }
+    }
+
+    get isPoint() {
+        if (this._isPoint) {
+            return this._isPoint;
+        } else {
+            this._isPoint = false;
+
+            if (this.type) {
+                for (let field of this.type) {
+                    if (field.$.type.split(':')[0] === 'gml' && field.$.type.toLowerCase().includes('point')) {
+                        this._isPoint = true;
+                        break;
+                    }
+                }
+            }
+
+            return this._isPoint;
         }
     }
 }

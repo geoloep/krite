@@ -1,6 +1,5 @@
 import 'leaflet-towkt';
 import * as L from 'leaflet';
-// import * as rd from 'leaflet-rd';
 import * as reproject from 'reproject';
 
 import {ILayer, IClickHandler, ILayerClickHandler} from '../types';

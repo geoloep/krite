@@ -10,6 +10,8 @@ export declare class GeoserverLayer implements ILayer {
     readonly source: GeoServerSource;
     _leaflet: L.WMS;
     _geomField: string;
+    private _isPoint;
+    private _withinDistance;
     private ZIndex;
     constructor(capabilities: any, wfscapabilities: any, type: any, source: GeoServerSource);
     readonly canGetInfoAtPoint: boolean;
@@ -29,6 +31,9 @@ export declare class GeoserverLayer implements ILayer {
     readonly preview: string;
     readonly leaflet: L.WMS;
     readonly legend: string;
+    private _getInfoAtPoint(point);
+    private _getInfoNearPoint(point);
     private readonly typename;
     private readonly geomField;
+    readonly isPoint: boolean;
 }
