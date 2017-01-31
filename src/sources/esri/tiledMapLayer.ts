@@ -21,7 +21,7 @@ export class ESRITiledMapLayer implements ILayer {
         return this.capabilities.abstract;
     };
 
-    get bounds() {
+    get bounds(): undefined {
         return undefined;
     };
 

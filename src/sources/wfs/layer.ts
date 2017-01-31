@@ -27,7 +27,7 @@ export class WFSLayer implements ILayer {
         return this.capabilities.Abstract[0];
     };
 
-    get bounds() {
+    get bounds(): undefined {
         return undefined;
     }
 

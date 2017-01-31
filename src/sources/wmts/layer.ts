@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import * as L from 'leaflet';
 
 import { WMTSSource } from './source';
@@ -23,7 +22,7 @@ export class WMTSLayer implements ILayer {
         return this.capabilities.Title;
     }
 
-    get bounds() {
+    get bounds(): undefined {
         return undefined;
     }
 

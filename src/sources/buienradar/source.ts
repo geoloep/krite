@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import { parseString } from 'xml2js';
 
 import { BuienradarLayer } from './layer';

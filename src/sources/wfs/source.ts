@@ -58,7 +58,7 @@ export class WFSSource implements IDataSource {
         });
     }
 
-    private getCapabilities(): Promise<void> {
+    private getCapabilities() {
         return new Promise(
             (resolve, reject) => {
                 fetch(

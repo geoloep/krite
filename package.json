@@ -34,16 +34,15 @@
         "numeral": "^2.0.4"
     },
     "devDependencies": {
-        "@types/jquery": "*",
         "@types/leaflet": "*",
         "@types/ractive": "*",
-        "@types/xmldom": "*",
         "@types/xml2js": "*",
         "@types/numeral": "*",
         "@types/geojson": "*",
         "@types/whatwg-fetch": "*",
 
         "typescript": "~2.1.4",
+        "whatwg-fetch": "~2.0.2",
 
         "leaflet": "~1.0.3",
         "proj4": "~2.3.15",
@@ -62,6 +61,7 @@
     "scripts": {
         "dev":  "tsc -d -w",
         "once": "tsc -d && npm run html",
-        "html": "node compile-html.js"
+        "html": "node compile-html.js",
+        "docs": "typedoc --mode file --target ES6 --includeDeclarations --exclude \"*/aardbevingen/*\" --out ../krite-doc/ /src/ --excludeExternals"
     }
 }

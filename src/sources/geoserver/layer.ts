@@ -40,7 +40,7 @@ export class GeoserverLayer implements ILayer {
         return this.capabilities.Abstract;
     };
 
-    get bounds() {
+    get bounds(): undefined {
         return undefined;
     }
 

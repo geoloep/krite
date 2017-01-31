@@ -1,4 +1,3 @@
-// import * as $ from 'jquery';
 import * as L from 'leaflet';
 
 import pool from '../../servicePool';

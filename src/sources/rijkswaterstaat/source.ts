@@ -1,5 +1,3 @@
-import * as $ from 'jquery';
-
 import { WindsnelheidLayer } from './windsnelheid'
 import { WindrichtingLayer } from './windrichting'
 import { IDataSource, ILayer } from '../../types';

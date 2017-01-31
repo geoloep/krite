@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import * as url from 'url';
 
 import { parseString } from 'xml2js';
