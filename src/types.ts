@@ -1,5 +1,8 @@
 import { RactiveApp } from './apps/ractiveApp';
 
+/**
+ * All maps layers should implement this interface.
+ */
 export interface ILayer {
     canGetInfoAtPoint?: boolean; //@todo: verwijderen
     hasOperations?: boolean;
@@ -48,6 +51,7 @@ export interface ILayerClickHandler {
 }
 
 export type TAttributes = 'skip' | 'string' | 'float' | 'int' | 'percentage' | 'href';
+
 export interface IAttributeTypeFunc {
     (attr: any): string;
 }

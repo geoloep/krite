@@ -62,6 +62,6 @@
         "dev":  "tsc -d -w",
         "once": "tsc -d && npm run html",
         "html": "node compile-html.js",
-        "docs": "typedoc --mode file --target ES6 --includeDeclarations --exclude \"*/aardbevingen/*\" --out ../krite-doc/ /src/ --excludeExternals"
+        "docs": "typedoc --mode file --target ES6 --includeDeclarations --excludeExternals --out ./docs/ ./src/"
     }
 }

@@ -1,6 +1,9 @@
 /// <reference types="leaflet" />
 /// <reference types="geojson" />
 import { RactiveApp } from './apps/ractiveApp';
+/**
+ * All maps layers should implement this interface.
+ */
 export interface ILayer {
     canGetInfoAtPoint?: boolean;
     hasOperations?: boolean;

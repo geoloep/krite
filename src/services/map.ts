@@ -4,6 +4,9 @@ import * as reproject from 'reproject';
 
 import {ILayer, IClickHandler, ILayerClickHandler} from '../types';
 
+/**
+ * This service controls the leaflet map.
+ */
 export class MapService {
     HTMLElement: HTMLElement;
 
@@ -14,13 +17,6 @@ export class MapService {
 
     map: L.Map;
 
-    // Kaartinstellingen
-    // private minZoom: number = 3;
-    // private maxZoom: number = 16;
-
-    // private initialCenter: [number, number] = [52.156, 5.389];
-    // private initialZoom: number = 4;
-
     defaultOptions: L.MapOptions = {
         // crs: rd,
     };
@@ -29,7 +25,6 @@ export class MapService {
     private basemap: L.TileLayer;
     private highlight: L.GeoJSON;
     private pointer: L.Marker;
-
 
     private clickHandlers: IClickHandler[] = [];
     private layerClickCallbacks: ILayerClickHandler[] = [];
@@ -51,7 +46,9 @@ export class MapService {
         this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
     };
 
-    // Alleen voor het toevoegen van nieuwe lagen
+    /**
+     * Add a new layer to the map
+     */
     addLayer(layer: ILayer) {
         if (!(layer.name in this.layerByName)) {
             layer.leaflet.addTo(this.map);
@@ -70,7 +67,9 @@ export class MapService {
         }
     };
 
-    // Verborgen lagen weer zichtbaar maken
+    /**
+     * Show previously hidden layers again
+     */
     showLayer(layer: ILayer) {
         let leaflet = layer.leaflet;
         leaflet.addTo(this.map);
@@ -84,18 +83,30 @@ export class MapService {
         }
     }
 
+    /**
+     * Hide a layer from the map only
+     */
     hideLayer(layer: ILayer) {
         layer.leaflet.remove();
     };
 
+    /**
+     * Register onclick callbacks here
+     */
     onClick(fun: IClickHandler) {
         this.clickHandlers.push(fun);
     };
 
+    /**
+     * Register onLayerClick callbacks here
+     */
     onLayerClick(func: ILayerClickHandler) {
         this.layerClickCallbacks.push(func);
     }
 
+    /**
+     * Layers can report click events here
+     */
     layerClick = (layer: ILayer, attr: any) => {
         for (let callback of this.layerClickCallbacks) {
             callback(layer, attr);
@@ -115,7 +126,10 @@ export class MapService {
         }
     }
 
-    // Verwacht vooralsnog geojson in de crs van de WFS
+    /**
+     * Render a geojson source on the map.
+     * @param geojson   Expected to be in the map crs
+     */
     addHighlight(geojson: any, zoomTo: boolean = false) {
         if (this.highlight) {
             this.highlight.remove();
@@ -137,13 +151,18 @@ export class MapService {
         }
     }
 
+    /**
+     * Show previously hidden highlight again
+     */
     showHighlight() {
         if (this.highlight) {
             this.highlight.addTo(this.map);
         }
     }
 
-    // @todo: daadwerkelijk compleet verwijderen?
+    /**
+     * Permanently remove a layer from the map
+     */
     removeLayer(layer: ILayer) {
         layer.leaflet.remove();
 
@@ -151,6 +170,9 @@ export class MapService {
         delete this.layerByName[layer.name];
     };
 
+    /**
+     * Set the basemap. Only L.TileLayers are supported at the moment
+     */
     setBaseMap(url: string, options: L.TileLayerOptions) {
         if (this.basemap) {
             this.basemap.remove();
@@ -161,6 +183,9 @@ export class MapService {
         this.basemap.addTo(this.map);
     };
 
+    /**
+     * Inform the map that the user is in inspect mode
+     */
     startInspect() {
         this.HTMLElement.style.cursor = 'help';
     }
@@ -175,6 +200,10 @@ export class MapService {
         }
     }
 
+    /**
+     * Zoom to a point
+     * @param point In the CRS of the map
+     */
     zoomToPoint(point: number[], zoom: number) {
         let reprojected = this.map.options.crs.projection.unproject(L.point(point[0], point[1]));
         // this.pointer.setLatLng(reprojected);
@@ -182,6 +211,10 @@ export class MapService {
         this.zoomToWgsPoint(reprojected, zoom);
     };
 
+    /**
+     * Zoom to a point
+     * @param point In LatLng (WGS84)
+     */
     zoomToWgsPoint(point: [number, number] | L.LatLng, zoom: number) {
         this.pointer.setLatLng(point);
         this.map.setView(point, zoom);

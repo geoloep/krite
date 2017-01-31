@@ -1,5 +1,8 @@
 /// <reference types="ractive" />
 import { IContainer } from '../types';
+/**
+ * All apps should extend from this class
+ */
 export declare class RactiveApp {
     protected ractive: Ractive.Ractive;
     protected container: IContainer;
