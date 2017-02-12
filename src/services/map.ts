@@ -1,4 +1,3 @@
-import 'leaflet-towkt';
 import * as L from 'leaflet';
 import * as reproject from 'reproject';
 

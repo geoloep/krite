@@ -2,7 +2,7 @@
 /// <reference types="geojson" />
 import * as L from 'leaflet';
 import { GeoServerSource } from './source';
-import { ILayer, toWKT } from '../../types';
+import { ILayer } from '../../types';
 export declare class GeoserverLayer implements ILayer {
     readonly capabilities: any;
     readonly wfscapabilities: any;
@@ -12,7 +12,6 @@ export declare class GeoserverLayer implements ILayer {
     _geomField: string;
     private _isPoint;
     private _withinDistance;
-    private ZIndex;
     constructor(capabilities: any, wfscapabilities: any, type: any, source: GeoServerSource);
     readonly canGetInfoAtPoint: boolean;
     readonly hasOperations: boolean;
@@ -22,7 +21,8 @@ export declare class GeoserverLayer implements ILayer {
     readonly abstract: any;
     readonly bounds: undefined;
     readonly boundingBox: number[];
-    intersects(feature: string | toWKT | GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject): Promise<any>;
+    intersects(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject): Promise<any>;
+    intersectsPoint(point: L.Point): Promise<any>;
     getInfoAtPoint(point: any): Promise<any>;
     getPreviewSize(bbox: number[], width: number): {
         height: number;

@@ -4,7 +4,7 @@ import * as url from 'url';
 
 import { WFSSource } from './source';
 
-import { ILayer, toWKT } from '../../types';
+import { ILayer } from '../../types';
 
 export class WFSLayer implements ILayer {
     _leaflet: L.GeoJSON;

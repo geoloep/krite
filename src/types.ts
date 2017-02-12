@@ -16,8 +16,9 @@ export interface ILayer {
     legend: string;
 
     onClick?(func: ILayerClickHandler): void;
-    intersects?(feature: string | toWKT | GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject): Promise<any>;
-    getInfoAtPoint?(point: L.Point): Promise<any>;
+    intersects?(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
+    intersectsPoint?(point: L.Point): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
+    getInfoAtPoint?(point: L.Point): Promise<any>; //@todo: verwijderen
     getType?(attr: string): TAttributes | IAttributeTypeFunc;
 }
 
@@ -54,8 +55,4 @@ export type TAttributes = 'skip' | 'string' | 'float' | 'int' | 'percentage' | '
 
 export interface IAttributeTypeFunc {
     (attr: any): string;
-}
-
-export interface toWKT {
-    toWKT(): string;
 }

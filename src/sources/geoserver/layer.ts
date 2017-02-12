@@ -4,18 +4,18 @@ import * as url from 'url';
 
 import { GeoServerSource } from './source';
 
-import { ILayer, toWKT } from '../../types';
+import { ILayer } from '../../types';
 
 export class GeoserverLayer implements ILayer {
     _leaflet: L.WMS;
     _geomField: string;
     private _isPoint: boolean;
     private _withinDistance = 5;
-    private ZIndex: number = 100;
 
     constructor(readonly capabilities: any, readonly wfscapabilities: any, readonly type: any, readonly source: GeoServerSource) {
     };
 
+    // @todo: samenvoegen met hasOperations
     get canGetInfoAtPoint() {
         return Boolean(this.wfscapabilities);
     }
@@ -59,19 +59,9 @@ export class GeoserverLayer implements ILayer {
         return bbox;
     };
 
-    intersects(feature: string | toWKT | GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject) {
+    intersects(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject) {
         return new Promise<any>((resolve, reject) => {
-            let wkt: string;
-
-            if (typeof feature === 'object') {
-                if ((feature as toWKT).toWKT) {
-                    wkt = (feature as toWKT).toWKT();
-                } else {
-                    wkt = wellknown.stringify(feature as GeoJSON.GeometryObject);
-                }
-            } else {
-                wkt = feature;
-            }
+            let wkt = wellknown.stringify(feature as GeoJSON.GeometryObject);
 
             fetch(this.source.url + url.format({
                 query: {
@@ -92,6 +82,11 @@ export class GeoserverLayer implements ILayer {
         });
     }
 
+    intersectsPoint(point: L.Point) {
+        return this.getInfoAtPoint(point);
+    }
+
+    // @todo: verwijderen
     async getInfoAtPoint(point: any) {
         if (this.isPoint) {
             return this._getInfoNearPoint(point);

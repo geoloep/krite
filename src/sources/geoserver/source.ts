@@ -111,8 +111,6 @@ export class GeoServerSource implements IDataSource {
                             async: true,
                             explicitArray: true,
                         }, (err, result) => {
-                            console.log(result);
-
                             if ('wfs:WFS_Capabilities' in result) {
                                 // WFS is geactiveerd
 
@@ -146,7 +144,6 @@ export class GeoServerSource implements IDataSource {
 
                                                     // Een lijst aanmaken van de velden die bij een FeatureType horen
                                                     this.wfsFeatureTypes[name] = complexType['xsd:complexContent'][0]['xsd:extension'][0]['xsd:sequence'][0]['xsd:element'];
-                                                    console.log(this.wfsFeatureTypes);
                                                 }
 
                                                 res();

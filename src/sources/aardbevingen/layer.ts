@@ -62,6 +62,7 @@ export class AardbevingLayer implements ILayer {
     onClick(fun: ILayerClickHandler) {
         this.onClickCallbacks.push(fun);
     }
+
     getType(attr: string): TAttributes | IAttributeTypeFunc {
         if (attr in this.attrTypes) {
             return this.attrTypes[attr];
