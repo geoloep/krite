@@ -29,8 +29,8 @@ export class InspectorApp extends RactiveApp {
     };
 
     onClick = (point: L.Point) => {
-        if (this.active && this.visible && this.service.layer.canGetInfoAtPoint && this.service.layer.getInfoAtPoint) {
-            this.service.layer.getInfoAtPoint(point)
+        if (this.active && this.visible && this.service.layer.hasOperations && this.service.layer.intersectsPoint) {
+            this.service.layer.intersectsPoint(point)
             .then(
                 (data: any) => {
                     if (data.totalFeatures > 0) {
@@ -161,7 +161,7 @@ export class InspectorApp extends RactiveApp {
         this.ractive.observe('layer', (n: string) => {
             this.service.layer = this.map.layerByName[n];
 
-            if (this.service.layer && (this.service.layer.canGetInfoAtPoint || this.service.layer.hasOnClick)) {
+            if (this.service.layer && ((this.service.layer.hasOperations && this.service.layer.intersectsPoint) || this.service.layer.hasOnClick)) {
                 this.ractive.set('allowed', true);
                 this.ractive.set('error', false);
                 this.active = true;

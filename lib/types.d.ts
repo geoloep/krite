@@ -5,7 +5,6 @@ import { RactiveApp } from './apps/ractiveApp';
  * All maps layers should implement this interface.
  */
 export interface ILayer {
-    canGetInfoAtPoint?: boolean;
     hasOperations?: boolean;
     hasOnClick?: boolean;
     title: string;
@@ -18,7 +17,6 @@ export interface ILayer {
     onClick?(func: ILayerClickHandler): void;
     intersects?(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
     intersectsPoint?(point: L.Point): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
-    getInfoAtPoint?(point: L.Point): Promise<any>;
     getType?(attr: string): TAttributes | IAttributeTypeFunc;
 }
 export interface IBasemap {
