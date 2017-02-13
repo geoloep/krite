@@ -101,7 +101,6 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ilayer.html#abstract" class="tsd-kind-icon">abstract</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ilayer.html#bounds" class="tsd-kind-icon">bounds</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ilayer.html#cangetinfoatpoint" class="tsd-kind-icon">can<wbr>Get<wbr>Info<wbr>AtPoint</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ilayer.html#hasonclick" class="tsd-kind-icon">has<wbr>OnClick</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ilayer.html#hasoperations" class="tsd-kind-icon">has<wbr>Operations</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ilayer.html#leaflet" class="tsd-kind-icon">leaflet</a></li>
@@ -114,9 +113,9 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ilayer.html#getinfoatpoint" class="tsd-kind-icon">get<wbr>Info<wbr>AtPoint</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ilayer.html#gettype" class="tsd-kind-icon">get<wbr>Type</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ilayer.html#intersects" class="tsd-kind-icon">intersects</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ilayer.html#intersectspoint" class="tsd-kind-icon">intersects<wbr>Point</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="ilayer.html#onclick" class="tsd-kind-icon">on<wbr>Click</a></li>
 							</ul>
 						</section>
@@ -131,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">abstract<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L12">src/types.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L21">src/types.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -141,17 +140,7 @@
 					<div class="tsd-signature tsd-kind-icon">bounds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">LatLngBounds</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L13">src/types.ts:13</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="cangetinfoatpoint" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> can<wbr>Get<wbr>Info<wbr>AtPoint</h3>
-					<div class="tsd-signature tsd-kind-icon">can<wbr>Get<wbr>Info<wbr>AtPoint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L7">src/types.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L23">src/types.ts:23</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -161,9 +150,14 @@
 					<div class="tsd-signature tsd-kind-icon">has<wbr>OnClick<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L9">src/types.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L15">src/types.ts:15</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>True if this layer fires click events</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="hasoperations" class="tsd-anchor"></a>
@@ -171,9 +165,14 @@
 					<div class="tsd-signature tsd-kind-icon">has<wbr>Operations<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L8">src/types.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L10">src/types.ts:10</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>True if this layer supports geoprocessing operations</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="leaflet" class="tsd-anchor"></a>
@@ -181,7 +180,7 @@
 					<div class="tsd-signature tsd-kind-icon">leaflet<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Layer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L15">src/types.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L27">src/types.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -191,7 +190,7 @@
 					<div class="tsd-signature tsd-kind-icon">legend<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L16">src/types.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L29">src/types.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -201,7 +200,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L11">src/types.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L19">src/types.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -211,7 +210,7 @@
 					<div class="tsd-signature tsd-kind-icon">preview<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L14">src/types.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L25">src/types.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -221,36 +220,13 @@
 					<div class="tsd-signature tsd-kind-icon">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L10">src/types.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L17">src/types.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="getinfoatpoint" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> get<wbr>Info<wbr>AtPoint</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Info<wbr>AtPoint<span class="tsd-signature-symbol">(</span>point<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Point</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L20">src/types.ts:20</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>point: <span class="tsd-signature-type">Point</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="gettype" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> get<wbr>Type</h3>
@@ -261,9 +237,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L21">src/types.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L53">src/types.ts:53</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the type of an property of this layer</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -281,22 +262,63 @@
 					<a name="intersects" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> intersects</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">intersects<span class="tsd-signature-symbol">(</span>feature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="towkt.html" class="tsd-signature-type">toWKT</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">intersects<span class="tsd-signature-symbol">(</span>feature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L19">src/types.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L41">src/types.ts:41</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Intersect the layer with the input GeoJSON Feature</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>feature: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="towkt.html" class="tsd-signature-type">toWKT</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryObject</span></h5>
+									<h5>feature: <span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryObject</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Should be in the CRS of the map</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Should be in the crs of the map</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="intersectspoint" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> intersects<wbr>Point</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">intersects<wbr>Point<span class="tsd-signature-symbol">(</span>point<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Point</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L48">src/types.ts:48</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Interect the layer with the input Leaflet Point</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>point: <span class="tsd-signature-type">Point</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Should be in de crs of the map</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Should be in de crs of the map</p>
 						</li>
 					</ul>
 				</section>
@@ -310,9 +332,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/types.ts#L18">src/types.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/types.ts#L34">src/types.ts:34</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Register your onClick functions here</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -347,9 +374,6 @@
 								<a href="ilayer.html#bounds" class="tsd-kind-icon">bounds</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ilayer.html#cangetinfoatpoint" class="tsd-kind-icon">can<wbr>Get<wbr>Info<wbr>AtPoint</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="ilayer.html#hasonclick" class="tsd-kind-icon">has<wbr>OnClick</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -371,13 +395,13 @@
 								<a href="ilayer.html#title" class="tsd-kind-icon">title</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="ilayer.html#getinfoatpoint" class="tsd-kind-icon">get<wbr>Info<wbr>AtPoint</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="ilayer.html#gettype" class="tsd-kind-icon">get<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="ilayer.html#intersects" class="tsd-kind-icon">intersects</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="ilayer.html#intersectspoint" class="tsd-kind-icon">intersects<wbr>Point</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="ilayer.html#onclick" class="tsd-kind-icon">on<wbr>Click</a>

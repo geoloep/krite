@@ -20,6 +20,9 @@ export class InspectorApp extends RactiveApp {
 
     private active = false;
 
+    private features: GeoJSON.Feature<GeoJSON.GeometryObject>[] = [];
+    private index = 0;
+
     constructor(readonly element?: IContainer | string) {
         super();
         super.init(element);
@@ -28,28 +31,18 @@ export class InspectorApp extends RactiveApp {
         this.map.onLayerClick(this.onLayerClick);
     };
 
-    onClick = (point: L.Point) => {
+    onClick = async (point: L.Point) => {
         if (this.active && this.visible && this.service.layer.hasOperations && this.service.layer.intersectsPoint) {
-            this.service.layer.intersectsPoint(point)
-            .then(
-                (data: any) => {
-                    if (data.totalFeatures > 0) {
-                        let feature = data.features[0];
-
-                        this.map.addHighlight(feature);
-                        this.showTable(feature.properties);
-                    }
-                }
-            )
-            .catch(
-                (reason) => {
-                    this.ractive.set('error', true);
-                }
-            );
+            try {
+                this.loadFeatureCollection(await this.service.layer.intersectsPoint(point));
+            } catch (e) {
+                console.error(e);
+                this.ractive.set('error', true);
+            }
         }
     }
 
-    onLayerClick: ILayerClickHandler  = (layer: ILayer, attr: any) => {
+    onLayerClick: ILayerClickHandler = (layer: ILayer, attr: any) => {
         if (this.visible && this.service.layer && layer.name === this.service.layer.name) {
             this.showTable(attr);
         } else if (!(this.visible) && this.sidebar) {
@@ -60,16 +53,105 @@ export class InspectorApp extends RactiveApp {
         }
     }
 
-    show = (data: any) => {
-        if (data.totalFeatures > 0) {
-            let feature = data.features[0];
+    insert(element: string | undefined) {
+        super.insert(element);
 
-            this.map.addHighlight(feature);
-            this.showTable(feature.properties);
+        if (this.ractive) {
+            this.ractive.set({layer: this.service.name});
+            this.visible = true;
         }
+
+        if (this.active) {
+            this.map.startInspect();
+            this.map.showHighlight();
+        }
+    }
+
+    detatch() {
+        super.detatch();
+        this.visible = false;
+        this.map.endInspect();
+        this.map.hideHighlight();
+    }
+
+    protected createRactive(element: string) {
+        this.ractive = new Ractive({
+            append: true,
+            modifyArrays: true,
+            el: element,
+            template: require('./template.html'),
+            data: {
+                layers: this.map.layers,
+                layer: this.service.name,
+                features: this.features,
+                feature: '',
+                namefield: '',
+                allowed: false,
+                properties: {},
+                error: false,
+            },
+        });
+
+        this.ractive.observe('layer', (n: string) => {
+            this.service.layer = this.map.layerByName[n];
+            this.clear();
+
+            if (this.service.layer && ((this.service.layer.hasOperations && this.service.layer.intersectsPoint) || this.service.layer.hasOnClick)) {
+                this.ractive.set('allowed', true);
+                this.ractive.set('error', false);
+                this.active = true;
+                this.map.startInspect();
+            } else {
+                this.ractive.set('allowed', false);
+                this.active = false;
+                this.map.endInspect();
+            }
+        });
+
+        this.ractive.observe('feature', (n: GeoJSON.Feature<GeoJSON.GeometryObject>) => {
+            if (typeof(n) === 'object' && n.properties) {
+                this.loadFeature(n);
+            } else {
+                this.map.hideHighlight();
+                this.ractive.set('properties', []);
+            }
+        });
     };
 
-    showTable(properties: {[index: string]: any}) {
+    private clear() {
+        this.map.hideHighlight();
+        this.ractive.set('properties', []);
+        this.features.splice(0);
+    };
+
+    private loadFeature = (feature: GeoJSON.Feature<GeoJSON.GeometryObject>) => {
+        this.showTable(feature.properties);
+        this.map.addHighlight(feature);
+    };
+
+    private loadFeatureCollection = (collection: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
+                // Reset inspector state
+                this.index = 0;
+                this.features.splice(0);
+
+                for (let feature of collection.features) {
+                    this.features.push(feature);
+                }
+
+                if (this.features.length > 0) {
+                    // Load first feature
+                    // this.loadFeature(this.features[0]);
+                    this.ractive.set('feature', this.features[0]);
+
+                    // Set the field to name features with
+                    // @todo: allow layers to provide
+                    this.ractive.set('namefield', Object.keys(this.features[0].properties)[0]);
+                } else {
+                    // niks laten zien?
+                }
+    };
+
+    private showTable(properties: {[index: string]: any}) {
         if (this.service.layer.getType) {
             let typeProperties: {[index: string]: any} = {};
 
@@ -119,58 +201,7 @@ export class InspectorApp extends RactiveApp {
                 'properties': properties,
             });
         }
+        this.ractive.update('properties'); // @todo: uitzoeken waarom dit nodig is
         this.ractive.set('error', false);
-    };
-
-    insert(element: string | undefined) {
-        super.insert(element);
-
-        if (this.ractive) {
-            this.ractive.set({layer: this.service.name});
-            this.visible = true;
-        }
-
-        if (this.active) {
-            this.map.startInspect();
-            this.map.showHighlight();
-        }
-    }
-
-    detatch() {
-        super.detatch();
-        this.visible = false;
-        this.map.endInspect();
-        this.map.hideHighlight();
-    }
-
-    protected createRactive(element: string) {
-        this.ractive = new Ractive({
-            append: true,
-            modifyArrays: true,
-            el: element,
-            template: require('./template.html'),
-            data: {
-                layers: this.map.layers,
-                layer: this.service.name,
-                allowed: false,
-                properties: {},
-                error: false,
-            },
-        });
-
-        this.ractive.observe('layer', (n: string) => {
-            this.service.layer = this.map.layerByName[n];
-
-            if (this.service.layer && ((this.service.layer.hasOperations && this.service.layer.intersectsPoint) || this.service.layer.hasOnClick)) {
-                this.ractive.set('allowed', true);
-                this.ractive.set('error', false);
-                this.active = true;
-                this.map.startInspect();
-            } else {
-                this.ractive.set('allowed', false);
-                this.active = false;
-                this.map.endInspect();
-            }
-        });
     };
 }

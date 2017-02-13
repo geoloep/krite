@@ -91,7 +91,6 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="geoserverlayer.html#zindex" class="tsd-kind-icon">ZIndex</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="geoserverlayer.html#_geomfield" class="tsd-kind-icon">_geom<wbr>Field</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="geoserverlayer.html#_ispoint" class="tsd-kind-icon">_is<wbr>Point</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="geoserverlayer.html#_leaflet" class="tsd-kind-icon">_leaflet</a></li>
@@ -125,6 +124,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="geoserverlayer.html#getinfoatpoint" class="tsd-kind-icon">get<wbr>Info<wbr>AtPoint</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="geoserverlayer.html#getpreviewsize" class="tsd-kind-icon">get<wbr>Preview<wbr>Size</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="geoserverlayer.html#intersects" class="tsd-kind-icon">intersects</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="geoserverlayer.html#intersectspoint" class="tsd-kind-icon">intersects<wbr>Point</a></li>
 							</ul>
 						</section>
 					</div>
@@ -142,7 +142,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L14">src/sources/geoserver/layer.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L13">src/sources/geoserver/layer.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -167,23 +167,13 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="zindex" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> ZIndex</h3>
-					<div class="tsd-signature tsd-kind-icon">ZIndex<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;100</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L14">src/sources/geoserver/layer.ts:14</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="_geomfield" class="tsd-anchor"></a>
 					<h3>_geom<wbr>Field</h3>
 					<div class="tsd-signature tsd-kind-icon">_geom<wbr>Field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L11">src/sources/geoserver/layer.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L11">src/sources/geoserver/layer.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -193,7 +183,7 @@
 					<div class="tsd-signature tsd-kind-icon">_is<wbr>Point<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L12">src/sources/geoserver/layer.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L12">src/sources/geoserver/layer.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -203,7 +193,7 @@
 					<div class="tsd-signature tsd-kind-icon">_leaflet<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">WMS</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L10">src/sources/geoserver/layer.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L10">src/sources/geoserver/layer.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -213,7 +203,7 @@
 					<div class="tsd-signature tsd-kind-icon">_within<wbr>Distance<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;5</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L13">src/sources/geoserver/layer.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L13">src/sources/geoserver/layer.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -230,7 +220,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L39">src/sources/geoserver/layer.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L39">src/sources/geoserver/layer.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -247,7 +237,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L47">src/sources/geoserver/layer.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L47">src/sources/geoserver/layer.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -264,7 +254,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L43">src/sources/geoserver/layer.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L43">src/sources/geoserver/layer.ts:43</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span></h4>
@@ -281,7 +271,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L19">src/sources/geoserver/layer.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L19">src/sources/geoserver/layer.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -298,7 +288,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L206">src/sources/geoserver/layer.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L201">src/sources/geoserver/layer.ts:201</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -315,7 +305,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L27">src/sources/geoserver/layer.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L27">src/sources/geoserver/layer.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -332,7 +322,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L23">src/sources/geoserver/layer.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L23">src/sources/geoserver/layer.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -349,7 +339,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L228">src/sources/geoserver/layer.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L223">src/sources/geoserver/layer.ts:223</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -366,7 +356,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L127">src/sources/geoserver/layer.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L122">src/sources/geoserver/layer.ts:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">WMS</span></h4>
@@ -383,7 +373,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L141">src/sources/geoserver/layer.ts:141</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L136">src/sources/geoserver/layer.ts:136</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -400,7 +390,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L35">src/sources/geoserver/layer.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L35">src/sources/geoserver/layer.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -417,7 +407,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L113">src/sources/geoserver/layer.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L108">src/sources/geoserver/layer.ts:108</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -434,7 +424,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L31">src/sources/geoserver/layer.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L31">src/sources/geoserver/layer.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -451,7 +441,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L198">src/sources/geoserver/layer.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L193">src/sources/geoserver/layer.ts:193</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -471,7 +461,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L149">src/sources/geoserver/layer.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L144">src/sources/geoserver/layer.ts:144</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -494,7 +484,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L177">src/sources/geoserver/layer.ts:177</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L172">src/sources/geoserver/layer.ts:172</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -517,7 +507,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L95">src/sources/geoserver/layer.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L90">src/sources/geoserver/layer.ts:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -540,7 +530,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L103">src/sources/geoserver/layer.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L98">src/sources/geoserver/layer.ts:98</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -568,20 +558,44 @@
 					<a name="intersects" class="tsd-anchor"></a>
 					<h3>intersects</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">intersects<span class="tsd-signature-symbol">(</span>feature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/towkt.html" class="tsd-signature-type">toWKT</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">intersects<span class="tsd-signature-symbol">(</span>feature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/ilayer.html">ILayer</a>.<a href="../interfaces/ilayer.html#intersects">intersects</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/24f8820/src/sources/geoserver/layer.ts#L62">src/sources/geoserver/layer.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L62">src/sources/geoserver/layer.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>feature: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/towkt.html" class="tsd-signature-type">toWKT</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryObject</span></h5>
+									<h5>feature: <span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryObject</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="intersectspoint" class="tsd-anchor"></a>
+					<h3>intersects<wbr>Point</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">intersects<wbr>Point<span class="tsd-signature-symbol">(</span>point<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Point</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/ilayer.html">ILayer</a>.<a href="../interfaces/ilayer.html#intersectspoint">intersectsPoint</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/sources/geoserver/layer.ts#L85">src/sources/geoserver/layer.ts:85</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>point: <span class="tsd-signature-type">Point</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -607,9 +621,6 @@
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="geoserverlayer.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="geoserverlayer.html#zindex" class="tsd-kind-icon">ZIndex</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="geoserverlayer.html#_geomfield" class="tsd-kind-icon">_geom<wbr>Field</a>
@@ -679,6 +690,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="geoserverlayer.html#intersects" class="tsd-kind-icon">intersects</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="geoserverlayer.html#intersectspoint" class="tsd-kind-icon">intersects<wbr>Point</a>
 							</li>
 						</ul>
 					</li>

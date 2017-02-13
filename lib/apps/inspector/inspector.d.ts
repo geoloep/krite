@@ -9,14 +9,16 @@ export declare class InspectorApp extends RactiveApp {
     private numeral;
     private sidebar;
     private active;
+    private features;
+    private index;
     constructor(element?: IContainer | string);
-    onClick: (point: L.Point) => void;
+    onClick: (point: L.Point) => Promise<void>;
     onLayerClick: ILayerClickHandler;
-    show: (data: any) => void;
-    showTable(properties: {
-        [index: string]: any;
-    }): void;
     insert(element: string | undefined): void;
     detatch(): void;
     protected createRactive(element: string): void;
+    private clear();
+    private loadFeature;
+    private loadFeatureCollection;
+    private showTable(properties);
 }
