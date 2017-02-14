@@ -9,6 +9,14 @@
       {{/each}}
     </select>
   </div>
+</form>
+<div class="btn-group" role="group">
+  <button type="button" class="btn btn-default" on-click="select-point">{{>point}}</button>
+  <button type="button" class="btn btn-default" on-click="select-box">{{>box}}</button>
+  <button type="button" class="btn btn-default" on-click="select-polygon">{{>polygon}}</button>  
+  <button type="button" class="btn btn-default" on-click="select-polyline">{{>polyline}}</button>
+</div>
+<form>
   <div class="form-group">
     <label for="inspecteerfeature">Objecten: </label>
     <select id="inspecteerfeature" class="form-control input-sm" value="{{feature}}">

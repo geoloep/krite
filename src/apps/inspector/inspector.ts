@@ -6,6 +6,7 @@ import pool from '../../servicePool';
 import { MapService } from '../../services/map';
 import { InspectorService } from '../../services/inspector';
 import { SidebarService } from '../../services/sidebar';
+import { DrawService } from '../../services/draw';
 import { NumeralService } from '../../services/numeral';
 
 import { ILayer, ILayerClickHandler, IContainer } from '../../types';
@@ -17,8 +18,10 @@ export class InspectorApp extends RactiveApp {
     private service = pool.getService<InspectorService>('InspectorService');
     private numeral = pool.getService<NumeralService>('NumeralService');
     private sidebar = pool.tryService<SidebarService>('SidebarService');
+    private draw = pool.tryService<DrawService>('DrawService');
 
     private active = false;
+    private pointInspect = true;
 
     private features: GeoJSON.Feature<GeoJSON.GeometryObject>[] = [];
     private index = 0;
@@ -30,28 +33,6 @@ export class InspectorApp extends RactiveApp {
         this.map.onClick(this.onClick);
         this.map.onLayerClick(this.onLayerClick);
     };
-
-    onClick = async (point: L.Point) => {
-        if (this.active && this.visible && this.service.layer.hasOperations && this.service.layer.intersectsPoint) {
-            try {
-                this.loadFeatureCollection(await this.service.layer.intersectsPoint(point));
-            } catch (e) {
-                console.error(e);
-                this.ractive.set('error', true);
-            }
-        }
-    }
-
-    onLayerClick: ILayerClickHandler = (layer: ILayer, attr: any) => {
-        if (this.visible && this.service.layer && layer.name === this.service.layer.name) {
-            this.showTable(attr);
-        } else if (!(this.visible) && this.sidebar) {
-            // Klikken op vectorlagen altijd mogelijk maken
-            this.service.layer = layer;
-            this.sidebar.setApp('InspectorApp');
-            this.showTable(attr);
-        }
-    }
 
     insert(element: string | undefined) {
         super.insert(element);
@@ -74,12 +55,47 @@ export class InspectorApp extends RactiveApp {
         this.map.hideHighlight();
     }
 
+    /**
+     * Handle click events fired by clicking on the map. Only proceed if we're not drawing other inspection shapes
+     */
+    onClick = async (point: L.Point) => {
+        if (this.pointInspect && this.active && this.visible && this.service.layer.hasOperations && this.service.layer.intersectsPoint) {
+            try {
+                this.loadFeatureCollection(await this.service.layer.intersectsPoint(point));
+            } catch (e) {
+                console.error(e);
+                this.ractive.set('error', true);
+            }
+        }
+    }
+
+    /**
+     * Handle click events fired by clicking on a specific marker. Ignore if we're drawing inspection shapes
+     */
+    onLayerClick: ILayerClickHandler = (layer: ILayer, attr: any) => {
+        if (this.pointInspect && this.visible && this.service.layer && layer.name === this.service.layer.name) {
+            this.showTable(attr);
+        } else if (!(this.visible) && this.sidebar) {
+            // Klikken op vectorlagen altijd mogelijk maken
+            this.service.layer = layer;
+            this.sidebar.setApp('InspectorApp');
+            this.showTable(attr);
+        }
+    }
+
     protected createRactive(element: string) {
         this.ractive = new Ractive({
             append: true,
             modifyArrays: true,
             el: element,
             template: require('./template.html'),
+            partials: {
+                // @todo: better icons
+                point: require('./point.html'),
+                polyline: require('./polyline.html'),
+                box: require('./box.html'),
+                polygon: require('./polygon.html'),
+            },
             data: {
                 layers: this.map.layers,
                 layer: this.service.name,
@@ -116,6 +132,31 @@ export class InspectorApp extends RactiveApp {
                 this.ractive.set('properties', []);
             }
         });
+
+        this.ractive.on('select-point', () => {
+            this.pointInspect = true;
+        });
+
+        this.ractive.on('select-box', async () => {
+            if (this.draw) {
+                this.pointInspect = false;
+                this.intersect(await this.draw.rectangle());
+            }
+        });
+
+        this.ractive.on('select-polygon', async () => {
+            if (this.draw) {
+                this.pointInspect = false;
+                this.intersect(await this.draw.polygon());
+            }
+        });
+
+        this.ractive.on('select-polyline', async () => {
+            if (this.draw) {
+                this.pointInspect = false;
+                this.intersect(await this.draw.polyline());
+            }
+        });
     };
 
     private clear() {
@@ -123,6 +164,17 @@ export class InspectorApp extends RactiveApp {
         this.ractive.set('properties', []);
         this.features.splice(0);
     };
+
+    private async intersect(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
+        console.log(feature);
+        if (this.service.layer.hasOperations && this.service.layer.intersects) {
+            try {
+                this.loadFeatureCollection(await this.service.layer.intersects(feature));
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }
 
     private loadFeature = (feature: GeoJSON.Feature<GeoJSON.GeometryObject>) => {
         this.showTable(feature.properties);

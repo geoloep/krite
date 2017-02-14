@@ -8,16 +8,25 @@ export declare class InspectorApp extends RactiveApp {
     private service;
     private numeral;
     private sidebar;
+    private draw;
     private active;
+    private pointInspect;
     private features;
     private index;
     constructor(element?: IContainer | string);
-    onClick: (point: L.Point) => Promise<void>;
-    onLayerClick: ILayerClickHandler;
     insert(element: string | undefined): void;
     detatch(): void;
+    /**
+     * Handle click events fired by clicking on the map. Only proceed if we're not drawing other inspection shapes
+     */
+    onClick: (point: L.Point) => Promise<void>;
+    /**
+     * Handle click events fired by clicking on a specific marker. Ignore if we're drawing inspection shapes
+     */
+    onLayerClick: ILayerClickHandler;
     protected createRactive(element: string): void;
     private clear();
+    private intersect(feature);
     private loadFeature;
     private loadFeatureCollection;
     private showTable(properties);

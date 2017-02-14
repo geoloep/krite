@@ -1,4 +1,5 @@
 /// <reference types="leaflet" />
+/// <reference types="leaflet-draw" />
 import * as L from 'leaflet';
 import { ILayer, IClickHandler, ILayerClickHandler } from '../types';
 /**

@@ -21,19 +21,18 @@
 
         "url": "^0.11.0",
 
-        "esri-leaflet": "~2.0.7"
+        "esri-leaflet": "~2.0.7",
+        "leaflet-draw": "~0.4.9"
     },
     "peerDependencies": {
         "leaflet": "^1.0.3",
-
         "proj4": "^2.3.15",
-
         "ractive": "^0.8.9",
-
         "numeral": "^2.0.4"
     },
     "devDependencies": {
         "@types/leaflet": "*",
+        "@types/leaflet-draw": "*",
         "@types/ractive": "*",
         "@types/xml2js": "*",
         "@types/numeral": "*",
