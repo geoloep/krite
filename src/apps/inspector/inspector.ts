@@ -97,6 +97,7 @@ export class InspectorApp extends RactiveApp {
                 polyline: require('./polyline.html'),
                 box: require('./box.html'),
                 polygon: require('./polygon.html'),
+                none: require('./none.html'),
             },
             data: {
                 mode: 'point',
@@ -106,8 +107,9 @@ export class InspectorApp extends RactiveApp {
                 features: this.features,
                 feature: '',
                 namefield: '',
-                allowed: false,
                 properties: {},
+                allowed: false,
+                shapeAllowed: false,
                 error: false,
             },
         });
@@ -117,12 +119,31 @@ export class InspectorApp extends RactiveApp {
             this.clear();
 
             if (this.service.layer && ((this.service.layer.hasOperations && this.service.layer.intersectsPoint) || this.service.layer.hasOnClick)) {
+                this.ractive.set({
+                    allowed: true,
+                    error: false,
+                    mode: this.ractive.get('mode') === 'none' ? 'point' : this.ractive.get('mode'),
+                });
+
+                if (this.service.layer.hasOperations && this.service.layer.intersects) {
+                    this.ractive.set('shapeAllowed', true);
+                } else {
+                    this.ractive.set({
+                        shapeAllowed: false,
+                        mode: 'point',
+                    });
+                }
+
                 this.ractive.set('allowed', true);
                 this.ractive.set('error', false);
                 this.active = true;
                 this.map.startInspect();
             } else {
-                this.ractive.set('allowed', false);
+                this.ractive.set({
+                    allowed: false,
+                    shapeAllowe: false,
+                    mode: 'none',
+                });
                 this.active = false;
                 this.map.endInspect();
             }

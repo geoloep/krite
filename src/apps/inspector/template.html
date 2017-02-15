@@ -14,12 +14,20 @@
   <button type="button" class="btn btn-default col-xs-10 col-sm-10 col-md-11" on-click="modeClick">{{>.mode}}</button>
   <button type="button" class="btn btn-default dropdown-toggle col-xs-2 col-sm-2 col-md-1" on-click="modeDropDownClick"><span class="caret"></span></button>
   <ul class="dropdown-menu" style="width: 100%;{{#if modeDropDown}} display: inherit{{/if}}">
+    {{#if allowed}}
     <li><a href="#" on-click="select-point">{{>point}}</a></li>
+    {{#if shapeAllowed}}
     <li><a href="#" on-click="select-box">{{>box}}</a></li>
     <li><a href="#" on-click="select-polygon">{{>polygon}}</a></li>
     <li><a href="#" on-click="select-polyline">{{>polyline}}</a></li>
+    {{/if}}
+    {{else}}
+    <li><a href="#">{{>none}}</a></li>
+    {{/if}}    
   </ul>
 </div>
+
+{{#if shapeAllowed}}
 <div id="object-form">
   <div class="form-group">
     <label for="inspecteerfeature">Objecten: </label>
@@ -37,6 +45,9 @@
     </div>
   </div>
 </div>
+{{else}}
+<p>&nbsp;</p>
+{{/if}}
 
 {{#if allowed}} {{#if error}}
 <div class="alert alert-danger" role="alert">Er is een fout opgetreden bij het bevragen van deze laag.</div>
@@ -54,6 +65,4 @@
     </tr>
     {{/each}}
 </table>
-{{else}}
-<div class="alert alert-warning" role="alert">Deze laag ontsluit geen informatie over losse features.</div>
 {{/if}}
