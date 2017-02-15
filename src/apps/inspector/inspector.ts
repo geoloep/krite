@@ -32,6 +32,8 @@ export class InspectorApp extends RactiveApp {
 
         this.map.onClick(this.onClick);
         this.map.onLayerClick(this.onLayerClick);
+
+        this.map.map.on('keypress', this.escape);
     };
 
     insert(element: string | undefined) {
@@ -97,6 +99,8 @@ export class InspectorApp extends RactiveApp {
                 polygon: require('./polygon.html'),
             },
             data: {
+                mode: 'point',
+                modeDropDown: false,
                 layers: this.map.layers,
                 layer: this.service.name,
                 features: this.features,
@@ -124,6 +128,16 @@ export class InspectorApp extends RactiveApp {
             }
         });
 
+        this.ractive.on('modeDropDownClick', () => {
+            this.toggleModeDropdown();
+        });
+
+        this.ractive.on('modeClick', () => {
+            if (!this.pointInspect) {
+                this.startShapeSelect();
+            }
+        });
+
         this.ractive.observe('feature', (n: GeoJSON.Feature<GeoJSON.GeometryObject>) => {
             if (typeof(n) === 'object' && n.properties) {
                 this.loadFeature(n);
@@ -134,30 +148,62 @@ export class InspectorApp extends RactiveApp {
         });
 
         this.ractive.on('select-point', () => {
+            this.toggleModeDropdown();
+            this.ractive.set('mode', 'point');
             this.pointInspect = true;
+            if (this.draw) {
+                this.draw.disable();
+            }
         });
 
-        this.ractive.on('select-box', async () => {
-            if (this.draw) {
-                this.pointInspect = false;
-                this.intersect(await this.draw.rectangle());
-            }
+        this.ractive.on('select-box', () => {
+            this.toggleModeDropdown();
+            this.ractive.set('mode', 'box');
+            this.startShapeSelect();
         });
 
         this.ractive.on('select-polygon', async () => {
-            if (this.draw) {
-                this.pointInspect = false;
-                this.intersect(await this.draw.polygon());
-            }
+            this.toggleModeDropdown();
+            this.ractive.set('mode', 'polygon');
+            this.startShapeSelect();
         });
 
         this.ractive.on('select-polyline', async () => {
-            if (this.draw) {
-                this.pointInspect = false;
-                this.intersect(await this.draw.polyline());
+            this.toggleModeDropdown();
+            this.ractive.set('mode', 'polyline');
+            this.startShapeSelect();
+        });
+
+        this.ractive.on('object-right', () => {
+            let index = this.ractive.get('feature')._index + 1;
+            if (index >= this.features.length) {
+                index = 0;
             }
+            this.ractive.set('feature', this.features[index]);
+        });
+
+        this.ractive.on('object-left', () => {
+            let index = this.ractive.get('feature')._index - 1;
+            if (index < 0) {
+                index = this.features.length - 1;
+            }
+            this.ractive.set('feature', this.features[index]);
         });
     };
+
+    private escape = (event: KeyboardEvent) => {
+        if (this.active && event.code === 'Escape') {
+            this.ractive.set('mode', 'point');
+            this.pointInspect = true;
+            if (this.draw) {
+                this.draw.disable();
+            }
+        }
+    }
+
+    private toggleModeDropdown() {
+        this.ractive.toggle('modeDropDown');
+    }
 
     private clear() {
         this.map.hideHighlight();
@@ -166,8 +212,7 @@ export class InspectorApp extends RactiveApp {
     };
 
     private async intersect(feature: GeoJSON.Feature<GeoJSON.GeometryObject>) {
-        console.log(feature);
-        if (this.service.layer.hasOperations && this.service.layer.intersects) {
+        if (this.service.layer && this.service.layer.hasOperations && this.service.layer.intersects) {
             try {
                 this.loadFeatureCollection(await this.service.layer.intersects(feature));
             } catch (e) {
@@ -178,7 +223,11 @@ export class InspectorApp extends RactiveApp {
 
     private loadFeature = (feature: GeoJSON.Feature<GeoJSON.GeometryObject>) => {
         this.showTable(feature.properties);
-        this.map.addHighlight(feature);
+        this.index = (feature as any)._index;
+
+        if (this.features.length > 1) {
+            this.map.addFocus(feature);
+        }
     };
 
     private loadFeatureCollection = (collection: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
@@ -186,21 +235,55 @@ export class InspectorApp extends RactiveApp {
                 this.index = 0;
                 this.features.splice(0);
 
-                for (let feature of collection.features) {
+                for (let i = 0; i < collection.features.length; i++) {
+                    let feature = (collection.features[i] as any); // @todo: type aanpassen
+                    feature._index = i;
                     this.features.push(feature);
                 }
 
                 if (this.features.length > 0) {
+                    this.map.addHighlight(collection);
+
                     // Load first feature
                     // this.loadFeature(this.features[0]);
                     this.ractive.set('feature', this.features[0]);
 
                     // Set the field to name features with
-                    // @todo: allow layers to provide
+                    // @todo: allow layers to provide the namefield
                     this.ractive.set('namefield', Object.keys(this.features[0].properties)[0]);
                 } else {
-                    // niks laten zien?
+                    this.map.hideHighlight();
                 }
+    };
+
+    private startShapeSelect() {
+        if (this.draw) {
+            this.draw.disable();
+
+            if (this.pointInspect) {
+                this.pointInspect = false;
+            }
+
+            this.shapeSelect();
+        }
+    };
+
+    private async shapeSelect() {
+        if (this.draw) {
+            switch (this.ractive.get('mode')) {
+                case 'box':
+                    this.intersect(await this.draw.rectangle());
+                    break;
+                case 'polygon':
+                    this.intersect(await this.draw.polygon());
+                    break;
+                case 'polyline':
+                    this.intersect(await this.draw.polyline());
+                    break;
+                default:
+                    break;
+            }
+        }
     };
 
     private showTable(properties: {[index: string]: any}) {

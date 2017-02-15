@@ -1,7 +1,10 @@
 import * as L from 'leaflet';
-import * as reproject from 'reproject';
+// import * as reproject from 'reproject';
 
-import {ILayer, IClickHandler, ILayerClickHandler} from '../types';
+import pool from '../servicePool';
+import { ProjectService } from './project';
+
+import { ILayer, IClickHandler, ILayerClickHandler } from '../types';
 
 /**
  * This service controls the leaflet map.
@@ -23,7 +26,10 @@ export class MapService {
     // Lagen bijhouden
     private basemap: L.TileLayer;
     private highlight: L.GeoJSON;
+    private focus: L.GeoJSON;
     private pointer: L.Marker;
+
+    private project = pool.getService<ProjectService>('ProjectService');
 
     private clickHandlers: IClickHandler[] = [];
     private layerClickCallbacks: ILayerClickHandler[] = [];
@@ -134,9 +140,17 @@ export class MapService {
             this.highlight.remove();
         }
 
-        let reprojected = reproject.toWgs84(geojson, this.map.options.crs.projection.proj4def);
+        if (this.focus) {
+            this.focus.remove();
+        }
 
-        this.highlight = L.geoJSON(reprojected);
+        let reprojected = this.project.to(geojson);
+
+        this.highlight = L.geoJSON(reprojected, {
+            pointToLayer: (geojsonPoint, latlng) => {
+                return L.circleMarker(latlng);
+            },
+        });
         this.highlight.addTo(this.map);
 
         if (zoomTo) {
@@ -148,6 +162,10 @@ export class MapService {
         if (this.highlight) {
             this.highlight.remove();
         }
+
+        if (this.focus) {
+            this.focus.remove();
+        }
     }
 
     /**
@@ -158,6 +176,36 @@ export class MapService {
             this.highlight.addTo(this.map);
         }
     }
+
+    /**
+     * Temporary solution
+     */
+    addFocus(geojson: any, zoomTo: boolean = false) {
+        if (this.focus) {
+            this.focus.remove();
+        }
+
+        let reprojected = this.project.to(geojson);
+
+        this.focus = L.geoJSON(reprojected, {
+            style: function() {
+                return {
+                    color: '#FF33EE',
+                    weight: 5,
+                    opacity: 1,
+                    fill: false,
+                };
+            },
+            pointToLayer: (geojsonPoint, latlng) => {
+                return L.circleMarker(latlng);
+            },
+        });
+        this.focus.addTo(this.map);
+
+        if (zoomTo) {
+            this.map.fitBounds(this.focus.getBounds());
+        }
+    };
 
     /**
      * Permanently remove a layer from the map
@@ -205,8 +253,6 @@ export class MapService {
      */
     zoomToPoint(point: number[], zoom: number) {
         let reprojected = this.map.options.crs.projection.unproject(L.point(point[0], point[1]));
-        // this.pointer.setLatLng(reprojected);
-        // this.map.setView(reprojected, zoom);
         this.zoomToWgsPoint(reprojected, zoom);
     };
 

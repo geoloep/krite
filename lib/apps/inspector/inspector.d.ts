@@ -25,9 +25,13 @@ export declare class InspectorApp extends RactiveApp {
      */
     onLayerClick: ILayerClickHandler;
     protected createRactive(element: string): void;
+    private escape;
+    private toggleModeDropdown();
     private clear();
     private intersect(feature);
     private loadFeature;
     private loadFeatureCollection;
+    private startShapeSelect();
+    private shapeSelect();
     private showTable(properties);
 }

@@ -10,12 +10,19 @@ export class DrawService {
     private service: MapService;
     private project: ProjectService;
     private lock = false;
+    private drawFeature: L.Draw.Feature;
 
     constructor() {
         (async () => {
             this.service = await pool.promiseService<MapService>('MapService');
             this.project = await pool.promiseService<ProjectService>('ProjectService');
         })();
+    }
+
+    disable() {
+        if (this.drawFeature) {
+            this.drawFeature.disable();
+        }
     }
 
     rectangle() {

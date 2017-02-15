@@ -17,7 +17,9 @@ export declare class MapService {
     defaultOptions: L.MapOptions;
     private basemap;
     private highlight;
+    private focus;
     private pointer;
+    private project;
     private clickHandlers;
     private layerClickCallbacks;
     constructor(element: string, customOptions?: L.MapOptions);
@@ -57,6 +59,10 @@ export declare class MapService {
      * Show previously hidden highlight again
      */
     showHighlight(): void;
+    /**
+     * Temporary solution
+     */
+    addFocus(geojson: any, zoomTo?: boolean): void;
     /**
      * Permanently remove a layer from the map
      */

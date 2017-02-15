@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IBasemap | krite</title>
+	<title>Draw | krite</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,68 +54,72 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="ibasemap.html">IBasemap</a>
+					<a href="l.html">L</a>
+				</li>
+				<li>
+					<a href="l.draw.html">Draw</a>
 				</li>
 			</ul>
-			<h1>Interface IBasemap</h1>
+			<h1>Module Draw</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
-				<ul class="tsd-hierarchy">
-					<li>
-						<span class="target">IBasemap</span>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ibasemap.html#options" class="tsd-kind-icon">options</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ibasemap.html#preview" class="tsd-kind-icon">preview</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ibasemap.html#url" class="tsd-kind-icon">url</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/l.draw.feature.html" class="tsd-kind-icon">Feature</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/l.draw.polygonconstructor.html" class="tsd-kind-icon">Polygon<wbr>Constructor</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/l.draw.polylineconstructor.html" class="tsd-kind-icon">Polyline<wbr>Constructor</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/l.draw.rectangleconstructor.html" class="tsd-kind-icon">Rectangle<wbr>Constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="l.draw.html#polygon" class="tsd-kind-icon">Polygon</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="l.draw.html#polyline" class="tsd-kind-icon">Polyline</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="l.draw.html#rectangle" class="tsd-kind-icon">Rectangle</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="options" class="tsd-anchor"></a>
-					<h3>options</h3>
-					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TileLayerOptions</span></div>
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="polygon" class="tsd-anchor"></a>
+					<h3>Polygon</h3>
+					<div class="tsd-signature tsd-kind-icon">Polygon<span class="tsd-signature-symbol">:</span> <a href="../interfaces/l.draw.polygonconstructor.html" class="tsd-signature-type">PolygonConstructor</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/types.ts#L59">src/types.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/types/leaflet-draw.d.ts#L22">types/leaflet-draw.d.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="preview" class="tsd-anchor"></a>
-					<h3>preview</h3>
-					<div class="tsd-signature tsd-kind-icon">preview<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="polyline" class="tsd-anchor"></a>
+					<h3>Polyline</h3>
+					<div class="tsd-signature tsd-kind-icon">Polyline<span class="tsd-signature-symbol">:</span> <a href="../interfaces/l.draw.polylineconstructor.html" class="tsd-signature-type">PolylineConstructor</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/types.ts#L57">src/types.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/types/leaflet-draw.d.ts#L21">types/leaflet-draw.d.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="url" class="tsd-anchor"></a>
-					<h3>url</h3>
-					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="rectangle" class="tsd-anchor"></a>
+					<h3>Rectangle</h3>
+					<div class="tsd-signature tsd-kind-icon">Rectangle<span class="tsd-signature-symbol">:</span> <a href="../interfaces/l.draw.rectangleconstructor.html" class="tsd-signature-type">RectangleConstructor</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/types.ts#L58">src/types.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/types/leaflet-draw.d.ts#L20">types/leaflet-draw.d.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -127,28 +131,72 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="_esri_leaflet_.html">"esri-<wbr>leaflet"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="_leaflet_rd_.html">"leaflet-<wbr>rd"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="_proj4_.html">"proj4"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="_reproject_.html">"reproject"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="_search_params_.html">"search-<wbr>params"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="_url_.html">"url"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="_wellknown_.html">"wellknown"</a>
+					</li>
+					<li class="current tsd-kind-module tsd-is-not-exported">
+						<a href="l.html">L</a>
+						<ul>
+							<li class="current tsd-kind-module tsd-parent-kind-module tsd-is-not-exported">
+								<a href="l.draw.html">Draw</a>
+							</li>
+						</ul>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="reproject.html">reproject</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="searchparams.html">searchparams</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="url.html">url</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="wellknown.html">wellknown</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="ibasemap.html" class="tsd-kind-icon">IBasemap</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ibasemap.html#options" class="tsd-kind-icon">options</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ibasemap.html#preview" class="tsd-kind-icon">preview</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ibasemap.html#url" class="tsd-kind-icon">url</a>
-							</li>
-						</ul>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/l.draw.feature.html" class="tsd-kind-icon">Feature</a>
 					</li>
-				</ul>
-				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/l.draw.polygonconstructor.html" class="tsd-kind-icon">Polygon<wbr>Constructor</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/l.draw.polylineconstructor.html" class="tsd-kind-icon">Polyline<wbr>Constructor</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/l.draw.rectangleconstructor.html" class="tsd-kind-icon">Rectangle<wbr>Constructor</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="l.draw.html#polygon" class="tsd-kind-icon">Polygon</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="l.draw.html#polyline" class="tsd-kind-icon">Polyline</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="l.draw.html#rectangle" class="tsd-kind-icon">Rectangle</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

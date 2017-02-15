@@ -96,17 +96,20 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="mapservice.html#basemap" class="tsd-kind-icon">basemap</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="mapservice.html#clickhandlers" class="tsd-kind-icon">click<wbr>Handlers</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mapservice.html#defaultoptions" class="tsd-kind-icon">default<wbr>Options</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="mapservice.html#focus" class="tsd-kind-icon">focus</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="mapservice.html#highlight" class="tsd-kind-icon">highlight</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mapservice.html#layerbyname" class="tsd-kind-icon">layer<wbr>ByName</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="mapservice.html#layerclickcallbacks" class="tsd-kind-icon">layer<wbr>Click<wbr>Callbacks</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mapservice.html#layers" class="tsd-kind-icon">layers</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="mapservice.html#map" class="tsd-kind-icon">map</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="mapservice.html#pointer" class="tsd-kind-icon">pointer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="mapservice.html#project" class="tsd-kind-icon">project</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="mapservice.html#addfocus" class="tsd-kind-icon">add<wbr>Focus</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="mapservice.html#addhighlight" class="tsd-kind-icon">add<wbr>Highlight</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="mapservice.html#addlayer" class="tsd-kind-icon">add<wbr>Layer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="mapservice.html#endinspect" class="tsd-kind-icon">end<wbr>Inspect</a></li>
@@ -142,7 +145,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L29">src/services/map.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L35">src/services/map.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -167,7 +170,7 @@
 					<div class="tsd-signature tsd-kind-icon">HTMLElement<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L10">src/services/map.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L13">src/services/map.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,7 +180,7 @@
 					<div class="tsd-signature tsd-kind-icon">basemap<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TileLayer</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L24">src/services/map.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L27">src/services/map.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -187,7 +190,7 @@
 					<div class="tsd-signature tsd-kind-icon">click<wbr>Handlers<span class="tsd-signature-symbol">:</span> <a href="../interfaces/iclickhandler.html" class="tsd-signature-type">IClickHandler</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L28">src/services/map.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L34">src/services/map.ts:34</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -197,7 +200,17 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MapOptions</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L19">src/services/map.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L22">src/services/map.ts:22</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="focus" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> focus</h3>
+					<div class="tsd-signature tsd-kind-icon">focus<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">GeoJSON</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L29">src/services/map.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -207,7 +220,7 @@
 					<div class="tsd-signature tsd-kind-icon">highlight<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">GeoJSON</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L25">src/services/map.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L28">src/services/map.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -217,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">layer<wbr>ByName<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L13">src/services/map.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L16">src/services/map.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -235,7 +248,7 @@
 					<div class="tsd-signature tsd-kind-icon">layer<wbr>Click<wbr>Callbacks<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ilayerclickhandler.html" class="tsd-signature-type">ILayerClickHandler</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L29">src/services/map.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L35">src/services/map.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -245,7 +258,7 @@
 					<div class="tsd-signature tsd-kind-icon">layers<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ilayer.html" class="tsd-signature-type">ILayer</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L12">src/services/map.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L15">src/services/map.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -255,7 +268,7 @@
 					<div class="tsd-signature tsd-kind-icon">map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L17">src/services/map.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L20">src/services/map.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -265,13 +278,54 @@
 					<div class="tsd-signature tsd-kind-icon">pointer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Marker</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L26">src/services/map.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L30">src/services/map.ts:30</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="project" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> project</h3>
+					<div class="tsd-signature tsd-kind-icon">project<span class="tsd-signature-symbol">:</span> <a href="projectservice.html" class="tsd-signature-type">ProjectService</a><span class="tsd-signature-symbol"> =&nbsp;pool.getService&lt;ProjectService&gt;(&#x27;ProjectService&#x27;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L32">src/services/map.ts:32</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="addfocus" class="tsd-anchor"></a>
+					<h3>add<wbr>Focus</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Focus<span class="tsd-signature-symbol">(</span>geojson<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, zoomTo<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L183">src/services/map.ts:183</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Temporary solution</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>geojson: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> zoomTo: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="addhighlight" class="tsd-anchor"></a>
 					<h3>add<wbr>Highlight</h3>
@@ -282,7 +336,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L132">src/services/map.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L138">src/services/map.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -316,7 +370,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L51">src/services/map.ts:51</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L57">src/services/map.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -344,7 +398,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L192">src/services/map.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L240">src/services/map.ts:240</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -361,7 +415,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L196">src/services/map.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L244">src/services/map.ts:244</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -384,7 +438,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L77">src/services/map.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L83">src/services/map.ts:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -407,7 +461,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L147">src/services/map.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L161">src/services/map.ts:161</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -424,7 +478,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L88">src/services/map.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L94">src/services/map.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -452,7 +506,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L109">src/services/map.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L115">src/services/map.ts:115</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -483,7 +537,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L95">src/services/map.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L101">src/services/map.ts:101</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -511,7 +565,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L102">src/services/map.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L108">src/services/map.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -539,7 +593,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L165">src/services/map.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L213">src/services/map.ts:213</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -567,7 +621,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L175">src/services/map.ts:175</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L223">src/services/map.ts:223</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -598,7 +652,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L115">src/services/map.ts:115</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L121">src/services/map.ts:121</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -615,7 +669,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L156">src/services/map.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L174">src/services/map.ts:174</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -637,7 +691,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L72">src/services/map.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L78">src/services/map.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -665,7 +719,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L188">src/services/map.ts:188</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L236">src/services/map.ts:236</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -687,7 +741,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L206">src/services/map.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L254">src/services/map.ts:254</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -721,7 +775,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3c831fa/src/services/map.ts#L217">src/services/map.ts:217</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/services/map.ts#L263">src/services/map.ts:263</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -778,6 +832,9 @@
 								<a href="mapservice.html#defaultoptions" class="tsd-kind-icon">default<wbr>Options</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="mapservice.html#focus" class="tsd-kind-icon">focus</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="mapservice.html#highlight" class="tsd-kind-icon">highlight</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
@@ -794,6 +851,12 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="mapservice.html#pointer" class="tsd-kind-icon">pointer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="mapservice.html#project" class="tsd-kind-icon">project</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="mapservice.html#addfocus" class="tsd-kind-icon">add<wbr>Focus</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="mapservice.html#addhighlight" class="tsd-kind-icon">add<wbr>Highlight</a>
