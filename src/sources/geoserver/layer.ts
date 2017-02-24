@@ -211,6 +211,10 @@ export class GeoserverLayer implements ILayer {
                 }
             }
 
+            if (this.source.options.field) {
+                this._geomField = this.source.options.field;
+            }
+
             if (!(this._geomField)) {
                 console.warn(`Using default geometry field name for ${this.name}`);
                 this._geomField = 'geom';
