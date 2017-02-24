@@ -81,10 +81,10 @@ export declare class MapService {
      * Zoom to a point
      * @param point In the CRS of the map
      */
-    zoomToPoint(point: number[], zoom: number): void;
+    zoomToPoint(point: number[], zoom: number, marker?: boolean): void;
     /**
      * Zoom to a point
      * @param point In LatLng (WGS84)
      */
-    zoomToWgsPoint(point: [number, number] | L.LatLng, zoom: number): void;
+    zoomToWgsPoint(point: [number, number] | L.LatLng, zoom: number, marker?: boolean): void;
 }

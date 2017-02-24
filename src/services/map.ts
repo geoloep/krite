@@ -251,17 +251,20 @@ export class MapService {
      * Zoom to a point
      * @param point In the CRS of the map
      */
-    zoomToPoint(point: number[], zoom: number) {
+    zoomToPoint(point: number[], zoom: number, marker = true) {
         let reprojected = this.map.options.crs.projection.unproject(L.point(point[0], point[1]));
-        this.zoomToWgsPoint(reprojected, zoom);
+        this.zoomToWgsPoint(reprojected, zoom, marker);
     };
 
     /**
      * Zoom to a point
      * @param point In LatLng (WGS84)
      */
-    zoomToWgsPoint(point: [number, number] | L.LatLng, zoom: number) {
-        this.pointer.setLatLng(point);
+    zoomToWgsPoint(point: [number, number] | L.LatLng, zoom: number, marker = true) {
+        if (marker) {
+            this.pointer.setLatLng(point);
+        }
+
         this.map.setView(point, zoom);
     }
 };
