@@ -20,6 +20,8 @@ export interface ILayer {
     preview: string;
     leaflet: L.Layer;
     legend: string;
+    minZoom?: number;
+    maxZoom?: number;
     /**
      * Register your onClick functions here
      */
