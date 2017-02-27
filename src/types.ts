@@ -28,6 +28,10 @@ export interface ILayer {
 
     legend: string;
 
+    minZoom?: number;
+
+    maxZoom?: number;
+
     /**
      * Register your onClick functions here
      */

@@ -47,6 +47,10 @@ export class MapService {
             }
         });
 
+        this.map.on('zoomend', () => {
+            this.checkZoom();
+        });
+
         // @todo: is dit element gegarandeerd aanwezig op dit moment?
         this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
     };
@@ -56,7 +60,9 @@ export class MapService {
      */
     addLayer(layer: ILayer) {
         if (!(layer.name in this.layerByName)) {
-            layer.leaflet.addTo(this.map);
+            if (this.visibleOnZoom(layer, this.map.getZoom())) {
+                layer.leaflet.addTo(this.map);
+            }
 
             this.layers.unshift(layer);
             // this.layers.push(layer);
@@ -117,6 +123,36 @@ export class MapService {
             callback(layer, attr);
         }
     };
+
+    checkZoom = () => {
+        let zoom = this.map.getZoom();
+
+        for (let layer of this.layers) {
+            let visible = this.visibleOnZoom(layer, zoom);
+
+            if (visible && !this.map.hasLayer(layer.leaflet)) {
+                this.showLayer(layer);
+            } else if (!visible && this.map.hasLayer(layer.leaflet)) {
+                this.hideLayer(layer);
+            }
+        }
+    }
+
+    visibleOnZoom(layer: ILayer, zoom: number): boolean {
+        if (layer.maxZoom) {
+            if (zoom > layer.maxZoom) {
+                return false;
+            }
+        }
+
+        if (layer.minZoom) {
+            if (zoom < layer.minZoom) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     setZIndexes() {
         if (this.layers.length > 0) {

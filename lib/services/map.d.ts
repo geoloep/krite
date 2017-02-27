@@ -48,6 +48,8 @@ export declare class MapService {
      * Layers can report click events here
      */
     layerClick: (layer: ILayer, attr: any) => void;
+    checkZoom: () => void;
+    visibleOnZoom(layer: ILayer, zoom: number): boolean;
     setZIndexes(): void;
     /**
      * Render a geojson source on the map.
