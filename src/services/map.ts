@@ -289,14 +289,14 @@ export class MapService {
      */
     zoomToPoint(point: number[], zoom: number, marker = true) {
         let reprojected = this.map.options.crs.projection.unproject(L.point(point[0], point[1]));
-        this.zoomToWgsPoint(reprojected, zoom, marker);
+        this.zoomToLatLng(reprojected, zoom, marker);
     };
 
     /**
      * Zoom to a point
      * @param point In LatLng (WGS84)
      */
-    zoomToWgsPoint(point: [number, number] | L.LatLng, zoom: number, marker = true) {
+    zoomToLatLng(point: [number, number] | L.LatLng, zoom: number, marker = true) {
         if (marker) {
             this.pointer.setLatLng(point);
         }

@@ -9,21 +9,21 @@ import { PdokLocatieserverService } from '../../services/pdokLocatieserver';
 import { IContainer } from '../../types';
 
 export class PdokSearchApp extends RactiveApp {
-    private map: MapService = pool.getService<MapService>('MapService');
-    private locatieserver: PdokLocatieserverService = pool.getService<PdokLocatieserverService>('PdokLocatieserverService');
+    protected map: MapService = pool.getService<MapService>('MapService');
+    protected locatieserver: PdokLocatieserverService = pool.getService<PdokLocatieserverService>('PdokLocatieserverService');
 
-    private searchTimeOut: number;
+    protected searchTimeOut: number;
 
-    private timeOutLength = 500;
+    protected timeOutLength = 500;
 
-    private diepteNaarZoom: {[index: string]: number} = {
+    protected diepteNaarZoom: {[index: string]: number} = {
         adres: 12,
         weg: 12,
         woonplaats: 8,
         gemeente: 8,
     };
 
-    private depthOrder = [
+    protected depthOrder = [
         'adres',
         'woonplaats',
         'weg',
@@ -95,13 +95,13 @@ export class PdokSearchApp extends RactiveApp {
 
     };
 
-    private search = (searchString: string) => {
+    protected search = (searchString: string) => {
         this.locatieserver.search(searchString).then((response) => {
             this.searchSuccess(response);
         }).catch(this.searchFail);
     };
 
-    private searchClick(context: any) {
+    protected searchClick(context: any) {
         // this.map.zoomToPoint(context.Point.pos, this.diepteNaarZoom[(context.Depth as string)]);
         this.locatieserver.inspect(context.id).then((response) => {
             let geojson = wellknown.parse(response.response.docs[0].centroide_rd);
@@ -109,16 +109,16 @@ export class PdokSearchApp extends RactiveApp {
         });
     };
 
-    private searchSuccess = (data: any) => {
+    protected searchSuccess = (data: any) => {
         this.ractive.set('results', data);
         this.selectReset();
     };
 
-    private searchFail = () => {
+    protected searchFail = () => {
         console.error('Fout bij zoeken');
     };
 
-    private selectDown = () => {
+    protected selectDown = () => {
         let nextNum = this.ractive.get('currentNum') + 1;
         let currentDepth = this.ractive.get('currentDepth');
 
@@ -141,7 +141,7 @@ export class PdokSearchApp extends RactiveApp {
         }
     };
 
-    private selectReset() {
+    protected selectReset() {
         this.ractive.set('currentDepth', 0);
         for (let i = 0; i < this.depthOrder.length; i++) {
             if (this.ractive.get('results.' + this.depthOrder[i])) {
@@ -151,7 +151,7 @@ export class PdokSearchApp extends RactiveApp {
         }
     };
 
-    private selectUp = () => {
+    protected selectUp = () => {
         let nextNum = this.ractive.get('currentNum') - 1;
         let currentDepth = this.ractive.get('currentDepth');
 

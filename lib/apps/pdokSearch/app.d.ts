@@ -1,19 +1,23 @@
 import { RactiveApp } from '../ractiveApp';
+import { MapService } from '../../services/map';
+import { PdokLocatieserverService } from '../../services/pdokLocatieserver';
 import { IContainer } from '../../types';
 export declare class PdokSearchApp extends RactiveApp {
-    private map;
-    private locatieserver;
-    private searchTimeOut;
-    private timeOutLength;
-    private diepteNaarZoom;
-    private depthOrder;
+    protected map: MapService;
+    protected locatieserver: PdokLocatieserverService;
+    protected searchTimeOut: number;
+    protected timeOutLength: number;
+    protected diepteNaarZoom: {
+        [index: string]: number;
+    };
+    protected depthOrder: string[];
     constructor(element?: IContainer | string);
     protected createRactive(element: string): void;
-    private search;
-    private searchClick(context);
-    private searchSuccess;
-    private searchFail;
-    private selectDown;
-    private selectReset();
-    private selectUp;
+    protected search: (searchString: string) => void;
+    protected searchClick(context: any): void;
+    protected searchSuccess: (data: any) => void;
+    protected searchFail: () => void;
+    protected selectDown: () => void;
+    protected selectReset(): void;
+    protected selectUp: () => void;
 }
