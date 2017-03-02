@@ -87,7 +87,7 @@ export class MapService {
     };
 
     hasLayerByName(name: string): boolean {
-        if (name in this.layers) {
+        if (name in this.layerByName) {
             return true;
         } else {
             return false;
@@ -268,6 +268,7 @@ export class MapService {
 
     /**
      * Inform the map that the user is in inspect mode
+     * @todo should probably not be in this class
      */
     startInspect() {
         this.HTMLElement.style.cursor = 'help';
@@ -277,6 +278,10 @@ export class MapService {
         this.HTMLElement.style.cursor = '';
     }
 
+    /**
+     * Fit bounds
+     * @todo should accept bounds in krite CRS
+     */
     fitBounds(bounds: L.LatLngBounds | undefined) {
         if (bounds) {
             this.map.fitBounds(bounds, {});
