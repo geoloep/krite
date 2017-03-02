@@ -63,13 +63,14 @@
         "jasmine-core": "^2.5.2",
         "karma": "^1.5.0",
         "karma-chrome-launcher": "^2.0.0",
-        "karma-phantomjs-launcher": "^1.0.2",
+        "karma-firefox-launcher": "^1.0.0",
         "karma-jasmine": "^1.1.0"
     },
     "scripts": {
         "lib": "tsc -d && npm run html",
         "bundle": "browserify src/main.ts -p tsify -t ractivate -o dist/krite.js -s krite",
         "html": "node compile-html.js",
+        "test": "./node_modules/karma/bin/karma start karma.conf.js",
         "docs": "typedoc --mode file --target ES6 --includeDeclarations --excludeExternals --out ./docs/ ./src/"
     }
 }
