@@ -243,11 +243,13 @@ export class InspectorApp extends RactiveApp {
     }
 
     private loadFeature = (feature: GeoJSON.Feature<GeoJSON.GeometryObject>) => {
-        this.showTable(feature.properties);
-        this.index = (feature as any)._index;
+        if (feature.properties) {
+            this.showTable(feature.properties);
+            this.index = (feature as any)._index;
 
-        if (this.features.length > 1) {
-            this.map.addFocus(feature);
+            if (this.features.length > 1) {
+                this.map.addFocus(feature);
+            }
         }
     };
 

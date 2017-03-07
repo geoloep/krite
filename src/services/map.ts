@@ -292,8 +292,8 @@ export class MapService {
      * Zoom to a point
      * @param point In the CRS of the map
      */
-    zoomToPoint(point: number[], zoom: number, marker = true) {
-        let reprojected = this.map.options.crs.projection.unproject(L.point(point[0], point[1]));
+    zoomToPoint(point: L.Point, zoom: number, marker = true) {
+        let reprojected = this.map.options.crs.projection.unproject(L.point(point.x, point.y));
         this.zoomToLatLng(reprojected, zoom, marker);
     };
 

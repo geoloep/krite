@@ -12,4 +12,4 @@ import pool from './servicePool';
 export let Services = services;
 export let Sources = sources;
 export let Apps = apps;
-export let ServicePool = pool;
+export let ServicePool: services.ServiceManager = pool;

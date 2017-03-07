@@ -104,8 +104,9 @@ export class PdokSearchApp extends RactiveApp {
     protected searchClick(context: any) {
         // this.map.zoomToPoint(context.Point.pos, this.diepteNaarZoom[(context.Depth as string)]);
         this.locatieserver.inspect(context.id).then((response) => {
-            let geojson = wellknown.parse(response.response.docs[0].centroide_rd);
-            this.map.zoomToPoint(geojson.coordinates, this.diepteNaarZoom[context.type]);
+            let geojson = (wellknown.parse(response.response.docs[0].centroide_rd) as GeoJSON.Point);
+
+            this.map.zoomToPoint(L.point(geojson.coordinates[0], geojson.coordinates[1]) , this.diepteNaarZoom[context.type]);
         });
     };
 

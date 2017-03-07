@@ -131,10 +131,11 @@ describe('MapService', function () {
     });
 
     xit('should be able to set a basemap');
+    
     xit('should be able to fit bounds');
 
     it('should be able to zoom to a point', function () {
-        mapService.zoomToPoint([142892.19, 470783.87], 5);
+        mapService.zoomToPoint(L.point(142892.19, 470783.87), 5);
 
         expect(mapService.map.getCenter().lat).toBeCloseTo(52.225);
         expect(mapService.map.getCenter().lng).toBeCloseTo(5.21);

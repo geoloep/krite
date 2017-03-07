@@ -7,7 +7,7 @@ import { GeoServerSource } from './source';
 import { ILayer } from '../../types';
 
 export class GeoserverLayer implements ILayer {
-    _leaflet: L.WMS;
+    _leaflet: L.TileLayer.WMS;
     _geomField: string;
     private _isPoint: boolean;
     private _withinDistance = 5;
