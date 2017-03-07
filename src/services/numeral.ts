@@ -6,7 +6,7 @@ export class NumeralService {
     constructor(locale: string) {
         this.setLocale(locale);
     }
-    
+
     setLocale(locale: string) {
         this.numeral.locale(locale);
     }

@@ -147,4 +147,7 @@ describe('MapService', function () {
         expect(mapService.map.getCenter().lat).toBeCloseTo(53.222);
         expect(mapService.map.getCenter().lng).toBeCloseTo(6.597);
     });
+
+    // clean up
+    mapService.map.remove();
 });

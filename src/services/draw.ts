@@ -22,6 +22,7 @@ export class DrawService {
     disable() {
         if (this.drawFeature) {
             this.drawFeature.disable();
+            this.lock = false;
         }
     }
 
@@ -38,6 +39,8 @@ export class DrawService {
     }
 
     private draw<T>(draw: L.Draw.Feature): Promise<T> {
+        this.drawFeature = draw;
+
         return new Promise<T>((resolve, reject) => {
             if (this.service && this.project) {
                 if (!this.lock) {
