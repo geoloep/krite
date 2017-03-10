@@ -18,11 +18,17 @@ describe('DrawService', function() {
 
     var s = new krite.Services.DrawService();
 
-    it('should exist and load dependencies', function() {
+    it('should exist and load dependencies', function(done) {
         expect(s).toBeDefined();
         
+        while(!s.service && !s.project) {
+            // Wait for services to resolve
+        }
+
         expect(s.service).toBeDefined();
         expect(s.project).toBeDefined();
+
+        done();
     });
 
     it('should draw rectangles', function() {
