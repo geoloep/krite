@@ -32,7 +32,7 @@
     },
     "devDependencies": {
         "@types/ractive": "*",
-        "@types/xml2js": "*",
+        "@types/xml2js": "0.0.32",
         "@types/numeral": "*",
         "@types/geojson": "*",
 
