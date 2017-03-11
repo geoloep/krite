@@ -15,7 +15,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/core-js/client/shim.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/shim.min.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
       'dist/krite.js',
       'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.1/proj4.js',
       'https://unpkg.com/leaflet-rd@1.1.1',
@@ -59,7 +60,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Firefox'],
+    browsers: ['Firefox', 'PhantomJS'],
 
 
     // Continuous Integration mode
