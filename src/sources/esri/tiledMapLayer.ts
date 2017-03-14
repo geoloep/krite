@@ -6,7 +6,7 @@ import { ESRISource } from './source';
 export class ESRITiledMapLayer implements ILayer {
     _leaflet: L.Layer;
 
-    constructor(readonly url: string, readonly capabilities: any, readonly source: ESRISource) {
+    constructor(readonly url: string, readonly _name: string, readonly capabilities: any, readonly source: ESRISource) {
     };
 
     get title() {
@@ -14,7 +14,7 @@ export class ESRITiledMapLayer implements ILayer {
     };
 
     get name() {
-        return this.capabilities.mapName;
+        return this._name;
     };
 
     get abstract() {
