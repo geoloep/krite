@@ -80,7 +80,7 @@ export class GeoServerSource implements IDataSource {
                         request: 'GetCapabilities',
                         service: 'WMS',
                     },
-                })
+                }),
             );
 
             let getWFSCapabilities = fetch(
@@ -90,7 +90,7 @@ export class GeoServerSource implements IDataSource {
                         request: 'GetCapabilities',
                         service: 'WFS',
                     },
-                })
+                }),
             );
 
             // Wacht op inladen van capabilities
