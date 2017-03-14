@@ -54,71 +54,101 @@ export class ESRISource implements IDataSource {
         return(layerNames);
     }
 
-    getLayer(name: string) {
-        return new Promise<ILayer>((resolve, reject) => {
-            if (this.services) {
-                this._getLayer(name).then(resolve).catch(reject);
+    async getLayer(name: string) {
+        if (!this.services) {
+            await this.getServices();
+        }
+
+        return await this._getLayer(name);
+    }
+
+    private async _getLayer(name: string) {
+        if (this.services.services) {
+            let service: IESRIServiceListing | undefined = undefined;
+
+            for (let serviceItem of this.services.services) {
+                if (serviceItem.name === name) {
+                    service = serviceItem;
+                }
+            }
+
+            if (service) {
+                let serviceUrl = `${this.url}/${name}/${service.type}/`;
+
+                let response = await fetch(serviceUrl + url.format({
+                        query: {
+                            f: 'pjson',
+                        },
+                    })
+                );
+
+                if (!response.ok) {
+                    console.error('Malformed response');
+                }
+
+                let json = await response.json();
+
+                this.layers[name] = new this.typeToLayer[service.type](serviceUrl, json, this);
+
+                return this.layers[name];
             } else {
-                this.getServices().then(() => {
-                    this._getLayer(name).then(resolve).catch(reject);
-                });
+                console.error('Layer not found');
             }
-        });
+        } else {
+            console.error('Services not loaded correctly');
+        }
+
+
+        // return new Promise<ILayer>((resolve, reject) => {
+        //     for (let service of this.services.services) {
+        //         if (service.name === name) {
+        //             if (service.type in this.typeToLayer) {
+        //                 // Soms is de naam service/laag, we moeten alleen 'laag' toevoegen aan de url
+        //                 let urlName = name.split('/').pop();
+        //                 let fullUrl = `${this.url}${urlName}/${service.type}/` //this.url + urlName + '/';
+
+        //                 fetch(
+        //                     fullUrl +
+        //                     url.format({
+        //                         query: {
+        //                             f: 'pjson',
+        //                         },
+        //                     })
+        //                 ).then((response) => {
+        //                     if (response.ok) {
+        //                         response.json().then((json) => {
+        //                             this.layers[name] = new this.typeToLayer[service.type](fullUrl, json, this);
+        //                             resolve(this.layers[name]);
+        //                         }).catch(reject);
+        //                     } else {
+        //                         reject();
+        //                     }
+        //                 }).catch(reject);
+        //             } else {
+        //                 reject(`No implementation for ${service.type}`);
+        //             }
+        //         }
+        //     }
+        // });
     }
 
-    _getLayer(name: string) {
-        return new Promise<ILayer>((resolve, reject) => {
-            for (let service of this.services.services) {
-                if (service.name === name) {
-                    if (service.type in this.typeToLayer) {
-                        // Soms is de naam service/laag, we moeten alleen 'laag' toevoegen aan de url
-                        let urlName = name.split('/').pop();
-                        let fullUrl = `${this.url}${urlName}/${service.type}/` //this.url + urlName + '/';
+    private async getServices(): Promise<void> {
+        let response = await fetch(
+            this.url +
+            url.format({
+                query: {
+                    f: 'pjson',
+                },
+            })
+        );
 
-                        fetch(
-                            fullUrl +
-                            url.format({
-                                query: {
-                                    f: 'pjson',
-                                },
-                            })
-                        ).then((response) => {
-                            if (response.ok) {
-                                response.json().then((json) => {
-                                    this.layers[name] = new this.typeToLayer[service.type](fullUrl, json, this);
-                                    resolve(this.layers[name]);
-                                }).catch(reject);
-                            } else {
-                                reject();
-                            }
-                        }).catch(reject);
-                    } else {
-                        reject(`No implementation for ${service.type}`);
-                    }
-                }
-            }
-        });
-    }
+        if (!response.ok) {
+            console.error('Malformed response');
+        }
 
-    private getServices(): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            fetch(
-                this.url +
-                url.format({
-                    query: {
-                        f: 'pjson',
-                    },
-                })
-            ).then((response) => {
-                if (response.ok) {
-                    response.json().then((json) => {
-                        this.services = json;
-                        resolve();
-                    }).catch(reject);
-                } else {
-                    reject('Fout bij inlezen antwoord server');
-                }
-            }).catch(reject);
-        });
+        this.services = await response.json();
+
+
+        return;
     }
 }
