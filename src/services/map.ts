@@ -6,6 +6,14 @@ import { ProjectService } from './project';
 
 import { ILayer, IClickHandler, ILayerClickHandler } from '../types';
 
+export interface ICustomMapOptions {
+    checkZoom: boolean;
+}
+
+interface IMapOptions {
+    checkZoom: boolean;
+}
+
 /**
  * This service controls the leaflet map.
  */
@@ -19,8 +27,12 @@ export class MapService {
 
     map: L.Map;
 
-    defaultOptions: L.MapOptions = {
+    defaultLeafletOptions: L.MapOptions = {
         // crs: rd,
+    };
+
+    mapOptions: IMapOptions = {
+        checkZoom: false,
     };
 
     // Lagen bijhouden
@@ -34,10 +46,12 @@ export class MapService {
     private clickHandlers: IClickHandler[] = [];
     private layerClickCallbacks: ILayerClickHandler[] = [];
 
-    constructor(readonly element: string, readonly customOptions?: L.MapOptions) {
+    constructor(readonly element: string, readonly customOptions?: L.MapOptions, mapOptions?: ICustomMapOptions) {
         this.map = L.map((this.element as any),
-            Object.assign(this.defaultOptions, this.customOptions)
+            Object.assign(this.defaultLeafletOptions, this.customOptions)
         );
+
+        this.mapOptions = Object.assign(this.mapOptions, mapOptions);
 
         this.pointer = L.marker([0, 0]).addTo(this.map);
 
@@ -47,9 +61,11 @@ export class MapService {
             }
         });
 
-        this.map.on('zoomend', () => {
-            this.checkZoom();
-        });
+        if (this.mapOptions.checkZoom) {
+            this.map.on('zoomend', () => {
+                this.checkZoom();
+            });
+        }
 
         // @todo: is dit element gegarandeerd aanwezig op dit moment?
         this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
@@ -122,7 +138,7 @@ export class MapService {
         for (let callback of this.layerClickCallbacks) {
             callback(layer, attr);
         }
-    };
+    }
 
     checkZoom = () => {
         let zoom = this.map.getZoom();
@@ -224,7 +240,7 @@ export class MapService {
         let reprojected = this.project.to(geojson);
 
         this.focus = L.geoJSON(reprojected, {
-            style: function() {
+            style: () => {
                 return {
                     color: '#FF33EE',
                     weight: 5,
