@@ -14,6 +14,8 @@ describe('MapService', function () {
         zoom: 3,
         zoomAnimation: false,
         crs: L.CRS.RD,
+    }, {
+        checkZoom: true,
     });
 
     var geoJson = {
