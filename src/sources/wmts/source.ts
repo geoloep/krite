@@ -23,49 +23,71 @@ export class WMTSSource implements IDataSource {
     constructor(readonly url: string, readonly options: any = {}) {
     }
 
-    getLayers() {
-        return new Promise<{ [index: string]: ILayer }>(
-            (resolve, reject) => {
-                if (this.layersLoaded) {
-                    resolve(this.layers);
-                } else {
-                    this.getCapabilities().then(
-                        () => {
-                            resolve(this.layers);
-                        }
-                    );
-                }
-            }
-        );
+    async getLayerNames() {
+        if (!this.layersLoaded) {
+            await this.getCapabilities();
+        }
+
+        return this.layerNames;
     }
 
-    getLayerNames() {
-        return new Promise<string[]>(
-            (resolve, reject) => {
-                if (this.layersLoaded) {
-                    resolve(this.layerNames);
-                } else {
-                    this.getCapabilities().then(
-                        () => {
-                            resolve(this.layerNames);
-                        }
-                    );
-                }
-            }
-        );
+    async getLayer(name: string) {
+        if (!this.layersLoaded) {
+            await this.getCapabilities();
+        }
+
+        if (!this.layers[name]) {
+            console.error(`Layer ${name} not available`);
+        }
+
+        return this.layers[name];
     }
 
-    getLayer(name: string) {
-        return new Promise<ILayer>((resolve, reject) => {
-            this.getLayers().then((layers) => {
-                if (name in layers) {
-                    resolve(layers[name]);
+    private async getCapabilities() {
+        let response = await fetch(this.url + url.format({
+            query: {
+                request: 'GetCapabilities',
+            },
+        }));
+
+        if (!response.ok) {
+            console.error('Malformed response');
+        }
+
+        let data = await response.text();
+
+        await this.parseCapabilities(data);
+
+        return;
+    }
+
+    private parseCapabilities(data: any) {
+        return new Promise<void>((resolve, reject) => {
+            parseString(data, {
+                async: true,
+                explicitArray: false,
+                tagNameProcessors: [processors.stripPrefix],
+            }, (err, result) => {
+                if (err) {
+                    console.error('Xml parse error');
+                    reject();
                 }
+
+                this.capabilities = result;
+
+                for (let layer of this.capabilities.Capabilities.Contents.Layer) {
+                    this.layerNames.push(layer.Title);
+                    this.layers[layer.Title] = new WMTSLayer(layer, this);
+                }
+
+                this.layersLoaded = true;
+
+                resolve();
             });
         });
     }
 
-    private getCapabilities() {
+    private _getCapabilities() {
         return new Promise(
             (resolve, reject) => {
                 fetch(
