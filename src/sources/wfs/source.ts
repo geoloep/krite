@@ -16,83 +16,65 @@ export class WFSSource implements IDataSource {
 
     }
 
-    getLayers() {
-        return new Promise<{ [index: string]: ILayer }>(
-            (resolve, reject) => {
-                if (this.layersLoaded) {
-                    resolve(this.layers);
-                } else {
-                    this.getCapabilities().then(
-                        () => {
-                            resolve(this.layers);
-                        }
-                    );
-                }
-            }
-        );
+    async getLayerNames() {
+        if (!this.layersLoaded) {
+            await this.getCapabilities();
+        }
+
+        return this.layerNames;
     }
 
-    getLayerNames() {
-        return new Promise<string[]>(
-            (resolve, reject) => {
-                if (this.layersLoaded) {
-                    resolve(this.layerNames);
-                } else {
-                    this.getCapabilities().then(
-                        () => {
-                            resolve(this.layerNames);
-                        }
-                    );
-                }
-            }
-        );
+    async getLayer(name: string) {
+        if (!this.layersLoaded) {
+            await this.getCapabilities();
+        }
+
+        if (!this.layers[name]) {
+            console.error(`Layer ${name} not available`);
+        }
+
+        return this.layers[name];
     }
 
-    getLayer(name: string) {
-        return new Promise<ILayer>((resolve, reject) => {
-            this.getLayers().then((layers) => {
-                if (name in layers) {
-                    resolve(layers[name]);
+    private async getCapabilities() {
+        let response = await fetch(this.url + url.format({
+            query: {
+                service: 'WFS',
+                request: 'GetCapabilities',
+            },
+        }));
+
+        if (!response.ok) {
+            console.error('Malformed response');
+        }
+
+        let data = await response.text();
+
+        await this.parseCapabilities(data);
+
+        return;
+    }
+
+    private parseCapabilities(data: any) {
+        return new Promise<void>((resolve, reject) => {
+            parseString(data, {
+                async: true,
+                explicitArray: true,
+            }, (err, result) => {
+                if (err) {
+                    console.error('Xml parse error');
+                    reject();
                 }
+
+                for (let featureType of result['wfs:WFS_Capabilities'].FeatureTypeList[0].FeatureType) {
+                    this.layerNames.push(featureType.Title[0]);
+                    this.layers[featureType.Title[0]] = new WFSLayer(featureType, this);
+                }
+
+                this.layersLoaded = true;
+
+                resolve();
             });
         });
-    }
-
-    private getCapabilities() {
-        return new Promise(
-            (resolve, reject) => {
-                fetch(
-                    this.url +
-                    url.format({
-                        query: {
-                            request: 'GetCapabilities',
-                        },
-                    })
-                ).then((response) => {
-                    if (response.ok) {
-                        response.text().then((data) => {
-                            parseString(data, {
-                                async: true,
-                                explicitArray: true,
-                            },
-                                (err, result) => {
-                                    console.log(result);
-
-                                    for (let featureType of result['wfs:WFS_Capabilities'].FeatureTypeList[0].FeatureType) {
-                                        this.layerNames.push(featureType.Title[0]);
-                                        this.layers[featureType.Title[0]] = new WFSLayer(featureType, this);
-                                    }
-
-                                    this.layersLoaded = true;
-
-                                    resolve();
-                                });
-                        }).catch(reject);
-                    } else {
-                        reject();
-                    }
-                }).catch(reject);
-            }
-        );
     }
 }
