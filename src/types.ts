@@ -64,7 +64,6 @@ export interface IBasemap {
 }
 
 export interface IDataSource {
-    getLayers(): Promise<{ [index: string]: ILayer }>;
     getLayerNames(): Promise<string[]>;
     getLayer(name: string): Promise<ILayer>;
 }
