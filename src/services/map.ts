@@ -7,7 +7,7 @@ import { ProjectService } from './project';
 import { ILayer, IClickHandler, ILayerClickHandler } from '../types';
 
 export interface ICustomMapOptions {
-    checkZoom: boolean;
+    checkZoom?: boolean;
 }
 
 interface IMapOptions {
@@ -31,7 +31,7 @@ export class MapService {
         // crs: rd,
     };
 
-    mapOptions: IMapOptions = {
+    private mapOptions: IMapOptions = {
         checkZoom: false,
     };
 
@@ -48,7 +48,7 @@ export class MapService {
 
     constructor(readonly element: string, readonly customOptions?: L.MapOptions, mapOptions?: ICustomMapOptions) {
         this.map = L.map((this.element as any),
-            Object.assign(this.defaultLeafletOptions, this.customOptions)
+            Object.assign(this.defaultLeafletOptions, this.customOptions),
         );
 
         this.mapOptions = Object.assign(this.mapOptions, mapOptions);
