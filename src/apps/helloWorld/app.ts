@@ -4,15 +4,15 @@ import { RactiveApp } from '../ractiveApp';
 import { IContainer } from '../../types';
 
 export class HelloWorldApp extends RactiveApp {
+    name = 'HelloWorldApp';
 
-    constructor(readonly element?: IContainer | string, readonly who: string = 'World') {
+    constructor(readonly element?: IContainer | string, readonly who: string = 'World', name?: string) {
         super();
-        super.init(element);
+        super.init(element, name);
     };
 
     protected createRactive(element: string) {
         this.ractive = new Ractive({
-            append: true,
             modifyArrays: true,
             el: element,
             template: require('./template.html'),

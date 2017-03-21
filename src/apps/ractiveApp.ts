@@ -4,15 +4,16 @@ import { IContainer } from '../types';
  * All apps should extend from this class
  */
 export class RactiveApp {
+    name = 'RactiveApp';
+
     protected ractive: Ractive.Ractive;
     protected container: IContainer;
 
-
     // @todo: init en insert weer samenvoegen?
-    init(element: IContainer | string | undefined) {
-        // if (this.container) {
-        //     this.container.deregister();
-        // }
+    init(element?: IContainer | string, name?: string) {
+        if (name) {
+            this.name = name;
+        }
 
         if (element) {
             if (typeof(element) === 'object' && element.register) {
