@@ -10,11 +10,7 @@ export class RactiveApp {
     protected container: IContainer;
 
     // @todo: init en insert weer samenvoegen?
-    init(element?: IContainer | string, name?: string) {
-        if (name) {
-            this.name = name;
-        }
-
+    init(element?: IContainer | string) {
         if (element) {
             if (typeof(element) === 'object' && element.register) {
                 element.register(this);

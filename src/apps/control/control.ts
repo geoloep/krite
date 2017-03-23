@@ -7,6 +7,8 @@ import { SidebarService } from '../../services/sidebar';
 import { IContainer } from '../../types';
 
 export class ControlApp extends RactiveApp {
+    name = 'ControlApp';
+
     service = pool.getService<SidebarService>('SidebarService');
 
     constructor(readonly element?: IContainer | string) {

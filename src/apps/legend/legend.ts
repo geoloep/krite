@@ -17,6 +17,8 @@ interface IButtonState {
 }
 
 export class LegendApp extends RactiveApp {
+    name = 'LegendApp';
+
     private map = pool.getService<MapService>('MapService');
     private inspector = pool.getService<InspectorService>('InspectorService');
     private sidebar = pool.getService<SidebarService>('SidebarService');

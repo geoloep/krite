@@ -9,6 +9,8 @@ import { SidebarService } from '../../services/sidebar';
 import { IContainer } from '../../types';
 
 export class LayerBrowserApp extends RactiveApp {
+    name = 'LayerBrowserApp';
+
     private selectedSource: string = '';
     private service = pool.getService<SourceService>('SourceService');
     private map = pool.getService<MapService>('MapService');

@@ -8,6 +8,8 @@ import { MapService } from '../../services/map';
 import { IContainer } from '../../types';
 
 export class BasemapApp extends RactiveApp {
+    name = 'BasemapApp';
+
     private map = pool.getService<MapService>('MapService');
     private service = pool.getService<BasemapService>('BasemapService');
 

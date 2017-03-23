@@ -8,7 +8,12 @@ export class HelloWorldApp extends RactiveApp {
 
     constructor(readonly element?: IContainer | string, readonly who: string = 'World', name?: string) {
         super();
-        super.init(element, name);
+
+        if (name) {
+            this.name = name;
+        }
+
+        super.init(element);
     };
 
     protected createRactive(element: string) {

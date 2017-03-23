@@ -4,6 +4,7 @@ import { RactiveApp } from '../ractiveApp';
 import { IContainer } from '../../types';
 
 export class IntroApp extends RactiveApp {
+    name = 'IntroApp';
 
     constructor(readonly element?: IContainer | string) {
         super();

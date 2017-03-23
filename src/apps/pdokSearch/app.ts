@@ -9,6 +9,8 @@ import { PdokLocatieserverService } from '../../services/pdokLocatieserver';
 import { IContainer } from '../../types';
 
 export class PdokSearchApp extends RactiveApp {
+    name = 'PdokSearchApp';
+
     protected map: MapService = pool.getService<MapService>('MapService');
     protected locatieserver: PdokLocatieserverService = pool.getService<PdokLocatieserverService>('PdokLocatieserverService');
 

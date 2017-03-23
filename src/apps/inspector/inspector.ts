@@ -12,6 +12,8 @@ import { NumeralService } from '../../services/numeral';
 import { ILayer, ILayerClickHandler, IContainer } from '../../types';
 
 export class InspectorApp extends RactiveApp {
+    name = 'InspectorApp';
+
     private visible = false;
     private map = pool.getService<MapService>('MapService');
 
