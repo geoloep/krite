@@ -11,8 +11,8 @@
   </div>
 </form>
 <div class="btn-group btn-block">
-  <button type="button" class="btn btn-default col-xs-10 col-sm-10 col-md-11" on-click="modeClick">{{>.mode}}</button>
-  <button type="button" class="btn btn-default dropdown-toggle col-xs-2 col-sm-2 col-md-1" on-click="modeDropDownClick"><span class="caret"></span></button>
+  <button type="button" class="btn btn-default col-xs-10 col-sm-10 col-md-10 col-lg-10" on-click="modeClick">{{>.mode}}</button>
+  <button type="button" class="btn btn-default dropdown-toggle col-xs-2 col-sm-2 col-md-2 col-lg-2" on-click="modeDropDownClick"><span class="caret"></span></button>
   <ul class="dropdown-menu" style="width: 100%;{{#if modeDropDown}} display: inherit{{/if}}">
     {{#if allowed}}
     <li><a href="#" on-click="select-point">{{>point}}</a></li>
