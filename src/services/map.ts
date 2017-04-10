@@ -56,8 +56,11 @@ export class MapService {
         this.pointer = L.marker([0, 0]).addTo(this.map);
 
         this.map.on('click', (e: L.MouseEvent) => {
-            for (let func of this.clickHandlers) {
-                func(this.map.options.crs.project(e.latlng));
+            // latlng does not exist on KeyBoardevents. Enter may fire click'
+            if (e.latlng) {
+                for (let func of this.clickHandlers) {
+                    func(this.map.options.crs.project(e.latlng));
+                }
             }
         });
 
