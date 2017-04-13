@@ -90,9 +90,12 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="controlapp.html#apps" class="tsd-kind-icon">apps</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="controlapp.html#container" class="tsd-kind-icon">container</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="controlapp.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="controlapp.html#ractive" class="tsd-kind-icon">ractive</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="controlapp.html#service" class="tsd-kind-icon">service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="controlapp.html#structure" class="tsd-kind-icon">structure</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="controlapp.html#updatestructure" class="tsd-kind-icon">update<wbr>Structure</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -103,6 +106,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="controlapp.html#detatch" class="tsd-kind-icon">detatch</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="controlapp.html#init" class="tsd-kind-icon">init</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="controlapp.html#insert" class="tsd-kind-icon">insert</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="controlapp.html#makestructure" class="tsd-kind-icon">make<wbr>Structure</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="controlapp.html#onchange" class="tsd-kind-icon">on<wbr>Change</a></li>
 							</ul>
 						</section>
@@ -115,19 +119,25 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Control<wbr>App<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">?: </span><a href="../interfaces/icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="controlapp.html" class="tsd-signature-type">ControlApp</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Control<wbr>App<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="../interfaces/icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, apps<span class="tsd-signature-symbol">: </span><a href="appswitchservice.html" class="tsd-signature-type">AppSwitchService</a>, structure<span class="tsd-signature-symbol">?: </span><a href="../interfaces/icontrolappstructure.html" class="tsd-signature-type">IControlAppStructure</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="controlapp.html" class="tsd-signature-type">ControlApp</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/control/control.ts#L10">src/apps/control/control.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/control/control.ts#L17">src/apps/control/control.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> element: <a href="../interfaces/icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<h5>element: <a href="../interfaces/icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>apps: <a href="appswitchservice.html" class="tsd-signature-type">AppSwitchService</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> structure: <a href="../interfaces/icontrolappstructure.html" class="tsd-signature-type">IControlAppStructure</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="controlapp.html" class="tsd-signature-type">ControlApp</a></h4>
@@ -137,6 +147,16 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="apps" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> apps</h3>
+					<div class="tsd-signature tsd-kind-icon">apps<span class="tsd-signature-symbol">:</span> <a href="appswitchservice.html" class="tsd-signature-type">AppSwitchService</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/control/control.ts#L19">src/apps/control/control.ts:19</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="container" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> container</h3>
@@ -144,7 +164,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ractiveapp.html">RactiveApp</a>.<a href="ractiveapp.html#container">container</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/ractiveApp.ts#L8">src/apps/ractiveApp.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/ractiveApp.ts#L10">src/apps/ractiveApp.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;ControlApp&quot;</span></div>
+					<aside class="tsd-sources">
+						<p>Overrides <a href="ractiveapp.html">RactiveApp</a>.<a href="ractiveapp.html#name">name</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/control/control.ts#L14">src/apps/control/control.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -155,17 +186,27 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ractiveapp.html">RactiveApp</a>.<a href="ractiveapp.html#ractive">ractive</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/ractiveApp.ts#L7">src/apps/ractiveApp.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/ractiveApp.ts#L9">src/apps/ractiveApp.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="service" class="tsd-anchor"></a>
-					<h3>service</h3>
-					<div class="tsd-signature tsd-kind-icon">service<span class="tsd-signature-symbol">:</span> <a href="sidebarservice.html" class="tsd-signature-type">SidebarService</a><span class="tsd-signature-symbol"> =&nbsp;pool.getService&lt;SidebarService&gt;(&#x27;SidebarService&#x27;)</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="structure" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> structure</h3>
+					<div class="tsd-signature tsd-kind-icon">structure<span class="tsd-signature-symbol">:</span> <a href="../interfaces/icontrolappstructure.html" class="tsd-signature-type">IControlAppStructure</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/control/control.ts#L10">src/apps/control/control.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/control/control.ts#L16">src/apps/control/control.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="updatestructure" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> update<wbr>Structure</h3>
+					<div class="tsd-signature tsd-kind-icon">update<wbr>Structure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/control/control.ts#L17">src/apps/control/control.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -182,7 +223,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/control/control.ts#L39">src/apps/control/control.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/control/control.ts#L62">src/apps/control/control.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -206,7 +247,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="ractiveapp.html">RactiveApp</a>.<a href="ractiveapp.html#createractive">createRactive</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/control/control.ts#L23">src/apps/control/control.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/control/control.ts#L44">src/apps/control/control.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -230,7 +271,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="ractiveapp.html">RactiveApp</a>.<a href="ractiveapp.html#detatch">detatch</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/ractiveApp.ts#L40">src/apps/ractiveApp.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/ractiveApp.ts#L37">src/apps/ractiveApp.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -241,20 +282,20 @@
 					<a name="init" class="tsd-anchor"></a>
 					<h3>init</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><a href="../interfaces/icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">?: </span><a href="../interfaces/icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="ractiveapp.html">RactiveApp</a>.<a href="ractiveapp.html#init">init</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/ractiveApp.ts#L12">src/apps/ractiveApp.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/ractiveApp.ts#L13">src/apps/ractiveApp.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>element: <a href="../interfaces/icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> element: <a href="../interfaces/icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -272,7 +313,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="ractiveapp.html">RactiveApp</a>.<a href="ractiveapp.html#insert">insert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/ractiveApp.ts#L26">src/apps/ractiveApp.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/ractiveApp.ts#L23">src/apps/ractiveApp.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -281,6 +322,23 @@
 									<h5>element: <a href="../interfaces/icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h5>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="makestructure" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> make<wbr>Structure</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">make<wbr>Structure<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/control/control.ts#L66">src/apps/control/control.ts:66</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -295,7 +353,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/apps/control/control.ts#L18">src/apps/control/control.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/apps/control/control.ts#L33">src/apps/control/control.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -322,14 +380,23 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="controlapp.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="controlapp.html#apps" class="tsd-kind-icon">apps</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="controlapp.html#container" class="tsd-kind-icon">container</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="controlapp.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="controlapp.html#ractive" class="tsd-kind-icon">ractive</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="controlapp.html#service" class="tsd-kind-icon">service</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="controlapp.html#structure" class="tsd-kind-icon">structure</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="controlapp.html#updatestructure" class="tsd-kind-icon">update<wbr>Structure</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="controlapp.html#activate" class="tsd-kind-icon">activate</a>
@@ -345,6 +412,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="controlapp.html#insert" class="tsd-kind-icon">insert</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="controlapp.html#makestructure" class="tsd-kind-icon">make<wbr>Structure</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="controlapp.html#onchange" class="tsd-kind-icon">on<wbr>Change</a>

@@ -62,13 +62,18 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
+				<p><a href="https://travis-ci.org/geoloep/krite"><img src="https://travis-ci.org/geoloep/krite.svg?branch=master" alt="Build Status"></a></p>
 				<h1 id="krite">krite</h1>
-				<p>Krite is a collection of tools for creating web-based map applications. It mostly consists of wrappers around <a href="https://github.com/Leaflet/Leaflet">Leaflet</a> and <a href="https://github.com/ractivejs/ractive">Ractive.js</a>. Leaflet is used for creating the map component and Ractive.js for rendering the dom of the various side-components. The goal of krite is to create a consistent and pluggable api for interfacing between different kinds of data sources.</p>
-				<p>As of now tests are still lacking.</p>
+				<p>Krite is a collection of tools for creating web-based map applications. It mostly consists of wrappers around <a href="https://github.com/Leaflet/Leaflet">Leaflet</a> and <a href="https://github.com/ractivejs/ractive">Ractive.js</a>. Leaflet is used for creating the map component and Ractive.js for rendering the dom of various &#39;apps&#39;.</p>
+				<p>The goal of krite is to create a consistent API for interfacing between multiple types of data sources. At the moment krite can consume OWS data sources such as WMS, WMTS and WFS. Support for Arcgis online / ESRI data sources is in the works.</p>
+				<h3 id="usage">Usage</h3>
+				<p>This project is still in it&#39;s early stages. For the adventurous there are two ways to make use of krite. First you&#39;ll need to clone this project and run <code>npm install</code> to install the required dependencies.</p>
+				<p>If you want to use krite as an standalone module you can create a bundle by running <code>npm run bundle</code>. Include &#39;/dist/krite.js&#39; in your page, all the functionality of krite will then be available in the global variable &#39;krite&#39;.</p>
+				<p>If you want to use krite in a node enviroment you&#39;ll have to compile the source files using <code>npm run lib</code>. Link the krite folder into your project and require the nessecary classes from &#39;/lib/&#39;. I recommend using typescript when extending krite functionality.</p>
 				<h3 id="documentation">Documentation</h3>
-				<p><a href="https://geoloep.github.io/krite/index.html">Documentation</a></p>
+				<p><a href="https://geoloep.github.io/krite/index.html">API Documentation</a></p>
 				<h3 id="examples-in-dutch-">Examples (in dutch)</h3>
-				<p><a href="http://kaart.geoloep.nl/">Geoloep geoviewer</a></p>
+				<p><a href="http://kaart.geoloep.nl/">Geoloep Geoviewer</a></p>
 				<p><a href="http://kadaster.geoloep.nl/">Gratis Kadastrale Kaart</a></p>
 			</div>
 		</div>
@@ -80,6 +85,9 @@
 					</li>
 					<li class=" tsd-kind-module tsd-is-not-exported">
 						<a href="modules/_esri_leaflet_.html">"esri-<wbr>leaflet"</a>
+					</li>
+					<li class=" tsd-kind-module tsd-is-not-exported">
+						<a href="modules/_leaflet_.html">"leaflet"</a>
 					</li>
 					<li class=" tsd-kind-module tsd-is-not-exported">
 						<a href="modules/_leaflet_rd_.html">"leaflet-<wbr>rd"</a>
@@ -99,7 +107,7 @@
 					<li class=" tsd-kind-module tsd-is-not-exported">
 						<a href="modules/_wellknown_.html">"wellknown"</a>
 					</li>
-					<li class=" tsd-kind-module tsd-is-not-exported">
+					<li class=" tsd-kind-module">
 						<a href="modules/l.html">L</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -119,22 +127,13 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class">
-						<a href="classes/aardbevinglayer.html" class="tsd-kind-icon">Aardbeving<wbr>Layer</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/aardbevingensource.html" class="tsd-kind-icon">Aardbevingen<wbr>Source</a>
+						<a href="classes/appswitchservice.html" class="tsd-kind-icon">App<wbr>Switch<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/basemapapp.html" class="tsd-kind-icon">Basemap<wbr>App</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/basemapservice.html" class="tsd-kind-icon">Basemap<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/buienradarlayer.html" class="tsd-kind-icon">Buienradar<wbr>Layer</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/buienradarsource.html" class="tsd-kind-icon">Buienradar<wbr>Source</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/containerservice.html" class="tsd-kind-icon">Container<wbr>Service</a>
@@ -156,6 +155,9 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/geoserverlayer.html" class="tsd-kind-icon">Geoserver<wbr>Layer</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/helloworldapp.html" class="tsd-kind-icon">Hello<wbr>World<wbr>App</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/inspectorapp.html" class="tsd-kind-icon">Inspector<wbr>App</a>
@@ -188,13 +190,13 @@
 						<a href="classes/pdoksearchapp.html" class="tsd-kind-icon">Pdok<wbr>Search<wbr>App</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/projectlatlngservice.html" class="tsd-kind-icon">Project<wbr>Lat<wbr>Lng<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/projectservice.html" class="tsd-kind-icon">Project<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/ractiveapp.html" class="tsd-kind-icon">Ractive<wbr>App</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/rijkswaterstaatsource.html" class="tsd-kind-icon">Rijkswaterstaat<wbr>Source</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/servicemanager.html" class="tsd-kind-icon">Service<wbr>Manager</a>
@@ -223,11 +225,8 @@
 					<li class=" tsd-kind-class">
 						<a href="classes/windowservice.html" class="tsd-kind-icon">Window<wbr>Service</a>
 					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/windrichtinglayer.html" class="tsd-kind-icon">Windrichting<wbr>Layer</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/windsnelheidlayer.html" class="tsd-kind-icon">Windsnelheid<wbr>Layer</a>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iappswitchservicecallback.html" class="tsd-kind-icon">IApp<wbr>Switch<wbr>Service<wbr>Callback</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/iapps.html" class="tsd-kind-icon">IApps</a>
@@ -248,6 +247,12 @@
 						<a href="interfaces/icontainer.html" class="tsd-kind-icon">IContainer</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/icontrolappstructure.html" class="tsd-kind-icon">IControl<wbr>App<wbr>Structure</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/icustommapoptions.html" class="tsd-kind-icon">ICustom<wbr>Map<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/idatasource.html" class="tsd-kind-icon">IData<wbr>Source</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -265,6 +270,9 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/ilayerclickhandler.html" class="tsd-kind-icon">ILayer<wbr>Click<wbr>Handler</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/imapoptions.html" class="tsd-kind-icon">IMap<wbr>Options</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/ionclickhandler.html" class="tsd-kind-icon">IOn<wbr>Click<wbr>Handler</a>
 					</li>
@@ -274,8 +282,26 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/istatechangecallback.html" class="tsd-kind-icon">IState<wbr>Change<wbr>Callback</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#nativekeyboardevent" class="tsd-kind-icon">Native<wbr>Keyboard<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#nativemouseevent" class="tsd-kind-icon">Native<wbr>Mouse<wbr>Event</a>
+					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#tattributes" class="tsd-kind-icon">TAttributes</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#apps" class="tsd-kind-icon">Apps</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#servicepool" class="tsd-kind-icon">Service<wbr>Pool</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#services" class="tsd-kind-icon">Services</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#sources" class="tsd-kind-icon">Sources</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#wmscapabilities" class="tsd-kind-icon">WMSCapabilities</a>

@@ -91,9 +91,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="wfslayer.html#zindex" class="tsd-kind-icon">ZIndex</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="wfslayer.html#_geojson" class="tsd-kind-icon">_geojson</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="wfslayer.html#_leaflet" class="tsd-kind-icon">_leaflet</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="wfslayer.html#onclickcallbacks" class="tsd-kind-icon">on<wbr>Click<wbr>Callbacks</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="wfslayer.html#project" class="tsd-kind-icon">project</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -101,11 +102,19 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="wfslayer.html#abstract" class="tsd-kind-icon">abstract</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="wfslayer.html#bounds" class="tsd-kind-icon">bounds</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="wfslayer.html#hasonclick" class="tsd-kind-icon">has<wbr>OnClick</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="wfslayer.html#leaflet" class="tsd-kind-icon">leaflet</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="wfslayer.html#legend" class="tsd-kind-icon">legend</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="wfslayer.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="wfslayer.html#preview" class="tsd-kind-icon">preview</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="wfslayer.html#title" class="tsd-kind-icon">title</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="wfslayer.html#clickhandler" class="tsd-kind-icon">click<wbr>Handler</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="wfslayer.html#onclick" class="tsd-kind-icon">on<wbr>Click</a></li>
 							</ul>
 						</section>
 					</div>
@@ -123,7 +132,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L12">src/sources/wfs/layer.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L17">src/sources/wfs/layer.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -142,33 +151,43 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="zindex" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> ZIndex</h3>
-					<div class="tsd-signature tsd-kind-icon">ZIndex<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;100</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L12">src/sources/wfs/layer.ts:12</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="_geojson" class="tsd-anchor"></a>
 					<h3>_geojson</h3>
-					<div class="tsd-signature tsd-kind-icon">_geojson<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeometryObject</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">_geojson<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeoJSON.GeometryObject</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L11">src/sources/wfs/layer.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L14">src/sources/wfs/layer.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="_leaflet" class="tsd-anchor"></a>
 					<h3>_leaflet</h3>
-					<div class="tsd-signature tsd-kind-icon">_leaflet<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">GeoJSON</span></div>
+					<div class="tsd-signature tsd-kind-icon">_leaflet<span class="tsd-signature-symbol">:</span> <a href="l.geojson.html" class="tsd-signature-type">GeoJSON</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L10">src/sources/wfs/layer.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L13">src/sources/wfs/layer.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="onclickcallbacks" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> on<wbr>Click<wbr>Callbacks</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Click<wbr>Callbacks<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ilayerclickhandler.html" class="tsd-signature-type">ILayerClickHandler</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L17">src/sources/wfs/layer.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="project" class="tsd-anchor"></a>
+					<h3>project</h3>
+					<div class="tsd-signature tsd-kind-icon">project<span class="tsd-signature-symbol">:</span> <a href="projectservice.html" class="tsd-signature-type">ProjectService</a><span class="tsd-signature-symbol"> =&nbsp;pool.getService&lt;ProjectService&gt;(&#x27;ProjectService&#x27;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L15">src/sources/wfs/layer.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -185,7 +204,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L26">src/sources/wfs/layer.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L34">src/sources/wfs/layer.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -202,7 +221,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L30">src/sources/wfs/layer.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L38">src/sources/wfs/layer.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span></h4>
@@ -210,19 +229,36 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="leaflet" class="tsd-anchor"></a>
-					<h3>leaflet</h3>
+					<a name="hasonclick" class="tsd-anchor"></a>
+					<h3>has<wbr>OnClick</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> leaflet<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Layer</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> hasOnClick<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L130">src/sources/wfs/layer.ts:130</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L22">src/sources/wfs/layer.ts:22</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Layer</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="leaflet" class="tsd-anchor"></a>
+					<h3>leaflet</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> leaflet<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="l.layer.html" class="tsd-signature-type">Layer</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L46">src/sources/wfs/layer.ts:46</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="l.layer.html" class="tsd-signature-type">Layer</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -236,7 +272,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L161">src/sources/wfs/layer.ts:161</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L84">src/sources/wfs/layer.ts:84</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -253,7 +289,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L22">src/sources/wfs/layer.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L30">src/sources/wfs/layer.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -270,7 +306,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L126">src/sources/wfs/layer.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L42">src/sources/wfs/layer.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -287,10 +323,60 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/c565a50/src/sources/wfs/layer.ts#L18">src/sources/wfs/layer.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L26">src/sources/wfs/layer.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="clickhandler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> click<wbr>Handler</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">click<wbr>Handler<span class="tsd-signature-symbol">(</span>feature<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L92">src/sources/wfs/layer.ts:92</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>feature: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="onclick" class="tsd-anchor"></a>
+					<h3>on<wbr>Click</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Click<span class="tsd-signature-symbol">(</span>fun<span class="tsd-signature-symbol">: </span><a href="../interfaces/ilayerclickhandler.html" class="tsd-signature-type">ILayerClickHandler</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/ilayer.html">ILayer</a>.<a href="../interfaces/ilayer.html#onclick">onClick</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/3d30036/src/sources/wfs/layer.ts#L88">src/sources/wfs/layer.ts:88</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>fun: <a href="../interfaces/ilayerclickhandler.html" class="tsd-signature-type">ILayerClickHandler</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -314,20 +400,26 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="wfslayer.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="wfslayer.html#zindex" class="tsd-kind-icon">ZIndex</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="wfslayer.html#_geojson" class="tsd-kind-icon">_geojson</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="wfslayer.html#_leaflet" class="tsd-kind-icon">_leaflet</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="wfslayer.html#onclickcallbacks" class="tsd-kind-icon">on<wbr>Click<wbr>Callbacks</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="wfslayer.html#project" class="tsd-kind-icon">project</a>
+							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="wfslayer.html#abstract" class="tsd-kind-icon">abstract</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="wfslayer.html#bounds" class="tsd-kind-icon">bounds</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="wfslayer.html#hasonclick" class="tsd-kind-icon">has<wbr>OnClick</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="wfslayer.html#leaflet" class="tsd-kind-icon">leaflet</a>
@@ -343,6 +435,12 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="wfslayer.html#title" class="tsd-kind-icon">title</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="wfslayer.html#clickhandler" class="tsd-kind-icon">click<wbr>Handler</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="wfslayer.html#onclick" class="tsd-kind-icon">on<wbr>Click</a>
 							</li>
 						</ul>
 					</li>
