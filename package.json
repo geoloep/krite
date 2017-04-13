@@ -28,6 +28,7 @@
         "leaflet": "^1.0.3",
         "proj4": "^2.4.1",
         "ractive": "^0.8.11",
+        "vue": "2.2.6",
         "numeral": "^2.0.4"
     },
     "devDependencies": {

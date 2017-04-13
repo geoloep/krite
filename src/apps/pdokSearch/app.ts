@@ -35,7 +35,7 @@ export class PdokSearchApp extends RactiveApp {
     constructor(element?: IContainer | string) {
         super();
         super.init(element);
-    };
+    }
 
     protected createRactive(element: string) {
         // let this = this;
@@ -95,13 +95,13 @@ export class PdokSearchApp extends RactiveApp {
             }
         });
 
-    };
+    }
 
     protected search = (searchString: string) => {
         this.locatieserver.search(searchString).then((response) => {
             this.searchSuccess(response);
         }).catch(this.searchFail);
-    };
+    }
 
     protected searchClick(context: any) {
         // this.map.zoomToPoint(context.Point.pos, this.diepteNaarZoom[(context.Depth as string)]);
@@ -110,16 +110,16 @@ export class PdokSearchApp extends RactiveApp {
 
             this.map.zoomToPoint(L.point(geojson.coordinates[0], geojson.coordinates[1]) , this.diepteNaarZoom[context.type]);
         });
-    };
+    }
 
     protected searchSuccess = (data: any) => {
         this.ractive.set('results', data);
         this.selectReset();
-    };
+    }
 
     protected searchFail = () => {
         console.error('Fout bij zoeken');
-    };
+    }
 
     protected selectDown = () => {
         let nextNum = this.ractive.get('currentNum') + 1;
@@ -142,7 +142,7 @@ export class PdokSearchApp extends RactiveApp {
                 }
             }
         }
-    };
+    }
 
     protected selectReset() {
         this.ractive.set('currentDepth', 0);

@@ -1,7 +1,7 @@
 export class PdokLocatieserverService {
     search(searchString: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            fetch(`http://geodata.nationaalgeoregister.nl/locatieserver/suggest?q=${searchString}`).then((response) => {
+            fetch(`https://geodata.nationaalgeoregister.nl/locatieserver/suggest?q=${searchString}`).then((response) => {
                 if (response.ok) {
                     response.json().then((json) => {
                         resolve(this.parseResponse(json));
@@ -19,7 +19,7 @@ export class PdokLocatieserverService {
 
     inspect(id: string): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            fetch(`http://geodata.nationaalgeoregister.nl/locatieserver/lookup?id=${id}`).then((response) => {
+            fetch(`https://geodata.nationaalgeoregister.nl/locatieserver/lookup?id=${id}`).then((response) => {
                 if (response.ok) {
                     response.json().then(resolve).catch(reject);
                 } else {
@@ -32,7 +32,7 @@ export class PdokLocatieserverService {
     }
 
     parseResponse(response: any) {
-        let parsed: any = {}
+        let parsed: any = {};
 
         for (let doc of response.response.docs) {
             if (!(doc.type in parsed)) {
