@@ -1,11 +1,10 @@
-import { IContainer } from '../types';
-import { RactiveApp } from '../apps/ractiveApp';
+import { IContainer, IApp } from '../types';
 
 import pool from '../servicePool';
 import { WindowService } from './window';
 
 export class ContainerService implements IContainer {
-    private app: RactiveApp;
+    private app: IApp;
 
     constructor(private wide: string | IContainer, private narrow: string | IContainer) {
         pool.promiseService<WindowService>('WindowService').then((service) => {
@@ -13,7 +12,7 @@ export class ContainerService implements IContainer {
         });
     }
 
-    register(app: RactiveApp) {
+    register(app: IApp) {
         this.app = app;
     }
 
@@ -23,7 +22,7 @@ export class ContainerService implements IContainer {
 
     private onStateChange = (state: string) => {
         if (this.app) {
-            this.app.detatch();
+            // this.app.detatch();
 
             if (state === 'wide') {
                 this.app.insert(this.wide);

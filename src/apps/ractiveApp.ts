@@ -1,9 +1,9 @@
-import { IContainer } from '../types';
+import { IApp, IContainer } from '../types';
 
 /**
  * All apps should extend from this class
  */
-export class RactiveApp {
+export class RactiveApp implements IApp {
     name = 'RactiveApp';
 
     protected ractive: Ractive.Ractive;

@@ -11,7 +11,8 @@
         "moduleResolution": "node",
         "strictNullChecks": true,
         "allowJs": false,
-        "outDir": "lib"
+        "outDir": "lib",
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "src/**/*",

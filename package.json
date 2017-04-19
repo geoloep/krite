@@ -52,6 +52,7 @@
         "numeral": "^2.0.4",
 
         "ractive": "~0.8.11",
+        "vue": "2.2.6",
 
         "browserify": "*",
         "ractivate": "~0.2.0",
