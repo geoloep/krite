@@ -22,7 +22,10 @@
         "url": "^0.11.0",
 
         "esri-leaflet": "~2.0.7",
-        "leaflet-draw": "~0.4.9"
+        "leaflet-draw": "~0.4.9",
+
+        "vue-class-component": "~5.0.1",
+        "vue-property-decorator": "~4.0.0"
     },
     "peerDependencies": {
         "leaflet": "^1.0.3",
@@ -58,6 +61,8 @@
         "ractivate": "~0.2.0",
         "tsify": "*",
 
+        "fs-extra": "~2.1.2",
+
         "jasmine-core": "^2.5.2",
         "karma": "^1.5.0",
         "karma-chrome-launcher": "^2.0.0",
@@ -68,6 +73,7 @@
     "scripts": {
         "lib": "tsc -d && npm run html",
         "bundle": "browserify src/main.ts -p tsify -t ractivate -o dist/krite.js -s krite",
+        "collect": "node collect-vue.js",
         "html": "node compile-html.js",
         "test": "./node_modules/karma/bin/karma start karma.conf.js",
         "docs": "typedoc --mode file --target ES6 --includeDeclarations --excludeExternals --out ./docs/ ./src/"

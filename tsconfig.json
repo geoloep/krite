@@ -12,7 +12,12 @@
         "strictNullChecks": true,
         "allowJs": false,
         "outDir": "lib",
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "noImplicitThis": true,
+        "removeComments": true,
+        "suppressImplicitAnyIndexErrors": true
     },
     "include": [
         "src/**/*",
