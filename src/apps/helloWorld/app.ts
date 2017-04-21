@@ -1,10 +1,12 @@
-import * as Ractive from 'ractive';
-import { RactiveApp } from '../ractiveApp';
-
 import { IContainer } from '../../types';
+import { VueApp } from '../vueApp';
 
-export class HelloWorldApp extends RactiveApp {
+import Bootstrap  from './app.vue';
+
+export class HelloWorldApp extends VueApp {
     name = 'HelloWorldApp';
+
+    protected bootstrap = Bootstrap;
 
     constructor(readonly element?: IContainer | string, readonly who: string = 'World', name?: string) {
         super();
@@ -13,17 +15,10 @@ export class HelloWorldApp extends RactiveApp {
             this.name = name;
         }
 
-        super.init(element);
-    };
+        this.props = {
+            who,
+        };
 
-    protected createRactive(element: string) {
-        this.ractive = new Ractive({
-            modifyArrays: true,
-            el: element,
-            template: require('./template.html'),
-            data: {
-                who: this.who,
-            },
-        });
+        super.insert(element);
     };
 }

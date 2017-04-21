@@ -7,7 +7,17 @@ import { IApp, IContainer } from '../types';
 export class VueApp implements IApp {
     name = 'VueApp';
 
+    /**
+     * The component to be loaded in the root of this Vue App
+     */
     protected bootstrap: any; // Should preferably be Vue component but importing .vue gives typeof string for now
+
+    /**
+     * Props to be passed to the bootstrap component
+     */
+    protected props: any = {
+
+    };
 
     protected vue: Vue;
     protected container: IContainer;
@@ -27,17 +37,19 @@ export class VueApp implements IApp {
     };
 
     detatch() {
-        console.error('Deprecated!');
+        let parent = this.vue.$el.parentElement;
 
-        if (this.vue) {
-            this.vue.$destroy();
+        if (parent) {
+            parent.removeChild(this.vue.$el);
         }
     };
 
     protected createVue(element: string) {
         if (this.bootstrap) {
             this.vue = new Vue({
-                render: (h) => h(this.bootstrap),
+                render: (h) => h(this.bootstrap, {
+                    props: this.props,
+                }),
             }).$mount();
 
             this.mount(element);
