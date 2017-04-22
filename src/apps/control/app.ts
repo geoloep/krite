@@ -3,11 +3,8 @@ import { VueApp } from '../vueApp';
 
 import { AppSwitchService } from '../../services/appSwitch';
 
-import Bootstrap  from '../../comps/control/comp.vue';
-
-export interface IControlAppStructure {
-    [index: string]: string;
-}
+import Bootstrap from '../../comps/control/comp.vue';
+import { IControlAppStructure } from '../../comps/control/script';
 
 export class ControlApp extends VueApp {
     name = 'ControlApp';

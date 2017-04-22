@@ -1,10 +1,10 @@
 import { IContainer } from '../../types';
 import { VueApp } from '../vueApp';
 
-import Bootstrap  from '../../comps/layerBrowser/comp.vue';
+import Bootstrap  from '../../comps/basemap/comp.vue';
 
-export class LayerBrowserApp extends VueApp {
-    name = 'LayerBrowserApp';
+export class BasemapApp extends VueApp {
+    name = 'BasemapApp';
 
     protected bootstrap = Bootstrap;
 
@@ -12,6 +12,4 @@ export class LayerBrowserApp extends VueApp {
         super();
         this.insert(element);
     }
-
-
 }

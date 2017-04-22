@@ -4,7 +4,9 @@ import { Component, Prop } from 'vue-property-decorator';
 // import pool from '../../servicePool';
 import { AppSwitchService } from '../../services/appSwitch';
 
-import { IControlAppStructure } from './app';
+export interface IControlAppStructure {
+    [index: string]: string;
+}
 
 @Component
 export default class App extends Vue {

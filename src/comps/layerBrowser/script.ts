@@ -6,14 +6,14 @@ import { ILayer } from '../../types';
 import pool from '../../servicePool';
 
 import { MapService } from '../../services/map';
-import { SidebarService } from '../../services/sidebar';
+import { AppSwitchService } from '../../services/appSwitch';
 import { SourceService } from '../../services/source';
 
 @Component
 export default class App extends Vue {
     service = pool.getService<SourceService>('SourceService');
     map = pool.getService<MapService>('MapService');
-    sidebar = pool.tryService<SidebarService>('SidebarService');
+    sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
 
     status = {
         sourceLoading: false,
@@ -85,7 +85,9 @@ export default class App extends Vue {
 
     addLayer() {
         this.map.addLayer((this.selected.layer as ILayer));
-    }
 
-    
+        if (this.sidebar) {
+            this.sidebar.setApp('LegendApp');
+        }
+    }
 };

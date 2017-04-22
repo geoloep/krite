@@ -1,10 +1,10 @@
 import { IContainer } from '../../types';
 import { VueApp } from '../vueApp';
 
-import Bootstrap  from '../../comps/layerBrowser/comp.vue';
+import Bootstrap  from '../../comps/legend/comp.vue';
 
-export class LayerBrowserApp extends VueApp {
-    name = 'LayerBrowserApp';
+export class LegendApp extends VueApp {
+    name = 'LegendApp';
 
     protected bootstrap = Bootstrap;
 
