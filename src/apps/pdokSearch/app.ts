@@ -1,7 +1,7 @@
 import { IContainer } from '../../types';
 import { VueApp } from '../vueApp';
 
-import Bootstrap  from './app.vue';
+import Bootstrap  from '../../comps/pdokSearch/comp.vue';
 
 export class PdokSearchApp extends VueApp {
     name = 'PdokSearchApp';

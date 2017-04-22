@@ -3,25 +3,19 @@ import { VueApp } from '../vueApp';
 
 import { AppSwitchService } from '../../services/appSwitch';
 
-import Bootstrap  from '../../comps/control/comp.vue';
+import Bootstrap  from '../../comps/layerBrowser/comp.vue';
 
 export interface IControlAppStructure {
     [index: string]: string;
 }
 
-export class ControlApp extends VueApp {
-    name = 'ControlApp';
+export class LayerBrowserApp extends VueApp {
+    name = 'LayerBrowserApp';
 
     protected bootstrap = Bootstrap;
 
-    constructor(element: IContainer | string, apps: AppSwitchService, structure?: IControlAppStructure) {
+    constructor(element?: IContainer | string) {
         super();
-
-        this.props = {
-            apps,
-            structure,
-        };
-
         this.insert(element);
     }
 
