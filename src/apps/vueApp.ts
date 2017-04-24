@@ -16,43 +16,48 @@ export class VueApp implements IApp {
      * Props to be passed to the bootstrap component
      */
     protected props: any = {
-
     };
 
     protected vue: Vue;
     protected container: IContainer;
 
     insert(element: IContainer | string | undefined) {
+        if (!this.vue) {
+            this.createVue();
+        }
+
         if (element) {
             if (typeof(element) === 'object' && element.register) {
                 element.register(this);
             } else if (typeof(element) === 'string') {
-                if (this.vue) {
-                    this.mount(element);
-                } else {
-                    this.createVue(element);
-                }
+                this.mount(element);
             }
         }
     };
 
     detatch() {
-        let parent = this.vue.$el.parentElement;
+        if (this.vue) {
+            let parent = this.vue.$el.parentElement;
+            this.vue.$props.inserted = false;
 
-        if (parent) {
-            parent.removeChild(this.vue.$el);
+            if (parent) {
+                parent.removeChild(this.vue.$el);
+            }
         }
     };
 
-    protected createVue(element: string) {
+    protected createVue() {
         if (this.bootstrap) {
             this.vue = new Vue({
+                props: ['isapp', 'inserted'],
                 render: (h) => h(this.bootstrap, {
                     props: this.props,
                 }),
             }).$mount();
 
-            this.mount(element);
+            this.vue.$props.inserted = false;
+            this.vue.$props.isapp = true;
+
         } else {
             console.error(`No bootstrap component specified for VueApp ${this.name}`);
         }
@@ -62,6 +67,8 @@ export class VueApp implements IApp {
         let mountPoint = document.getElementById(element);
         if (mountPoint) {
             mountPoint.appendChild(this.vue.$el);
+
+            this.vue.$props.inserted = true;
         } else {
             console.error(`Tried to mount ${this.name} under unexisting element ${element}`);
         }
