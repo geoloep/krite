@@ -61,7 +61,7 @@
         "ts-loader": "~2.0.3"
     },
     "scripts": {
-        "lib": "tsc -d",
+        "lib": "tsc -d && npm run collect",
         "bundle": "webpack --progress",
         "collect": "node collect-vue.js",
         "test": "./node_modules/karma/bin/karma start karma.conf.js",
