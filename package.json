@@ -23,14 +23,13 @@
 
         "esri-leaflet": "~2.0.7",
         "leaflet-draw": "~0.4.9",
-
-        "vue-class-component": "~5.0.1",
-        "vue-property-decorator": "~4.0.0"
+        
+        "vue-property-decorator": "~5.0.1"
     },
     "peerDependencies": {
         "leaflet": "^1.0.3",
         "proj4": "~2.3.17",
-        "vue": "2.2.6",
+        "vue": "~2.3.0",
         "numeral": "^2.0.4"
     },
     "devDependencies": {
