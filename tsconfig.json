@@ -11,7 +11,13 @@
         "moduleResolution": "node",
         "strictNullChecks": true,
         "allowJs": false,
-        "outDir": "lib"
+        "outDir": "lib",
+        "allowSyntheticDefaultImports": true,
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "noImplicitThis": true,
+        "removeComments": true,
+        "suppressImplicitAnyIndexErrors": true
     },
     "include": [
         "src/**/*",

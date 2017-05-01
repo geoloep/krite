@@ -358,6 +358,10 @@ declare namespace L {
             disable(): void;
         }
 
+        export interface MarkerConstructor {
+            new (map: L.Map, drawoptions: L.DrawOptions.MarkerOptions): L.Draw.Feature;
+        }
+
         export interface RectangleConstructor {
             new (map: L.Map, drawoptions: L.DrawOptions.RectangleOptions): L.Draw.Feature;
         }
@@ -369,9 +373,10 @@ declare namespace L {
         export interface PolygonConstructor {
             new (map: L.Map, drawoptions: L.DrawOptions.PolygonOptions): L.Draw.Feature;
         }
-
+		
+		export var Marker: MarkerConstructor;
         export var Rectangle: RectangleConstructor;
-        export var Polyline: PolylineConstructor
-        export var Polygon: PolygonConstructor
+        export var Polyline: PolylineConstructor;
+        export var Polygon: PolygonConstructor;
     }
 }

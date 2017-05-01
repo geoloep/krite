@@ -1,10 +1,10 @@
 import { IContainer } from '../../types';
 import { VueApp } from '../vueApp';
 
-import Bootstrap  from '../../comps/pdokSearch/comp.vue';
+import Bootstrap  from '../../comps/layerBrowser/comp.vue';
 
-export class PdokSearchApp extends VueApp {
-    name = 'PdokSearchApp';
+export class LayerBrowserApp extends VueApp {
+    name = 'LayerBrowserApp';
 
     protected bootstrap = Bootstrap;
 
@@ -12,4 +12,6 @@ export class PdokSearchApp extends VueApp {
         super();
         this.insert(element);
     }
+
+
 }

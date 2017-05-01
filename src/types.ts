@@ -1,4 +1,9 @@
-import { RactiveApp } from './apps/ractiveApp';
+export interface IApp {
+    name: string;
+
+    insert(element: IContainer | string | undefined): void;
+    detatch(): void;
+}
 
 /**
  * All maps layers should implement this interface.
@@ -69,7 +74,7 @@ export interface IDataSource {
 }
 
 export interface IContainer {
-    register(app: RactiveApp): void;
+    register(app: IApp): void;
     deregister(): void;
 }
 

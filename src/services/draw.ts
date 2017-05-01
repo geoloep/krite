@@ -1,7 +1,7 @@
 import 'leaflet-draw';
 import * as L from 'leaflet';
 
-import pool  from '../servicePool';
+import pool from '../servicePool';
 
 import { MapService } from './map';
 import { ProjectService } from './project';
@@ -14,9 +14,20 @@ export class DrawService {
 
     constructor() {
         (async () => {
-            this.service = await pool.promiseService<MapService>('MapService');
             this.project = await pool.promiseService<ProjectService>('ProjectService');
         })();
+        (async () => {
+            this.service = await pool.promiseService<MapService>('MapService');
+        })();
+
+        // Hack for preveting adding points during drag
+        // https://github.com/Leaflet/Leaflet.draw/issues/695
+        let originalOnTouch = L.Draw.Polyline.prototype._onTouch;
+        L.Draw.Polyline.prototype._onTouch = function (this: any, e: any) {
+            if (e.originalEvent.pointerType !== 'mouse') {
+                return originalOnTouch.call(this, e);
+            }
+        };
     }
 
     disable() {
@@ -24,6 +35,14 @@ export class DrawService {
             this.drawFeature.disable();
             this.lock = false;
         }
+    }
+
+    bindTo(map: MapService) {
+        this.service = map;
+    }
+
+    marker() {
+        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new L.Draw.Marker(this.service.map, {}));
     }
 
     rectangle() {

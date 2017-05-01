@@ -21,14 +21,16 @@
 
         "url": "^0.11.0",
 
-        "esri-leaflet": "~2.0.7",
-        "leaflet-draw": "~0.4.9"
+        "esri-leaflet": "~2.0.8",
+        "leaflet-draw": "~0.4.9",
+        
+        "vue-property-decorator": "~5.0.1"
     },
     "peerDependencies": {
         "leaflet": "^1.0.3",
-        "proj4": "^2.4.1",
-        "ractive": "^0.8.11",
-        "numeral": "^2.0.4"
+        "proj4": "~2.3.17",
+        "vue": "~2.3.0",
+        "numeral": "^2.0.6"
     },
     "devDependencies": {
         "@types/ractive": "*",
@@ -39,34 +41,29 @@
         "typescript": "~2.2.1",
 
         "leaflet": "~1.0.3",
-        "proj4": "~2.4.1",
-        "reproject": "~1.1.1",
+        "proj4": "~2.3.17",
+        "vue": "~2.3.0",
+        "numeral": "^2.0.6",
 
-        "xml2js": "~0.4.17",
-        "openls-geocode-parser": "~1.0.1",
-
-        "wms-capabilities": "^0.3.4",
-        "wellknown": "^0.5.0",
-
-        "numeral": "^2.0.4",
-
-        "ractive": "~0.8.11",
-
-        "browserify": "*",
-        "ractivate": "~0.2.0",
-        "tsify": "*",
+        "fs-extra": "~2.1.2",
 
         "jasmine-core": "^2.5.2",
         "karma": "^1.5.0",
         "karma-chrome-launcher": "^2.0.0",
         "karma-firefox-launcher": "^1.0.0",
         "karma-phantomjs-launcher": "^1.0.4",
-        "karma-jasmine": "^1.1.0"
+        "karma-jasmine": "^1.1.0",
+
+        "webpack": "^2.2.0",
+        "css-loader": "^0.25.0",
+        "vue-loader": "^12.0.2",
+        "vue-template-compiler": "^2.3.0",
+        "ts-loader": "~2.0.3"
     },
     "scripts": {
-        "lib": "tsc -d && npm run html",
-        "bundle": "browserify src/main.ts -p tsify -t ractivate -o dist/krite.js -s krite",
-        "html": "node compile-html.js",
+        "lib": "tsc -d && npm run collect",
+        "bundle": "webpack --progress",
+        "collect": "node collect-vue.js",
         "test": "./node_modules/karma/bin/karma start karma.conf.js",
         "docs": "typedoc --mode file --target ES6 --includeDeclarations --excludeExternals --out ./docs/ ./src/"
     }
