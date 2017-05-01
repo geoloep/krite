@@ -1,7 +1,7 @@
 import { IApp, IContainer } from '../types';
 
 /**
- * All apps should extend from this class
+ * All ractive based apps should extend from this class
  */
 export class RactiveApp implements IApp {
     name = 'RactiveApp';

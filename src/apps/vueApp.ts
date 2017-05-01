@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { IApp, IContainer } from '../types';
 
 /**
- * All vue apps should extend from this class
+ * All vue based apps should extend from this class
  */
 export class VueApp implements IApp {
     name = 'VueApp';
