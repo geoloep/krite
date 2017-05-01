@@ -16,10 +16,10 @@ export default class App extends Vue {
         name: '',
     };
 
-    @Prop
+    @Prop()
     apps: AppSwitchService;
 
-    @Prop
+    @Prop()
     structure: IControlAppStructure;
 
     mounted() {

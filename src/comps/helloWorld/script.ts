@@ -6,6 +6,6 @@ import { AppSwitchService } from '../../services/appSwitch';
 
 @Component
 export default class App extends Vue {
-    @Prop
+    @Prop()
     who: String;
 };
