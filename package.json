@@ -38,7 +38,7 @@
         "@types/numeral": "*",
         "@types/geojson": "*",
 
-        "typescript": "~2.2.1",
+        "typescript": "~2.3.2",
 
         "leaflet": "~1.0.3",
         "proj4": "~2.3.17",
