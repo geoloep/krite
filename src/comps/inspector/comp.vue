@@ -1,5 +1,6 @@
 <template>
     <div tabindex="0" class="InspectorComponent" @keyup.right="shiftIndex(1)" @keyup.left="shiftIndex(-1)">
+
         <h3>Inspecteren</h3>
         <form>
             <div class="form-group">
