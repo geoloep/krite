@@ -57,6 +57,10 @@ export default class InspectorComponent extends Vue {
         map.onLayerClick(this.onLayerClick);
 
         map.map.on('keypress', this.escape);
+
+        service.onChange((layer: ILayer) => {
+            this.layer = layer.name;
+        });
     }
 
     /**

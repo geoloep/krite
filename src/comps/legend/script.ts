@@ -76,8 +76,6 @@ export default class App extends Vue {
                 hidden: false,
                 action: (e: IButtonState) => {
                     this.legendState[layerName] = !e.disabled;
-                    // this.legendState[layerName] = !(e.get('disabled'));
-                    // this.ractive.update('legendState'); // @todo: kan dat niet beter?
                 },
             },
             {
