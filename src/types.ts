@@ -57,6 +57,12 @@ export interface ILayer {
     intersectsPoint?(point: L.Point): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
 
     /**
+     * Perform a non spatial query
+     * @param filters Keys as fieldnames and strings as contents to match
+     */
+    filter?(filters: any): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
+
+    /**
      * Get the type of an property of this layer
      */
     getType?(attr: string): TAttributes | IAttributeTypeFunc;

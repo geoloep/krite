@@ -82,6 +82,45 @@ export class GeoserverLayer implements ILayer {
         });
     }
 
+    filter(filters: any) {
+        return new Promise<any>((resolve, reject) => {
+            let cql = '';
+
+            for (let field in filters) {
+                if (filters[field]) {
+                    if (cql.length > 0) {
+                        cql += ' AND ';
+                    }
+
+                    cql += `${field} = `;
+
+                    if (typeof(filters[field]) === 'number') {
+                        cql += filters[field];
+                    } else {
+                        cql += `'${filters[field]}'`;
+                    }
+                }
+            }
+
+            fetch(this.source.url + url.format({
+                query: {
+                    cql_filter: cql,
+                    outputformat: 'application/json',
+                    request: 'GetFeature',
+                    service: 'WFS',
+                    typenames: this.typename,
+                    version: '2.0.0',
+                },
+            })).then((response) => {
+                if (response.ok) {
+                    response.json().then(resolve);
+                } else {
+                    reject();
+                }
+            }).catch(reject);
+        });
+    }
+
     intersectsPoint(point: L.Point) {
         return this.getInfoAtPoint(point);
     }

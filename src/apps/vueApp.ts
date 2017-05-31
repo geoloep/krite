@@ -21,6 +21,12 @@ export class VueApp implements IApp {
     protected vue: Vue;
     protected container: IContainer;
 
+    // constructor(el?: string) {
+    //     if (el) {
+    //         this.insert(el);
+    //     }
+    // }
+
     insert(element: IContainer | string | undefined) {
         if (!this.vue) {
             this.createVue();
