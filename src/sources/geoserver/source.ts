@@ -17,9 +17,9 @@ export class GeoServerSource implements IDataSource {
     capabilities: any;
     wfscapabilities: any;
 
-    private wfsFeature: { [index: string]: any} = {};
-    private wfsFeatureTypes: { [index: string]: any} = {};
-    private wfsFeatureToType: { [index: string]: any} = {};
+    private wfsFeature: { [index: string]: any } = {};
+    private wfsFeatureTypes: { [index: string]: any } = {};
+    private wfsFeatureToType: { [index: string]: any } = {};
 
     private layersLoaded: boolean = false;
     private layerNames: string[] = [];
@@ -125,35 +125,35 @@ export class GeoServerSource implements IDataSource {
                                             request: 'DescribeFeatureType',
                                             service: 'WFS',
                                         },
-                                })).then((desResponse) => {
-                                    if (desResponse.ok) {
-                                        desResponse.text().then((desData: any) => {
+                                    })).then((desResponse) => {
+                                        if (desResponse.ok) {
+                                            desResponse.text().then((desData: any) => {
 
-                                            parseString(desData, {
-                                                async: true,
-                                                explicitArray: true,
-                                            }, (desErr, desResult) => {
+                                                parseString(desData, {
+                                                    async: true,
+                                                    explicitArray: true,
+                                                }, (desErr, desResult) => {
 
-                                                for (let element of desResult['xsd:schema']['xsd:element']) {
-                                                    // Een lijst aanmaken van welke FeatureType bij welke laag hoort
-                                                    this.wfsFeatureToType[element.$.name] = element.$.type.split(':').pop();
-                                                }
+                                                    for (let element of desResult['xsd:schema']['xsd:element']) {
+                                                        // Een lijst aanmaken van welke FeatureType bij welke laag hoort
+                                                        this.wfsFeatureToType[element.$.name] = element.$.type.split(':').pop();
+                                                    }
 
-                                                for (let complexType of desResult['xsd:schema']['xsd:complexType']) {
-                                                    let name = complexType.$.name;
+                                                    for (let complexType of desResult['xsd:schema']['xsd:complexType']) {
+                                                        let name = complexType.$.name;
 
-                                                    // Een lijst aanmaken van de velden die bij een FeatureType horen
-                                                    this.wfsFeatureTypes[name] = complexType['xsd:complexContent'][0]['xsd:extension'][0]['xsd:sequence'][0]['xsd:element'];
-                                                }
+                                                        // Een lijst aanmaken van de velden die bij een FeatureType horen
+                                                        this.wfsFeatureTypes[name] = complexType['xsd:complexContent'][0]['xsd:extension'][0]['xsd:sequence'][0]['xsd:element'];
+                                                    }
 
-                                                res();
-                                            });
+                                                    res();
+                                                });
 
-                                        }).catch(reject);
-                                    } else {
-                                        reject();
-                                    }
-                                }).catch(reject);
+                                            }).catch(reject);
+                                        } else {
+                                            reject();
+                                        }
+                                    }).catch(reject);
                             } else {
                                 res();
                             }
@@ -163,6 +163,14 @@ export class GeoServerSource implements IDataSource {
                         for (let layer of this.capabilities.Capability.Layer.Layer) {
                             this.layerNames.push(layer.Name);
                             this.layers[layer.Name] = new GeoserverLayer(layer, this.wfsFeature[layer.Title], this.wfsFeatureTypes[this.wfsFeatureToType[layer.Name]], this);
+
+                            if (layer.Layer && layer.Layer.length) {
+                                for (let l of layer.Layer) {
+                                    this.layerNames.push(l.Name);
+                                    this.layers[l.Name] = new GeoserverLayer(l, this.wfsFeature[l.Title], this.wfsFeatureTypes[this.wfsFeatureToType[l.Name]], this);
+
+                                }
+                            }
                         }
 
                         this.layersLoaded = true;
