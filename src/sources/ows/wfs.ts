@@ -10,6 +10,9 @@ import { ProjectService } from '../../services/project';
 
 let project = pool.getService<ProjectService>('ProjectService');
 
+/**
+ * This layer implements a Web Feature Service interface
+ */
 export class WFSLayer implements ILayer {
     preview = '-';
     legend = '<p>-</p>';
@@ -33,8 +36,6 @@ export class WFSLayer implements ILayer {
 
     constructor(readonly url: string, readonly document: Node) {
         this.xml = new XMLService(document);
-
-        this.getGeomField();
     }
 
     get title(): string {
@@ -196,6 +197,9 @@ export class WFSLayer implements ILayer {
         this._leaflet.addData(project.to(json));
     }
 
+    /**
+     * This function determines the fieldname of the geometry of the layer, it is needed for making spatial querys
+     */
     private async getGeomField() {
         if (!this.geomField) {
             if (!this.types) {
@@ -218,6 +222,9 @@ export class WFSLayer implements ILayer {
         return this.geomField;
     }
 
+    /**
+     * This function performs a WFS Describefeature request for the relevant layer and saves the resulting document
+     */
     private async describeFeatureType() {
         if (!this.types) {
             let response = await fetch(this.url +
