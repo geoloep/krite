@@ -77,7 +77,14 @@ export class WMSLayer implements ILayer {
 
     get legend() {
         if (!this._legend) {
-            let url = this.xml.string(this.document, './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@xlink:href');
+            let url: string;
+
+            if (this.xml.IE) {
+                url = this.xml.string(this.document, './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@*[local-name() = \'href\']');
+            } else {
+                url = this.xml.string(this.document, './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@xlink:href');
+            }
+
             if (url !== '') {
                 this._legend = `<img class="img-responsive" src="${url}">`;
             } else {
@@ -121,6 +128,7 @@ export class WMSLayer implements ILayer {
     private getBoundingBox() {
         let crs = 'EPSG:28992'; // @todo: need to read this from the map
 
+        // Xpath expressions in this function do not work in WGX / IE11
         let BoundingBox = this.xml.node(this.document, `./wms:BoundingBox[@CRS='${crs}']`);
 
         if (BoundingBox.snapshotLength === 1) {

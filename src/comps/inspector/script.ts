@@ -76,7 +76,6 @@ export default class InspectorComponent extends Vue {
 
     @Watch('partentInserted')
     onParantInsertedChange(n: boolean) {
-        console.warn(n);
         if (!n) {
             draw.disable();
             map.endInspect();

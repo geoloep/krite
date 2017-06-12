@@ -68,22 +68,33 @@ export class OWSSource implements IDataSource {
 
     private async parseWMSCapabilities(text: string) {
         let wmsCapabilities = new XMLService(text);
-        let layers = wmsCapabilities.node(wmsCapabilities.document, '//wms:Layer/wms:Layer');
+
+        let layers = wmsCapabilities.node(wmsCapabilities.document, './wms:WMS_Capabilities/wms:Capability/wms:Layer/wms:Layer');
+
 
         for (let i = 0; i < layers.snapshotLength; i++) {
-            let layer = layers.snapshotItem(i);
+            this.AddWMSLayer(wmsCapabilities, layers.snapshotItem(i));
+        }
+    }
 
-            let titel = wmsCapabilities.string(layer, './wms:Title');
+    private AddWMSLayer(wmsCapabilities: XMLService, layer: Node) {
+        let titel = wmsCapabilities.string(layer, './wms:Title');
 
-            this.wmsLayers[titel] = new WMSLayer(this.url, layer, this.wfsLayers[titel]);
+        this.wmsLayers[titel] = new WMSLayer(this.url, layer, this.wfsLayers[titel]);
 
-            this.layerNames.push(titel);
+        this.layerNames.push(titel);
+
+        let nestedLayers = wmsCapabilities.node(layer, './wms:Layer');
+
+        for (let i = 0; i < nestedLayers.snapshotLength; i++) {
+            this.AddWMSLayer(wmsCapabilities, nestedLayers.snapshotItem(i));
         }
     }
 
     private async parseWFSCapabilities(text: string) {
         let wfsCapabilities = new XMLService(text);
-        let layers = wfsCapabilities.node(wfsCapabilities.document, '//wfs:FeatureTypeList/wfs:FeatureType');
+
+        let layers = wfsCapabilities.node(wfsCapabilities.document, './wfs:WFS_Capabilities/wfs:FeatureTypeList/wfs:FeatureType');
 
         for (let i = 0; i < layers.snapshotLength; i++) {
             let layer = layers.snapshotItem(i);

@@ -1,5 +1,7 @@
 declare namespace wgx {
-    export function install(window: Document): void;
+    export function install(window: {
+        document: Document
+    }): void;
 }
 
 declare module 'wicked-good-xpath' {
