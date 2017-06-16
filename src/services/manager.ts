@@ -1,6 +1,6 @@
 export class ServiceManager {
-    private dependencies: {[index: string]: any} = {};
-    private promised: {[index: string]: any[]} = {};
+    private dependencies: { [index: string]: any } = {};
+    private promised: { [index: string]: any[] } = {};
 
     addService<T>(name: string, service: T) {
         this.dependencies[name] = service;
