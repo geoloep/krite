@@ -6,13 +6,25 @@ import { XMLService } from '../../services/xml';
 import { WMSLayer } from './wms';
 import { WFSLayer } from './wfs';
 
+export interface IOWSSourceoptions {
+    wfs?: boolean;
+    wms?: boolean;
+}
+
 export class OWSSource implements IDataSource {
     private layersLoaded: boolean = false;
     private layerNames: string[] = [];
     private wmsLayers: { [index: string]: WMSLayer } = {};
     private wfsLayers: { [index: string]: WFSLayer } = {};
+    private options = {
+        wfs: true,
+        wms: true,
+    };
 
-    constructor(readonly url: string) {
+    constructor(readonly url: string, options?: IOWSSourceoptions) {
+        if (options) {
+            Object.assign(this.options, options);
+        }
     }
 
     async getLayerNames() {
@@ -28,7 +40,7 @@ export class OWSSource implements IDataSource {
             await this.getCapabilities();
         }
 
-        return this.wmsLayers[name];
+        return this.wmsLayers[name] || this.wfsLayers[name];
     }
 
     private async getCapabilities() {
@@ -55,13 +67,18 @@ export class OWSSource implements IDataSource {
         let responses: Response[] = await Promise.all([getWMSCapabilities, getWFSCapabilities]);
 
         for (let response of responses) {
-            if (!response.ok) {
+            if (response && !response.ok) {
                 throw `Response to ${response.url} not ok`;
             }
         }
 
-        await this.parseWFSCapabilities(await responses[1].text());
-        await this.parseWMSCapabilities(await responses[0].text());
+        if (this.options.wfs) {
+            await this.parseWFSCapabilities(await responses[1].text());
+        }
+
+        if (this.options.wms) {
+            await this.parseWMSCapabilities(await responses[0].text());
+        }
 
         this.layersLoaded = true;
     }
@@ -82,7 +99,9 @@ export class OWSSource implements IDataSource {
 
         this.wmsLayers[titel] = new WMSLayer(this.url, layer, this.wfsLayers[titel]);
 
-        this.layerNames.push(titel);
+        if (this.layerNames.indexOf(titel) === -1) {
+            this.layerNames.push(titel);
+        }
 
         let nestedLayers = wmsCapabilities.node(layer, './wms:Layer');
 
@@ -100,6 +119,10 @@ export class OWSSource implements IDataSource {
             let layer = layers.snapshotItem(i);
 
             let titel = wfsCapabilities.string(layer, './wms:Title');
+
+            if (this.layerNames.indexOf(titel) === -1) {
+                this.layerNames.push(titel);
+            }
 
             this.wfsLayers[titel] = new WFSLayer(this.url, layer);
         }

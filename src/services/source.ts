@@ -1,11 +1,14 @@
 import { IDataSource } from '../types';
 
 export class SourceService {
+    list: string[] = [];
+
     private sources: { [index: string]: any } = {};
     private promised: { [index: string]: any[] } = {};
 
     add<T extends IDataSource>(name: string, source: T): T {
         this.sources[name] = source;
+        this.list.push(name);
 
         if (name in this.promised) {
             this.resolvePromises(name);

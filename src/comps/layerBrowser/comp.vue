@@ -12,7 +12,7 @@
                             <label>Databron:</label>
                             <select class="form-control input-sm" v-model="selected.source">
                                 <option selected></option>
-                                <option v-for="source in service.sourceList">{{source}}</option>
+                                <option v-for="source in service.list">{{source}}</option>
                             </select>
                         </div>
                     </form>
