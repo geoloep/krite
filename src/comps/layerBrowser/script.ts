@@ -10,7 +10,7 @@ import { AppSwitchService } from '../../services/appSwitch';
 import { SourceService } from '../../services/source';
 
 @Component
-export default class App extends Vue {
+export default class LayerBrowser extends Vue {
     service = pool.getService<SourceService>('SourceService');
     map = pool.getService<MapService>('MapService');
     sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
@@ -40,7 +40,7 @@ export default class App extends Vue {
         if (this.selected.source !== '') {
             this.status.sourceLoading = true;
 
-            let layerNames = await this.service.sources[this.selected.source].getLayerNames();
+            let layerNames = await this.service.get(this.selected.source).getLayerNames();
 
             this.layerList.splice(0, this.layerList.length);
 
@@ -76,7 +76,7 @@ export default class App extends Vue {
         this.status.layerAddable = false;
         this.status.layerLoading = true;
 
-        let layer =  await this.service.sources[this.selected.source].getLayer(name);
+        let layer =  await this.service.get(this.selected.source).getLayer(name);
 
         this.selected.layer = layer;
         this.status.layerLoading = false;
