@@ -12,6 +12,8 @@ let project = pool.getService<ProjectService>('ProjectService');
 
 /**
  * This layer implements a Web Feature Service interface
+ *
+ * Spatial operations depend on the availability of the cql_filter paramater!
  */
 export class WFSLayer implements ILayer {
     preview = '-';
