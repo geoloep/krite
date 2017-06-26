@@ -8,6 +8,5 @@ export { NumeralService } from './numeral';
 export { ParameterService } from './parameter';
 export { PdokLocatieserverService } from './pdokLocatieserver';
 export { ProjectService } from './project';
-export { SidebarService, SidebarServiceApp } from './sidebar';
 export { SourceService } from './source';
 export { WindowService } from './window';

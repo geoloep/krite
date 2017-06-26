@@ -2,7 +2,6 @@ import pool  from '../servicePool';
 
 import { MapService } from './map';
 import { SourceService } from './source';
-import { SidebarService } from './sidebar';
 
 export class ParameterService {
     parameters: {[index: string]: string} = {};
@@ -28,7 +27,7 @@ export class ParameterService {
         if ('source' in this.parameters && 'layer' in this.parameters) {
             pool.promiseService<SourceService>('SourceService').then((sources) => {
                 pool.promiseService<MapService>('MapService').then((map) => {
-                    let source = sources.sources[this.parameters['source']];
+                    let source = sources.get(this.parameters['source']);
 
                     if (source) {
                         source.getLayer(this.parameters['layer']).then((layer) => {
@@ -44,11 +43,11 @@ export class ParameterService {
         }
     }
 
-    setApp() {
-        if ('app' in this.parameters) {
-            pool.promiseService<SidebarService>('SidebarService').then((sidebar) => {
-                sidebar.setApp(this.parameters['app']);
-            });
-        }
-    }
+    // setApp() {
+    //     if ('app' in this.parameters) {
+    //         pool.promiseService<SidebarService>('SidebarService').then((sidebar) => {
+    //             sidebar.setApp(this.parameters['app']);
+    //         });
+    //     }
+    // }
 }

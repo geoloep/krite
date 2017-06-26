@@ -1,5 +1,5 @@
 import { IContainer } from '../types';
-import { RactiveApp } from '../apps/ractiveApp';
+import { VueApp } from '../apps/vueApp';
 
 export interface IAppSwitchServiceCallback {
     (): void;
@@ -7,7 +7,7 @@ export interface IAppSwitchServiceCallback {
 
 export class AppSwitchService implements IContainer {
     private active: string | undefined;
-    private apps: {[index: string]: RactiveApp} = {};
+    private apps: {[index: string]: VueApp} = {};
 
     private onChangeCallbacks: IAppSwitchServiceCallback[] = [];
 
@@ -28,7 +28,7 @@ export class AppSwitchService implements IContainer {
         return this.active;
     }
 
-    register(app: RactiveApp) {
+    register(app: VueApp) {
         if (this.apps[app.name]) {
             console.warn(`Overriding app ${app.name}`);
         }
