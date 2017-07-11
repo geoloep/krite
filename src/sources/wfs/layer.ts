@@ -27,12 +27,12 @@ export class WFSLayer implements ILayer {
 
     abstract = 'WFSLayer';
 
-    leaflet: L.Layer;
+    _leaflet: L.Layer;
 
     private onClickCallbacks: ILayerClickHandler[] = [];
 
     constructor(readonly options: L.WFSOptions) {
-        this.createLayer();
+        // this.createLayer();
     }
 
     get title() {
@@ -43,11 +43,40 @@ export class WFSLayer implements ILayer {
         return <string>this.options.typeName;
     }
 
+    get leaflet() {
+        if (!this._leaflet) {
+            this.createLayer();
+        }
+
+        return this._leaflet;
+    }
+
     async intersects(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject) {
         let layer: any = L.geoJSON(project.to(feature));
 
         // Filter againt the first feature in the GeoJSON feature group
         let filter = new L.Filter.Intersects().append(layer._layers[Object.keys(layer._layers)[0]], <string>this.options.geometryField, map.map.options.crs);
+
+        let resultLayer: any = new L.WFS(Object.assign(this.options, {
+            filter,
+        }));
+
+        await new Promise((resolve, reject) => {
+            resultLayer.on('load', () => {
+                resolve();
+            });
+            resultLayer.on('error', () => {
+                reject();
+            });
+        });
+
+        return project.from((resultLayer as any).toGeoJSON());
+    }
+
+    async intersectsPoint(point: L.Point) {
+        let layer = L.marker(map.map.options.crs.unproject(point));
+
+        let filter = new L.Filter.Intersects().append(layer, <string>this.options.geometryField, map.map.options.crs);
 
         let resultLayer: any = new L.WFS(Object.assign(this.options, {
             filter,
@@ -101,11 +130,11 @@ export class WFSLayer implements ILayer {
     };
 
     private createLayer() {
-        this.leaflet = new L.WFS(this.options);
+        this._leaflet = new L.WFS(this.options);
 
-        this.leaflet.on('load', () => {
+        this._leaflet.on('load', () => {
 
-            (this.leaflet as any).eachLayer((layer: L.Layer) => {
+            (this._leaflet as any).eachLayer((layer: L.Layer) => {
                 layer.on('click', () => {
                     this.clickHandler((layer as any).toGeoJSON().properties);
                 });

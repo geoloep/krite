@@ -6,6 +6,8 @@ export class WindowService {
     state: string;
     stateChangeCallbacks: IStateChangeCallback[] = [];
 
+    breakpoint = 911;
+
     constructor() {
         this.setState();
 
@@ -31,7 +33,7 @@ export class WindowService {
     }
 
     private setState = () => {
-        if (window.innerWidth > 991) {
+        if (window.innerWidth > this.breakpoint) {
             this.stateChange('wide');
         } else {
             this.stateChange('narrow');
