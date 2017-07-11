@@ -18,8 +18,8 @@ module.exports = function(config) {
       'https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/shim.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
       'dist/krite.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.1/proj4.js',
-      'https://unpkg.com/leaflet-rd@1.1.1',
+      'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.17/proj4.js',
+      'https://unpkg.com/leaflet-rd@2.0.2',
       'spec/**/*.js'
     ],
 

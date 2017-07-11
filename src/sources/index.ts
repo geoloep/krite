@@ -1,4 +1,4 @@
-export { GeoServerSource } from './geoserver/source';
+export { OWSSource } from './ows/source';
 export { WMTSSource } from './wmts/source';
-// export { WFSSource } from './wfs/source';
+export { WFSLayer } from './wfs/layer';
 export { ESRISource } from './esri/source';

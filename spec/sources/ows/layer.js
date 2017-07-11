@@ -1,9 +1,9 @@
-describe('GeoserverLayer', function() {
-    var s = krite.Sources.GeoServerSource;
+describe('GeoserverLayer', function () {
+    var s = krite.Sources.OWSSource;
 
     // This should point to a Geoserver instance with wfs enabled
     var source = new s('http://service.geoloep.nl/geoserver/gemeenten/ows');
-    var layername = 'gemeentehuizen';
+    var layername = 'Gemeentehuizen';
 
     var layer;
 
@@ -25,32 +25,28 @@ describe('GeoserverLayer', function() {
     var property = 'naam';
     var value = 'Gemeente Groningen';
 
-    beforeAll(function(done) {
-        source.getLayer(layername).then(function(l) {
+    beforeAll(function (done) {
+        source.getLayer(layername).then(function (l) {
             layer = l;
             done();
         });
     });
 
-    it('it should be defined', function() {
+    it('it should be defined', function () {
         expect(layer).toBeDefined();
-        expect(layer.name).toBe(layername);
+        expect(layer.title).toBe(layername);
     });
 
-    it('should not have onClick events', function() {
+    it('should not have onClick events', function () {
         expect(layer.hasOnClick).toBeFalsy();
     });
 
-    it('can get info at a point', function() {
-        expect(layer.canGetInfoAtPoint).toBeTruthy();
-    });
-
-    it('has operations', function() {
+    it('has operations', function () {
         expect(layer.hasOperations).toBeTruthy();
     });
 
-    it('intersects points exactly', function(done) {
-        layer.intersectsPoint(point).then(function(r) {
+    it('intersects points exactly', function (done) {
+        layer.intersectsPoint(point).then(function (r) {
             expect(r).toBeDefined();
             expect(r.totalFeatures).toBe(1);
             expect(r.features[0].properties[property]).toBe(value);
@@ -59,10 +55,10 @@ describe('GeoserverLayer', function() {
         });
     });
 
-    it('intersects points loosely', function(done) {
-        var losePoint = new L.Point(point.x + 1, point.y + 1);
+    it('intersects points loosely', function (done) {
+        var loosePoint = new L.Point(point.x + 1, point.y + 1);
 
-        layer.intersectsPoint(losePoint).then(function(r) {
+        layer.intersectsPoint(loosePoint).then(function (r) {
             expect(r).toBeDefined();
             expect(r.totalFeatures).toBe(1);
             expect(r.features[0].properties[property]).toBe(value);
@@ -71,8 +67,20 @@ describe('GeoserverLayer', function() {
         });
     });
 
-    it('intersects with polygons', function(done) {
-        layer.intersects(polygon).then(function(r) {
+    it('intersects with polygons', function (done) {
+        layer.intersects(polygon).then(function (r) {
+            expect(r).toBeDefined();
+            expect(r.totalFeatures).toBe(1);
+            expect(r.features[0].properties[property]).toBe(value);
+
+            done();
+        });
+    });
+
+    it('filters', function (done) {
+        layer.filter({
+            naam: 'Gemeente Groningen'
+        }).then(function (r) {
             expect(r).toBeDefined();
             expect(r.totalFeatures).toBe(1);
             expect(r.features[0].properties[property]).toBe(value);

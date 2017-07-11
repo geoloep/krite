@@ -27,6 +27,7 @@ export class OWSSource implements IDataSource {
         }
     }
 
+    // This actually shows the titles, might be confusing?
     async getLayerNames() {
         if (!this.layersLoaded) {
             await this.getCapabilities();

@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "4"
 addons:
-  firefox: "52.0"
+  firefox: "54.0"
 install:
   - npm install
   - npm run lib

@@ -26,7 +26,8 @@ describe('MapService', function () {
     };
     var geoJsonLayer;
 
-    var source = new krite.Sources.GeoServerSource('http://service.geoloep.nl/geoserver/gemeenten/ows');
+    var source = new krite.Sources.OWSSource('http://service.geoloep.nl/geoserver/gemeenten/ows');
+    var layertitle = 'Gemeentehuizen';
     var layername = 'gemeentehuizen';
     var layer;
 
@@ -35,7 +36,7 @@ describe('MapService', function () {
     });
 
     it('should be possible to add an layer', function (done) {
-        source.getLayer(layername).then(function (l) {
+        source.getLayer(layertitle).then(function (l) {
             layer = l;
 
             mapService.addLayer(layer);

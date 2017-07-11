@@ -1,5 +1,5 @@
-describe('WFSSource', function() {
-    var s = krite.Sources.WFSSource;
+describe('OWSSource', function() {
+    var s = krite.Sources.OWSSource;
     var source = new s('http://service.geoloep.nl/geoserver/gemeenten/ows');
     var layername = 'Gemeentehuizen';
 
