@@ -3,14 +3,7 @@ import { WMTSLayer } from './layer';
 
 import { IDataSource, ILayer } from '../../types';
 
-import { parseString } from 'xml2js';
-let processors = require('xml2js/lib/processors');
-
-// export interface IGeoServerSourceOptions {
-//     wfs?: boolean;
-//     wfsNamespace?: string;
-//     field?: string;
-// }
+import { XMLService } from '../../services/xml';
 
 export class WMTSSource implements IDataSource {
     capabilities: any | undefined = undefined;
@@ -18,7 +11,6 @@ export class WMTSSource implements IDataSource {
     private layersLoaded: boolean = false;
     private layerNames: string[] = [];
     private layers: { [index: string]: ILayer } = {};
-
 
     constructor(readonly url: string, readonly options: any = {}) {
     }
@@ -61,67 +53,94 @@ export class WMTSSource implements IDataSource {
         return;
     }
 
-    private parseCapabilities(data: any) {
-        return new Promise<void>((resolve, reject) => {
-            parseString(data, {
-                async: true,
-                explicitArray: false,
-                tagNameProcessors: [processors.stripPrefix],
-            }, (err, result) => {
-                if (err) {
-                    console.error('Xml parse error');
-                    reject();
-                }
+    private async parseCapabilities(data: any) {
+        let response = await fetch(
+            this.url +
+            url.format({
+                query: {
+                    request: 'GetCapabilities',
+                },
+            }),
+        );
 
-                this.capabilities = result;
+        if (!response.ok) {
+            throw `Response to ${response.url} not ok`;
+        }
 
-                for (let layer of this.capabilities.Capabilities.Contents.Layer) {
-                    this.layerNames.push(layer.Title);
-                    this.layers[layer.Title] = new WMTSLayer(layer, this);
-                }
+        let capabilities = this.capabilities = new XMLService(await response.text());
 
-                this.layersLoaded = true;
+        let layers = capabilities.node(capabilities.document, './wmts:Capabilities/wmts:Contents/wmts:Layer');
 
-                resolve();
-            });
-        });
+        for (let i = 0; i < layers.snapshotLength; i++) {
+            let layer = layers.snapshotItem(i);
+
+            let title = capabilities.string(layer, './ows:Title');
+
+            this.layerNames.push(title);
+
+            this.layers[title] = new WMTSLayer(this.url, layer);
+        }
+
+        // return new Promise<void>((resolve, reject) => {
+        //     parseString(data, {
+        //         async: true,
+        //         explicitArray: false,
+        //         tagNameProcessors: [processors.stripPrefix],
+        //     }, (err, result) => {
+        //         if (err) {
+        //             console.error('Xml parse error');
+        //             reject();
+        //         }
+
+        //         this.capabilities = result;
+
+        //         for (let layer of this.capabilities.Capabilities.Contents.Layer) {
+        //             this.layerNames.push(layer.Title);
+        //             this.layers[layer.Title] = new WMTSLayer(layer, this);
+        //         }
+
+        //         this.layersLoaded = true;
+
+        //         resolve();
+        //     });
+        // });
     }
 
     private _getCapabilities() {
-        return new Promise(
-            (resolve, reject) => {
-                fetch(
-                    this.url +
-                    url.format({
-                        query: {
-                            request: 'GetCapabilities',
-                        },
-                    })
-                ).then((response) => {
-                    if (response.ok) {
-                        response.text().then((data) => {
-                            parseString(data, {
-                                async: true,
-                                explicitArray: false,
-                                tagNameProcessors: [processors.stripPrefix],
-                            },
-                            (err, result) => {
-                                this.capabilities = result;
+    //     return new Promise(
+    //         (resolve, reject) => {
+    //             fetch(
+    //                 this.url +
+    //                 url.format({
+    //                     query: {
+    //                         request: 'GetCapabilities',
+    //                     },
+    //                 })
+    //             ).then((response) => {
+    //                 if (response.ok) {
+    //                     response.text().then((data) => {
+    //                         parseString(data, {
+    //                             async: true,
+    //                             explicitArray: false,
+    //                             tagNameProcessors: [processors.stripPrefix],
+    //                         },
+    //                             (err, result) => {
+    //                                 this.capabilities = result;
 
-                                for (let layer of this.capabilities.Capabilities.Contents.Layer) {
-                                    this.layerNames.push(layer.Title);
-                                    this.layers[layer.Title] = new WMTSLayer(layer, this);
-                                }
+    //                                 for (let layer of this.capabilities.Capabilities.Contents.Layer) {
+    //                                     this.layerNames.push(layer.Title);
+    //                                     this.layers[layer.Title] = new WMTSLayer(layer, this);
+    //                                 }
 
-                                this.layersLoaded = true;
-                                resolve();
-                            });
-                        }).catch(reject);
-                    } else {
-                        reject();
-                    }
-                }).catch(reject);
-            }
-        );
+    //                                 this.layersLoaded = true;
+    //                                 resolve();
+    //                             });
+    //                     }).catch(reject);
+    //                 } else {
+    //                     reject();
+    //                 }
+    //             }).catch(reject);
+    //         }
+    //     );
     }
 }

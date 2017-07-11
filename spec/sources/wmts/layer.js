@@ -1,7 +1,7 @@
 describe('WMTSLayer', function() {
     var s = krite.Sources.WMTSSource;
 
-    // This should point to a wfs data source
+    // This should point to a wmts data source
     var source = new s('https://geodata.nationaalgeoregister.nl/wmts/');
     var layername = 'brtachtergrondkaart';
 
