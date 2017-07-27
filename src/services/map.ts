@@ -22,7 +22,7 @@ export class MapService {
 
     layers: ILayer[] = [];
     layerByName: {
-        [index: string]: ILayer
+        [index: string]: ILayer,
     } = {};
 
     map: L.Map;
@@ -52,8 +52,6 @@ export class MapService {
         );
 
         this.mapOptions = Object.assign(this.mapOptions, mapOptions);
-
-        this.pointer = L.marker([0, 0]).addTo(this.map);
 
         this.map.on('click', (e: L.MouseEvent) => {
             // latlng does not exist on KeyBoardevents. Enter may fire click'
@@ -322,7 +320,11 @@ export class MapService {
      */
     zoomToLatLng(point: [number, number] | L.LatLng, zoom: number, marker = true) {
         if (marker) {
-            this.pointer.setLatLng(point);
+            if (this.pointer) {
+                this.pointer.setLatLng(point);
+            } else {
+                this.pointer = L.marker(point).addTo(this.map);
+            }
         }
 
         this.map.setView(point, zoom);
