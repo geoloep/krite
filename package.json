@@ -22,7 +22,7 @@
         "leaflet-draw": "~0.4.9",
         "leaflet-wfst": "~1.1.1",
         
-        "vue-property-decorator": "~5.2.0",
+        "vue-property-decorator": "~5.2.1",
         "wicked-good-xpath": "~1.3.0"
     },
     "peerDependencies": {
