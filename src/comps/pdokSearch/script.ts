@@ -9,7 +9,7 @@ import { PdokLocatieserverService } from '../../services/pdokLocatieserver';
 
 @Component({
 })
-export default class App extends Vue {
+export default class PdokSearch extends Vue {
     locatieserver =  pool.getService<PdokLocatieserverService>('PdokLocatieserverService');
 
     searchString = '';
@@ -22,6 +22,7 @@ export default class App extends Vue {
         woonplaats: [],
         weg: [],
         gemeente: [],
+        perceel: [],
     };
 
     dropdownStyle = {
@@ -33,6 +34,7 @@ export default class App extends Vue {
         weg: 12,
         woonplaats: 8,
         gemeente: 8,
+        perceel: 12,
     };
 
     depthOrder = [
@@ -40,6 +42,7 @@ export default class App extends Vue {
         'woonplaats',
         'weg',
         'gemeente',
+        'perceel',
     ];
 
     depthToIcon = {
@@ -47,6 +50,7 @@ export default class App extends Vue {
         woonplaats: 'fa-map-marker',
         weg: 'fa-road',
         gemeente: 'fa-map-marker',
+        perceel: 'fa-map-o',
     };
 
     cursor = {
@@ -143,7 +147,6 @@ export default class App extends Vue {
      */
     selectDown() {
         let nextNum = this.cursor.num + 1;
-        // let currentDepth = this.ractive.get('currentDepth');
 
         if (this.results[this.cursor.depth][nextNum]) {
             // Volgende nummer bestaat binnen de huidige diepte
@@ -184,7 +187,6 @@ export default class App extends Vue {
      */
     selectUp() {
         let nextNum = this.cursor.num - 1;
-        // let currentDepth = this.ractive.get('currentDepth');
 
         if (nextNum >= 0 && this.results[this.cursor.depth][nextNum]) {
             // Vorige nummer bestaat binnen de huidige diepte

@@ -1,34 +1,58 @@
+import * as url from 'url';
+
+/**
+ * This class facilitates communication with the Dutch Geocode PDOK Locatieserver service
+ */
 export class PdokLocatieserverService {
-    search(searchString: string): Promise<any> {
-        return new Promise<any>((resolve, reject) => {
-            fetch(`https://geodata.nationaalgeoregister.nl/locatieserver/suggest?q=${searchString}`).then((response) => {
-                if (response.ok) {
-                    response.json().then((json) => {
-                        resolve(this.parseResponse(json));
-                    }).catch((reason) => {
-                        reject(reason);
-                    });
-                } else {
-                    reject();
-                }
-            }).catch((reason) => {
-                reject(reason);
-            });
-        });
+    /**
+     * Peform a request to the suggest service
+     * @param searchString string to search for
+     * @param options additional optional url parameters
+     */
+    async search(searchString: string, options?: any) {
+        let parameters = {
+            q: searchString,
+            fq: '*',
+        };
+
+        if (options) {
+            Object.assign(parameters, options);
+        }
+
+        let response = await fetch('https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest' + url.format({
+            query: parameters,
+        }));
+
+        if (!response.ok) {
+            throw('Response from locatieserver not ok');
+        }
+
+        return this.parseResponse(await response.json());
     }
 
-    inspect(id: string): Promise<any> {
-        return new Promise<any>((resolve, reject) => {
-            fetch(`https://geodata.nationaalgeoregister.nl/locatieserver/lookup?id=${id}`).then((response) => {
-                if (response.ok) {
-                    response.json().then(resolve).catch(reject);
-                } else {
-                    reject();
-                }
-            }).catch((reason) => {
-                reject(reason);
-            });
-        });
+    /**
+     * Perform a request to the lookup service
+     * @param id the id of the object to inspect
+     * @param options additional optional url parameters
+     */
+    async inspect(id: string, options?: any) {
+        let parameters = {
+            id,
+        };
+
+        if (options) {
+            Object.assign(parameters, options);
+        }
+
+        let response = await fetch('https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup' + url.format({
+            query: parameters,
+        }));
+
+        if (!response.ok) {
+            throw('Response from locatieserver not ok');
+        }
+
+        return await response.json();
     }
 
     parseResponse(response: any) {
