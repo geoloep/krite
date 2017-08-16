@@ -6,12 +6,16 @@ import { ILayer } from '../../types';
 import { XMLService } from '../../services/xml';
 
 export class WMTSLayer implements ILayer {
-    _title: string;
-    _name: string;
+    previewSet = 0;
+    previewCol = 0;
+    previewRow = 0;
+
+    private _title: string;
+    private _name: string;
     // _abstract: string;
-    _preview: string;
-    _legend: string;
-    _leaflet: L.TileLayer;
+    private _preview: string;
+    private _legend: string;
+    private _leaflet: L.TileLayer;
 
     private xml: XMLService;
 
@@ -53,11 +57,11 @@ export class WMTSLayer implements ILayer {
 
                 let set = this.xml.string(tileMatrixSet, './ows:Identifier');
 
-                let tileMatrix = this.xml.node(tileMatrixSet, './wmts:TileMatrix[1]').snapshotItem(0);
+                let tileMatrix = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[${this.previewSet + 1}]`).snapshotItem(0);
 
                 let matrix = this.xml.string(tileMatrix, './ows:Identifier');
 
-                this._preview = `<img src="${this.url}?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.title}&TILEMATRIXSET=${set}&TILEMATRIX=${matrix}&TILEROW=0&TILECOL=0&FORMAT=image/png">`
+                this._preview = `<img src="${this.url}?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.title}&TILEMATRIXSET=${set}&TILEMATRIX=${matrix}&TILEROW=${this.previewRow}&TILECOL=${this.previewCol}&FORMAT=image/png&style=${this.getStyle()}">`
             }
         }
 
@@ -67,7 +71,7 @@ export class WMTSLayer implements ILayer {
     get leaflet() {
         if (!this._leaflet) {
             // min- / maxZoom could be determined from the capabilities
-            this._leaflet = L.tileLayer(this.url + `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.title}&TILEMATRIXSET=EPSG:28992&TILEMATRIX=EPSG:28992:{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png`, {
+            this._leaflet = L.tileLayer(this.url + `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.name}&TILEMATRIXSET=EPSG:28992&TILEMATRIX=${this.getTileMatrixPrefix(this.getTileMatrixSet())}{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png&style=${this.getStyle()}`, {
                 maxZoom: 16,
                 minZoom: 3,
                 maxNativeZoom: 14,
@@ -91,7 +95,40 @@ export class WMTSLayer implements ILayer {
         if (tileMatrix.snapshotLength > 0) {
             return tileMatrix.snapshotItem(0);
         } else {
-            return undefined;
+            throw('No TileMatrix present!');
+        }
+    }
+
+    /**
+     * Find out if tilematrix identifier should be prefixed
+     */
+    private getTileMatrixPrefix(tileMatrixSet: Node) {
+        let tileMatrix = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[1]`).snapshotItem(0);
+
+        let identifier = this.xml.string(tileMatrix, './ows:Identifier');
+
+        // Match everything preceding the last digit(s)
+        let prefix = identifier.match(/(.*)\d+$/);
+
+        if (prefix !== null && prefix[1]) {
+            return prefix[1];
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     * Find the name of default style
+     */
+    private getStyle() {
+        let style = this.xml.node(this.document, './wmts:Style[contains(@isDefault, \'true\')]');
+
+        if (style.snapshotLength > 0) {
+            let styleNode = style.snapshotItem(0);
+
+            return this.xml.string(styleNode, './Identifier');
+        } else {
+            return '';
         }
     }
 }
