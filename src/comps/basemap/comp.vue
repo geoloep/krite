@@ -5,15 +5,18 @@
             <h4 class="modal-title">Basiskaart kiezen</h4>
         </div>
         <div class="modal-body">
-            <template v-for="basemap in basemaps">
-                <div @click="setBasemap(basemap)" style="width: 100%; height: 100px; cursor: pointer;" :style="{'background-image': 'url(' + basemap.preview + ')'}"></div>
+            <div v-for="basemap in basemaps">
+                <div v-html="basemap.preview" class="basemap" @click="setBasemap(basemap)"></div>
                 <br>
-            </template>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
         </div>
     </div>
 </template>
+
+<style scoped>
+</style>
 
 <script src="./script.js"></script>

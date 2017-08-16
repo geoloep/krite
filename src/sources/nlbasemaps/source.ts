@@ -63,7 +63,7 @@ export class NLBasemapsSource implements IDataSource {
         //     source: openbasiskaartSource,
         //     layer: 'openbasiskaart.nl: OpenStreetMap ondergrondkaart',
         // } Tilematrixset heeft ongebruikelijke naam, eerst ondersteunin in WMTSLayer toevoegen
-        'pdok/luchtofot_actueel': {
+        'pdok/luchtofoto_actueel': {
             source: pdokLufoSource,
             layer: 'Actueel_ortho25',
         }
