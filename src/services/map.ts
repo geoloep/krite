@@ -36,7 +36,7 @@ export class MapService {
     };
 
     // Lagen bijhouden
-    private basemap: L.TileLayer;
+    private basemap: L.Layer;
     private highlight: L.GeoJSON;
     private focus: L.GeoJSON;
     private pointer: L.Marker;
@@ -271,15 +271,19 @@ export class MapService {
     };
 
     /**
-     * Set the basemap. Only L.TileLayers are supported at the moment
+     * Set a basemap. They are non-interactive and always at the bottom
      */
-    setBaseMap(url: string, options: L.TileLayerOptions) {
+    setBaseMap(layer: ILayer) {
         if (this.basemap) {
             this.basemap.remove();
         }
 
-        this.basemap = L.tileLayer(url, options);
-        this.basemap.setZIndex(-1);
+        this.basemap = layer.leaflet;
+        
+        if ((this.basemap as L.GridLayer).setZIndex) {
+            (this.basemap as L.GridLayer).setZIndex(-1);
+        }
+
         this.basemap.addTo(this.map);
     };
 
