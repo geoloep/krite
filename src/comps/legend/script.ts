@@ -17,8 +17,8 @@ export interface IButtonState {
 }
 
 let map = pool.getService<MapService>('MapService');
-let inspector = pool.getService<InspectorService>('InspectorService');
-let sidebar = pool.getService<AppSwitchService>('AppSwitchService');
+let inspector = pool.tryService<InspectorService>('InspectorService');
+let sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
 
 @Component
 export default class App extends Vue {
@@ -32,7 +32,9 @@ export default class App extends Vue {
             this.$set(this.buttonStates, name, []);
 
             for (let button of this.bindButtons(name)) {
-                this.buttonStates[name].push(button);
+                if (button) {
+                    this.buttonStates[name].push(button);
+                }
             }
         }
         return this.buttonStates[name];
@@ -56,7 +58,7 @@ export default class App extends Vue {
         }
     }
 
-    bindButtons(layerName: string): IButtonState[] {
+    bindButtons(layerName: string): Array<IButtonState | false> {
         return [
             {
                 icon: 'angle-double-up',
@@ -91,16 +93,18 @@ export default class App extends Vue {
                     }
                 },
             },
-            {
+            inspector ? {
                 icon: 'question-circle',
                 flipable: false,
                 disabled: false,
                 hidden: true,
                 action: (e: IButtonState) => {
-                    inspector.layer = map.layerByName[layerName];
-                    sidebar.setApp('InspectorApp');
+                    if (inspector && sidebar) {
+                        inspector.layer = map.layerByName[layerName];
+                        sidebar.setApp('InspectorApp');
+                    }
                 },
-            },
+            } : false,
             {
                 icon: 'trash',
                 flipable: false,

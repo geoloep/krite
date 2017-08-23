@@ -3,7 +3,7 @@
         <h3>Legenda</h3>
 
         <template v-for="item in items">
-            <h4>{{item.name}}
+            <h4>{{item.title}}
                 <span class="pull-right">
                     <div class="btn-group btn-group-xs pull-right">
                         <button v-for="button in getButtons(item.name)" @click="buttonClick(button)" type="button" class="btn btn-link">
