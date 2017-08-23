@@ -5,7 +5,7 @@ import * as reproject from 'reproject';
  * Reproject GeoJSON between map and krite crs
  */
 export class ProjectService {
-    constructor(readonly def: string) {
+    constructor(readonly crs: L.CRS, readonly def: string) {
     }
 
     /**
@@ -20,5 +20,21 @@ export class ProjectService {
      */
     from(geojson: GeoJSON.GeoJsonObject | GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | GeoJSON.GeometryCollection) {
         return reproject.reproject(geojson, proj4.WGS84, this.def);
+    }
+
+    /**
+     * Wrapper of the projection.project function
+     * @param latLng LatLng as returned from leaflet
+     */
+    project(latLng: L.LatLng) {
+        return this.crs.projection.project(latLng);
+    }
+
+    /**
+     * Wrapper of the projection.unproject function
+     * @param point Coordinates in the krite crs
+     */
+    unproject(point: L.Point) {
+        return this.crs.projection.unproject(point);
     }
 }
