@@ -1,13 +1,13 @@
 import * as L from 'leaflet';
-import * as wellknown from 'wellknown';
-import * as url from 'url';
-
-// import { OWSSource } from './source';
 
 import { WFSLayer } from './wfs';
 
-import { ILayer } from '../../types';
+import { ProjectService } from '../../services/project';
 import { XMLService } from '../../services/xml';
+import { ILayer, IProjectionService } from '../../types';
+
+import pool from '../../servicePool';
+const projectService = pool.getService<IProjectionService>('ProjectService');
 
 export class WMSLayer implements ILayer {
     _title: string;
@@ -60,12 +60,12 @@ export class WMSLayer implements ILayer {
 
     get preview() {
         if (!this._preview) {
-            let bounds = this.getBoundingBox();
+            const bounds = this.getBoundingBox();
 
             if (bounds) {
-                let widthHeigth = this.getPreviewSize(bounds, 339);
+                const widthHeigth = this.getPreviewSize(bounds, 339);
 
-                this._preview = `<img style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto" src="${this.url}?service=WMS&request=GetMap&layers=${this.name}&srs=EPSG:28992&bbox=${bounds.min.x},${bounds.min.y},${bounds.max.x},${bounds.max.y}&width=${widthHeigth.width}&height=${widthHeigth.height}&format=image%2Fpng">`;
+                this._preview = `<img style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto" src="${this.url}?service=WMS&request=GetMap&layers=${this.name}&srs=${projectService.identifiers.leaflet}&bbox=${bounds.min.x},${bounds.min.y},${bounds.max.x},${bounds.max.y}&width=${widthHeigth.width}&height=${widthHeigth.height}&format=image%2Fpng">`;
             } else {
                 this._preview = '';
             }
@@ -126,28 +126,51 @@ export class WMSLayer implements ILayer {
     }
 
     private getBoundingBox() {
-        let crs = 'EPSG:28992'; // @todo: need to read this from the map
+        // try to find the bounds in the crs of the application first
+        const crsSystems = [
+            projectService.identifiers.leaflet,
+            'EPSG:4326',
+        ];
 
-        // Xpath expressions in this function do not work in WGX / IE11
-        let BoundingBox = this.xml.node(this.document, `./wms:BoundingBox[@CRS='${crs}']`);
+        let bounds;
+        let boundingBoxNode;
+        let fallback = false;
 
-        if (BoundingBox.snapshotLength === 1) {
-            let b = BoundingBox.snapshotItem(0);
+        for (let i = 0; i < crsSystems.length && !bounds; i++) {
+            boundingBoxNode = this.xml.node(this.document, `./wms:BoundingBox[@CRS='${crsSystems[i]}']`);
 
-            return L.bounds(
-                L.point(this.xml.number(b, './@minx'), this.xml.number(b, './@maxy')),
-                L.point(this.xml.number(b, './@maxx'), this.xml.number(b, './@miny')),
-            );
+            if (boundingBoxNode.snapshotLength === 1) {
+                bounds = boundingBoxNode.snapshotItem(0);
+            } else {
+                fallback = true;
+            }
+        }
+
+        if (bounds) {
+            if (fallback) {
+                const topLeft = L.latLng(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
+                const bottomRight = L.latLng(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
+
+                return L.bounds(projectService.project(topLeft), projectService.project(bottomRight));
+            } else {
+                const topLeft = L.point(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
+                const bottomRight = L.point(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
+
+                return L.bounds(
+                    topLeft,
+                    bottomRight,
+                );
+            }
         }
     }
 
     private getPreviewSize(bbox: L.Bounds, width: number) {
-        let dx = bbox.max.x - bbox.min.x;
-        let dy = bbox.max.y - bbox.min.y;
+        const dx = bbox.max.x - bbox.min.x;
+        const dy = bbox.max.y - bbox.min.y;
 
         return {
             height: Math.round(width * (dy / dx)),
             width,
         };
-    };
+    }
 }
