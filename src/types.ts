@@ -88,6 +88,7 @@ export interface IClickHandler {
     (point: L.Point): void;
 }
 
+
 export interface IOnClickHandler {
     (attr: { [index: string]: any }): void;
 }
@@ -100,4 +101,54 @@ export type TAttributes = 'skip' | 'string' | 'float' | 'int' | 'percentage' | '
 
 export interface IAttributeTypeFunc {
     (attr: any): string;
+}
+
+/**
+ * Service that governs all the coordinate system conversions
+ */
+export interface IProjectionService {
+    /**
+     * CRS Identifiers
+     */
+    identifiers: {
+        /**
+         * Identifier of the crs used by leaflet
+         */
+        leaflet: string;
+
+        /**
+         * Identifier of the crs used inside krite
+         */
+        krite: string;
+    };
+
+    /**
+     * Convert GeoJson towards leaflet crs
+     */
+    geoTo(geojson: any): any;
+
+    /**
+     * Convert GeoJson from leaflet
+     */
+    geoFrom(geojson: any): any;
+
+    /**
+     * Convert a point for use in leaflet
+     */
+    pointTo(point: L.Point): L.LatLng;
+
+    /**
+     * Convert a point originating from leaflet
+     */
+    pointFrom(latLng: L.LatLng): L.Point;
+
+    /**
+     * Wrapper of the internal project function
+     */
+    project(latLng: L.LatLng): L.Point;
+
+    /**
+     * Wrapper of the internal unporject function
+     */
+    unproject(point: L.Point): L.LatLng;
 }

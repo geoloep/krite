@@ -57,7 +57,7 @@ export class MapService {
             // latlng does not exist on KeyBoardevents. Enter may fire click'
             if (e.latlng) {
                 for (let func of this.clickHandlers) {
-                    func(this.project.project(e.latlng));
+                    func(this.project.pointFrom(e.latlng));
                 }
             }
         });
@@ -197,7 +197,7 @@ export class MapService {
             this.focus.remove();
         }
 
-        let reprojected = this.project.to(geojson);
+        let reprojected = this.project.geoTo(geojson);
 
         this.highlight = L.geoJSON(reprojected, {
             pointToLayer: (geojsonPoint, latlng) => {
@@ -238,7 +238,7 @@ export class MapService {
             this.focus.remove();
         }
 
-        let reprojected = this.project.to(geojson);
+        let reprojected = this.project.geoTo(geojson);
 
         this.focus = L.geoJSON(reprojected, {
             style: () => {
@@ -314,7 +314,7 @@ export class MapService {
      * @param point In the CRS of the map
      */
     zoomToPoint(point: L.Point, zoom: number, marker = true) {
-        let reprojected = this.project.unproject(L.point(point.x, point.y));
+        let reprojected = this.project.pointTo(L.point(point.x, point.y));
         this.zoomToLatLng(reprojected, zoom, marker);
     };
 

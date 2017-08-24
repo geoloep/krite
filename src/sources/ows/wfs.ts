@@ -196,7 +196,7 @@ export class WFSLayer implements ILayer {
 
         let json = await response.json();
 
-        this._leaflet.addData(project.to(json));
+        this._leaflet.addData(project.geoTo(json));
     }
 
     /**

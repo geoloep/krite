@@ -2,13 +2,21 @@ import * as L from 'leaflet';
 import { IProjectionService } from '../types';
 
 /**
- * This service simply passes the input geometries without any reprojection
+ * This projection service assumes the use of a Web Mercator projecction in leaflet and WGS/Latlng in krite and is
+ * suitable for most projects
  */
-export class ProjectLatLngService implements IProjectionService {
+export class ProjectWebMercatorService implements IProjectionService {
     identifiers = {
-        leaflet: 'EPSG:4326',
+        leaflet: 'EPSG:3857',
         krite: 'EPSG:4326',
     };
+
+    /**
+     * Create a ProjectLatLngService instance
+     * @param reverse Reverse latitude and longitude during projecting
+     */
+    constructor(readonly reverse: boolean = true) {
+    }
 
     geoTo(geojson: GeoJSON.GeoJsonObject | GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | GeoJSON.GeometryCollection) {
         return geojson;
@@ -23,14 +31,18 @@ export class ProjectLatLngService implements IProjectionService {
     }
 
     pointFrom(latLng: L.LatLng) {
-        return this.project(latLng);
+        if (this.reverse) {
+            return L.point(latLng.lat, latLng.lng);
+        } else {
+            return this.project(latLng);
+        }
     }
 
     project(latLng: L.LatLng) {
-        return L.Projection.LonLat.project(latLng);
+        return L.Projection.SphericalMercator.project(latLng);
     }
 
     unproject(point: L.Point) {
-        return L.Projection.LonLat.unproject(point);
+        return L.Projection.SphericalMercator.unproject(point);
     }
 }

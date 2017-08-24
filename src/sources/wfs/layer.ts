@@ -52,7 +52,7 @@ export class WFSLayer implements ILayer {
     }
 
     async intersects(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject) {
-        let layer: any = L.geoJSON(project.to(feature));
+        let layer: any = L.geoJSON(project.geoTo(feature));
 
         // Filter againt the first feature in the GeoJSON feature group
         let filter = new L.Filter.Intersects().append(layer._layers[Object.keys(layer._layers)[0]], <string>this.options.geometryField, map.map.options.crs);
@@ -70,7 +70,7 @@ export class WFSLayer implements ILayer {
             });
         });
 
-        return project.from((resultLayer as any).toGeoJSON());
+        return project.geoFrom((resultLayer as any).toGeoJSON());
     }
 
     async intersectsPoint(point: L.Point) {
@@ -91,7 +91,7 @@ export class WFSLayer implements ILayer {
             });
         });
 
-        return project.from((resultLayer as any).toGeoJSON());
+        return project.geoFrom((resultLayer as any).toGeoJSON());
     }
 
     async filter(filters: any) {
@@ -116,7 +116,7 @@ export class WFSLayer implements ILayer {
             });
         });
 
-        return project.from((resultLayer as any).toGeoJSON());
+        return project.geoFrom((resultLayer as any).toGeoJSON());
     }
 
     onClick(fun: ILayerClickHandler) {

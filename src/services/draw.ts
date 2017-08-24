@@ -68,7 +68,7 @@ export class DrawService {
 
                     // Only seems to fire when valid geometry is created
                     this.service.map.once('draw:created', (event: L.LayerEvent) => {
-                        resolve(this.project.from((event.layer as L.Polygon).toGeoJSON()));
+                        resolve(this.project.geoFrom((event.layer as L.Polygon).toGeoJSON()));
                     });
 
                     // Release lock when draw actions have completed, even when valid geometry was not created
