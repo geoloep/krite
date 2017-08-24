@@ -4,30 +4,34 @@ import { ILayer } from '../../types';
 import { ESRISource } from './source';
 
 export class ESRITiledMapLayer implements ILayer {
-    _leaflet: L.Layer;
+    previewSet = 0;
+    previewCol = 0;
+    previewRow = 0;
 
-    constructor(readonly url: string, readonly _name: string, readonly capabilities: any, readonly source: ESRISource) {
-    };
+    private _leaflet: L.Layer;
+
+    constructor(readonly url: string, readonly capabilities: any) {
+    }
 
     get title() {
-        return this.capabilities.mapName;
-    };
+        return this.capabilities.documentInfo.Title;
+    }
 
     get name() {
-        return this._name;
-    };
+        return this.capabilities.documentInfo.Title;
+    }
 
     get abstract() {
-        return this.capabilities.abstract;
-    };
+        return this.capabilities.description;
+    }
 
     get bounds(): undefined {
         return undefined;
-    };
+    }
 
     get preview() {
-        return '';
-    };
+        return `<img src="${this.url}tile/${this.previewSet}/${this.previewCol}/${this.previewSet}">`;
+    }
 
     get leaflet() {
         if (this._leaflet) {
@@ -38,9 +42,9 @@ export class ESRITiledMapLayer implements ILayer {
             });
             return this._leaflet;
         }
-    };
+    }
 
     get legend() {
-        return `<p>${this.capabilities.mapName}</p>`;
-    };
+        return ``;
+    }
 }

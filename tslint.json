@@ -12,9 +12,9 @@
         "member-access": [
             false
         ],
-        "object-literal-sort-keys": false
-    },
-    "rulesDirectory": [
-        
-    ]
+        "object-literal-sort-keys": false,
+        "variable-name": [
+            "allow-leading-underscore"
+        ]
+    }
 }
