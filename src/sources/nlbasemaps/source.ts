@@ -65,7 +65,7 @@ export class NLBasemapsSource implements IDataSource {
         // } Tilematrixset heeft ongebruikelijke naam, eerst ondersteunin in WMTSLayer toevoegen
         'pdok/luchtofoto_actueel': {
             source: pdokLufoSource,
-            layer: 'Actueel_ortho25',
+            layer: 'Luchtfoto Actueel Ortho 25cm RGB',
         }
     }
 

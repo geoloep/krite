@@ -64,7 +64,7 @@ export class WMTSLayer implements ILayer {
 
                 const matrix = this.xml.string(tileMatrix, './ows:Identifier');
 
-                this._preview = `<img src="${this.url}?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.title}&TILEMATRIXSET=${set}&TILEMATRIX=${matrix}&TILEROW=${this.previewRow}&TILECOL=${this.previewCol}&FORMAT=image/png&style=${this.getStyle()}">`;
+                this._preview = `<img src="${this.url}?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.name}&TILEMATRIXSET=${set}&TILEMATRIX=${matrix}&TILEROW=${this.previewRow}&TILECOL=${this.previewCol}&FORMAT=image/png&style=${this.getStyle()}">`;
             }
         }
 
