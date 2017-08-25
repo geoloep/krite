@@ -2,8 +2,11 @@ import * as L from 'leaflet';
 
 import { WMTSSource } from './source';
 
-import { ILayer } from '../../types';
 import { XMLService } from '../../services/xml';
+import { ILayer, IProjectionService } from '../../types';
+
+import pool from '../../servicePool';
+const projectService = pool.getService<IProjectionService>('ProjectService');
 
 export class WMTSLayer implements ILayer {
     previewSet = 0;
@@ -49,19 +52,19 @@ export class WMTSLayer implements ILayer {
 
     get preview() {
         if (!this._preview) {
-            let tileMatrixSet = this.getTileMatrixSet();
+            const tileMatrixSet = this.getTileMatrixSet();
 
             if (tileMatrixSet) {
                 // As of now we take the fist tilematrix set and then the top left tile
                 // @todo: get center tile of middle zoom level?
 
-                let set = this.xml.string(tileMatrixSet, './ows:Identifier');
+                const set = this.getTileMatrixName(tileMatrixSet);
 
-                let tileMatrix = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[${this.previewSet + 1}]`).snapshotItem(0);
+                const tileMatrix = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[${this.previewSet + 1}]`).snapshotItem(0);
 
-                let matrix = this.xml.string(tileMatrix, './ows:Identifier');
+                const matrix = this.xml.string(tileMatrix, './ows:Identifier');
 
-                this._preview = `<img src="${this.url}?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.title}&TILEMATRIXSET=${set}&TILEMATRIX=${matrix}&TILEROW=${this.previewRow}&TILECOL=${this.previewCol}&FORMAT=image/png&style=${this.getStyle()}">`
+                this._preview = `<img src="${this.url}?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.title}&TILEMATRIXSET=${set}&TILEMATRIX=${matrix}&TILEROW=${this.previewRow}&TILECOL=${this.previewCol}&FORMAT=image/png&style=${this.getStyle()}">`;
             }
         }
 
@@ -71,7 +74,9 @@ export class WMTSLayer implements ILayer {
     get leaflet() {
         if (!this._leaflet) {
             // min- / maxZoom could be determined from the capabilities
-            this._leaflet = L.tileLayer(this.url + `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.name}&TILEMATRIXSET=EPSG:28992&TILEMATRIX=${this.getTileMatrixPrefix(this.getTileMatrixSet())}{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png&style=${this.getStyle()}`, {
+            const tileMatrixSet = this.getTileMatrixSet();
+
+            this._leaflet = L.tileLayer(this.url + `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.name}&TILEMATRIXSET=${this.getTileMatrixName(tileMatrixSet)}&TILEMATRIX=${this.getTileMatrixPrefix(tileMatrixSet)}{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png&style=${this.getStyle()}`, {
                 maxZoom: 16,
                 minZoom: 3,
                 maxNativeZoom: 14,
@@ -86,29 +91,39 @@ export class WMTSLayer implements ILayer {
         return '<p>-</p>';
     }
 
+    /**
+     * Get the tile matrix set that works with the current map crs
+     */
     private getTileMatrixSet() {
-        // should be read from map
-        let identifier = 'EPSG:28992';
+        const identifier = projectService.identifiers.leaflet;
 
-        let tileMatrix = this.xml.node(this.document.ownerDocument, `./wmts:Capabilities/wmts:Contents/wmts:TileMatrixSet[./ows:Identifier = '${identifier}']`);
+        const tileMatrix = this.xml.node(this.document.ownerDocument, `./wmts:Capabilities/wmts:Contents/wmts:TileMatrixSet[./ows:Identifier = '${identifier}']`);
 
         if (tileMatrix.snapshotLength > 0) {
             return tileMatrix.snapshotItem(0);
         } else {
-            throw('No TileMatrix present!');
+            throw new Error(`Layer ${this.name} is not available in a tile matrix that is compatible with the map crs (${identifier})`);
         }
+    }
+
+    /**
+     * Determin the name of the selected Tile Matrix Set
+     * @param tileMatrixSet
+     */
+    private getTileMatrixName(tileMatrixSet: Node) {
+        return this.xml.string(tileMatrixSet, './ows:Identifier');
     }
 
     /**
      * Find out if tilematrix identifier should be prefixed
      */
     private getTileMatrixPrefix(tileMatrixSet: Node) {
-        let tileMatrix = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[1]`).snapshotItem(0);
+        const tileMatrixItem = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[1]`).snapshotItem(0);
 
-        let identifier = this.xml.string(tileMatrix, './ows:Identifier');
+        const identifier = this.xml.string(tileMatrixItem, './ows:Identifier');
 
         // Match everything preceding the last digit(s)
-        let prefix = identifier.match(/(.*)\d+$/);
+        const prefix = identifier.match(/(.*)\d+$/);
 
         if (prefix !== null && prefix[1]) {
             return prefix[1];
@@ -121,10 +136,10 @@ export class WMTSLayer implements ILayer {
      * Find the name of default style
      */
     private getStyle() {
-        let style = this.xml.node(this.document, './wmts:Style[contains(@isDefault, \'true\')]');
+        const style = this.xml.node(this.document, './wmts:Style[contains(@isDefault, \'true\')]');
 
         if (style.snapshotLength > 0) {
-            let styleNode = style.snapshotItem(0);
+            const styleNode = style.snapshotItem(0);
 
             return this.xml.string(styleNode, './Identifier');
         } else {
