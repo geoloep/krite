@@ -2,14 +2,14 @@
     <div id="LayerBrowserApp">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Kaartlaag toevoegen</h4>
+            <h4 class="modal-title">{{locale.title}}</h4>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="col-md-6">
                     <form>
                         <div class="form-group">
-                            <label>Databron:</label>
+                            <label>{{locale.data_source}}</label>
                             <select class="form-control input-sm" v-model="selected.source">
                                 <option selected></option>
                                 <option v-for="source in service.list">{{source}}</option>
@@ -18,7 +18,7 @@
                     </form>
                     
                     <div class="form-group has-feedback">
-                        <input class="form-control input-sm" placeholder="Filteren" v-model="layerFilter" />
+                        <input class="form-control input-sm" :placeholder="locale.filter" v-model="layerFilter" />
                         <span class="fa fa-search form-control-feedback"></span>
                     </div>
 
@@ -39,9 +39,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
-            <a type="button" class="btn btn-default xs-hidden" :href="permalink" target="_blank" :disabled="!status.layerAddable"><span class="fa fa-link"></span>&nbsp;Permalink</a>
-            <button type="button" class="btn btn-success" @click="addLayer" :disabled="!status.layerAddable"><span class="fa fa-plus"></span>&nbsp;Laag toevoegen</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{locale.close}}</button>
+            <a type="button" class="btn btn-default xs-hidden" :href="permalink" target="_blank" :disabled="!status.layerAddable"><span class="fa fa-link"></span>&nbsp;{{locale.permalink}}</a>
+            <button type="button" class="btn btn-success" @click="addLayer" :disabled="!status.layerAddable"><span class="fa fa-plus"></span>&nbsp;{{locale.add_layer}}</button>
         </div>
     </div>
 </template>

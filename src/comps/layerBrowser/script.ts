@@ -1,12 +1,12 @@
 import Vue from 'vue';
-import { Component, Watch } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 
 import { ILayer } from '../../types';
 
 import pool from '../../servicePool';
 
-import { MapService } from '../../services/map';
 import { AppSwitchService } from '../../services/appSwitch';
+import { MapService } from '../../services/map';
 import { SourceService } from '../../services/source';
 
 @Component
@@ -21,30 +21,24 @@ export default class LayerBrowser extends Vue {
         layerAddable: false,
     };
 
-    selected = {
-        source: '',
-        name: 'Info',
-        layer: {
-            abstract: 'Kies een databron en vervolgens een kaartlaag om informatie aan de kaart toe te voegen.',
-            preview: '',
-            name: '',
-            title: 'Selecteer een laag',
-        },
-    };
-
     layerFilter = '';
     layerList: string[] = [];
+
+    @Prop()
+    locale: any;
+
+    selected = this.locale.dummy_layer;
 
     @Watch('selected.source')
     async onSourceChange() {
         if (this.selected.source !== '') {
             this.status.sourceLoading = true;
 
-            let layerNames = await this.service.get(this.selected.source).getLayerNames();
+            const layerNames = await this.service.get(this.selected.source).getLayerNames();
 
             this.layerList.splice(0, this.layerList.length);
 
-            for (let layer of layerNames) {
+            for (const layer of layerNames) {
                 this.layerList.push(layer);
             }
 
@@ -56,9 +50,9 @@ export default class LayerBrowser extends Vue {
     }
 
     get filteredLayerList() {
-        let list: string[] = [];
+        const list: string[] = [];
 
-        for (let layer of this.layerList) {
+        for (const layer of this.layerList) {
             if (layer.indexOf(this.layerFilter) >= 0) {
                 list.push(layer);
             }
@@ -76,7 +70,7 @@ export default class LayerBrowser extends Vue {
         this.status.layerAddable = false;
         this.status.layerLoading = true;
 
-        let layer =  await this.service.get(this.selected.source).getLayer(name);
+        const layer =  await this.service.get(this.selected.source).getLayer(name);
 
         this.selected.layer = layer;
         this.status.layerLoading = false;
@@ -90,4 +84,4 @@ export default class LayerBrowser extends Vue {
             this.sidebar.setApp('LegendApp');
         }
     }
-};
+}
