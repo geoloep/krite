@@ -16,13 +16,4 @@
     </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
-
-@Component
-export default class PolylineTool extends Vue {
-    @Prop()
-    desc: string;
-}
-</script>
+<script src="./polyline.js"></script>

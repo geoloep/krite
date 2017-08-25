@@ -22,6 +22,12 @@ module.exports = {
           esModule: true
         }
       },
+      {
+        test: /\.js$/,
+        parser: {
+          amd: false,
+        },
+      },
     ]
   },
   resolve: {
