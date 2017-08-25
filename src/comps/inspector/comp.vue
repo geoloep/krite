@@ -1,10 +1,10 @@
 <template>
     <div tabindex="0" class="InspectorComponent" @keyup.right="shiftIndex(1)" @keyup.left="shiftIndex(-1)">
 
-        <h3>Inspecteren</h3>
+        <h3>{{locale.title}}</h3>
         <form>
             <div class="form-group">
-                <label for="inspecteerlaag">Laag: </label>
+                <label for="inspecteerlaag">{{locale.layer}} </label>
                 <select id="inspecteerlaag"
                         class="form-control input-sm"
                         v-model="layer">
@@ -19,8 +19,8 @@
                     class="btn btn-default col-xs-10 col-sm-10 col-md-10 col-lg-10"
                     @click="modeClick">
                 <component v-if="allowed"
-                           :is="modename"></component>
-                <none v-else></none>
+                           :is="modename" :desc="locale.tools[modename]"></component>
+                <none v-else :desc="locale.tools.none"></none>
             </button>
             <button type="button"
                     class="btn btn-default dropdown-toggle col-xs-2 col-sm-2 col-md-2 col-lg-2"
@@ -32,33 +32,33 @@
                     <li>
                         <a href="#"
                            @click="modeSelect('point')">
-                            <point></point>
+                            <point :desc="locale.tools.point"></point>
                         </a>
                     </li>
                     <template v-if="modeShapeAllowed">
                         <li>
                             <a href="#"
                                @click="modeSelect('box')">
-                                <box></box>
+                                <box :desc="locale.tools.box"></box>
                             </a>
                         </li>
                         <li>
                             <a href="#"
                                @click="modeSelect('tpolygon')">
-                                <tpolygon></tpolygon>
+                                <tpolygon :desc="locale.tools.tpolygon"></tpolygon>
                             </a>
                         </li>
                         <li>
                             <a href="#"
                                @click="modeSelect('tpolyline')">
-                                <tpolyline></tpolyline>
+                                <tpolyline :desc="locale.tools.tpolyline"></tpolyline>
                             </a>
                         </li>
                     </template>
                 </template>
                 <li v-else>
                     <a href="#">
-                        <none></none>
+                        <none :desc="locale.tools.none"></none>
                     </a>
                 </li>
             </ul>

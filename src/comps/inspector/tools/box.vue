@@ -13,6 +13,17 @@
                       x="10"
                       y="962.36218" />
             </g>
-        </svg> Objecten selecteren met een rechthoek
+        </svg> {{desc}}
     </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
+
+@Component
+export default class BoxTool extends Vue {
+    @Prop()
+    desc: string;
+}
+</script>

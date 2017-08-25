@@ -24,6 +24,17 @@
                       inkscape:transform-center-y="-3.4086948"
                       transform="matrix(0.84908797,0,0,0.87634627,7.2345196,126.88507)" />
             </g>
-        </svg> Objecten selecteren met een veelhoek
+        </svg> {{desc}}
     </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
+
+@Component
+export default class PolygonTool extends Vue {
+    @Prop()
+    desc: string;
+}
+</script>

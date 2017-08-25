@@ -1,6 +1,6 @@
 <template>
     <div class="LegendComponent">
-        <h3>Legenda</h3>
+        <h3>{{locale.legend}}</h3>
 
         <template v-for="item in items">
             <h4>{{item.title}}

@@ -16,11 +16,11 @@ import { NumeralService } from '../../services/numeral';
 
 import { ILayer, ILayerClickHandler } from '../../types';
 
-let map = pool.getService<MapService>('MapService');
-let service = pool.getService<InspectorService>('InspectorService');
-let draw = pool.getService<DrawService>('DrawService');
-let numeral = pool.getService<NumeralService>('NumeralService');
-let sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
+const map = pool.getService<MapService>('MapService');
+const service = pool.getService<InspectorService>('InspectorService');
+const draw = pool.getService<DrawService>('DrawService');
+const numeral = pool.getService<NumeralService>('NumeralService');
+const sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
 
 @Component({
     components: {
@@ -51,6 +51,9 @@ export default class InspectorComponent extends Vue {
 
     @Prop({ default: true })
     inserted: boolean;
+
+    @Prop()
+    locale: any;
 
     mounted() {
         map.onClick(this.onClick);
@@ -199,7 +202,7 @@ export default class InspectorComponent extends Vue {
     loadFeatureCollection(collection: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) {
         this.resetIndex();
 
-        for (let feature of collection.features) {
+        for (const feature of collection.features) {
             this.features.push(feature);
         }
 
@@ -230,14 +233,14 @@ export default class InspectorComponent extends Vue {
 
     get fillTable(): any[] {
         if (this.features[this.index]) {
-            let properties = this.features[this.index].properties;
-            let table: any[] = [];
+            const properties = this.features[this.index].properties;
+            const table: any[] = [];
 
             if (properties) {
 
                 if (service.layer.getType) {
-                    for (let key of Object.keys(properties)) {
-                        let type = service.layer.getType(key);
+                    for (const key of Object.keys(properties)) {
+                        const type = service.layer.getType(key);
                         let f: string | undefined;
 
                         if (typeof (type) === 'function') {
@@ -279,7 +282,7 @@ export default class InspectorComponent extends Vue {
                         }
                     }
                 } else {
-                    for (let key of Object.keys(properties)) {
+                    for (const key of Object.keys(properties)) {
                         table.push({
                             key,
                             value: properties[key],
@@ -297,7 +300,7 @@ export default class InspectorComponent extends Vue {
     /**
      * Handle click events fired by clicking on the map. Only proceed if we're not drawing other inspection shapes
      */
-    async onClick (point: L.Point) {
+    async onClick(point: L.Point) {
         if (this.modename === 'point' && this.partentInserted && service.layer.hasOperations && service.layer.intersectsPoint) {
             try {
                 this.loadFeatureCollection(await service.layer.intersectsPoint(point));
@@ -311,7 +314,7 @@ export default class InspectorComponent extends Vue {
     /**
      * Handle click events fired by clicking on a specific marker. Ignore if we're drawing inspection shapes
      */
-    onLayerClick (layer: ILayer, attr: any) {
+    onLayerClick(layer: ILayer, attr: any) {
         if (this.modename === 'point' && this.partentInserted && service.layer && layer.name === service.layer.name) {
             this.loadFeatureCollection({
                 type: 'FeatureCollection',

@@ -2,9 +2,9 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
 import pool from '../../servicePool';
+import { AppSwitchService } from '../../services/appSwitch';
 import { InspectorService } from '../../services/inspector';
 import { MapService } from '../../services/map';
-import { AppSwitchService } from '../../services/appSwitch';
 
 import { ILayer } from '../../types';
 
@@ -16,9 +16,9 @@ export interface IButtonState {
     action?: (e: any) => void;
 }
 
-let map = pool.getService<MapService>('MapService');
-let inspector = pool.tryService<InspectorService>('InspectorService');
-let sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
+const map = pool.getService<MapService>('MapService');
+const inspector = pool.tryService<InspectorService>('InspectorService');
+const sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
 
 @Component
 export default class App extends Vue {
@@ -27,11 +27,14 @@ export default class App extends Vue {
     buttonStates: { [index: string]: IButtonState[] } = {};
     legendState: { [index: string]: boolean } = {};
 
+    @Prop()
+    locale: any;
+
     getButtons(name: string) {
         if (!(name in this.buttonStates)) {
             this.$set(this.buttonStates, name, []);
 
-            for (let button of this.bindButtons(name)) {
+            for (const button of this.bindButtons(name)) {
                 if (button) {
                     this.buttonStates[name].push(button);
                 }
@@ -50,7 +53,6 @@ export default class App extends Vue {
     buttonClick(button: IButtonState) {
         if (button.flipable) {
             button.disabled = !button.disabled;
-            console.log(button.disabled);
         }
 
         if (button.action) {
@@ -66,7 +68,7 @@ export default class App extends Vue {
                 disabled: false,
                 hidden: false,
                 action: (e: any) => {
-                    let layer = map.layerByName[layerName];
+                    const layer = map.layerByName[layerName];
                     map.removeLayer(layer);
                     map.addLayer(layer);
                 },
@@ -115,5 +117,5 @@ export default class App extends Vue {
                 },
             },
         ];
-    };
-};
+    }
+}
