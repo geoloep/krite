@@ -55,10 +55,10 @@ export class ESRITiledMapLayer implements ILayer {
         return ``;
     }
 
-    async intersectsPoint?(point: L.Point) {
-        const features = await new Promise((resolve, reject) => {
-            this._leaflet.identify().on(map.map).at([point.x, point.y]).layers('top').run((error: boolean, features: any) => {
-                resolve(features);
+    async intersectsPoint(point: L.Point) {
+        const features = await new Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>((resolve, reject) => {
+            this._leaflet.identify().on(map.map).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
+                resolve(ft);
             });
         });
 
