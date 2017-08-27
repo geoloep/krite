@@ -16,19 +16,27 @@ export interface IButtonState {
     action?: (e: any) => void;
 }
 
-const map = pool.getService<MapService>('MapService');
-const inspector = pool.tryService<InspectorService>('InspectorService');
-const sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
-
 @Component
 export default class App extends Vue {
-    items = map.layers;
+    map: MapService;
+    inspector: InspectorService | undefined;
+    sidebar: AppSwitchService | undefined;
 
     buttonStates: { [index: string]: IButtonState[] } = {};
     legendState: { [index: string]: boolean } = {};
 
     @Prop()
     locale: any;
+
+    created() {
+        this.map = pool.getService<MapService>('MapService');
+        this.inspector = pool.tryService<InspectorService>('InspectorService');
+        this.sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
+    }
+
+    get items() {
+        return this.map.layers;
+    }
 
     getButtons(name: string) {
         if (!(name in this.buttonStates)) {
@@ -68,9 +76,9 @@ export default class App extends Vue {
                 disabled: false,
                 hidden: false,
                 action: (e: any) => {
-                    const layer = map.layerByName[layerName];
-                    map.removeLayer(layer);
-                    map.addLayer(layer);
+                    const layer = this.map.layerByName[layerName];
+                    this.map.removeLayer(layer);
+                    this.map.addLayer(layer);
                 },
             },
             {
@@ -89,21 +97,21 @@ export default class App extends Vue {
                 hidden: false,
                 action: (e: IButtonState) => {
                     if (e.disabled) {
-                        map.hideLayer(map.layerByName[layerName]);
+                        this.map.hideLayer(this.map.layerByName[layerName]);
                     } else {
-                        map.showLayer(map.layerByName[layerName]);
+                        this.map.showLayer(this.map.layerByName[layerName]);
                     }
                 },
             },
-            inspector ? {
+            this.inspector ? {
                 icon: 'question-circle',
                 flipable: false,
                 disabled: false,
                 hidden: true,
                 action: (e: IButtonState) => {
-                    if (inspector && sidebar) {
-                        inspector.layer = map.layerByName[layerName];
-                        sidebar.setApp('InspectorApp');
+                    if (this.inspector && this.sidebar) {
+                        this.inspector.layer = this.map.layerByName[layerName];
+                        this.sidebar.setApp('InspectorApp');
                     }
                 },
             } : false,
@@ -113,7 +121,7 @@ export default class App extends Vue {
                 disabled: false,
                 hidden: true,
                 action: (e: IButtonState) => {
-                    map.removeLayer(map.layerByName[layerName]);
+                    this.map.removeLayer(this.map.layerByName[layerName]);
                 },
             },
         ];

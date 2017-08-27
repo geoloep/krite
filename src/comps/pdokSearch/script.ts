@@ -10,7 +10,7 @@ import { PdokLocatieserverService } from '../../services/pdokLocatieserver';
 @Component({
 })
 export default class PdokSearch extends Vue {
-    locatieserver =  pool.getService<PdokLocatieserverService>('PdokLocatieserverService');
+    locatieserver: PdokLocatieserverService;
 
     searchString = '';
 
@@ -62,6 +62,10 @@ export default class PdokSearch extends Vue {
     currentDepth = 'adres';
     currentNum = 0;
 
+    created() {
+        this.locatieserver = pool.getService<PdokLocatieserverService>('PdokLocatieserverService');
+    }
+
     /**
      * Close result dropdown
      */
@@ -101,14 +105,14 @@ export default class PdokSearch extends Vue {
      * Load returned search results
      */
     searchSuccess = (data: {[index: string]: any[]}) => {
-        for (let groep in this.results) {
+        for (const groep in this.results) {
             if (this.results[groep]) {
                 // Empty current array
                 this.results[groep].splice(0, this.results[groep].length);
 
                 // Check if we can append search results
                 if (data[groep]) {
-                    for (let r of data[groep]) {
+                    for (const r of data[groep]) {
                         this.results[groep].push(r);
                     }
                 }
@@ -119,10 +123,10 @@ export default class PdokSearch extends Vue {
     }
 
     searchClick(context: any) {
-        let map = pool.getService<MapService>('MapService');
+        const map = pool.getService<MapService>('MapService');
 
         this.locatieserver.inspect(context.id).then((response) => {
-            let geojson = (wellknown.parse(response.response.docs[0].centroide_rd) as GeoJSON.Point);
+            const geojson = (wellknown.parse(response.response.docs[0].centroide_rd) as GeoJSON.Point);
 
             map.zoomToPoint(L.point(geojson.coordinates[0], geojson.coordinates[1]) , this.diepteNaarZoom[context.type]);
         });
@@ -130,7 +134,7 @@ export default class PdokSearch extends Vue {
 
     searchEnter() {
         if (this.cursor.valid) {
-            let context = this.results[this.cursor.depth][this.cursor.num];
+            const context = this.results[this.cursor.depth][this.cursor.num];
             this.searchClick(context);
         }
     }
@@ -146,7 +150,7 @@ export default class PdokSearch extends Vue {
      * Fired when the user presses the down key in the text input
      */
     selectDown() {
-        let nextNum = this.cursor.num + 1;
+        const nextNum = this.cursor.num + 1;
 
         if (this.results[this.cursor.depth][nextNum]) {
             // Volgende nummer bestaat binnen de huidige diepte
@@ -156,7 +160,7 @@ export default class PdokSearch extends Vue {
             // Volgende dieptes proberen
             if (this.depthOrder.indexOf(this.cursor.depth) + 1) {
                 for (let i = this.depthOrder.indexOf(this.cursor.depth) + 1; i < this.depthOrder.length; i++) {
-                    let nextDepth = this.depthOrder[i];
+                    const nextDepth = this.depthOrder[i];
 
                     if (this.results[nextDepth].length > 0) {
                         this.cursor.depth = nextDepth;
@@ -173,7 +177,7 @@ export default class PdokSearch extends Vue {
         this.cursor.valid = false;
         this.cursor.num = 0;
 
-        for (let depth of this.depthOrder) {
+        for (const depth of this.depthOrder) {
             if (this.results[depth].length > 0) {
                 this.cursor.depth = depth;
                 this.cursor.valid = true;
@@ -186,7 +190,7 @@ export default class PdokSearch extends Vue {
      * Fired when the user presses the up key in the text input
      */
     selectUp() {
-        let nextNum = this.cursor.num - 1;
+        const nextNum = this.cursor.num - 1;
 
         if (nextNum >= 0 && this.results[this.cursor.depth][nextNum]) {
             // Vorige nummer bestaat binnen de huidige diepte
@@ -196,7 +200,7 @@ export default class PdokSearch extends Vue {
             // Volgende dieptes proberen
             if (this.depthOrder.indexOf(this.cursor.depth) - 1) {
                 for (let i = this.depthOrder.indexOf(this.cursor.depth) - 1; i >= 0; i--) {
-                    let nextDepth = this.depthOrder[i];
+                    const nextDepth = this.depthOrder[i];
 
                     if (this.results[nextDepth].length > 0) {
                         this.cursor.depth = nextDepth;
@@ -208,4 +212,4 @@ export default class PdokSearch extends Vue {
             }
         }
     }
-};
+}

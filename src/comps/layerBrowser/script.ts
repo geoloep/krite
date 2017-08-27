@@ -11,9 +11,9 @@ import { SourceService } from '../../services/source';
 
 @Component
 export default class LayerBrowser extends Vue {
-    service = pool.getService<SourceService>('SourceService');
-    map = pool.getService<MapService>('MapService');
-    sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
+    service: SourceService;
+    map: MapService;
+    sidebar: AppSwitchService | undefined;
 
     status = {
         sourceLoading: false,
@@ -28,6 +28,12 @@ export default class LayerBrowser extends Vue {
     locale: any;
 
     selected = this.locale.dummy_layer;
+
+    created() {
+        this.service = pool.getService<SourceService>('SourceService');
+        this.map = pool.getService<MapService>('MapService');
+        this.sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
+    }
 
     @Watch('selected.source')
     async onSourceChange() {
@@ -70,7 +76,7 @@ export default class LayerBrowser extends Vue {
         this.status.layerAddable = false;
         this.status.layerLoading = true;
 
-        const layer =  await this.service.get(this.selected.source).getLayer(name);
+        const layer = await this.service.get(this.selected.source).getLayer(name);
 
         this.selected.layer = layer;
         this.status.layerLoading = false;
