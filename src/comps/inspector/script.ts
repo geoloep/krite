@@ -40,6 +40,7 @@ export default class InspectorComponent extends Vue {
 
     // Layer
     layer = '';
+    layers = this.map.layers;
 
     allowed = false;
     error = false;
@@ -60,8 +61,11 @@ export default class InspectorComponent extends Vue {
     @Prop()
     locale: any;
 
-    created() {
+    beforeCreate() {
         this.map = pool.getService<MapService>('MapService');
+    }
+
+    created() {
         this.service = pool.getService<InspectorService>('InspectorService');
         this.draw = pool.getService<DrawService>('DrawService');
         this.numeral = pool.getService<NumeralService>('NumeralService');
@@ -77,10 +81,6 @@ export default class InspectorComponent extends Vue {
         this.service.onChange((layer: ILayer) => {
             this.layer = layer.name;
         });
-    }
-
-    get layers() {
-        return this.map.layers;
     }
 
     /**

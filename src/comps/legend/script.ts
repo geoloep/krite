@@ -22,20 +22,21 @@ export default class App extends Vue {
     inspector: InspectorService | undefined;
     sidebar: AppSwitchService | undefined;
 
+    items = this.map.layers;
+
     buttonStates: { [index: string]: IButtonState[] } = {};
     legendState: { [index: string]: boolean } = {};
 
     @Prop()
     locale: any;
 
-    created() {
+    beforeCreate() {
         this.map = pool.getService<MapService>('MapService');
-        this.inspector = pool.tryService<InspectorService>('InspectorService');
-        this.sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
     }
 
-    get items() {
-        return this.map.layers;
+    created() {
+        this.inspector = pool.tryService<InspectorService>('InspectorService');
+        this.sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
     }
 
     getButtons(name: string) {
