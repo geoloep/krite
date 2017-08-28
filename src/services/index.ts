@@ -1,5 +1,4 @@
 export { AppSwitchService } from './appSwitch';
-export { BasemapService } from './basemap';
 export { ContainerService } from './container';
 export { DrawService } from './draw';
 export { InspectorService } from './inspector';
@@ -10,6 +9,7 @@ export { ParameterService } from './parameter';
 export { PdokLocatieserverService } from './pdokLocatieserver';
 export { ProjectService } from './project';
 export { ProjectLatLngService } from './projectlatlng';
+export { ProjectWebMercatorService } from './projectWebMercator';
 export { SourceService } from './source';
 export { WindowService } from './window';
 export { XMLService } from './xml';
