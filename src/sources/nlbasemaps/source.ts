@@ -2,11 +2,11 @@ import * as L from 'leaflet';
 
 import { IDataSource } from '../../types';
 
-import { WMTSSource } from '../wmts/source';
 import { WMTSLayer } from '../wmts/layer';
+import { WMTSSource } from '../wmts/source';
 
-let pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/wmts/');
-let pdokLufoSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/wmts/');
+const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/wmts/');
+const pdokLufoSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/wmts/');
 // let openbasiskaartSource = new WMTSSource('http://www.openbasiskaart.nl/mapcache/wmts/');
 
 /**
@@ -16,8 +16,8 @@ export class NLBasemapsSource implements IDataSource {
     basemaps: {
         [index: string]: {
             source: WMTSSource,
-            layer: string
-        }
+            layer: string,
+        },
     } = {
         'pdok/brtachtergrondkaart': {
             source: pdokSource,
@@ -66,21 +66,21 @@ export class NLBasemapsSource implements IDataSource {
         'pdok/luchtofoto_actueel': {
             source: pdokLufoSource,
             layer: 'Luchtfoto Actueel Ortho 25cm RGB',
-        }
-    }
+        },
+    };
 
     async getLayerNames() {
-        return Object.keys(this.basemaps)
+        return Object.keys(this.basemaps);
     }
 
     async getLayer(name: string) {
-        let basemap = this.basemaps[name];
+        const basemap = this.basemaps[name];
 
         if (!basemap) {
             console.error(`Layer ${name} not available`);
         }
 
-        let layer = (await basemap.source.getLayer(basemap.layer)) as WMTSLayer;
+        const layer = (await basemap.source.getLayer(basemap.layer)) as WMTSLayer;
 
         // Change preview location
         layer.previewSet = 6;

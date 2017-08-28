@@ -6,7 +6,6 @@ import { XMLService } from '../../services/xml';
 import { ILayer, IProjectionService } from '../../types';
 
 import pool from '../../servicePool';
-const projectService = pool.getService<IProjectionService>('ProjectService');
 
 export class WMTSLayer implements ILayer {
     previewSet = 0;
@@ -21,6 +20,8 @@ export class WMTSLayer implements ILayer {
     private _leaflet: L.TileLayer;
 
     private xml: XMLService;
+
+    private projectService = pool.getService<IProjectionService>('ProjectService');
 
     constructor(readonly url: string, readonly document: Node) {
         this.xml = new XMLService(document);
@@ -95,7 +96,7 @@ export class WMTSLayer implements ILayer {
      * Get the tile matrix set that works with the current map crs
      */
     private getTileMatrixSet() {
-        const identifier = projectService.identifiers.leaflet;
+        const identifier = this.projectService.identifiers.leaflet;
 
         const tileMatrix = this.xml.node(this.document.ownerDocument, `./wmts:Capabilities/wmts:Contents/wmts:TileMatrixSet[./ows:Identifier = '${identifier}']`);
 

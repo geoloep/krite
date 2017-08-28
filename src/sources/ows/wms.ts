@@ -7,7 +7,6 @@ import { XMLService } from '../../services/xml';
 import { ILayer, IProjectionService } from '../../types';
 
 import pool from '../../servicePool';
-const projectService = pool.getService<IProjectionService>('ProjectService');
 
 export class WMSLayer implements ILayer {
     _title: string;
@@ -21,6 +20,8 @@ export class WMSLayer implements ILayer {
     xml: XMLService;
 
     bounds = undefined;
+
+    private projectService = pool.getService<IProjectionService>('ProjectService');
 
     constructor(readonly url: string, readonly document: Node, private readonly wfs?: WFSLayer) {
         this.xml = new XMLService(document);
@@ -65,7 +66,7 @@ export class WMSLayer implements ILayer {
             if (bounds) {
                 const widthHeigth = this.getPreviewSize(bounds, 339);
 
-                this._preview = `<img style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto" src="${this.url}?service=WMS&request=GetMap&layers=${this.name}&srs=${projectService.identifiers.leaflet}&bbox=${bounds.min.x},${bounds.min.y},${bounds.max.x},${bounds.max.y}&width=${widthHeigth.width}&height=${widthHeigth.height}&format=image%2Fpng">`;
+                this._preview = `<img style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto" src="${this.url}?service=WMS&request=GetMap&layers=${this.name}&srs=${this.projectService.identifiers.leaflet}&bbox=${bounds.min.x},${bounds.min.y},${bounds.max.x},${bounds.max.y}&width=${widthHeigth.width}&height=${widthHeigth.height}&format=image%2Fpng">`;
             } else {
                 this._preview = '';
             }
@@ -128,7 +129,7 @@ export class WMSLayer implements ILayer {
     private getBoundingBox() {
         // try to find the bounds in the crs of the application first
         const crsSystems = [
-            projectService.identifiers.leaflet,
+            this.projectService.identifiers.leaflet,
             'EPSG:4326',
         ];
 
@@ -151,7 +152,7 @@ export class WMSLayer implements ILayer {
                 const topLeft = L.latLng(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
                 const bottomRight = L.latLng(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
 
-                return L.bounds(projectService.project(topLeft), projectService.project(bottomRight));
+                return L.bounds(this.projectService.project(topLeft), this.projectService.project(bottomRight));
             } else {
                 const topLeft = L.point(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
                 const bottomRight = L.point(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));

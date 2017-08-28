@@ -8,8 +8,6 @@ import { XMLService } from '../../services/xml';
 import pool from '../../servicePool';
 import { ProjectService } from '../../services/project';
 
-let project = pool.getService<ProjectService>('ProjectService');
-
 /**
  * This layer implements a Web Feature Service interface
  *
@@ -21,6 +19,8 @@ export class WFSLayer implements ILayer {
     bounds: undefined;
     hasOnClick = true;
     hasOperations = true;
+
+    private projectServive = pool.getService<ProjectService>('ProjectService');
 
     private _title: string;
     private _name: string;
@@ -196,7 +196,7 @@ export class WFSLayer implements ILayer {
 
         let json = await response.json();
 
-        this._leaflet.addData(project.geoTo(json));
+        this._leaflet.addData(this.projectServive.geoTo(json));
     }
 
     /**

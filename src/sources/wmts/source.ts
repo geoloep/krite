@@ -12,7 +12,7 @@ export class WMTSSource implements IDataSource {
     private layerNames: string[] = [];
     private layers: { [index: string]: ILayer } = {};
 
-    constructor(readonly url: string, readonly options: any = {}) {
+    constructor(readonly baseUrl: string, readonly options: any = {}) {
     }
 
     async getLayerNames() {
@@ -36,7 +36,7 @@ export class WMTSSource implements IDataSource {
     }
 
     private async getCapabilities() {
-        let response = await fetch(this.url + url.format({
+        const response = await fetch(this.baseUrl + url.format({
             query: {
                 service: 'WMTS',
                 request: 'GetCapabilities',
@@ -47,7 +47,7 @@ export class WMTSSource implements IDataSource {
             console.error('Malformed response');
         }
 
-        let data = await response.text();
+        const data = await response.text();
 
         await this.parseCapabilities(data);
 
@@ -55,18 +55,18 @@ export class WMTSSource implements IDataSource {
     }
 
     private async parseCapabilities(data: any) {
-        let capabilities = this.capabilities = new XMLService(data);
+        const capabilities = this.capabilities = new XMLService(data);
 
-        let layers = capabilities.node(capabilities.document, './wmts:Capabilities/wmts:Contents/wmts:Layer');
+        const layers = capabilities.node(capabilities.document, './wmts:Capabilities/wmts:Contents/wmts:Layer');
 
         for (let i = 0; i < layers.snapshotLength; i++) {
-            let layer = layers.snapshotItem(i);
+            const layer = layers.snapshotItem(i);
 
-            let title = capabilities.string(layer, './ows:Title');
+            const title = capabilities.string(layer, './ows:Title');
 
             this.layerNames.push(title);
 
-            this.layers[title] = new WMTSLayer(this.url, layer);
+            this.layers[title] = new WMTSLayer(this.baseUrl, layer);
         }
     }
 }

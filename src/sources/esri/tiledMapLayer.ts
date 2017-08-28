@@ -6,8 +6,6 @@ import { ESRISource } from './source';
 import pool from '../../servicePool';
 import { MapService } from '../../services/map';
 
-const map = pool.getService<MapService>('MapService');
-
 export class ESRITiledMapLayer implements ILayer {
     previewSet = 0;
     previewCol = 0;
@@ -16,6 +14,7 @@ export class ESRITiledMapLayer implements ILayer {
     hasOperations = true;
 
     private _leaflet: any;
+    private mapService = pool.getService<MapService>('MapService');
 
     constructor(readonly url: string, readonly capabilities: any) {
     }
@@ -57,7 +56,7 @@ export class ESRITiledMapLayer implements ILayer {
 
     async intersectsPoint(point: L.Point) {
         const features = await new Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>((resolve, reject) => {
-            this._leaflet.identify().on(map.map).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
+            this._leaflet.identify().on(this.mapService.map).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
                 resolve(ft);
             });
         });
