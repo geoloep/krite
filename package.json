@@ -51,6 +51,7 @@
         "karma-phantomjs-launcher": "^1.0.4",
         "karma-jasmine": "^1.1.0",
 
+        "cross-env": "~5.0.5",
         "webpack": "^2.2.0",
         "css-loader": "^0.25.0",
         "vue-loader": "^12.0.2",
@@ -60,7 +61,8 @@
     },
     "scripts": {
         "lib": "tsc -d && npm run collect",
-        "bundle": "webpack --progress",
+        "bundle": "NODE_ENV=production && webpack --progress",
+        "bundle-dev": "NODE_ENV=development && webpack --progress",
         "collect": "node collect-vue.js",
         "test": "./node_modules/karma/bin/karma start karma.conf.js",
         "docs": "typedoc  --target ES5 --readme none --includeDeclarations --excludeExternals --out ./docs/ ./src/"

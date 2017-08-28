@@ -11,13 +11,13 @@ describe('ProjectLatLngService', function() {
     }
 
     it('shoud not project to', function() {
-        var r = s.to(gj.linestring.wgs);
+        var r = s.geoTo(gj.linestring.wgs);
 
         expect(r).toBe(gj.linestring.wgs);
     });
 
     it('shoud project from', function() {
-        var r = s.from(gj.linestring.wgs);
+        var r = s.geoFrom(gj.linestring.wgs);
 
         expect(r).toBe(gj.linestring.wgs);
     });

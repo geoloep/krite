@@ -14,16 +14,12 @@ export class ESRITiledMapLayer implements ILayer {
     hasOperations = true;
 
     private _leaflet: any;
-    private mapService = pool.getService<MapService>('MapService');
+    private mapService = pool.tryService<MapService>('MapService');
 
-    constructor(readonly url: string, readonly capabilities: any) {
+    constructor(readonly url: string, readonly name: string, readonly capabilities: any) {
     }
 
     get title() {
-        return this.capabilities.documentInfo.Title;
-    }
-
-    get name() {
         return this.capabilities.documentInfo.Title;
     }
 
@@ -55,12 +51,16 @@ export class ESRITiledMapLayer implements ILayer {
     }
 
     async intersectsPoint(point: L.Point) {
-        const features = await new Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>((resolve, reject) => {
-            this._leaflet.identify().on(this.mapService.map).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
-                resolve(ft);
+        if (this.mapService) {
+            const features = await new Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>((resolve, reject) => {
+                this._leaflet.identify().on((this.mapService as MapService).map).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
+                    resolve(ft);
+                });
             });
-        });
 
-        return features;
+            return features;
+        } else {
+            throw new Error(`Spatial operations on esri tile map layers requires the availabity of the MapService`);
+        }
     }
 }

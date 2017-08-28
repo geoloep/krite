@@ -7,7 +7,7 @@ describe('DrawService', function() {
         fixture);
 
     // setup required objects
-    krite.ServicePool.addService('ProjectService', new krite.Services.ProjectService(L.Projection.RD.proj4def));
+    krite.ServicePool.addService('ProjectService', new krite.Services.ProjectService(L.CRS.RD, L.Projection.RD.proj4def));
 
     var mapService = krite.ServicePool.addService('MapService' , new krite.Services.MapService('map', {
         center: [52.156, 5.389],
@@ -47,6 +47,8 @@ describe('DrawService', function() {
         expect(s.lock).toBeTruthy();
     });
 
-    // cleanup
-    mapService.map.remove();
+    // clean up
+    afterAll(function () {
+        mapService.map.remove();
+    })
 });

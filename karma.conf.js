@@ -15,11 +15,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css',
       'https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/shim.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
       'dist/krite.js',
-      'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.17/proj4.js',
-      'https://unpkg.com/leaflet-rd@2.0.2',
+      'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.4/proj4.js',
+      'https://unpkg.com/leaflet-rd@2.1.0',
       'spec/**/*.js'
     ],
 

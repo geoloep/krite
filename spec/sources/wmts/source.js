@@ -1,4 +1,7 @@
 describe('WMTSSource', function() {
+    // setup required objects
+    krite.ServicePool.addService('ProjectService', new krite.Services.ProjectService(L.CRS.RD, L.Projection.RD.proj4def));    
+
     var s = krite.Sources.WMTSSource;
     var source = new s('https://geodata.nationaalgeoregister.nl/wmts/');
     var layername = 'brtachtergrondkaart';

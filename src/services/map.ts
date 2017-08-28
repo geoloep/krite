@@ -4,7 +4,7 @@ import * as L from 'leaflet';
 import pool from '../servicePool';
 import { ProjectService } from './project';
 
-import { ILayer, IClickHandler, ILayerClickHandler } from '../types';
+import { IClickHandler, ILayer, ILayerClickHandler } from '../types';
 
 export interface ICustomMapOptions {
     checkZoom?: boolean;
@@ -56,7 +56,7 @@ export class MapService {
         this.map.on('click', (e: L.MouseEvent) => {
             // latlng does not exist on KeyBoardevents. Enter may fire click'
             if (e.latlng) {
-                for (let func of this.clickHandlers) {
+                for (const func of this.clickHandlers) {
                     func(this.project.pointFrom(e.latlng));
                 }
             }
@@ -70,7 +70,7 @@ export class MapService {
 
         // @todo: is dit element gegarandeerd aanwezig op dit moment?
         this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
-    };
+    }
 
     /**
      * Add a new layer to the map
@@ -93,15 +93,14 @@ export class MapService {
         } else {
             console.error('Probeerde een laag met een al in gebruik zijnde naam toe te voegen!');
         }
-    };
+    }
 
     /**
      * Show previously hidden layers again
      */
     showLayer(layer: ILayer) {
-        let leaflet = layer.leaflet;
-        leaflet.addTo(this.map);
-    };
+        layer.leaflet.addTo(this.map);
+    }
 
     hasLayerByName(name: string): boolean {
         if (name in this.layerByName) {
@@ -116,14 +115,14 @@ export class MapService {
      */
     hideLayer(layer: ILayer) {
         layer.leaflet.remove();
-    };
+    }
 
     /**
      * Register onclick callbacks here
      */
     onClick(fun: IClickHandler) {
         this.clickHandlers.push(fun);
-    };
+    }
 
     /**
      * Register onLayerClick callbacks here
@@ -136,16 +135,16 @@ export class MapService {
      * Layers can report click events here
      */
     layerClick = (layer: ILayer, attr: any) => {
-        for (let callback of this.layerClickCallbacks) {
+        for (const callback of this.layerClickCallbacks) {
             callback(layer, attr);
         }
     }
 
     checkZoom = () => {
-        let zoom = this.map.getZoom();
+        const zoom = this.map.getZoom();
 
-        for (let layer of this.layers) {
-            let visible = this.visibleOnZoom(layer, zoom);
+        for (const layer of this.layers) {
+            const visible = this.visibleOnZoom(layer, zoom);
 
             if (visible && !this.map.hasLayer(layer.leaflet)) {
                 this.showLayer(layer);
@@ -174,7 +173,6 @@ export class MapService {
     setZIndexes() {
         if (this.layers.length > 0) {
             for (let i = 0; i < this.layers.length; i++) {
-                // this.layers[i].leaflet.set
                 if ((this.layers[i].leaflet as L.GridLayer).setZIndex) {
                     (this.layers[i].leaflet as L.GridLayer).setZIndex(this.layers.length - i);
                 }
@@ -197,7 +195,7 @@ export class MapService {
             this.focus.remove();
         }
 
-        let reprojected = this.project.geoTo(geojson);
+        const reprojected = this.project.geoTo(geojson);
 
         this.highlight = L.geoJSON(reprojected, {
             pointToLayer: (geojsonPoint, latlng) => {
@@ -209,7 +207,7 @@ export class MapService {
         if (zoomTo) {
             this.map.fitBounds(this.highlight.getBounds());
         }
-    };
+    }
 
     hideHighlight() {
         if (this.highlight) {
@@ -238,7 +236,7 @@ export class MapService {
             this.focus.remove();
         }
 
-        let reprojected = this.project.geoTo(geojson);
+        const reprojected = this.project.geoTo(geojson);
 
         this.focus = L.geoJSON(reprojected, {
             style: () => {
@@ -258,7 +256,7 @@ export class MapService {
         if (zoomTo) {
             this.map.fitBounds(this.focus.getBounds());
         }
-    };
+    }
 
     /**
      * Permanently remove a layer from the map
@@ -268,7 +266,7 @@ export class MapService {
 
         this.layers.splice(this.layers.indexOf(layer), 1);
         delete this.layerByName[layer.name];
-    };
+    }
 
     /**
      * Set a basemap. They are non-interactive and always at the bottom
@@ -279,13 +277,13 @@ export class MapService {
         }
 
         this.basemap = layer.leaflet;
-        
+
         if ((this.basemap as L.GridLayer).setZIndex) {
             (this.basemap as L.GridLayer).setZIndex(-1);
         }
 
         this.basemap.addTo(this.map);
-    };
+    }
 
     /**
      * Inform the map that the user is in inspect mode
@@ -314,9 +312,9 @@ export class MapService {
      * @param point In the CRS of the map
      */
     zoomToPoint(point: L.Point, zoom: number, marker = true) {
-        let reprojected = this.project.pointTo(L.point(point.x, point.y));
+        const reprojected = this.project.pointTo(L.point(point.x, point.y));
         this.zoomToLatLng(reprojected, zoom, marker);
-    };
+    }
 
     /**
      * Zoom to a point
@@ -333,4 +331,4 @@ export class MapService {
 
         this.map.setView(point, zoom);
     }
-};
+}

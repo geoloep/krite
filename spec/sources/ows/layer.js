@@ -1,4 +1,7 @@
 describe('GeoserverLayer', function () {
+    // setup required objects
+    krite.ServicePool.addService('ProjectService', new krite.Services.ProjectService(L.CRS.RD, L.Projection.RD.proj4def));
+
     var s = krite.Sources.OWSSource;
 
     // This should point to a Geoserver instance with wfs enabled

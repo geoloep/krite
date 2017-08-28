@@ -2,10 +2,11 @@ describe('ESRISource', function() {
     var e = krite.Sources.ESRISource;
     
     // an example esrisource
-    var source = new e('http://services.arcgisonline.com/ArcGIS/rest/services');
+    var source = new e('http://services.arcgisonline.com/ArcGIS/rest/services/');
 
     // a layer that should be present on the source
     var layername = 'World_Topo_Map';
+    var layertitle = 'World Topographic Map';
 
     it('should be defined', function() {
         expect(e).toBeDefined();
@@ -21,6 +22,7 @@ describe('ESRISource', function() {
     it('should return a layer by name', function(done) {
         source.getLayer(layername).then(function(layer) {
             expect(layer.name).toBe(layername);
+            expect(layer.title).toBe(layertitle);
             done();
         });
     });

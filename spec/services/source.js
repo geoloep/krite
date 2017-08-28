@@ -27,7 +27,7 @@ describe('SourceService', function() {
     });
 
     it('should be possible to try an source', function() {
-        expect(s.get('Does not exist')).toBeUndefined();
+        expect(s.try('Does not exist')).toBeUndefined();
         expect(s.try('Fake Source')).toBeTruthy();
     });
 

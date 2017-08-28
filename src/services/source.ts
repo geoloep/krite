@@ -15,10 +15,12 @@ export class SourceService {
         }
 
         return source;
-    };
+    }
 
     get<T extends IDataSource>(name: string): T {
-        console.assert(name in this.sources);
+        if (!(name in this.sources)) {
+            throw new Error(`${name} was requested but is not available`);
+        }
 
         return this.sources[name];
     }

@@ -13,7 +13,9 @@ export class ServiceManager {
     }
 
     getService<T>(name: string): T {
-        console.assert(name in this.dependencies);
+        if (!(name in this.dependencies)) {
+            throw new Error(`${name} was requested but not available`);
+        }
 
         return this.dependencies[name];
     }

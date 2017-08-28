@@ -1,4 +1,7 @@
 describe('WMTSLayer', function() {
+    // setup required objects
+    krite.ServicePool.addService('ProjectService', new krite.Services.ProjectService(L.CRS.RD, L.Projection.RD.proj4def));
+
     var s = krite.Sources.WMTSSource;
 
     // This should point to a wmts data source

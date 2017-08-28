@@ -15,6 +15,10 @@
         "object-literal-sort-keys": false,
         "variable-name": [
             "allow-leading-underscore"
-        ]
+        ],
+        "max-classes-per-file": [
+            99
+        ],
+        "no-angle-bracket-type-assertion": false
     }
 }

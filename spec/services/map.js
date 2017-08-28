@@ -1,22 +1,24 @@
 describe('MapService', function () {
     // inject the HTML fixture for the test
-    var fixture = '<div id="map" style="width: 500px; height: 500px;"></div>';
+    var fixture = '<div><div id="map" style="width: 500px; height: 500px;"></div></div>';
 
     document.body.insertAdjacentHTML(
         'afterbegin',
         fixture);
 
-    // setup required objects
-    krite.ServicePool.addService('ProjectService', new krite.Services.ProjectService(L.Projection.RD.proj4def));
+    var mapDiv = document.getElementById('map');
 
-    var mapService = new krite.Services.MapService('map', {
+    // setup required objects
+    krite.ServicePool.addService('ProjectService', new krite.Services.ProjectService(L.CRS.RD, L.Projection.RD.proj4def));
+
+    var mapService = krite.ServicePool.addService('MapService', new krite.Services.MapService(mapDiv, {
         center: [52.156, 5.389],
         zoom: 3,
         zoomAnimation: false,
         crs: L.CRS.RD,
     }, {
-        checkZoom: true,
-    });
+            checkZoom: true,
+        }));
 
     var geoJson = {
         "type": "Polygon",
@@ -24,12 +26,15 @@ describe('MapService', function () {
             [[131534.0, 452820.0], [131567.0, 459774.0], [140807.0, 459739.0], [140787.0, 452785.0], [131534.0, 452820.0]]
         ]
     };
+
     var geoJsonLayer;
 
-    var source = new krite.Sources.OWSSource('http://service.geoloep.nl/geoserver/gemeenten/ows');
-    var layertitle = 'Gemeentehuizen';
-    var layername = 'gemeentehuizen';
+    var source = new krite.Sources.OWSSource('http://service.geoloep.nl/geoserver/onderwijs/ows');
+    var layertitle = 'Basisscholen';
+    var layername = 'Basisscholen';
     var layer;
+
+    var basemapName = 'Middelbare Scholen';
 
     it('should create leaflet map', function () {
         expect(mapService.map).toBeDefined();
@@ -74,7 +79,23 @@ describe('MapService', function () {
         mapService.addLayer(layer);
     });
 
-    xit('should pass click events');
+    it('should pass click events', function (done) {
+        var x = 142000;
+        var y = 470000;
+
+        mapService.onClick(function (point) {
+            expect(point.x).toBeCloseTo(x);
+            expect(point.y).toBeCloseTo(y);
+
+            done();
+        });
+
+        mapService.map.fire('click', {
+            latlng: L.latLng(52.2179345, 5.1969725),
+        });
+    });
+
+    xit('should pass layer click events');
 
     it('should be able to determine zoom visibility', function () {
         layer.maxZoom = 6;
@@ -101,7 +122,19 @@ describe('MapService', function () {
         expect(mapService.map.hasLayer(layer.leaflet)).toBeFalsy();
     });
 
-    it('should should show a highlight', function() {
+    it('should be able to set the correct z-indexes for gridlayers', function (done) {
+        source.getLayer(layertitle).then(function (l) {
+            mapService.setZIndexes();
+
+            var index = mapService.layers.indexOf(l);
+
+            expect(l.leaflet.options.zIndex).toBe(mapService.layers.length - index);
+
+            done();
+        });
+    });
+
+    it('should should show a highlight', function () {
         mapService.addHighlight(geoJson);
 
         expect(mapService.highlight).toBeDefined();
@@ -111,13 +144,13 @@ describe('MapService', function () {
         expect(mapService.map.hasLayer(geoJsonLayer)).toBeTruthy();
     });
 
-    it('should should hide the highlight', function() {
+    it('should should hide the highlight', function () {
         mapService.hideHighlight();
 
         expect(mapService.map.hasLayer(geoJsonLayer)).toBeFalsy();
     });
 
-    it('should should show the highlight again', function() {
+    it('should should show the highlight again', function () {
         mapService.showHighlight();
 
         expect(mapService.map.hasLayer(geoJsonLayer)).toBeTruthy();
@@ -133,8 +166,16 @@ describe('MapService', function () {
         expect(mapService.map.hasLayer(focus)).toBeTruthy();
     });
 
-    xit('should be able to set a basemap');
-    
+    it('should be able to set a basemap', function (done) {
+        source.getLayer(basemapName).then(function (l) {
+            mapService.setBaseMap(l);
+
+            expect(mapService.map.hasLayer(l.leaflet)).toBeTruthy();
+
+            done();
+        });
+    })
+
     xit('should be able to fit bounds');
 
     it('should be able to zoom to a point', function () {
@@ -152,5 +193,7 @@ describe('MapService', function () {
     });
 
     // clean up
-    mapService.map.remove();
+    afterAll(function () {
+        mapService.map.remove();
+    })
 });

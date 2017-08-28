@@ -105,7 +105,7 @@ export class ESRISource implements IDataSource {
 
         const json = await response.json();
 
-        const layer = new this.typeToLayer[type](layerUrl, json);
+        const layer = new this.typeToLayer[type](layerUrl, name, json);
 
         this.layers[name] = layer;
         return layer;
