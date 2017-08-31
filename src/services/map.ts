@@ -298,6 +298,18 @@ export class MapService {
     }
 
     /**
+     * Set the location of the pointer
+     * @param latLng the location in LatLng
+     */
+    setPointer(latLng: L.LatLngExpression) {
+        if (this.pointer) {
+            this.pointer.setLatLng(latLng);
+        } else {
+            this.pointer = L.marker(latLng).addTo(this.map);
+        }
+    }
+
+    /**
      * Fit bounds
      * @todo should accept bounds in krite CRS
      */
@@ -320,13 +332,9 @@ export class MapService {
      * Zoom to a point
      * @param point In LatLng (WGS84)
      */
-    zoomToLatLng(point: [number, number] | L.LatLng, zoom: number, marker = true) {
+    zoomToLatLng(point: L.LatLngExpression | L.LatLng, zoom: number, marker = true) {
         if (marker) {
-            if (this.pointer) {
-                this.pointer.setLatLng(point);
-            } else {
-                this.pointer = L.marker(point).addTo(this.map);
-            }
+            this.setPointer(point);
         }
 
         this.map.setView(point, zoom);
