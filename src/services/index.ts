@@ -4,6 +4,7 @@ export { DrawService } from './draw';
 export { InspectorService } from './inspector';
 export { ServiceManager } from './manager';
 export { MapService } from './map';
+export { NominatimService } from  './nominatim';
 export { NumeralService } from './numeral';
 export { ParameterService } from './parameter';
 export { PdokLocatieserverService } from './pdokLocatieserver';
