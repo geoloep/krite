@@ -17,7 +17,7 @@ export default class PdokSearch extends Vue {
     searchTimeOut: number;
     timeOutLength = 500;
 
-    results: {[index: string]: any[]} = {
+    results: { [index: string]: any[] } = {
         adres: [],
         woonplaats: [],
         weg: [],
@@ -29,7 +29,7 @@ export default class PdokSearch extends Vue {
         display: 'none',
     };
 
-    diepteNaarZoom: {[index: string]: number} = {
+    diepteNaarZoom: { [index: string]: number } = {
         adres: 12,
         weg: 12,
         woonplaats: 8,
@@ -99,12 +99,14 @@ export default class PdokSearch extends Vue {
         this.locatieserver.search(this.searchString).then((response) => {
             this.searchSuccess(response);
         }).catch(this.searchFail);
+
+        this.$emit('search', this.searchString);
     }
 
     /**
      * Load returned search results
      */
-    searchSuccess = (data: {[index: string]: any[]}) => {
+    searchSuccess = (data: { [index: string]: any[] }) => {
         for (const groep in this.results) {
             if (this.results[groep]) {
                 // Empty current array
@@ -128,8 +130,11 @@ export default class PdokSearch extends Vue {
         this.locatieserver.inspect(context.id).then((response) => {
             const geojson = (wellknown.parse(response.response.docs[0].centroide_rd) as GeoJSON.Point);
 
-            map.zoomToPoint(L.point(geojson.coordinates[0], geojson.coordinates[1]) , this.diepteNaarZoom[context.type]);
+            map.zoomToPoint(L.point(geojson.coordinates[0], geojson.coordinates[1]), this.diepteNaarZoom[context.type]);
+
+            this.$emit('result-click', response);
         });
+
     }
 
     searchEnter() {
