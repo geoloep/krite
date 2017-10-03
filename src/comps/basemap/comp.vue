@@ -6,7 +6,7 @@
         </div>
         <div class="modal-body">
             <div v-for="basemap in basemaps">
-                <div v-html="basemap.preview" class="basemap" @click="setBasemap(basemap)"></div>
+                <div v-html="basemap.preview" class="basemap text-center" @click="setBasemap(basemap)"></div>
                 <br>
             </div>
         </div>
