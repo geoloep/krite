@@ -114,18 +114,31 @@ export class OWSSource implements IDataSource {
     private async parseWFSCapabilities(text: string) {
         let wfsCapabilities = new XMLService(text);
 
-        let layers = wfsCapabilities.node(wfsCapabilities.document, './wfs:WFS_Capabilities/wfs:FeatureTypeList/wfs:FeatureType');
+        if (!this.isException(wfsCapabilities)) {
 
-        for (let i = 0; i < layers.snapshotLength; i++) {
-            let layer = layers.snapshotItem(i);
+            let layers = wfsCapabilities.node(wfsCapabilities.document, './wfs:WFS_Capabilities/wfs:FeatureTypeList/wfs:FeatureType');
 
-            let titel = wfsCapabilities.string(layer, './wms:Title');
+            for (let i = 0; i < layers.snapshotLength; i++) {
+                let layer = layers.snapshotItem(i);
 
-            if (this.layerNames.indexOf(titel) === -1) {
-                this.layerNames.push(titel);
+                let titel = wfsCapabilities.string(layer, './wms:Title');
+
+                if (this.layerNames.indexOf(titel) === -1) {
+                    this.layerNames.push(titel);
+                }
+
+                this.wfsLayers[titel] = new WFSLayer(this.baseUrl, layer);
             }
+        }
+    }
 
-            this.wfsLayers[titel] = new WFSLayer(this.baseUrl, layer);
+    private isException(xml: XMLService) {
+        const exception = xml.node(xml.document, './ows:ExceptionReport');
+
+        if (exception.snapshotLength > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

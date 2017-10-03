@@ -24,4 +24,6 @@ describe('OWSSource', function () {
         });
     });
 
+    xit('should fail gracefully on ows exceptions');
+
 });
