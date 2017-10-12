@@ -82,6 +82,12 @@
 					</li>
 				</ul>
 			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/_src_types_.iprojectionservice.html" class="tsd-signature-type">IProjectionService</a></li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -95,8 +101,18 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_services_project_.projectservice.html#from" class="tsd-kind-icon">from</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_services_project_.projectservice.html#to" class="tsd-kind-icon">to</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_services_project_.projectservice.html#geofrom" class="tsd-kind-icon">geo<wbr>From</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_services_project_.projectservice.html#geoto" class="tsd-kind-icon">geo<wbr>To</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_services_project_.projectservice.html#pointfrom" class="tsd-kind-icon">point<wbr>From</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_services_project_.projectservice.html#pointto" class="tsd-kind-icon">point<wbr>To</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_services_project_.projectservice.html#project" class="tsd-kind-icon">project</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_services_project_.projectservice.html#unproject" class="tsd-kind-icon">unproject</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal tsd-parent-kind-class"><a href="_src_services_project_.projectservice.html#identifiers" class="tsd-kind-icon">identifiers</a></li>
 							</ul>
 						</section>
 					</div>
@@ -108,17 +124,20 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Project<wbr>Service<span class="tsd-signature-symbol">(</span>def<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_services_project_.projectservice.html" class="tsd-signature-type">ProjectService</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Project<wbr>Service<span class="tsd-signature-symbol">(</span>crs<span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.crs.html" class="tsd-signature-type">CRS</a>, def<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_services_project_.projectservice.html" class="tsd-signature-type">ProjectService</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/services/project.ts#L7">src/services/project.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L12">src/services/project.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
+								<li>
+									<h5>crs: <a href="_types_leaflet_d_.l.crs.html" class="tsd-signature-type">CRS</a></h5>
+								</li>
 								<li>
 									<h5>def: <span class="tsd-signature-type">string</span></h5>
 								</li>
@@ -131,16 +150,16 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="from" class="tsd-anchor"></a>
-					<h3>from</h3>
+					<a name="geofrom" class="tsd-anchor"></a>
+					<h3>geo<wbr>From</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>geojson<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">GeoJsonObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeoJSON.GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeoJSON.GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryCollection</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">geo<wbr>From<span class="tsd-signature-symbol">(</span>geojson<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">GeoJsonObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeoJSON.GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeoJSON.GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryCollection</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/services/project.ts#L21">src/services/project.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L29">src/services/project.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -159,16 +178,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="to" class="tsd-anchor"></a>
-					<h3>to</h3>
+					<a name="geoto" class="tsd-anchor"></a>
+					<h3>geo<wbr>To</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<span class="tsd-signature-symbol">(</span>geojson<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">GeoJsonObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeoJSON.GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeoJSON.GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryCollection</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">geo<wbr>To<span class="tsd-signature-symbol">(</span>geojson<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">GeoJsonObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Feature</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeoJSON.GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">GeoJSON.GeometryObject</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryCollection</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/services/project.ts#L14">src/services/project.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L22">src/services/project.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -185,6 +204,152 @@
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="pointfrom" class="tsd-anchor"></a>
+					<h3>point<wbr>From</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">point<wbr>From<span class="tsd-signature-symbol">(</span>latLng<span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.latlng.html" class="tsd-signature-type">LatLng</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_src_types_.iprojectionservice.html">IProjectionService</a>.<a href="../interfaces/_src_types_.iprojectionservice.html#pointfrom">pointFrom</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L37">src/services/project.ts:37</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>latLng: <a href="_types_leaflet_d_.l.latlng.html" class="tsd-signature-type">LatLng</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="pointto" class="tsd-anchor"></a>
+					<h3>point<wbr>To</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">point<wbr>To<span class="tsd-signature-symbol">(</span>point<span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.latlng.html" class="tsd-signature-type">LatLng</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_src_types_.iprojectionservice.html">IProjectionService</a>.<a href="../interfaces/_src_types_.iprojectionservice.html#pointto">pointTo</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L33">src/services/project.ts:33</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>point: <a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_types_leaflet_d_.l.latlng.html" class="tsd-signature-type">LatLng</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="project" class="tsd-anchor"></a>
+					<h3>project</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">project<span class="tsd-signature-symbol">(</span>latLng<span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.latlng.html" class="tsd-signature-type">LatLng</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_src_types_.iprojectionservice.html">IProjectionService</a>.<a href="../interfaces/_src_types_.iprojectionservice.html#project">project</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L45">src/services/project.ts:45</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Wrapper of the projection.project function</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>latLng: <a href="_types_leaflet_d_.l.latlng.html" class="tsd-signature-type">LatLng</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>LatLng as returned from leaflet</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="unproject" class="tsd-anchor"></a>
+					<h3>unproject</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">unproject<span class="tsd-signature-symbol">(</span>point<span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.latlng.html" class="tsd-signature-type">LatLng</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_src_types_.iprojectionservice.html">IProjectionService</a>.<a href="../interfaces/_src_types_.iprojectionservice.html#unproject">unproject</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L53">src/services/project.ts:53</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Wrapper of the projection.unproject function</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>point: <a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Coordinates in the krite crs</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_types_leaflet_d_.l.latlng.html" class="tsd-signature-type">LatLng</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class">
+					<a name="identifiers" class="tsd-anchor"></a>
+					<h3>identifiers</h3>
+					<div class="tsd-signature tsd-kind-icon">identifiers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/_src_types_.iprojectionservice.html">IProjectionService</a>.<a href="../interfaces/_src_types_.iprojectionservice.html#identifiers">identifiers</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L9">src/services/project.ts:9</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="identifiers.krite" class="tsd-anchor"></a>
+						<h3>krite</h3>
+						<div class="tsd-signature tsd-kind-icon">krite<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L11">src/services/project.ts:11</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="identifiers.leaflet" class="tsd-anchor"></a>
+						<h3>leaflet</h3>
+						<div class="tsd-signature tsd-kind-icon">leaflet<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/project.ts#L10">src/services/project.ts:10</a></li>
+							</ul>
+						</aside>
+					</section>
 				</section>
 			</section>
 		</div>
@@ -210,10 +375,25 @@
 								<a href="_src_services_project_.projectservice.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_services_project_.projectservice.html#from" class="tsd-kind-icon">from</a>
+								<a href="_src_services_project_.projectservice.html#geofrom" class="tsd-kind-icon">geo<wbr>From</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_services_project_.projectservice.html#to" class="tsd-kind-icon">to</a>
+								<a href="_src_services_project_.projectservice.html#geoto" class="tsd-kind-icon">geo<wbr>To</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_services_project_.projectservice.html#pointfrom" class="tsd-kind-icon">point<wbr>From</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_services_project_.projectservice.html#pointto" class="tsd-kind-icon">point<wbr>To</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_services_project_.projectservice.html#project" class="tsd-kind-icon">project</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_services_project_.projectservice.html#unproject" class="tsd-kind-icon">unproject</a>
+							</li>
+							<li class=" tsd-kind-object-literal tsd-parent-kind-class">
+								<a href="_src_services_project_.projectservice.html#identifiers" class="tsd-kind-icon">identifiers</a>
 							</li>
 						</ul>
 					</li>

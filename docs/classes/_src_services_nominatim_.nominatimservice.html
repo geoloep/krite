@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BasemapService | krite</title>
+	<title>NominatimService | krite</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,24 +54,31 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_src_services_basemap_.html">&quot;src/services/basemap&quot;</a>
+					<a href="../modules/_src_services_nominatim_.html">&quot;src/services/nominatim&quot;</a>
 				</li>
 				<li>
-					<a href="_src_services_basemap_.basemapservice.html">BasemapService</a>
+					<a href="_src_services_nominatim_.nominatimservice.html">NominatimService</a>
 				</li>
 			</ul>
-			<h1>Class BasemapService</h1>
+			<h1>Class NominatimService</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>This class facilitates communication with the Nominatim by OSM</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">BasemapService</span>
+						<span class="target">NominatimService</span>
 					</li>
 				</ul>
 			</section>
@@ -80,57 +87,52 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_src_services_basemap_.basemapservice.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_services_basemap_.basemapservice.html#list" class="tsd-kind-icon">list</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_services_nominatim_.nominatimservice.html#search" class="tsd-kind-icon">search</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Basemap<wbr>Service<span class="tsd-signature-symbol">(</span>basemaps<span class="tsd-signature-symbol">: </span><a href="../interfaces/_src_types_.ibasemap.html" class="tsd-signature-type">IBasemap</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_services_basemap_.basemapservice.html" class="tsd-signature-type">BasemapService</a></li>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="search" class="tsd-anchor"></a>
+					<h3>search</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">search<span class="tsd-signature-symbol">(</span>searchString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/services/basemap.ts#L4">src/services/basemap.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/services/nominatim.ts#L12">src/services/nominatim.ts:12</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Peform a request to the nomatim search service</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>basemaps: <a href="../interfaces/_src_types_.ibasemap.html" class="tsd-signature-type">IBasemap</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>searchString: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>string to search for</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>additional optional url parameters</p>
+									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_src_services_basemap_.basemapservice.html" class="tsd-signature-type">BasemapService</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="list" class="tsd-anchor"></a>
-					<h3>list</h3>
-					<div class="tsd-signature tsd-kind-icon">list<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_src_types_.ibasemap.html" class="tsd-signature-type">IBasemap</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/services/basemap.ts#L4">src/services/basemap.ts:4</a></li>
-						</ul>
-					</aside>
 				</section>
 			</section>
 		</div>
@@ -141,7 +143,7 @@
 						<a href="../index.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_src_services_basemap_.html">"src/services/basemap"</a>
+						<a href="../modules/_src_services_nominatim_.html">"src/services/nominatim"</a>
 					</li>
 				</ul>
 			</nav>
@@ -150,13 +152,10 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_src_services_basemap_.basemapservice.html" class="tsd-kind-icon">Basemap<wbr>Service</a>
+						<a href="_src_services_nominatim_.nominatimservice.html" class="tsd-kind-icon">Nominatim<wbr>Service</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_src_services_basemap_.basemapservice.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_src_services_basemap_.basemapservice.html#list" class="tsd-kind-icon">list</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_services_nominatim_.nominatimservice.html#search" class="tsd-kind-icon">search</a>
 							</li>
 						</ul>
 					</li>

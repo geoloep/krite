@@ -107,6 +107,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_ows_source_.owssource.html#getcapabilities" class="tsd-kind-icon">get<wbr>Capabilities</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_sources_ows_source_.owssource.html#getlayer" class="tsd-kind-icon">get<wbr>Layer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_sources_ows_source_.owssource.html#getlayernames" class="tsd-kind-icon">get<wbr>Layer<wbr>Names</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_ows_source_.owssource.html#isexception" class="tsd-kind-icon">is<wbr>Exception</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_ows_source_.owssource.html#parsewfscapabilities" class="tsd-kind-icon">parseWFSCapabilities</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_ows_source_.owssource.html#parsewmscapabilities" class="tsd-kind-icon">parseWMSCapabilities</a></li>
 							</ul>
@@ -126,19 +127,19 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new OWSSource<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_src_sources_ows_source_.iowssourceoptions.html" class="tsd-signature-type">IOWSSourceoptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_sources_ows_source_.owssource.html" class="tsd-signature-type">OWSSource</a></li>
+						<li class="tsd-signature tsd-kind-icon">new OWSSource<span class="tsd-signature-symbol">(</span>baseUrl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_src_sources_ows_source_.iowssourceoptions.html" class="tsd-signature-type">IOWSSourceoptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_sources_ows_source_.owssource.html" class="tsd-signature-type">OWSSource</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L22">src/sources/ows/source.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L22">src/sources/ows/source.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<h5>baseUrl: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/_src_sources_ows_source_.iowssourceoptions.html" class="tsd-signature-type">IOWSSourceoptions</a></h5>
@@ -157,7 +158,7 @@
 					<div class="tsd-signature tsd-kind-icon">layer<wbr>Names<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L16">src/sources/ows/source.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L16">src/sources/ows/source.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -167,7 +168,7 @@
 					<div class="tsd-signature tsd-kind-icon">layers<wbr>Loaded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L15">src/sources/ows/source.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L15">src/sources/ows/source.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -177,7 +178,7 @@
 					<div class="tsd-signature tsd-kind-icon">wfs<wbr>Layers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L18">src/sources/ows/source.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L18">src/sources/ows/source.ts:18</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -195,7 +196,7 @@
 					<div class="tsd-signature tsd-kind-icon">wms<wbr>Layers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L17">src/sources/ows/source.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L17">src/sources/ows/source.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -220,7 +221,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L98">src/sources/ows/source.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L98">src/sources/ows/source.ts:98</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -246,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L47">src/sources/ows/source.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L47">src/sources/ows/source.ts:47</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -264,7 +265,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_src_types_.idatasource.html">IDataSource</a>.<a href="../interfaces/_src_types_.idatasource.html#getlayer">getLayer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L39">src/sources/ows/source.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L39">src/sources/ows/source.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -288,10 +289,33 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_src_types_.idatasource.html">IDataSource</a>.<a href="../interfaces/_src_types_.idatasource.html#getlayernames">getLayerNames</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L31">src/sources/ows/source.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L31">src/sources/ows/source.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="isexception" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> is<wbr>Exception</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Exception<span class="tsd-signature-symbol">(</span>xml<span class="tsd-signature-symbol">: </span><a href="_src_services_xml_.xmlservice.html" class="tsd-signature-type">XMLService</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L135">src/sources/ows/source.ts:135</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>xml: <a href="_src_services_xml_.xmlservice.html" class="tsd-signature-type">XMLService</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -305,7 +329,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L114">src/sources/ows/source.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L114">src/sources/ows/source.ts:114</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -328,7 +352,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L87">src/sources/ows/source.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L87">src/sources/ows/source.ts:87</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -350,7 +374,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L19">src/sources/ows/source.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L19">src/sources/ows/source.ts:19</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -359,7 +383,7 @@
 						<div class="tsd-signature tsd-kind-icon">wfs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L20">src/sources/ows/source.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L20">src/sources/ows/source.ts:20</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -369,7 +393,7 @@
 						<div class="tsd-signature tsd-kind-icon">wms<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/ows/source.ts#L21">src/sources/ows/source.ts:21</a></li>
+								<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/ows/source.ts#L21">src/sources/ows/source.ts:21</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -420,6 +444,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_sources_ows_source_.owssource.html#getlayernames" class="tsd-kind-icon">get<wbr>Layer<wbr>Names</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_ows_source_.owssource.html#isexception" class="tsd-kind-icon">is<wbr>Exception</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
 								<a href="_src_sources_ows_source_.owssource.html#parsewfscapabilities" class="tsd-kind-icon">parseWFSCapabilities</a>

@@ -94,7 +94,12 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#_leaflet" class="tsd-kind-icon">_leaflet</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#_leaflet" class="tsd-kind-icon">_leaflet</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#hasoperations" class="tsd-kind-icon">has<wbr>Operations</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#mapservice" class="tsd-kind-icon">map<wbr>Service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#previewcol" class="tsd-kind-icon">preview<wbr>Col</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#previewrow" class="tsd-kind-icon">preview<wbr>Row</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#previewset" class="tsd-kind-icon">preview<wbr>Set</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -104,9 +109,14 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#bounds" class="tsd-kind-icon">bounds</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#leaflet" class="tsd-kind-icon">leaflet</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#legend" class="tsd-kind-icon">legend</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#preview" class="tsd-kind-icon">preview</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#title" class="tsd-kind-icon">title</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#intersectspoint" class="tsd-kind-icon">intersects<wbr>Point</a></li>
 							</ul>
 						</section>
 					</div>
@@ -118,13 +128,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new ESRITiled<wbr>Map<wbr>Layer<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, _name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, capabilities<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, source<span class="tsd-signature-symbol">: </span><a href="_src_sources_esri_source_.esrisource.html" class="tsd-signature-type">ESRISource</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html" class="tsd-signature-type">ESRITiledMapLayer</a></li>
+						<li class="tsd-signature tsd-kind-icon">new ESRITiled<wbr>Map<wbr>Layer<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, capabilities<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html" class="tsd-signature-type">ESRITiledMapLayer</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/tiledMapLayer.ts#L7">src/sources/esri/tiledMapLayer.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L17">src/sources/esri/tiledMapLayer.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -133,13 +143,10 @@
 									<h5>url: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>_name: <span class="tsd-signature-type">string</span></h5>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
 									<h5>capabilities: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5>source: <a href="_src_sources_esri_source_.esrisource.html" class="tsd-signature-type">ESRISource</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html" class="tsd-signature-type">ESRITiledMapLayer</a></h4>
@@ -149,13 +156,64 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_leaflet" class="tsd-anchor"></a>
-					<h3>_leaflet</h3>
-					<div class="tsd-signature tsd-kind-icon">_leaflet<span class="tsd-signature-symbol">:</span> <a href="_types_leaflet_d_.l.layer.html" class="tsd-signature-type">Layer</a></div>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _leaflet</h3>
+					<div class="tsd-signature tsd-kind-icon">_leaflet<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/tiledMapLayer.ts#L7">src/sources/esri/tiledMapLayer.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L16">src/sources/esri/tiledMapLayer.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="hasoperations" class="tsd-anchor"></a>
+					<h3>has<wbr>Operations</h3>
+					<div class="tsd-signature tsd-kind-icon">has<wbr>Operations<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
+					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/_src_types_.ilayer.html">ILayer</a>.<a href="../interfaces/_src_types_.ilayer.html#hasoperations">hasOperations</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L14">src/sources/esri/tiledMapLayer.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="mapservice" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> map<wbr>Service</h3>
+					<div class="tsd-signature tsd-kind-icon">map<wbr>Service<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="_src_services_map_.mapservice.html" class="tsd-signature-type">MapService</a><span class="tsd-signature-symbol"> =&nbsp;pool.tryService&lt;MapService&gt;(&#x27;MapService&#x27;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L17">src/sources/esri/tiledMapLayer.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="previewcol" class="tsd-anchor"></a>
+					<h3>preview<wbr>Col</h3>
+					<div class="tsd-signature tsd-kind-icon">preview<wbr>Col<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L11">src/sources/esri/tiledMapLayer.ts:11</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="previewrow" class="tsd-anchor"></a>
+					<h3>preview<wbr>Row</h3>
+					<div class="tsd-signature tsd-kind-icon">preview<wbr>Row<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L12">src/sources/esri/tiledMapLayer.ts:12</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="previewset" class="tsd-anchor"></a>
+					<h3>preview<wbr>Set</h3>
+					<div class="tsd-signature tsd-kind-icon">preview<wbr>Set<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L10">src/sources/esri/tiledMapLayer.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -172,7 +230,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/tiledMapLayer.ts#L20">src/sources/esri/tiledMapLayer.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L26">src/sources/esri/tiledMapLayer.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -189,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/tiledMapLayer.ts#L24">src/sources/esri/tiledMapLayer.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L30">src/sources/esri/tiledMapLayer.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span></h4>
@@ -200,16 +258,16 @@
 					<a name="leaflet" class="tsd-anchor"></a>
 					<h3>leaflet</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> leaflet<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.layer.html" class="tsd-signature-type">Layer</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> leaflet<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/tiledMapLayer.ts#L32">src/sources/esri/tiledMapLayer.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L38">src/sources/esri/tiledMapLayer.ts:38</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="_types_leaflet_d_.l.layer.html" class="tsd-signature-type">Layer</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -223,24 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/tiledMapLayer.ts#L43">src/sources/esri/tiledMapLayer.ts:43</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/tiledMapLayer.ts#L16">src/sources/esri/tiledMapLayer.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L49">src/sources/esri/tiledMapLayer.ts:49</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -257,7 +298,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/tiledMapLayer.ts#L28">src/sources/esri/tiledMapLayer.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L34">src/sources/esri/tiledMapLayer.ts:34</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -274,10 +315,37 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/tiledMapLayer.ts#L12">src/sources/esri/tiledMapLayer.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L22">src/sources/esri/tiledMapLayer.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="intersectspoint" class="tsd-anchor"></a>
+					<h3>intersects<wbr>Point</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">intersects<wbr>Point<span class="tsd-signature-symbol">(</span>point<span class="tsd-signature-symbol">: </span><a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DirectGeometryObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryCollection</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/_src_types_.ilayer.html">ILayer</a>.<a href="../interfaces/_src_types_.ilayer.html#intersectspoint">intersectsPoint</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/tiledMapLayer.ts#L53">src/sources/esri/tiledMapLayer.ts:53</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>point: <a href="_types_leaflet_d_.l.point.html" class="tsd-signature-type">Point</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">FeatureCollection</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DirectGeometryObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GeometryCollection</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -304,8 +372,23 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#_leaflet" class="tsd-kind-icon">_leaflet</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#hasoperations" class="tsd-kind-icon">has<wbr>Operations</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#mapservice" class="tsd-kind-icon">map<wbr>Service</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#previewcol" class="tsd-kind-icon">preview<wbr>Col</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#previewrow" class="tsd-kind-icon">preview<wbr>Row</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#previewset" class="tsd-kind-icon">preview<wbr>Set</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#abstract" class="tsd-kind-icon">abstract</a>
@@ -320,13 +403,13 @@
 								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#legend" class="tsd-kind-icon">legend</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#name" class="tsd-kind-icon">name</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#preview" class="tsd-kind-icon">preview</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#title" class="tsd-kind-icon">title</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html#intersectspoint" class="tsd-kind-icon">intersects<wbr>Point</a>
 							</li>
 						</ul>
 					</li>

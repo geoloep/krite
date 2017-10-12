@@ -94,8 +94,16 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_wmts_layer_.wmtslayer.html#_leaflet" class="tsd-kind-icon">_leaflet</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#capabilities" class="tsd-kind-icon">capabilities</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#_leaflet" class="tsd-kind-icon">_leaflet</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#_legend" class="tsd-kind-icon">_legend</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#_name" class="tsd-kind-icon">_name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#_preview" class="tsd-kind-icon">_preview</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#_title" class="tsd-kind-icon">_title</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_wmts_layer_.wmtslayer.html#previewcol" class="tsd-kind-icon">preview<wbr>Col</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_wmts_layer_.wmtslayer.html#previewrow" class="tsd-kind-icon">preview<wbr>Row</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_wmts_layer_.wmtslayer.html#previewset" class="tsd-kind-icon">preview<wbr>Set</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#projectservice" class="tsd-kind-icon">project<wbr>Service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#xml" class="tsd-kind-icon">xml</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -110,6 +118,15 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_src_sources_wmts_layer_.wmtslayer.html#title" class="tsd-kind-icon">title</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#getstyle" class="tsd-kind-icon">get<wbr>Style</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#gettilematrixname" class="tsd-kind-icon">get<wbr>Tile<wbr>Matrix<wbr>Name</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#gettilematrixprefix" class="tsd-kind-icon">get<wbr>Tile<wbr>Matrix<wbr>Prefix</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_wmts_layer_.wmtslayer.html#gettilematrixset" class="tsd-kind-icon">get<wbr>Tile<wbr>Matrix<wbr>Set</a></li>
+							</ul>
+						</section>
 					</div>
 				</section>
 			</section>
@@ -119,22 +136,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new WMTSLayer<span class="tsd-signature-symbol">(</span>capabilities<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, source<span class="tsd-signature-symbol">: </span><a href="_src_sources_wmts_source_.wmtssource.html" class="tsd-signature-type">WMTSSource</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_sources_wmts_layer_.wmtslayer.html" class="tsd-signature-type">WMTSLayer</a></li>
+						<li class="tsd-signature tsd-kind-icon">new WMTSLayer<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, document<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Node</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_sources_wmts_layer_.wmtslayer.html" class="tsd-signature-type">WMTSLayer</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L8">src/sources/wmts/layer.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L24">src/sources/wmts/layer.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>capabilities: <span class="tsd-signature-type">any</span></h5>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5>source: <a href="_src_sources_wmts_source_.wmtssource.html" class="tsd-signature-type">WMTSSource</a></h5>
+									<h5>document: <span class="tsd-signature-type">Node</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_src_sources_wmts_layer_.wmtslayer.html" class="tsd-signature-type">WMTSLayer</a></h4>
@@ -144,23 +161,103 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="_leaflet" class="tsd-anchor"></a>
-					<h3>_leaflet</h3>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _leaflet</h3>
 					<div class="tsd-signature tsd-kind-icon">_leaflet<span class="tsd-signature-symbol">:</span> <a href="_types_leaflet_d_.l.tilelayer-1.html" class="tsd-signature-type">TileLayer</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L8">src/sources/wmts/layer.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L20">src/sources/wmts/layer.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="capabilities" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> capabilities</h3>
-					<div class="tsd-signature tsd-kind-icon">capabilities<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="_legend" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _legend</h3>
+					<div class="tsd-signature tsd-kind-icon">_legend<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L10">src/sources/wmts/layer.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L19">src/sources/wmts/layer.ts:19</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_name" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _name</h3>
+					<div class="tsd-signature tsd-kind-icon">_name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L16">src/sources/wmts/layer.ts:16</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_preview" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _preview</h3>
+					<div class="tsd-signature tsd-kind-icon">_preview<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L18">src/sources/wmts/layer.ts:18</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="_title" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _title</h3>
+					<div class="tsd-signature tsd-kind-icon">_title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L15">src/sources/wmts/layer.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="previewcol" class="tsd-anchor"></a>
+					<h3>preview<wbr>Col</h3>
+					<div class="tsd-signature tsd-kind-icon">preview<wbr>Col<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L12">src/sources/wmts/layer.ts:12</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="previewrow" class="tsd-anchor"></a>
+					<h3>preview<wbr>Row</h3>
+					<div class="tsd-signature tsd-kind-icon">preview<wbr>Row<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L13">src/sources/wmts/layer.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="previewset" class="tsd-anchor"></a>
+					<h3>preview<wbr>Set</h3>
+					<div class="tsd-signature tsd-kind-icon">preview<wbr>Set<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L11">src/sources/wmts/layer.ts:11</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="projectservice" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> project<wbr>Service</h3>
+					<div class="tsd-signature tsd-kind-icon">project<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_src_types_.iprojectionservice.html" class="tsd-signature-type">IProjectionService</a><span class="tsd-signature-symbol"> =&nbsp;pool.getService&lt;IProjectionService&gt;(&#x27;ProjectService&#x27;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L24">src/sources/wmts/layer.ts:24</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="xml" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> xml</h3>
+					<div class="tsd-signature tsd-kind-icon">xml<span class="tsd-signature-symbol">:</span> <a href="_src_services_xml_.xmlservice.html" class="tsd-signature-type">XMLService</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L22">src/sources/wmts/layer.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -171,16 +268,16 @@
 					<a name="abstract" class="tsd-anchor"></a>
 					<h3>abstract</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> abstract<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> abstract<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L21">src/sources/wmts/layer.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L46">src/sources/wmts/layer.ts:46</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -194,7 +291,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L25">src/sources/wmts/layer.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L50">src/sources/wmts/layer.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span></h4>
@@ -211,7 +308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L33">src/sources/wmts/layer.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L75">src/sources/wmts/layer.ts:75</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="_types_leaflet_d_.l.tilelayer-1.html" class="tsd-signature-type">TileLayer</a></h4>
@@ -228,7 +325,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L47">src/sources/wmts/layer.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L91">src/sources/wmts/layer.ts:91</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -239,16 +336,16 @@
 					<a name="name" class="tsd-anchor"></a>
 					<h3>name</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> name<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L17">src/sources/wmts/layer.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L38">src/sources/wmts/layer.ts:38</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -262,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L29">src/sources/wmts/layer.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L54">src/sources/wmts/layer.ts:54</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -273,16 +370,121 @@
 					<a name="title" class="tsd-anchor"></a>
 					<h3>title</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> title<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> title<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/wmts/layer.ts#L13">src/sources/wmts/layer.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L30">src/sources/wmts/layer.ts:30</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="getstyle" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Style</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Style<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L139">src/sources/wmts/layer.ts:139</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Find the name of default style</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="gettilematrixname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Tile<wbr>Matrix<wbr>Name</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Tile<wbr>Matrix<wbr>Name<span class="tsd-signature-symbol">(</span>tileMatrixSet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Node</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L114">src/sources/wmts/layer.ts:114</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determin the name of the selected Tile Matrix Set</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>tileMatrixSet: <span class="tsd-signature-type">Node</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="gettilematrixprefix" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Tile<wbr>Matrix<wbr>Prefix</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Tile<wbr>Matrix<wbr>Prefix<span class="tsd-signature-symbol">(</span>tileMatrixSet<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Node</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L121">src/sources/wmts/layer.ts:121</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Find out if tilematrix identifier should be prefixed</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>tileMatrixSet: <span class="tsd-signature-type">Node</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="gettilematrixset" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Tile<wbr>Matrix<wbr>Set</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Tile<wbr>Matrix<wbr>Set<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Node</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/wmts/layer.ts#L98">src/sources/wmts/layer.ts:98</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the tile matrix set that works with the current map crs</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Node</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -309,11 +511,35 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_src_sources_wmts_layer_.wmtslayer.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_src_sources_wmts_layer_.wmtslayer.html#_leaflet" class="tsd-kind-icon">_leaflet</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_src_sources_wmts_layer_.wmtslayer.html#capabilities" class="tsd-kind-icon">capabilities</a>
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#_legend" class="tsd-kind-icon">_legend</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#_name" class="tsd-kind-icon">_name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#_preview" class="tsd-kind-icon">_preview</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#_title" class="tsd-kind-icon">_title</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#previewcol" class="tsd-kind-icon">preview<wbr>Col</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#previewrow" class="tsd-kind-icon">preview<wbr>Row</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#previewset" class="tsd-kind-icon">preview<wbr>Set</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#projectservice" class="tsd-kind-icon">project<wbr>Service</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#xml" class="tsd-kind-icon">xml</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_sources_wmts_layer_.wmtslayer.html#abstract" class="tsd-kind-icon">abstract</a>
@@ -335,6 +561,18 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="_src_sources_wmts_layer_.wmtslayer.html#title" class="tsd-kind-icon">title</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#getstyle" class="tsd-kind-icon">get<wbr>Style</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#gettilematrixname" class="tsd-kind-icon">get<wbr>Tile<wbr>Matrix<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#gettilematrixprefix" class="tsd-kind-icon">get<wbr>Tile<wbr>Matrix<wbr>Prefix</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_wmts_layer_.wmtslayer.html#gettilematrixset" class="tsd-kind-icon">get<wbr>Tile<wbr>Matrix<wbr>Set</a>
 							</li>
 						</ul>
 					</li>

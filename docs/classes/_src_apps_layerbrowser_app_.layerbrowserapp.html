@@ -102,7 +102,6 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-protected"><a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#bootstrap" class="tsd-kind-icon">bootstrap</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#container" class="tsd-kind-icon">container</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#props" class="tsd-kind-icon">props</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#vue" class="tsd-kind-icon">vue</a></li>
 							</ul>
 						</section>
@@ -115,6 +114,12 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#mount" class="tsd-kind-icon">mount</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section ">
+							<h3>Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal tsd-parent-kind-class tsd-is-overwrite"><a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#props" class="tsd-kind-icon">props</a></li>
+							</ul>
+						</section>
 					</div>
 				</section>
 			</section>
@@ -124,19 +129,24 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Layer<wbr>Browser<wbr>App<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_src_types_.icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_apps_layerbrowser_app_.layerbrowserapp.html" class="tsd-signature-type">LayerBrowserApp</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Layer<wbr>Browser<wbr>App<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_src_types_.icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, props<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_apps_layerbrowser_app_.layerbrowserapp.html" class="tsd-signature-type">LayerBrowserApp</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/layerBrowser/app.ts#L9">src/apps/layerBrowser/app.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/layerBrowser/app.ts#L17">src/apps/layerBrowser/app.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> element: <a href="../interfaces/_src_types_.icontainer.html" class="tsd-signature-type">IContainer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> props: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+									<ul class="tsd-parameters">
+									</ul>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_src_apps_layerbrowser_app_.layerbrowserapp.html" class="tsd-signature-type">LayerBrowserApp</a></h4>
@@ -149,11 +159,11 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-protected">
 					<a name="bootstrap" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> bootstrap</h3>
-					<div class="tsd-signature tsd-kind-icon">bootstrap<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"string"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"number"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"boolean"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"symbol"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"undefined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"object"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"function"</span><span class="tsd-signature-symbol"> =&nbsp;Bootstrap</span></div>
+					<div class="tsd-signature tsd-kind-icon">bootstrap<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Vue</span><span class="tsd-signature-symbol"> =&nbsp;Bootstrap</span></div>
 					<aside class="tsd-sources">
 						<p>Overrides <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#bootstrap">bootstrap</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/layerBrowser/app.ts#L9">src/apps/layerBrowser/app.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/layerBrowser/app.ts#L17">src/apps/layerBrowser/app.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -164,7 +174,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#container">container</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/vueApp.ts#L22">src/apps/vueApp.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/vueApp.ts#L22">src/apps/vueApp.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -176,25 +186,9 @@
 						<p>Implementation of <a href="../interfaces/_src_types_.iapp.html">IApp</a>.<a href="../interfaces/_src_types_.iapp.html#name">name</a></p>
 						<p>Overrides <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/layerBrowser/app.ts#L7">src/apps/layerBrowser/app.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/layerBrowser/app.ts#L11">src/apps/layerBrowser/app.ts:11</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-					<a name="props" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagProtected">Protected</span> props</h3>
-					<div class="tsd-signature tsd-kind-icon">props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#props">props</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/vueApp.ts#L18">src/apps/vueApp.ts:18</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Props to be passed to the bootstrap component</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 					<a name="vue" class="tsd-anchor"></a>
@@ -203,7 +197,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#vue">vue</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/vueApp.ts#L21">src/apps/vueApp.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/vueApp.ts#L21">src/apps/vueApp.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -221,7 +215,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#createvue">createVue</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/vueApp.ts#L55">src/apps/vueApp.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/vueApp.ts#L55">src/apps/vueApp.ts:55</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -240,7 +234,7 @@
 								<p>Implementation of <a href="../interfaces/_src_types_.iapp.html">IApp</a>.<a href="../interfaces/_src_types_.iapp.html#detatch">detatch</a></p>
 								<p>Inherited from <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#detatch">detatch</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/vueApp.ts#L44">src/apps/vueApp.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/vueApp.ts#L44">src/apps/vueApp.ts:44</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -259,7 +253,7 @@
 								<p>Implementation of <a href="../interfaces/_src_types_.iapp.html">IApp</a>.<a href="../interfaces/_src_types_.iapp.html#insert">insert</a></p>
 								<p>Inherited from <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#insert">insert</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/vueApp.ts#L30">src/apps/vueApp.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/vueApp.ts#L30">src/apps/vueApp.ts:30</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -283,7 +277,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#mount">mount</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/apps/vueApp.ts#L72">src/apps/vueApp.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/vueApp.ts#L72">src/apps/vueApp.ts:72</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -295,6 +289,81 @@
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class tsd-is-overwrite">
+					<a name="props" class="tsd-anchor"></a>
+					<h3>props</h3>
+					<div class="tsd-signature tsd-kind-icon">props<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<p>Overrides <a href="_src_apps_vueapp_.vueapp.html">VueApp</a>.<a href="_src_apps_vueapp_.vueapp.html#props">props</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/layerBrowser/app.ts#L13">src/apps/layerBrowser/app.ts:13</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="props.locale" class="tsd-anchor"></a>
+						<h3>locale</h3>
+						<div class="tsd-signature tsd-kind-icon">locale<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;English</span></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/apps/layerBrowser/app.ts#L14">src/apps/layerBrowser/app.ts:14</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-type-declaration">
+							<h4>Type declaration</h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter">
+									<h5>add_<wbr>layer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>close<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>data_<wbr>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>filter<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>permalink<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5>dummy_<wbr>layer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+										</li>
+										<li class="tsd-parameter">
+											<h5>layer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h5>
+											<ul class="tsd-parameters">
+												<li class="tsd-parameter">
+													<h5>abstract<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+												</li>
+												<li class="tsd-parameter">
+													<h5>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+												</li>
+												<li class="tsd-parameter">
+													<h5>preview<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+												</li>
+												<li class="tsd-parameter">
+													<h5>title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</section>
 				</section>
 			</section>
 		</div>
@@ -329,9 +398,6 @@
 								<a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#name" class="tsd-kind-icon">name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#props" class="tsd-kind-icon">props</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#vue" class="tsd-kind-icon">vue</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
@@ -345,6 +411,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
 								<a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#mount" class="tsd-kind-icon">mount</a>
+							</li>
+							<li class=" tsd-kind-object-literal tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_src_apps_layerbrowser_app_.layerbrowserapp.html#props" class="tsd-kind-icon">props</a>
 							</li>
 						</ul>
 					</li>

@@ -94,19 +94,18 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_esri_source_.esrisource.html#capabilities" class="tsd-kind-icon">capabilities</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_esri_source_.esrisource.html#layerlist" class="tsd-kind-icon">layer<wbr>List</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_src_sources_esri_source_.esrisource.html#layers" class="tsd-kind-icon">layers</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_src_sources_esri_source_.esrisource.html#services" class="tsd-kind-icon">services</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_esri_source_.esrisource.html#_getlayer" class="tsd-kind-icon">_get<wbr>Layer</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_sources_esri_source_.esrisource.html#_getlayernames" class="tsd-kind-icon">_get<wbr>Layer<wbr>Names</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_esri_source_.esrisource.html#createlayer" class="tsd-kind-icon">create<wbr>Layer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_esri_source_.esrisource.html#getcapabilities" class="tsd-kind-icon">get<wbr>Capabilities</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_sources_esri_source_.esrisource.html#getlayer" class="tsd-kind-icon">get<wbr>Layer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_sources_esri_source_.esrisource.html#getlayernames" class="tsd-kind-icon">get<wbr>Layer<wbr>Names</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_src_sources_esri_source_.esrisource.html#getlayers" class="tsd-kind-icon">get<wbr>Layers</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="_src_sources_esri_source_.esrisource.html#getservices" class="tsd-kind-icon">get<wbr>Services</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -124,19 +123,19 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new ESRISource<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_sources_esri_source_.esrisource.html" class="tsd-signature-type">ESRISource</a></li>
+						<li class="tsd-signature tsd-kind-icon">new ESRISource<span class="tsd-signature-symbol">(</span>baseUrl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_src_sources_esri_source_.esrisource.html" class="tsd-signature-type">ESRISource</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L26">src/sources/esri/source.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L27">src/sources/esri/source.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<h5>baseUrl: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_src_sources_esri_source_.esrisource.html" class="tsd-signature-type">ESRISource</a></h4>
@@ -146,13 +145,33 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="capabilities" class="tsd-anchor"></a>
+					<h3>capabilities</h3>
+					<div class="tsd-signature tsd-kind-icon">capabilities<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L20">src/sources/esri/source.ts:20</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="layerlist" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> layer<wbr>List</h3>
+					<div class="tsd-signature tsd-kind-icon">layer<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L27">src/sources/esri/source.ts:27</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="layers" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> layers</h3>
 					<div class="tsd-signature tsd-kind-icon">layers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L26">src/sources/esri/source.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L26">src/sources/esri/source.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -164,30 +183,20 @@
 						</ul>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="services" class="tsd-anchor"></a>
-					<h3>services</h3>
-					<div class="tsd-signature tsd-kind-icon">services<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_src_sources_esri_source_.iesriservicelist.html" class="tsd-signature-type">IESRIServiceList</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L20">src/sources/esri/source.ts:20</a></li>
-						</ul>
-					</aside>
-				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="_getlayer" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _get<wbr>Layer</h3>
+					<a name="createlayer" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> create<wbr>Layer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_get<wbr>Layer<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_src_types_.ilayer.html" class="tsd-signature-type">ILayer</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Layer<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L65">src/sources/esri/source.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L83">src/sources/esri/source.ts:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -196,24 +205,24 @@
 									<h5>name: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_src_types_.ilayer.html" class="tsd-signature-type">ILayer</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="_getlayernames" class="tsd-anchor"></a>
-					<h3>_get<wbr>Layer<wbr>Names</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">_get<wbr>Layer<wbr>Names<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="getcapabilities" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Capabilities</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Capabilities<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L49">src/sources/esri/source.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L56">src/sources/esri/source.ts:56</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -221,14 +230,14 @@
 					<a name="getlayer" class="tsd-anchor"></a>
 					<h3>get<wbr>Layer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Layer<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_src_types_.ilayer.html" class="tsd-signature-type">ILayer</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Layer<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_src_types_.ilayer.html" class="tsd-signature-type">ILayer</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_src_types_.idatasource.html">IDataSource</a>.<a href="../interfaces/_src_types_.idatasource.html#getlayer">getLayer</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L57">src/sources/esri/source.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L40">src/sources/esri/source.ts:40</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -237,7 +246,7 @@
 									<h5>name: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/_src_types_.ilayer.html" class="tsd-signature-type">ILayer</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_src_types_.ilayer.html" class="tsd-signature-type">ILayer</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -252,44 +261,10 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/_src_types_.idatasource.html">IDataSource</a>.<a href="../interfaces/_src_types_.idatasource.html#getlayernames">getLayerNames</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L37">src/sources/esri/source.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L32">src/sources/esri/source.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getlayers" class="tsd-anchor"></a>
-					<h3>get<wbr>Layers</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Layers<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L31">src/sources/esri/source.ts:31</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="getservices" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Services</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Services<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L135">src/sources/esri/source.ts:135</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -302,7 +277,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<wbr>ToLayer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L22">src/sources/esri/source.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L22">src/sources/esri/source.ts:22</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -311,7 +286,7 @@
 						<div class="tsd-signature tsd-kind-icon">Map<wbr>Server<span class="tsd-signature-symbol">:</span> <a href="_src_sources_esri_tiledmaplayer_.esritiledmaplayer.html" class="tsd-signature-type">ESRITiledMapLayer</a><span class="tsd-signature-symbol"> =&nbsp;ESRITiledMapLayer</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/geoloep/krite/blob/805dcbf/src/sources/esri/source.ts#L23">src/sources/esri/source.ts:23</a></li>
+								<li>Defined in <a href="https://github.com/geoloep/krite/blob/2954cad/src/sources/esri/source.ts#L23">src/sources/esri/source.ts:23</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -339,29 +314,26 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
 								<a href="_src_sources_esri_source_.esrisource.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_src_sources_esri_source_.esrisource.html#capabilities" class="tsd-kind-icon">capabilities</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_esri_source_.esrisource.html#layerlist" class="tsd-kind-icon">layer<wbr>List</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_src_sources_esri_source_.esrisource.html#layers" class="tsd-kind-icon">layers</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_src_sources_esri_source_.esrisource.html#services" class="tsd-kind-icon">services</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="_src_sources_esri_source_.esrisource.html#createlayer" class="tsd-kind-icon">create<wbr>Layer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_src_sources_esri_source_.esrisource.html#_getlayer" class="tsd-kind-icon">_get<wbr>Layer</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_sources_esri_source_.esrisource.html#_getlayernames" class="tsd-kind-icon">_get<wbr>Layer<wbr>Names</a>
+								<a href="_src_sources_esri_source_.esrisource.html#getcapabilities" class="tsd-kind-icon">get<wbr>Capabilities</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_sources_esri_source_.esrisource.html#getlayer" class="tsd-kind-icon">get<wbr>Layer</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_src_sources_esri_source_.esrisource.html#getlayernames" class="tsd-kind-icon">get<wbr>Layer<wbr>Names</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_src_sources_esri_source_.esrisource.html#getlayers" class="tsd-kind-icon">get<wbr>Layers</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="_src_sources_esri_source_.esrisource.html#getservices" class="tsd-kind-icon">get<wbr>Services</a>
 							</li>
 							<li class=" tsd-kind-object-literal tsd-parent-kind-class">
 								<a href="_src_sources_esri_source_.esrisource.html#typetolayer" class="tsd-kind-icon">type<wbr>ToLayer</a>
