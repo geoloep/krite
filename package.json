@@ -5,7 +5,7 @@
         "name": "geoloep"
     },
     "description": "Toolkit for creating web-based map applications",
-    "license": "AGPL-3.0",
+    "license": "Apache-2.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/geoloep/krite.git"
