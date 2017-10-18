@@ -200,8 +200,9 @@ export class MapService {
     /**
      * Render a geojson source on the map.
      * @param geojson   Expected to be in the map crs
+     * @param fitBounds set to true to zoom to the highlight, pass FitBoundsOptions to custimize behaviour
      */
-    addHighlight(geojson: any, zoomTo: boolean = false) {
+    addHighlight(geojson: any, fitBounds?: L.FitBoundsOptions | true) {
         if (this.highlight) {
             this.highlight.remove();
         }
@@ -219,8 +220,8 @@ export class MapService {
         });
         this.highlight.addTo(this.map);
 
-        if (zoomTo) {
-            this.map.fitBounds(this.highlight.getBounds());
+        if (fitBounds) {
+            this.map.fitBounds(this.highlight.getBounds(), typeof(fitBounds) === 'boolean' ? undefined : fitBounds);
         }
     }
 
