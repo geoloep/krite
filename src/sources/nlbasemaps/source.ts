@@ -22,7 +22,7 @@ import { WMTSLayer } from '../wmts/layer';
 import { WMTSSource } from '../wmts/source';
 
 const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/wmts/');
-const pdokLufoSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/wmts/');
+const pdokLufoSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wmts/');
 // let openbasiskaartSource = new WMTSSource('http://www.openbasiskaart.nl/mapcache/wmts/');
 
 /**
@@ -78,7 +78,7 @@ export class NLBasemapsSource implements IDataSource {
         // 'openbasiskaart/openbasiskaart': {
         //     source: openbasiskaartSource,
         //     layer: 'openbasiskaart.nl: OpenStreetMap ondergrondkaart',
-        // } Tilematrixset heeft ongebruikelijke naam, eerst ondersteunin in WMTSLayer toevoegen
+        // } Tilematrixset heeft ongebruikelijke naam, eerst ondersteuning in WMTSLayer toevoegen
         'pdok/luchtofoto_actueel': {
             source: pdokLufoSource,
             layer: 'Luchtfoto Actueel Ortho 25cm RGB',
@@ -93,7 +93,7 @@ export class NLBasemapsSource implements IDataSource {
         const basemap = this.basemaps[name];
 
         if (!basemap) {
-            console.error(`Layer ${name} not available`);
+            throw new Error(`Layer ${name} not available`);
         }
 
         const layer = (await basemap.source.getLayer(basemap.layer)) as WMTSLayer;
