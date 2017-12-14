@@ -1,3 +1,4 @@
+import { VueConstructor } from 'vue';
 import { IContainer } from '../../types';
 import { VueApp } from '../vueApp';
 

@@ -1,7 +1,8 @@
+import { VueConstructor } from 'vue';
 import { IContainer } from '../../types';
 import { VueApp } from '../vueApp';
 
-import Bootstrap  from '../../comps/helloWorld/comp.vue';
+import Bootstrap from '../../comps/helloWorld/comp.vue';
 
 export class HelloWorldApp extends VueApp {
     name = 'HelloWorldApp';

@@ -1,7 +1,8 @@
+import { VueConstructor } from 'vue';
 import { IContainer, IDataSource } from '../../types';
 import { VueApp } from '../vueApp';
 
-import Bootstrap  from '../../comps/basemap/comp.vue';
+import Bootstrap from '../../comps/basemap/comp.vue';
 
 export class BasemapApp extends VueApp {
     name = 'BasemapApp';
