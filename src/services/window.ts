@@ -14,17 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export interface IStateChangeCallback {
-    (newState: string): void;
-}
+export type IStateChangeCallback = (newState: string) => void;
 
 export class WindowService {
     state: string;
     stateChangeCallbacks: IStateChangeCallback[] = [];
 
-    breakpoint = 911;
-
-    constructor() {
+    constructor(public breakpoint = 911) {
         this.setState();
 
         window.onresize = this.setState;
@@ -43,7 +39,7 @@ export class WindowService {
     }
 
     private stateChanged() {
-        for (let callback of this.stateChangeCallbacks) {
+        for (const callback of this.stateChangeCallbacks) {
             callback(this.state);
         }
     }
