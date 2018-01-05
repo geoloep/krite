@@ -1,15 +1,17 @@
 import * as wellknown from 'wellknown';
 
 import Vue from 'vue';
-import { Component, Watch } from 'vue-property-decorator';
+import { Component, Prop, Watch } from 'vue-property-decorator';
 
 import pool from '../../servicePool';
 import { MapService } from '../../services/map';
 import { PdokLocatieserverService } from '../../services/pdokLocatieserver';
 
-@Component({
-})
+@Component
 export default class PdokSearch extends Vue {
+    @Prop({default: true })
+    zoomTo: boolean;
+
     locatieserver: PdokLocatieserverService;
 
     searchString = '';
@@ -130,9 +132,11 @@ export default class PdokSearch extends Vue {
         this.locatieserver.inspect(context.id).then((response) => {
             const geojson = (wellknown.parse(response.response.docs[0].centroide_rd) as GeoJSON.Point);
 
-            map.zoomToPoint(L.point(geojson.coordinates[0], geojson.coordinates[1]), this.diepteNaarZoom[context.type]);
+            if (this.zoomTo) {
+                map.zoomToPoint(L.point(geojson.coordinates[0], geojson.coordinates[1]), this.diepteNaarZoom[context.type]);
+            }
 
-            this.$emit('result-click', response);
+            this.$emit('result-click', response.response.docs[0], geojson, this.diepteNaarZoom[context.type]);
         });
 
     }
