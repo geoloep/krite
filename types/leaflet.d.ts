@@ -897,7 +897,7 @@ declare namespace L {
         /**
          * Adds a GeoJSON object to the layer.
          */
-        addData(data: GeoJSONGeoJsonObject): Layer;
+        addData(data: GeoJSONGeoJsonObject | GeoJSON.Feature<any>): Layer;
 
         /**
          * Resets the given vector layer's style to the original GeoJSON style,
