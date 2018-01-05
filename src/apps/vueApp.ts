@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import { IApp, IContainer } from '../types';
 
+import { VueConstructor } from 'vue/types/vue';
+
 /**
  * All vue based apps should extend from this class
  */
@@ -10,7 +12,7 @@ export class VueApp implements IApp {
     /**
      * The component to be loaded in the root of this Vue App
      */
-    protected bootstrap: any; // Should preferably be Vue component but importing .vue gives typeof string for now
+    protected bootstrap: VueConstructor;
 
     /**
      * Props to be passed to the bootstrap component
@@ -20,12 +22,6 @@ export class VueApp implements IApp {
 
     protected vue: Vue;
     protected container: IContainer;
-
-    // constructor(el?: string) {
-    //     if (el) {
-    //         this.insert(el);
-    //     }
-    // }
 
     insert(element: IContainer | string | undefined) {
         if (!this.vue) {
@@ -39,18 +35,22 @@ export class VueApp implements IApp {
                 this.mount(element);
             }
         }
-    };
+    }
 
     detatch() {
         if (this.vue) {
-            let parent = this.vue.$el.parentElement;
+            const parent = this.vue.$el.parentElement;
             this.vue.$props.inserted = false;
 
             if (parent) {
                 parent.removeChild(this.vue.$el);
             }
         }
-    };
+    }
+
+    on(event: string | string[], callback: any) {
+        this.vue.$on(event, callback);
+    }
 
     protected createVue() {
         if (this.bootstrap) {
@@ -65,18 +65,18 @@ export class VueApp implements IApp {
             this.vue.$props.isapp = true;
 
         } else {
-            console.error(`No bootstrap component specified for VueApp ${this.name}`);
+            throw new Error(`No bootstrap component specified for VueApp ${this.name}`);
         }
-    };
+    }
 
     protected mount(element: string) {
-        let mountPoint = document.getElementById(element);
+        const mountPoint = document.getElementById(element);
         if (mountPoint) {
             mountPoint.appendChild(this.vue.$el);
 
             this.vue.$props.inserted = true;
         } else {
-            console.error(`Tried to mount ${this.name} under unexisting element ${element}`);
+            throw new Error(`Tried to mount ${this.name} under unexisting element ${element}`);
         }
     }
 }
