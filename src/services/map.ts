@@ -223,6 +223,8 @@ export class MapService {
         if (fitBounds) {
             this.map.fitBounds(this.highlight.getBounds(), typeof(fitBounds) === 'boolean' ? undefined : fitBounds);
         }
+
+        return this.highlight;
     }
 
     hideHighlight() {
