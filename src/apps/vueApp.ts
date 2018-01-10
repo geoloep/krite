@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { IApp, IContainer } from '../types';
 
+import { ComponentOptions } from 'vue/types/options';
 import { VueConstructor } from 'vue/types/vue';
 
 /**
@@ -21,7 +22,14 @@ export class VueApp implements IApp {
     };
 
     protected vue: Vue;
+    protected init: ComponentOptions<Vue>;
     protected container: IContainer;
+
+    constructor(init?: ComponentOptions<Vue>) {
+        if (init) {
+            this.init =  init;
+        }
+    }
 
     insert(element: IContainer | string | undefined) {
         if (!this.vue) {
@@ -53,13 +61,19 @@ export class VueApp implements IApp {
     }
 
     protected createVue() {
+        const options: ComponentOptions<Vue> = {
+            props: ['isapp', 'inserted'],
+            render: (h) => h(this.bootstrap, {
+                props: this.props,
+            }),
+        };
+
+        if (this.init) {
+            Object.assign(options, this.init);
+        }
+
         if (this.bootstrap) {
-            this.vue = new Vue({
-                props: ['isapp', 'inserted'],
-                render: (h) => h(this.bootstrap, {
-                    props: this.props,
-                }),
-            }).$mount();
+            this.vue = new Vue(options).$mount();
 
             this.vue.$props.inserted = false;
             this.vue.$props.isapp = true;
