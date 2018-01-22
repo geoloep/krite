@@ -20,7 +20,7 @@ export class WindowService {
     state: string;
     stateChangeCallbacks: IStateChangeCallback[] = [];
 
-    constructor(public breakpoint = 911) {
+    constructor(public breakpoint = 991) {
         this.setState();
 
         window.onresize = this.setState;
