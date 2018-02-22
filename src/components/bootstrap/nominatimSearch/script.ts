@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import { Component, Watch } from 'vue-property-decorator';
 
-import pool from '../../servicePool';
-import { MapService } from '../../services/map';
-import { NominatimService } from '../../services/nominatim';
+import pool from '../../../servicePool';
+import { MapService } from '../../../services/map';
+import { NominatimService } from '../../../services/nominatim';
 
 @Component({
 })

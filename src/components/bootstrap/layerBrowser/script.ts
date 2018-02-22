@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 
-import { ILayer } from '../../types';
+import { ILayer } from '../../../types';
 
-import pool from '../../servicePool';
+import pool from '../../../servicePool';
 
-import { AppSwitchService } from '../../services/appSwitch';
-import { MapService } from '../../services/map';
-import { SourceService } from '../../services/source';
+import { AppSwitchService } from '../../../services/appSwitch';
+import { MapService } from '../../../services/map';
+import { SourceService } from '../../../services/source';
 
 @Component
 export default class LayerBrowser extends Vue {

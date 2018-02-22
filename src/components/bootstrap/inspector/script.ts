@@ -7,14 +7,14 @@ import PointTool from './tools/point.vue';
 import PolygonTool from './tools/polygon.vue';
 import PolylineTool from './tools/polyline.vue';
 
-import pool from '../../servicePool';
-import { AppSwitchService } from '../../services/appSwitch';
-import { DrawService } from '../../services/draw';
-import { InspectorService } from '../../services/inspector';
-import { MapService } from '../../services/map';
-import { NumeralService } from '../../services/numeral';
+import pool from '../../../servicePool';
+import { AppSwitchService } from '../../../services/appSwitch';
+import { DrawService } from '../../../services/draw';
+import { InspectorService } from '../../../services/inspector';
+import { MapService } from '../../../services/map';
+import { NumeralService } from '../../../services/numeral';
 
-import { ILayer, ILayerClickHandler } from '../../types';
+import { ILayer, ILayerClickHandler } from '../../../types';
 
 // const map = pool.getService<MapService>('MapService');
 // const service = pool.getService<InspectorService>('InspectorService');

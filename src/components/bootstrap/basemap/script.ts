@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
-import pool from '../../servicePool';
+import pool from '../../../servicePool';
 // import { BasemapService } from '../../services/basemap';
-import { MapService } from '../../services/map';
+import { MapService } from '../../../services/map';
 
-import { IDataSource, ILayer } from '../../types';
+import { IDataSource, ILayer } from '../../../types';
 
 @Component
 export default class BasemapComponent extends Vue {

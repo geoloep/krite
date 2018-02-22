@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
-import pool from '../../servicePool';
-import { AppSwitchService } from '../../services/appSwitch';
-import { InspectorService } from '../../services/inspector';
-import { MapService } from '../../services/map';
+import pool from '../../../servicePool';
+import { AppSwitchService } from '../../../services/appSwitch';
+import { InspectorService } from '../../../services/inspector';
+import { MapService } from '../../../services/map';
 
-import { ILayer } from '../../types';
+import { ILayer } from '../../../types';
 
 export interface IButtonState {
     icon: string;

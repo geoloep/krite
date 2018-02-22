@@ -3,9 +3,9 @@ import * as wellknown from 'wellknown';
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 
-import pool from '../../servicePool';
-import { MapService } from '../../services/map';
-import { PdokLocatieserverService } from '../../services/pdokLocatieserver';
+import pool from '../../../servicePool';
+import { MapService } from '../../../services/map';
+import { PdokLocatieserverService } from '../../../services/pdokLocatieserver';
 
 @Component
 export default class PdokSearch extends Vue {
