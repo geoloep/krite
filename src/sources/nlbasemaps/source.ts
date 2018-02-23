@@ -75,6 +75,18 @@ export class NLBasemapsSource implements IDataSource {
             source: pdokSource,
             layer: 'top1000raster',
         },
+        'pdok/bgtstandaard': {
+            source: pdokSource,
+            layer: 'bgtstandaard',
+        },
+        'pdok/bgtachtergrond': {
+            source: pdokSource,
+            layer: 'bgtachtergrond',
+        },
+        'pdok/bgtpastel': {
+            source: pdokSource,
+            layer: 'bgtpastel',
+        },
         // 'openbasiskaart/openbasiskaart': {
         //     source: openbasiskaartSource,
         //     layer: 'openbasiskaart.nl: OpenStreetMap ondergrondkaart',
