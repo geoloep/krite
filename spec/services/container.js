@@ -2,7 +2,7 @@ describe('ContainerService', function() {
     var s = new krite.Services.ContainerService('#wide', '#narrow');
     var app;
 
-    it('should allow registering an app', function() {
+    xit('should allow registering an app', function() {
         app = new krite.Apps.HelloWorldApp(s);
 
         expect(s.app).toBe(app);
@@ -10,7 +10,7 @@ describe('ContainerService', function() {
 
     xit('should react to state changes');
 
-    it('should allow deregistering apps', function() {
+    xit('should allow deregistering apps', function() {
         s.deregister();
 
         expect(s.app).toBeUndefined();
