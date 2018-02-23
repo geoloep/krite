@@ -61,8 +61,17 @@ export class MapService {
     private clickHandlers: IClickHandler[] = [];
     private layerClickCallbacks: ILayerClickHandler[] = [];
 
-    constructor(readonly element: string, readonly customOptions?: L.MapOptions, mapOptions?: ICustomMapOptions) {
-        this.map = L.map((this.element as any),
+    private container: HTMLElement;
+
+    constructor(container?: HTMLElement, readonly customOptions?: L.MapOptions, mapOptions?: ICustomMapOptions) {
+        if (container) {
+            this.container = container;
+        } else {
+            container = this.container = document.createElement('div');
+            container.style.cssText = ('width: 100%; height: 100%');
+        }
+
+        this.map = L.map(container,
             Object.assign(this.defaultLeafletOptions, this.customOptions),
         );
 
@@ -85,6 +94,32 @@ export class MapService {
 
         // @todo: is dit element gegarandeerd aanwezig op dit moment?
         this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
+    }
+
+    /**
+     * Attatch the leaflet map to the given DOM element
+     * @param parent target parent node
+     * @param center recenter map after mounting
+     */
+    attatch(parent: HTMLElement, center?: boolean) {
+        this.detatch();
+
+        parent.appendChild(this.container);
+
+        this.map.invalidateSize(true);
+
+        if (center && this.customOptions && this.customOptions.zoom && this.customOptions.zoom) {
+            this.map.setView(this.customOptions.center as L.LatLng, this.customOptions.zoom);
+        }
+    }
+
+    /**
+     * Detatch the map from it's current parent element
+     */
+    detatch() {
+        if (this.container.parentElement !== null) {
+            this.container.parentElement.removeChild(this.container);
+        }
     }
 
     /**
