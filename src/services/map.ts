@@ -51,7 +51,7 @@ export class MapService {
     };
 
     // Lagen bijhouden
-    private basemap: L.Layer;
+    private basemap: ILayer;
     private highlight: L.GeoJSON;
     private focus: L.GeoJSON;
     private pointer: L.Marker;
@@ -174,6 +174,12 @@ export class MapService {
         this.clickHandlers.push(fun);
     }
 
+    cancelOnClick(fun: IClickHandler) {
+        if (this.clickHandlers.indexOf(fun) !== -1) {
+            this.clickHandlers.splice(this.clickHandlers.indexOf(fun), 1);
+        }
+    }
+
     /**
      * Register onLayerClick callbacks here
      */
@@ -193,7 +199,7 @@ export class MapService {
     checkZoom = () => {
         const zoom = this.map.getZoom();
 
-        for (const layer of this.layers) {
+        for (const layer of this.layers.concat([this.basemap])) {
             const visible = this.visibleOnZoom(layer, zoom);
 
             if (visible && !this.map.hasLayer(layer.leaflet)) {
@@ -326,16 +332,16 @@ export class MapService {
      */
     setBaseMap(layer: ILayer) {
         if (this.basemap) {
-            this.basemap.remove();
+            this.basemap.leaflet.remove();
         }
 
-        this.basemap = layer.leaflet;
+        this.basemap = layer;
 
-        if ((this.basemap as L.GridLayer).setZIndex) {
-            (this.basemap as L.GridLayer).setZIndex(-1);
+        if ((this.basemap.leaflet as L.GridLayer).setZIndex) {
+            (this.basemap.leaflet as L.GridLayer).setZIndex(-1);
         }
 
-        this.basemap.addTo(this.map);
+        this.basemap.leaflet.addTo(this.map);
     }
 
     /**
