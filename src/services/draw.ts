@@ -57,8 +57,8 @@ export class DrawService {
         this.service = map;
     }
 
-    marker() {
-        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new L.Draw.Marker(this.service.map, {}));
+    marker(icon?: L.Icon) {
+        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new L.Draw.Marker(this.service.map, {icon}));
     }
 
     rectangle() {
