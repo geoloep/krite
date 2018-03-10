@@ -42,9 +42,9 @@ export default class PdokSearch extends Vue {
 
     depthToIcon = {
         adres: 'home',
-        woonplaats: 'location_on',
-        weg: 'timeline',
-        gemeente: 'location_on',
+        woonplaats: 'map-marker',
+        weg: 'road',
+        gemeente: 'map-marker',
         perceel: 'map',
     };
 
