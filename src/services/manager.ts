@@ -18,6 +18,18 @@ export class ServiceManager {
     private dependencies: { [index: string]: any } = {};
     private promised: { [index: string]: any[] } = {};
 
+    /**
+     * Add multiple services in one go
+     * @param services A dictionary of services
+     */
+    addServices(services: {[index: string]: any}) {
+        for (const service in services) {
+            if (services.hasOwnProperty(service)) {
+                this.addService<any>(service, services[service]);
+            }
+        }
+    }
+
     addService<T>(name: string, service: T) {
         this.dependencies[name] = service;
 
