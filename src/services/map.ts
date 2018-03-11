@@ -106,10 +106,12 @@ export class MapService {
 
         parent.appendChild(this.container);
 
-        this.map.invalidateSize(true);
+        this.map.invalidateSize(false);
 
-        if (center && this.customOptions && this.customOptions.zoom && this.customOptions.zoom) {
-            this.map.setView(this.customOptions.center as L.LatLng, this.customOptions.zoom);
+        if (center && this.customOptions && this.customOptions.zoom) {
+            this.map.setView(this.customOptions.center as L.LatLng, this.customOptions.zoom, {
+                animate: false,
+            });
         }
     }
 
