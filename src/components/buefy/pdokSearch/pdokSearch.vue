@@ -1,7 +1,7 @@
 <template>
     <div class="PdokSearchComponent">
 
-        <b-dropdown class="wide">
+        <b-dropdown class="wide" :mobile-modal="false" >
             <b-field slot="trigger">
                 <b-input placeholder="Adres zoeken" type="search" v-model="searchString" @keydown.native.prevent.down="selectDown" @keydown.native.prevent.up="selectUp" @keydown.native.prevent.enter="selectEnter"></b-input>
             </b-field>
