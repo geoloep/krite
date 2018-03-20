@@ -23,10 +23,12 @@ import { IClickHandler, ILayer, ILayerClickHandler } from '../types';
 
 export interface ICustomMapOptions {
     checkZoom?: boolean;
+    defaultMarker?: L.Icon | L.Icon.Default;
 }
 
 interface IMapOptions {
     checkZoom: boolean;
+    defaultMarker: L.Icon | L.Icon.Default;
 }
 
 /**
@@ -48,6 +50,7 @@ export class MapService {
 
     private mapOptions: IMapOptions = {
         checkZoom: false,
+        defaultMarker: new L.Icon.Default(),
     };
 
     // Lagen bijhouden
@@ -366,7 +369,9 @@ export class MapService {
         if (this.pointer) {
             this.pointer.setLatLng(latLng);
         } else {
-            this.pointer = L.marker(latLng).addTo(this.map);
+            this.pointer = L.marker(latLng, {
+                icon: this.mapOptions.defaultMarker,
+            }).addTo(this.map);
         }
     }
 
