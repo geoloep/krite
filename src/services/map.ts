@@ -202,6 +202,12 @@ export class MapService {
         this.layerClickCallbacks.push(func);
     }
 
+    cancelOnLayerClick(func: ILayerClickHandler) {
+        if (this.layerClickCallbacks.indexOf(func) !== -1) {
+            this.layerClickCallbacks.splice(this.layerClickCallbacks.indexOf(func), 1);
+        }
+    }
+
     /**
      * Layers can report click events here
      */
