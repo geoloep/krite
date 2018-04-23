@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue, { VNodeData } from 'vue';
 import { IApp, IContainer } from '../types';
 
 import { ComponentOptions } from 'vue/types/options';
@@ -13,7 +13,7 @@ export class VueApp implements IApp {
     /**
      * The component to be loaded in the root of this Vue App
      */
-    protected bootstrap: VueConstructor;
+    // protected bootstrap: VueConstructor;
 
     /**
      * Props to be passed to the bootstrap component
@@ -21,13 +21,20 @@ export class VueApp implements IApp {
     protected props: any = {
     };
 
+    protected data: VNodeData = {
+    };
+
     protected vue: Vue;
-    protected init: ComponentOptions<Vue>;
+    // protected init: ComponentOptions<Vue>;
     protected container: IContainer;
 
-    constructor(init?: ComponentOptions<Vue>) {
-        if (init) {
-            this.init =  init;
+    constructor(protected bootstrap: VueConstructor, options?: VNodeData, name?: string) {
+        if (options) {
+            this.data = options;
+        }
+
+        if (name) {
+            this.name = name;
         }
     }
 
@@ -63,14 +70,12 @@ export class VueApp implements IApp {
     protected createVue() {
         const options: ComponentOptions<Vue> = {
             props: ['isapp', 'inserted'],
-            render: (h) => h(this.bootstrap, {
-                props: this.props,
-            }),
+            render: (h) => h(this.bootstrap, this.data),
         };
 
-        if (this.init) {
-            Object.assign(options, this.init);
-        }
+        // if (this.init) {
+        //     Object.assign(options, this.init);
+        // }
 
         if (this.bootstrap) {
             this.vue = new Vue(options).$mount();
