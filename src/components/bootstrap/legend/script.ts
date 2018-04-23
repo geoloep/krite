@@ -8,6 +8,8 @@ import { MapService } from '../../../services/map';
 
 import { ILayer } from '../../../types';
 
+import en from './locales/en_gb';
+
 export interface IButtonState {
     icon: string;
     flipable: boolean;
@@ -27,7 +29,7 @@ export default class App extends Vue {
     buttonStates: { [index: string]: IButtonState[] } = {};
     legendState: { [index: string]: boolean } = {};
 
-    @Prop()
+    @Prop({default: () => en})
     locale: any;
 
     beforeCreate() {

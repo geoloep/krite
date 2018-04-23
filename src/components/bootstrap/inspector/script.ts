@@ -22,6 +22,8 @@ import { ILayer, ILayerClickHandler } from '../../../types';
 // const numeral = pool.getService<NumeralService>('NumeralService');
 // const sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
 
+import en from './locales/en_gb';
+
 @Component({
     components: {
         none: NoneTool,
@@ -58,7 +60,7 @@ export default class InspectorComponent extends Vue {
     @Prop({ default: true })
     inserted: boolean;
 
-    @Prop()
+    @Prop({default: () => en})
     locale: any;
 
     beforeCreate() {

@@ -9,6 +9,8 @@ import { AppSwitchService } from '../../../services/appSwitch';
 import { MapService } from '../../../services/map';
 import { SourceService } from '../../../services/source';
 
+import en from './locales/en_gb';
+
 @Component
 export default class LayerBrowser extends Vue {
     service: SourceService;
@@ -24,7 +26,7 @@ export default class LayerBrowser extends Vue {
     layerFilter = '';
     layerList: string[] = [];
 
-    @Prop()
+    @Prop({default: () => en})
     locale: any;
 
     selected = this.locale.dummy_layer;
