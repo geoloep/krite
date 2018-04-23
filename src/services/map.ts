@@ -66,9 +66,19 @@ export class MapService {
 
     private container: HTMLElement;
 
-    constructor(container?: HTMLElement, readonly customOptions?: L.MapOptions, mapOptions?: ICustomMapOptions) {
+    constructor(container?: HTMLElement | string, readonly customOptions?: L.MapOptions, mapOptions?: ICustomMapOptions) {
         if (container) {
-            this.container = container;
+            if (typeof container === 'string') {
+                const el =  document.getElementById(container);
+
+                if (el === null) {
+                    throw new Error(`Mounting point ${container} not found`);
+                } else {
+                    this.container = el;
+                }
+            } else {
+                this.container = container;
+            }
         } else {
             container = this.container = document.createElement('div');
             container.style.cssText = ('width: 100%; height: 100%');
@@ -267,7 +277,7 @@ export class MapService {
         this.highlight.addTo(this.map);
 
         if (fitBounds) {
-            this.map.fitBounds(this.highlight.getBounds(), typeof(fitBounds) === 'boolean' ? undefined : fitBounds);
+            this.map.fitBounds(this.highlight.getBounds(), typeof (fitBounds) === 'boolean' ? undefined : fitBounds);
         }
 
         return this.highlight;
