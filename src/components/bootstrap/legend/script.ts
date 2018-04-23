@@ -2,7 +2,6 @@ import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
 import pool from '../../../servicePool';
-import { AppSwitchService } from '../../../services/appSwitch';
 import { InspectorService } from '../../../services/inspector';
 import { MapService } from '../../../services/map';
 
@@ -22,7 +21,6 @@ export interface IButtonState {
 export default class App extends Vue {
     map: MapService;
     inspector: InspectorService | undefined;
-    sidebar: AppSwitchService | undefined;
 
     items = this.map.layers;
 
@@ -38,7 +36,6 @@ export default class App extends Vue {
 
     created() {
         this.inspector = pool.tryService<InspectorService>('InspectorService');
-        this.sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
     }
 
     getButtons(name: string) {
@@ -112,9 +109,9 @@ export default class App extends Vue {
                 disabled: false,
                 hidden: true,
                 action: (e: IButtonState) => {
-                    if (this.inspector && this.sidebar) {
+                    if (this.inspector) {
                         this.inspector.layer = this.map.layerByName[layerName];
-                        this.sidebar.setApp('InspectorApp');
+                        this.$emit('legend-inspect');
                     }
                 },
             } : false,
