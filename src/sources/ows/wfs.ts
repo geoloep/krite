@@ -15,11 +15,11 @@ limitations under the License.
 */
 
 import * as L from 'leaflet';
-import * as wellknown from 'wellknown';
 import * as url from 'url';
+import * as wellknown from 'wellknown';
 
-import { ILayer, ILayerClickHandler } from '../../types';
 import { XMLService } from '../../services/xml';
+import { ILayer, ILayerClickHandler } from '../../types';
 
 import pool from '../../servicePool';
 import { ProjectService } from '../../services/project';
@@ -97,11 +97,11 @@ export class WFSLayer implements ILayer {
     }
 
     async intersects(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject) {
-        let wkt = wellknown.stringify(<GeoJSON.GeoJsonObject>feature);
+        const wkt = wellknown.stringify(<GeoJSON.GeoJsonObject> feature);
 
-        let fieldname = await this.getGeomField();
+        const fieldname = await this.getGeomField();
 
-        let response = await fetch(this.url + url.format({
+        const response = await fetch(this.url + url.format({
             query: {
                 cql_filter: `INTERSECTS(${fieldname}, ${wkt})`,
                 outputformat: 'application/json',
@@ -113,14 +113,14 @@ export class WFSLayer implements ILayer {
         }));
 
         if (!response.ok) {
-            throw `Repsonse for ${response.url} not ok`;
+            throw new Error(`Repsonse for ${response.url} not ok`);
         }
 
         return await response.json();
     }
 
     async intersectsPoint(point: L.Point) {
-        let fieldname = await this.getGeomField();
+        const fieldname = await this.getGeomField();
         let cql_filter: string;
 
         // Points are impossible to click, use Within in stead. Withindistance has to become dynamic in the future, as does the unit...
@@ -130,7 +130,7 @@ export class WFSLayer implements ILayer {
             cql_filter = `INTERSECTS(${fieldname}, POINT(${point.x} ${point.y}))`;
         }
 
-        let response = await fetch(this.url + url.format({
+        const response = await fetch(this.url + url.format({
             query: {
                 cql_filter,
                 outputformat: 'application/json',
@@ -142,7 +142,7 @@ export class WFSLayer implements ILayer {
         }));
 
         if (!response.ok) {
-            throw `Repsonse for ${response.url} not ok`;
+            throw new Error(`Repsonse for ${response.url} not ok`);
         }
 
         return await response.json();
@@ -151,7 +151,7 @@ export class WFSLayer implements ILayer {
     async filter(filters: any) {
         let cql = '';
 
-        for (let field in filters) {
+        for (const field in filters) {
             if (filters[field]) {
                 if (cql.length > 0) {
                     cql += ' AND ';
@@ -167,7 +167,7 @@ export class WFSLayer implements ILayer {
             }
         }
 
-        let response = await fetch(this.url + url.format({
+        const response = await fetch(this.url + url.format({
             query: {
                 cql_filter: cql,
                 outputformat: 'application/json',
@@ -179,7 +179,7 @@ export class WFSLayer implements ILayer {
         }));
 
         if (!response.ok) {
-            throw `Repsonse for ${response.url} not ok`;
+            throw new Error(`Repsonse for ${response.url} not ok`);
         }
 
         return await response.json();
@@ -190,13 +190,13 @@ export class WFSLayer implements ILayer {
     }
 
     private clickHandler(feature: any) {
-        for (let callback of this.onClickCallbacks) {
+        for (const callback of this.onClickCallbacks) {
             callback(this, feature);
         }
-    };
+    }
 
     private async loadData() {
-        let response = await fetch(this.url + url.format({
+        const response = await fetch(this.url + url.format({
             query: {
                 service: 'WFS',
                 version: '2.0.0',
@@ -207,10 +207,10 @@ export class WFSLayer implements ILayer {
         }));
 
         if (!response.ok) {
-            throw `Repsonse of ${response.url} not ok`;
+            throw new Error(`Repsonse of ${response.url} not ok`);
         }
 
-        let json = await response.json();
+        const json = await response.json();
 
         this._leaflet.addData(this.projectServive.geoTo(json));
     }
@@ -225,7 +225,7 @@ export class WFSLayer implements ILayer {
             }
 
             // Will always pick the first gml-node
-            let gmlnode = this.types.node(this.types.document, '//xsd:element[starts-with(@type, \'gml\')][1]');
+            const gmlnode = this.types.node(this.types.document, '//xsd:element[starts-with(@type, \'gml\')][1]');
 
             if (gmlnode.snapshotLength > 0) {
                 this.geomField = this.types.string(gmlnode.snapshotItem(0), './@name');
@@ -245,7 +245,7 @@ export class WFSLayer implements ILayer {
      */
     private async describeFeatureType() {
         if (!this.types) {
-            let response = await fetch(this.url +
+            const response = await fetch(this.url +
                 url.format({
                     query: {
                         request: 'DescribeFeatureType',
@@ -255,7 +255,7 @@ export class WFSLayer implements ILayer {
                 }));
 
             if (!response.ok) {
-                throw `Repsone from ${response.url} not ok`;
+                throw new Error(`Response from ${response.url} not ok`);
             }
 
             this.types = new XMLService(await response.text());

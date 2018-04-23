@@ -26,7 +26,7 @@ export class PdokLocatieserverService {
      * @param options additional optional url parameters
      */
     async search(searchString: string, options?: any) {
-        let parameters = {
+        const parameters = {
             q: searchString,
             fq: '*',
         };
@@ -35,12 +35,12 @@ export class PdokLocatieserverService {
             Object.assign(parameters, options);
         }
 
-        let response = await fetch('https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest' + url.format({
+        const response = await fetch('https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest' + url.format({
             query: parameters,
         }));
 
         if (!response.ok) {
-            throw('Response from locatieserver not ok');
+            throw new Error('Response from locatieserver not ok');
         }
 
         return this.parseResponse(await response.json());
@@ -52,7 +52,7 @@ export class PdokLocatieserverService {
      * @param options additional optional url parameters
      */
     async inspect(id: string, options?: any) {
-        let parameters = {
+        const parameters = {
             id,
         };
 
@@ -60,21 +60,21 @@ export class PdokLocatieserverService {
             Object.assign(parameters, options);
         }
 
-        let response = await fetch('https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup' + url.format({
+        const response = await fetch('https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup' + url.format({
             query: parameters,
         }));
 
         if (!response.ok) {
-            throw('Response from locatieserver not ok');
+            throw new Error('Response from locatieserver not ok');
         }
 
         return await response.json();
     }
 
     parseResponse(response: any) {
-        let parsed: any = {};
+        const parsed: any = {};
 
-        for (let doc of response.response.docs) {
+        for (const doc of response.response.docs) {
             if (!(doc.type in parsed)) {
                 parsed[doc.type] = [];
             }

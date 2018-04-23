@@ -84,24 +84,16 @@ export interface IContainer {
     deregister(): void;
 }
 
-export interface IClickHandler {
-    (point: L.Point): void;
-}
+export type IClickHandler = (point: L.Point) => void;
 
 
-export interface IOnClickHandler {
-    (attr: { [index: string]: any }): void;
-}
+export type IOnClickHandler = (attr: { [index: string]: any }) => void;
 
-export interface ILayerClickHandler {
-    (layer: ILayer, attr: { [index: string]: any }): void;
-}
+export type ILayerClickHandler = (layer: ILayer, attr: { [index: string]: any }) => void;
 
 export type TAttributes = 'skip' | 'string' | 'float' | 'int' | 'percentage' | 'href';
 
-export interface IAttributeTypeFunc {
-    (attr: any): string;
-}
+export type IAttributeTypeFunc = (attr: any) => string;
 
 /**
  * Service that governs all the coordinate system conversions

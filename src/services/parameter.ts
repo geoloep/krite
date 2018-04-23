@@ -28,10 +28,10 @@ export class ParameterService {
 
     parseSearch() {
         if (window.location.search.length > 2) {
-            let params =  window.location.search.substring(1).split('&');
+            const params =  window.location.search.substring(1).split('&');
 
-            for (let param of params) {
-                let split = param.split('=');
+            for (const param of params) {
+                const split = param.split('=');
                 if (split.length === 2) {
                     this.parameters[decodeURI(split[0])] = decodeURI(split[1]);
                 }
@@ -43,10 +43,10 @@ export class ParameterService {
         if ('source' in this.parameters && 'layer' in this.parameters) {
             pool.promiseService<SourceService>('SourceService').then((sources) => {
                 pool.promiseService<MapService>('MapService').then((map) => {
-                    let source = sources.get(this.parameters['source']);
+                    const source = sources.get(this.parameters.source);
 
                     if (source) {
-                        source.getLayer(this.parameters['layer']).then((layer) => {
+                        source.getLayer(this.parameters.layer).then((layer) => {
                             map.addLayer(layer);
 
                             if ('fitBounds' in this.parameters) {
@@ -58,12 +58,4 @@ export class ParameterService {
             });
         }
     }
-
-    // setApp() {
-    //     if ('app' in this.parameters) {
-    //         pool.promiseService<SidebarService>('SidebarService').then((sidebar) => {
-    //             sidebar.setApp(this.parameters['app']);
-    //         });
-    //     }
-    // }
 }

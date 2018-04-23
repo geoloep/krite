@@ -74,7 +74,7 @@ export class ServiceManager {
     private resolvePromises(name: string) {
         console.assert(name in this.promised);
 
-        for (let resolve of this.promised[name]) {
+        for (const resolve of this.promised[name]) {
             resolve(this.getService(name));
         }
 

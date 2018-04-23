@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import 'leaflet-draw';
+
 import * as L from 'leaflet';
 
 import pool from '../servicePool';
@@ -38,8 +39,8 @@ export class DrawService {
 
         // Hack for preveting adding points during drag
         // https://github.com/Leaflet/Leaflet.draw/issues/695
-        let originalOnTouch = L.Draw.Polyline.prototype._onTouch;
-        L.Draw.Polyline.prototype._onTouch = function (this: any, e: any) {
+        const originalOnTouch = L.Draw.Polyline.prototype._onTouch;
+        L.Draw.Polyline.prototype._onTouch = function(this: any, e: any) {
             if (e.originalEvent.pointerType !== 'mouse') {
                 return originalOnTouch.call(this, e);
             }
@@ -58,7 +59,7 @@ export class DrawService {
     }
 
     marker(icon?: L.Icon) {
-        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new L.Draw.Marker(this.service.map, {icon}));
+        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new L.Draw.Marker(this.service.map, { icon }));
     }
 
     rectangle() {

@@ -61,7 +61,7 @@ export class OWSSource implements IDataSource {
     }
 
     private async getCapabilities() {
-        let getWMSCapabilities = fetch(
+        const getWMSCapabilities = fetch(
             this.baseUrl +
             url.format({
                 query: {
@@ -71,7 +71,7 @@ export class OWSSource implements IDataSource {
             }),
         );
 
-        let getWFSCapabilities = fetch(
+        const getWFSCapabilities = fetch(
             this.baseUrl +
             url.format({
                 query: {
@@ -81,11 +81,11 @@ export class OWSSource implements IDataSource {
             }),
         );
 
-        let responses: Response[] = await Promise.all([getWMSCapabilities, getWFSCapabilities]);
+        const responses: Response[] = await Promise.all([getWMSCapabilities, getWFSCapabilities]);
 
-        for (let response of responses) {
+        for (const response of responses) {
             if (response && !response.ok) {
-                throw `Response to ${response.url} not ok`;
+                throw new Error(`Response to ${response.url} not ok`);
             }
         }
 
@@ -101,10 +101,9 @@ export class OWSSource implements IDataSource {
     }
 
     private async parseWMSCapabilities(text: string) {
-        let wmsCapabilities = new XMLService(text);
+        const wmsCapabilities = new XMLService(text);
 
-        let layers = wmsCapabilities.node(wmsCapabilities.document, './wms:WMS_Capabilities/wms:Capability/wms:Layer/wms:Layer');
-
+        const layers = wmsCapabilities.node(wmsCapabilities.document, './wms:WMS_Capabilities/wms:Capability/wms:Layer/wms:Layer');
 
         for (let i = 0; i < layers.snapshotLength; i++) {
             this.AddWMSLayer(wmsCapabilities, layers.snapshotItem(i));
@@ -112,7 +111,7 @@ export class OWSSource implements IDataSource {
     }
 
     private AddWMSLayer(wmsCapabilities: XMLService, layer: Node) {
-        let titel = wmsCapabilities.string(layer, './wms:Title');
+        const titel = wmsCapabilities.string(layer, './wms:Title');
 
         this.wmsLayers[titel] = new WMSLayer(this.baseUrl, layer, this.wfsLayers[titel]);
 
@@ -120,7 +119,7 @@ export class OWSSource implements IDataSource {
             this.layerNames.push(titel);
         }
 
-        let nestedLayers = wmsCapabilities.node(layer, './wms:Layer');
+        const nestedLayers = wmsCapabilities.node(layer, './wms:Layer');
 
         for (let i = 0; i < nestedLayers.snapshotLength; i++) {
             this.AddWMSLayer(wmsCapabilities, nestedLayers.snapshotItem(i));
@@ -128,16 +127,16 @@ export class OWSSource implements IDataSource {
     }
 
     private async parseWFSCapabilities(text: string) {
-        let wfsCapabilities = new XMLService(text);
+        const wfsCapabilities = new XMLService(text);
 
         if (!this.isException(wfsCapabilities)) {
 
-            let layers = wfsCapabilities.node(wfsCapabilities.document, './wfs:WFS_Capabilities/wfs:FeatureTypeList/wfs:FeatureType');
+            const layers = wfsCapabilities.node(wfsCapabilities.document, './wfs:WFS_Capabilities/wfs:FeatureTypeList/wfs:FeatureType');
 
             for (let i = 0; i < layers.snapshotLength; i++) {
-                let layer = layers.snapshotItem(i);
+                const layer = layers.snapshotItem(i);
 
-                let titel = wfsCapabilities.string(layer, './wms:Title');
+                const titel = wfsCapabilities.string(layer, './wms:Title');
 
                 if (this.layerNames.indexOf(titel) === -1) {
                     this.layerNames.push(titel);

@@ -17,9 +17,9 @@ limitations under the License.
 import { ILayer } from '../types';
 
 export class InspectorService {
-    private _layer: ILayer;
-
     onChangeCallBacks: Array<(layer: ILayer) => void> = [];
+
+    private _layer: ILayer;
 
     get name() {
         if (this.layer && this.layer.name) {
@@ -43,8 +43,8 @@ export class InspectorService {
     }
 
     private onChangeHandler() {
-        for (let callback of this.onChangeCallBacks) {
+        for (const callback of this.onChangeCallBacks) {
             callback(this.layer);
         }
     }
-};
+}

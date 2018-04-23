@@ -48,9 +48,9 @@ export class ImageLayer implements ILayer {
 
     get bounds() {
         if (!this._bounds) {
-            let o = this.options;
-            let southWest: [number, number] = [(o.yorigin / o.resolution) * -1, (o.xorigin / o.resolution) * -1];
-            let northEast: [number, number] = [(o.height / o.resolution) + southWest[0], (o.width / o.resolution) + southWest[1]];
+            const o = this.options;
+            const southWest: [number, number] = [(o.yorigin / o.resolution) * -1, (o.xorigin / o.resolution) * -1];
+            const northEast: [number, number] = [(o.height / o.resolution) + southWest[0], (o.width / o.resolution) + southWest[1]];
 
             this._bounds = L.latLngBounds(southWest, northEast);
         }

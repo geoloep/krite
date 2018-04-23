@@ -10,14 +10,6 @@ import { VueConstructor } from 'vue/types/vue';
 export class VueApp implements IApp {
     name = 'VueApp';
 
-    /**
-     * The component to be loaded in the root of this Vue App
-     */
-    // protected bootstrap: VueConstructor;
-
-    /**
-     * Props to be passed to the bootstrap component
-     */
     protected props: any = {
     };
 
@@ -25,7 +17,6 @@ export class VueApp implements IApp {
     };
 
     protected vue: Vue;
-    // protected init: ComponentOptions<Vue>;
     protected container: IContainer;
 
     constructor(protected bootstrap: VueConstructor, options?: VNodeData, name?: string) {
@@ -72,10 +63,6 @@ export class VueApp implements IApp {
             props: ['isapp', 'inserted'],
             render: (h) => h(this.bootstrap, this.data),
         };
-
-        // if (this.init) {
-        //     Object.assign(options, this.init);
-        // }
 
         if (this.bootstrap) {
             this.vue = new Vue(options).$mount();

@@ -55,7 +55,7 @@ export class XMLService {
         }
 
         this.prefixedNameSpaces = document.createNSResolver(document.ownerDocument == null ? document.documentElement : document.ownerDocument.documentElement);
-        this.unprefixedNameSpace = <string>document.documentElement.getAttribute('xmlns');
+        this.unprefixedNameSpace = <string> document.documentElement.getAttribute('xmlns');
     }
 
     /**
@@ -67,8 +67,8 @@ export class XMLService {
 
     /**
      * Return a snapshot of nodes conforming to the xpath expression
-     * @param context 
-     * @param xpath 
+     * @param context
+     * @param xpath
      */
     node(context: Node, xpath: string) {
         return this.document.evaluate(xpath, context, this.namespaceResolver, 7, null);
@@ -76,8 +76,8 @@ export class XMLService {
 
     /**
      * Returns the string value of the node selected with the xpath expression
-     * @param context 
-     * @param xpath 
+     * @param context
+     * @param xpath
      */
     string(context: Node, xpath: string) {
         return this.document.evaluate(xpath, context, this.namespaceResolver, 2, null).stringValue;
@@ -85,8 +85,8 @@ export class XMLService {
 
     /**
      * Returns the numeric value of the node selected with the xpath expression
-     * @param context 
-     * @param xpath 
+     * @param context
+     * @param xpath
      */
     number(context: Node, xpath: string) {
         return this.document.evaluate(xpath, context, this.namespaceResolver, 1, null).numberValue;

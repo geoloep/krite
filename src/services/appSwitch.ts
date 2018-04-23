@@ -14,12 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { IContainer } from '../types';
 import { VueApp } from '../services/vueApp';
+import { IContainer } from '../types';
 
-export interface IAppSwitchServiceCallback {
-    (): void;
-}
+export type IAppSwitchServiceCallback = () => void;
 
 export class AppSwitchService implements IContainer {
     private active: string | undefined;
@@ -88,7 +86,7 @@ export class AppSwitchService implements IContainer {
     }
 
     private onChange() {
-        for (let c of this.onChangeCallbacks) {
+        for (const c of this.onChangeCallbacks) {
             c();
         }
     }

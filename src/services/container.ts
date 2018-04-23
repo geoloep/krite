@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { IContainer, IApp } from '../types';
+import { IApp, IContainer } from '../types';
 
 import pool from '../servicePool';
 import { WindowService } from './window';
