@@ -16,12 +16,6 @@ import { NumeralService } from '../../../services/numeral';
 
 import { ILayer, ILayerClickHandler } from '../../../types';
 
-// const map = pool.getService<MapService>('MapService');
-// const service = pool.getService<InspectorService>('InspectorService');
-// const draw = pool.getService<DrawService>('DrawService');
-// const numeral = pool.getService<NumeralService>('NumeralService');
-// const sidebar = pool.tryService<AppSwitchService>('AppSwitchService');
-
 import en from './locales/en_gb';
 
 @Component({
@@ -57,11 +51,10 @@ export default class InspectorComponent extends Vue {
     namefield = '';
     features: Array<GeoJSON.Feature<GeoJSON.GeometryObject>> = [];
 
-    @Prop({ default: true })
-    inserted: boolean;
-
     @Prop({default: () => en})
     locale: any;
+
+    active = false;
 
     beforeCreate() {
         this.map = pool.getService<MapService>('MapService');
@@ -80,28 +73,27 @@ export default class InspectorComponent extends Vue {
 
         this.map.map.on('keypress', this.escape);
 
+        if (this.service.layer) {
+            this.layer = this.service.layer.name;
+        }
+
         this.service.onChange((layer: ILayer) => {
             this.layer = layer.name;
         });
+
+        this.active = true;
     }
 
-    /**
-     * Check if component is under a krite VueApp and then if that app is inserted or not
-     */
-    get partentInserted() {
-        if (this.$parent && this.$parent.$props.isapp) {
-            return this.$parent.$props.inserted;
-        } else {
-            return true;
-        }
-    }
+    beforeDestroy() {
+        this.active = false;
 
-    @Watch('partentInserted')
-    onParantInsertedChange(n: boolean) {
-        if (!n) {
-            this.draw.disable();
-            this.map.endInspect();
-        }
+        this.draw.disable();
+        this.map.endInspect();
+
+        this.map.cancelOnClick(this.onClick);
+        this.map.cancelOnLayerClick(this.onLayerClick);
+
+        this.map.map.off('keypress', this.escape);
     }
 
     @Watch('layer')
@@ -181,7 +173,7 @@ export default class InspectorComponent extends Vue {
     }
 
     escape(event: KeyboardEvent) {
-        if (this.partentInserted && event.code === 'Escape') {
+        if (event.code === 'Escape') {
             this.draw.disable();
             this.modeSelect('point');
         }
@@ -213,7 +205,7 @@ export default class InspectorComponent extends Vue {
             try {
                 this.loadFeatureCollection(await this.service.layer.intersects(feature));
             } catch (e) {
-                console.error(e);
+                throw new Error(e);
             }
         }
     }
@@ -320,12 +312,12 @@ export default class InspectorComponent extends Vue {
      * Handle click events fired by clicking on the map. Only proceed if we're not drawing other inspection shapes
      */
     async onClick(point: L.Point) {
-        if (this.modename === 'point' && this.partentInserted && this.service.layer.hasOperations && this.service.layer.intersectsPoint) {
+        if (this.modename === 'point' && this.service.layer.hasOperations && this.service.layer.intersectsPoint) {
             try {
                 this.loadFeatureCollection(await this.service.layer.intersectsPoint(point));
             } catch (e) {
-                console.error(e);
                 this.error = true;
+                throw new Error(e);
             }
         }
     }
@@ -334,7 +326,7 @@ export default class InspectorComponent extends Vue {
      * Handle click events fired by clicking on a specific marker. Ignore if we're drawing inspection shapes
      */
     onLayerClick(layer: ILayer, attr: any) {
-        if (this.modename === 'point' && this.partentInserted && this.service.layer && layer.name === this.service.layer.name) {
+        if (this.modename === 'point' && this.service.layer && layer.name === this.service.layer.name) {
             this.loadFeatureCollection({
                 type: 'FeatureCollection',
                 features: [
@@ -348,7 +340,9 @@ export default class InspectorComponent extends Vue {
                     },
                 ],
             });
-        } else if (!(this.partentInserted) && this.sidebar) {
+        }
+        // Reactivate at a later point
+        /*else if (!(this.partentInserted) && this.sidebar) {
             this.layer = layer.name;
 
             this.sidebar.setApp('InspectorApp');
@@ -365,6 +359,6 @@ export default class InspectorComponent extends Vue {
                     },
                 ],
             });
-        }
+        }*/
     }
 }
