@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import { IContainer } from '../types';
-import { VueApp } from '../apps/vueApp';
+import { VueApp } from '../services/vueApp';
 
 export interface IAppSwitchServiceCallback {
     (): void;
