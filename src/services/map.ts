@@ -220,7 +220,7 @@ export class MapService {
     checkZoom = () => {
         const zoom = this.map.getZoom();
 
-        for (const layer of this.layers.concat([this.basemap])) {
+        for (const layer of this.layers.concat(this.basemap ? [this.basemap] : [])) {
             const visible = this.visibleOnZoom(layer, zoom);
 
             if (visible && !this.map.hasLayer(layer.leaflet)) {
@@ -294,9 +294,7 @@ export class MapService {
             this.highlight.remove();
         }
 
-        if (this.focus) {
-            this.focus.remove();
-        }
+        this.hideFocus();
     }
 
     /**
@@ -335,6 +333,12 @@ export class MapService {
 
         if (zoomTo) {
             this.map.fitBounds(this.focus.getBounds());
+        }
+    }
+
+    hideFocus() {
+        if (this.focus) {
+            this.focus.remove();
         }
     }
 
