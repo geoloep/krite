@@ -24,11 +24,15 @@ import { IClickHandler, ILayer, ILayerClickHandler } from '../types';
 export interface ICustomMapOptions {
     checkZoom?: boolean;
     defaultMarker?: L.Icon | L.Icon.Default;
+    highlightStyle?: L.StyleFunction;
+    focusStyle?: L.StyleFunction;
 }
 
 interface IMapOptions {
     checkZoom: boolean;
     defaultMarker: L.Icon | L.Icon.Default;
+    highlightStyle: L.StyleFunction;
+    focusStyle: L.StyleFunction;
 }
 
 /**
@@ -51,6 +55,17 @@ export class MapService {
     private mapOptions: IMapOptions = {
         checkZoom: false,
         defaultMarker: new L.Icon.Default(),
+        highlightStyle: () => {
+            return {};
+        },
+        focusStyle: () => {
+            return {
+                color: '#FF33EE',
+                weight: 5,
+                opacity: 1,
+                fill: false,
+            };
+        },
     };
 
     // Lagen bijhouden
@@ -69,7 +84,7 @@ export class MapService {
     constructor(container?: HTMLElement | string, readonly customOptions?: L.MapOptions, mapOptions?: ICustomMapOptions) {
         if (container) {
             if (typeof container === 'string') {
-                const el =  document.getElementById(container);
+                const el = document.getElementById(container);
 
                 if (el === null) {
                     throw new Error(`Mounting point ${container} not found`);
@@ -279,6 +294,7 @@ export class MapService {
             pointToLayer: (geojsonPoint, latlng) => {
                 return L.circleMarker(latlng);
             },
+            style: this.mapOptions.highlightStyle,
         });
         this.highlight.addTo(this.map);
 
@@ -317,14 +333,7 @@ export class MapService {
         const reprojected = this.project.geoTo(geojson);
 
         this.focus = L.geoJSON(reprojected, {
-            style: () => {
-                return {
-                    color: '#FF33EE',
-                    weight: 5,
-                    opacity: 1,
-                    fill: false,
-                };
-            },
+            style: this.mapOptions.focusStyle,
             pointToLayer: (geojsonPoint, latlng) => {
                 return L.circleMarker(latlng);
             },
