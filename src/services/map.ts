@@ -379,6 +379,24 @@ export class MapService {
     }
 
     /**
+     * Disable the background layer
+     */
+    hideBaseMap() {
+        if (this.basemap) {
+            this.basemap.leaflet.remove();
+        }
+    }
+
+    /**
+     * Make the basemap visible again
+     */
+    showBaseMap() {
+        if (this.basemap) {
+            this.basemap.leaflet.addTo(this.map);
+        }
+    }
+
+    /**
      * Inform the map that the user is in inspect mode
      * @todo should probably not be in this class
      */
