@@ -43,7 +43,6 @@ export class OWSSource implements IDataSource {
         }
     }
 
-    // This actually shows the titles, might be confusing?
     async getLayerNames() {
         if (!this.layersLoaded) {
             await this.getCapabilities();
@@ -111,12 +110,12 @@ export class OWSSource implements IDataSource {
     }
 
     private AddWMSLayer(wmsCapabilities: XMLService, layer: Node) {
-        const titel = wmsCapabilities.string(layer, './wms:Title');
+        const name = wmsCapabilities.string(layer, './wms:Name');
 
-        this.wmsLayers[titel] = new WMSLayer(this.baseUrl, layer, this.wfsLayers[titel]);
+        this.wmsLayers[name] = new WMSLayer(this.baseUrl, layer, this.wfsLayers[name]);
 
-        if (this.layerNames.indexOf(titel) === -1) {
-            this.layerNames.push(titel);
+        if (this.layerNames.indexOf(name) === -1) {
+            this.layerNames.push(name);
         }
 
         const nestedLayers = wmsCapabilities.node(layer, './wms:Layer');
@@ -136,13 +135,21 @@ export class OWSSource implements IDataSource {
             for (let i = 0; i < layers.snapshotLength; i++) {
                 const layer = layers.snapshotItem(i);
 
-                const titel = wfsCapabilities.string(layer, './wms:Title');
+                const name = wfsCapabilities.string(layer, './wms:Name');
 
-                if (this.layerNames.indexOf(titel) === -1) {
-                    this.layerNames.push(titel);
+                if (this.layerNames.indexOf(name) === -1) {
+                    this.layerNames.push(name);
                 }
 
-                this.wfsLayers[titel] = new WFSLayer(this.baseUrl, layer);
+                const wfsLayer = new WFSLayer(this.baseUrl, layer);
+
+                this.wfsLayers[name] = wfsLayer;
+
+                // Also push under a name that's stripped of the namespace, needed when using a geoserver virtual ows
+                // service
+                if (name.includes(':')) {
+                    this.wfsLayers[name.split(':').pop() as string] = wfsLayer;
+                }
             }
         }
     }
