@@ -148,34 +148,54 @@ export class WFSLayer implements ILayer {
         return await response.json();
     }
 
-    async filter(filters: any) {
-        let cql = '';
+    async filter(options: {
+        id?: string,
+        filters?: { [index: string]: string },
+        properties?: string[],
+    }) {
 
-        for (const field in filters) {
-            if (filters[field]) {
-                if (cql.length > 0) {
-                    cql += ' AND ';
-                }
+        const query: any = {
+            outputformat: 'application/json',
+            request: 'GetFeature',
+            service: 'WFS',
+            typenames: this.name,
+            version: '2.0.0',
+        };
 
-                cql += `${field} = `;
+        if (options.id) {
+            query.featureID = options.id;
+        }
 
-                if (typeof (filters[field]) === 'number') {
-                    cql += filters[field];
-                } else {
-                    cql += `'${filters[field]}'`;
+        if (options.filters) {
+            query.cql_filter = '';
+
+            for (const field in options.filters) {
+                if (options.filters[field]) {
+                    if (query.cql_filter.length > 0) {
+                        query.cql_filter += ' AND ';
+                    }
+
+                    query.cql_filter += `${field} = `;
+
+                    if (typeof (options.filters[field]) === 'number') {
+                        query.cql_filter += options.filters[field];
+                    } else {
+                        query.cql_filter += `'${options.filters[field]}'`;
+                    }
                 }
             }
         }
 
+        if (options.properties) {
+            query.propertyName = '';
+
+            for (const property of options.properties) {
+                query.propertyName += property + ',';
+            }
+        }
+
         const response = await fetch(this.url + url.format({
-            query: {
-                cql_filter: cql,
-                outputformat: 'application/json',
-                request: 'GetFeature',
-                service: 'WFS',
-                typenames: this.name,
-                version: '2.0.0',
-            },
+            query,
         }));
 
         if (!response.ok) {
