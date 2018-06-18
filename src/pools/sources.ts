@@ -47,7 +47,9 @@ export class SourcePool {
         this.sources[name] = source;
         this.list.push(name);
 
-        source.added(this.krite);
+        if (source.added) {
+            source.added(this.krite);
+        }
 
         if (name in this.promised) {
             this.resolvePromises(name);

@@ -44,7 +44,9 @@ export class ServicePool {
     add<T extends IService>(name: string, service: T) {
         this.dependencies[name] = service;
 
-        service.added(this.krite);
+        if (service.added) {
+            service.added(this.krite);
+        }
 
         if (name in this.promised) {
             this.resolvePromises(name);

@@ -84,7 +84,7 @@ export interface IBasemap {
 }
 
 export interface IDataSource {
-    added(krite: Krite): void;
+    added?(krite: Krite): void;
 
     getLayerNames(): Promise<string[]>;
     getLayer(name: string): Promise<ILayer>;
@@ -160,5 +160,5 @@ export interface IService {
      * Called when service is added to a krite instance
      * @param krite Reference to krite instance
      */
-    added(krite: Krite): void;
+    added?(krite: Krite): void;
 }
