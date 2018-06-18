@@ -62,6 +62,6 @@
         "bundle": "NODE_ENV=production && webpack --progress",
         "bundle-dev": "NODE_ENV=development && webpack --progress",
         "collect": "node collect-vue.js",
-        "test": "./node_modules/karma/bin/karma start karma.conf.js",
+        "test": "./node_modules/karma/bin/karma start karma.conf.js"
     }
 }
