@@ -63,6 +63,5 @@
         "bundle-dev": "NODE_ENV=development && webpack --progress",
         "collect": "node collect-vue.js",
         "test": "./node_modules/karma/bin/karma start karma.conf.js",
-        "docs": "typedoc  --target ES5 --readme none --includeDeclarations --excludeExternals --out ./docs/ ./src/"
     }
 }
