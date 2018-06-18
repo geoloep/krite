@@ -1,3 +1,5 @@
+import Krite from './krite';
+
 export interface IApp {
     name: string;
 
@@ -82,6 +84,8 @@ export interface IBasemap {
 }
 
 export interface IDataSource {
+    added(krite: Krite): void;
+
     getLayerNames(): Promise<string[]>;
     getLayer(name: string): Promise<ILayer>;
 }
@@ -92,7 +96,6 @@ export interface IContainer {
 }
 
 export type IClickHandler = (point: L.Point) => void;
-
 
 export type IOnClickHandler = (attr: { [index: string]: any }) => void;
 
@@ -150,4 +153,12 @@ export interface IProjectionService {
      * Wrapper of the internal unporject function
      */
     unproject(point: L.Point): L.LatLng;
+}
+
+export interface IService {
+    /**
+     * Called when service is added to a krite instance
+     * @param krite Reference to krite instance
+     */
+    added(krite: Krite): void;
 }
