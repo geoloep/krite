@@ -14,21 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import pool from '../servicePool';
+import { Krite } from '../krite';
+import { IService } from '../types';
 
-import { MapService } from './map';
-import { SourceService } from './source';
+export class ParameterService implements IService {
+    parameters: { [index: string]: string } = {};
 
-export class ParameterService {
-    parameters: {[index: string]: string} = {};
+    private krite: Krite;
 
     constructor() {
         this.parseSearch();
     }
 
+    added(krite: Krite) {
+        this.krite = krite;
+    }
+
     parseSearch() {
         if (window.location.search.length > 2) {
-            const params =  window.location.search.substring(1).split('&');
+            const params = window.location.search.substring(1).split('&');
 
             for (const param of params) {
                 const split = param.split('=');
@@ -39,23 +43,17 @@ export class ParameterService {
         }
     }
 
-    setLayers() {
+    async setLayers() {
         if ('source' in this.parameters && 'layer' in this.parameters) {
-            pool.promiseService<SourceService>('SourceService').then((sources) => {
-                pool.promiseService<MapService>('MapService').then((map) => {
-                    const source = sources.get(this.parameters.source);
+            if (this.krite.source.has(this.parameters.source)) {
+                const layer = await this.krite.getSource(this.parameters.source).getLayer(this.parameters.layer);
 
-                    if (source) {
-                        source.getLayer(this.parameters.layer).then((layer) => {
-                            map.addLayer(layer);
+                this.krite.map.addLayer(layer);
 
-                            if ('fitBounds' in this.parameters) {
-                                map.fitBounds(layer.bounds);
-                            }
-                        });
-                    }
-                });
-            });
+                if ('fitBounds' in this.parameters) {
+                    this.krite.map.fitBounds(layer.bounds);
+                }
+            }
         }
     }
 }

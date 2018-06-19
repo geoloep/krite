@@ -16,16 +16,20 @@ limitations under the License.
 
 import { IApp, IContainer } from '../types';
 
-import pool from '../servicePool';
+import { Krite } from '../krite';
 import { WindowService } from './window';
 
 export class ContainerService implements IContainer {
     private app: IApp;
+    private krite: Krite;
 
     constructor(private wide: string | IContainer, private narrow: string | IContainer) {
-        pool.promiseService<WindowService>('WindowService').then((service) => {
-            service.onStateChange(this.onStateChange);
-        });
+    }
+
+    async added(krite: Krite) {
+        const window = await krite.promiseService<WindowService>('WindowService');
+
+        window.onStateChange(this.onStateChange);
     }
 
     register(app: IApp) {

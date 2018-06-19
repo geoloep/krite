@@ -16,9 +16,10 @@ limitations under the License.
 
 import * as L from 'leaflet';
 
-import pool from '../servicePool';
+// import pool from '../servicePool';
 import { ProjectService } from './project';
 
+import { Krite } from '../krite';
 import { IClickHandler, ILayer, ILayerClickHandler } from '../types';
 
 export interface ICustomMapOptions {
@@ -74,7 +75,8 @@ export class MapService {
     private focus: L.GeoJSON;
     private pointer: L.Marker;
 
-    private project = pool.getService<ProjectService>('ProjectService');
+    private krite: Krite;
+    private project: ProjectService;
 
     private clickHandlers: IClickHandler[] = [];
     private layerClickCallbacks: ILayerClickHandler[] = [];
@@ -105,15 +107,6 @@ export class MapService {
 
         this.mapOptions = Object.assign(this.mapOptions, mapOptions);
 
-        this.map.on('click', (e: L.MouseEvent) => {
-            // latlng does not exist on KeyBoardevents. Enter may fire click'
-            if (e.latlng) {
-                for (const func of this.clickHandlers) {
-                    func(this.project.pointFrom(e.latlng));
-                }
-            }
-        });
-
         if (this.mapOptions.checkZoom) {
             this.map.on('zoomend', () => {
                 this.checkZoom();
@@ -122,6 +115,20 @@ export class MapService {
 
         // @todo: is dit element gegarandeerd aanwezig op dit moment?
         this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
+    }
+
+    added(krite: Krite) {
+        this.krite = krite;
+        this.project = krite.getService<ProjectService>('ProjectService');
+
+        this.map.on('click', (e: L.MouseEvent) => {
+            // latlng does not exist on KeyBoardevents. Enter may fire click'
+            if (e.latlng) {
+                for (const func of this.clickHandlers) {
+                    func(this.project.pointFrom(e.latlng));
+                }
+            }
+        });
     }
 
     /**

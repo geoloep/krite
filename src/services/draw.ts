@@ -18,8 +18,7 @@ import 'leaflet-draw';
 
 import * as L from 'leaflet';
 
-import pool from '../servicePool';
-
+import { Krite } from '../krite';
 import { MapService } from './map';
 import { ProjectService } from './project';
 
@@ -30,13 +29,6 @@ export class DrawService {
     private drawFeature: L.Draw.Feature;
 
     constructor() {
-        (async () => {
-            this.project = await pool.promiseService<ProjectService>('ProjectService');
-        })();
-        (async () => {
-            this.service = await pool.promiseService<MapService>('MapService');
-        })();
-
         // Hack for preveting adding points during drag
         // https://github.com/Leaflet/Leaflet.draw/issues/695
         const originalOnTouch = L.Draw.Polyline.prototype._onTouch;
@@ -45,6 +37,11 @@ export class DrawService {
                 return originalOnTouch.call(this, e);
             }
         };
+    }
+
+    async added(krite: Krite) {
+        this.project = await krite.promiseService<ProjectService>('ProjectService');
+        this.service = await krite.promiseService<MapService>('MapService');
     }
 
     disable() {
