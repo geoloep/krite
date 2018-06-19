@@ -105,10 +105,24 @@ export type TAttributes = 'skip' | 'string' | 'float' | 'int' | 'percentage' | '
 
 export type IAttributeTypeFunc = (attr: any) => string;
 
+export interface IService {
+    /**
+     * Called when service is added to a krite instance
+     * @param krite Reference to krite instance
+     */
+    added?(krite: Krite): void;
+
+    /**
+     * Allow extending this weak type
+     * https://blogs.msdn.microsoft.com/typescript/2017/06/12/announcing-typescript-2-4-rc/
+     */
+    [propName: string]: any;
+}
+
 /**
  * Service that governs all the coordinate system conversions
  */
-export interface IProjectionService {
+export interface IProjectionService extends IService {
     /**
      * CRS Identifiers
      */
@@ -153,12 +167,4 @@ export interface IProjectionService {
      * Wrapper of the internal unporject function
      */
     unproject(point: L.Point): L.LatLng;
-}
-
-export interface IService {
-    /**
-     * Called when service is added to a krite instance
-     * @param krite Reference to krite instance
-     */
-    added?(krite: Krite): void;
 }

@@ -28,10 +28,10 @@ export class ServicePool {
      * Add multiple services in one go
      * @param services A dictionary of services
      */
-    addServices = (services: {[index: string]: any}) => {
+    addServices = (services: { [index: string]: IService}) => {
         for (const service in services) {
             if (services.hasOwnProperty(service)) {
-                this.add<any>(service, services[service]);
+                this.add<IService>(service, services[service]);
             }
         }
     }
@@ -59,7 +59,7 @@ export class ServicePool {
      * Get a service or die
      * @param name Service name
      */
-    get = <T>(name: string): T  => {
+    get = <T>(name: string): T => {
         if (!(name in this.dependencies)) {
             throw new Error(`${name} was requested but not available`);
         }
