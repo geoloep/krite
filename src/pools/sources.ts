@@ -30,7 +30,7 @@ export class SourcePool {
      * Add multiple services in one go
      * @param services A dictionary of services
      */
-    addSources(sources: {[index: string]: IDataSource}) {
+    addSources = (sources: {[index: string]: IDataSource}) => {
         for (const source in sources) {
             if (sources.hasOwnProperty(source)) {
                 this.add<any>(source, sources[source]);
@@ -43,7 +43,7 @@ export class SourcePool {
      * @param name Source name
      * @param source Source instance
      */
-    add<T extends IDataSource>(name: string, source: T): T {
+    add = <T extends IDataSource>(name: string, source: T): T => {
         this.sources[name] = source;
         this.list.push(name);
 
@@ -62,7 +62,7 @@ export class SourcePool {
      * Get a data source or die
      * @param name Source name
      */
-    get<T extends IDataSource>(name: string): T {
+    get = <T extends IDataSource>(name: string): T => {
         if (!(name in this.sources)) {
             throw new Error(`${name} was requested but is not available`);
         }
@@ -75,7 +75,7 @@ export class SourcePool {
      * @param name Source name
      * @returns Undefined when source is not available
      */
-    try<T>(name: string): T | undefined {
+    try = <T>(name: string): T | undefined => {
         if (name in this.sources) {
             return this.sources[name];
         }
@@ -85,7 +85,7 @@ export class SourcePool {
      * Return a promise that resolves as soon as the data source becomes available
      * @param name Source name
      */
-    promise<T>(name: string): Promise<T> {
+    promise = <T>(name: string): Promise<T> => {
         return new Promise<T>((resolve, reject) => {
             if (name in this.sources) {
                 resolve(this.sources[name]);
@@ -102,7 +102,7 @@ export class SourcePool {
      * Test if a source is available
      * @param name Source name
      */
-    has(name: string) {
+    has = (name: string) => {
         return (name in this.sources);
     }
 

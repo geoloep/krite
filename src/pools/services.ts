@@ -28,7 +28,7 @@ export class ServicePool {
      * Add multiple services in one go
      * @param services A dictionary of services
      */
-    addServices(services: {[index: string]: any}) {
+    addServices = (services: {[index: string]: any}) => {
         for (const service in services) {
             if (services.hasOwnProperty(service)) {
                 this.add<any>(service, services[service]);
@@ -41,7 +41,7 @@ export class ServicePool {
      * @param name Dependency name
      * @param service Service instance
      */
-    add<T extends IService>(name: string, service: T) {
+    add = <T extends IService>(name: string, service: T) => {
         this.dependencies[name] = service;
 
         if (service.added) {
@@ -59,7 +59,7 @@ export class ServicePool {
      * Get a service or die
      * @param name Service name
      */
-    get<T>(name: string): T {
+    get = <T>(name: string): T  => {
         if (!(name in this.dependencies)) {
             throw new Error(`${name} was requested but not available`);
         }
@@ -72,7 +72,7 @@ export class ServicePool {
      * @param name Service name
      * @returns Undefined when not in pool
      */
-    try<T>(name: string): T | undefined {
+    try = <T>(name: string): T | undefined => {
         if (name in this.dependencies) {
             return this.dependencies[name];
         }
@@ -82,7 +82,7 @@ export class ServicePool {
      * Return a promise that resolves as soon as the service becomes available
      * @param name Service name
      */
-    promise<T>(name: string): Promise<T> {
+    promise = <T>(name: string): Promise<T> => {
         return new Promise<T>((resolve, reject) => {
             if (name in this.dependencies) {
                 resolve(this.dependencies[name]);
@@ -99,7 +99,7 @@ export class ServicePool {
      * Test if a service is available
      * @param name Service name
      */
-    has(name: string) {
+    has = (name: string) => {
         return (name in this.dependencies);
     }
 
