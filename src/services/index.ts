@@ -14,8 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export { AppSwitchService } from './appSwitch';
-export { ContainerService } from './container';
 export { DrawService } from './draw';
 export { InspectorService } from './inspector';
 export { MapService } from './map';
@@ -26,5 +24,4 @@ export { PdokLocatieserverService } from './pdokLocatieserver';
 export { ProjectService } from './project';
 export { ProjectLatLngService } from './projectlatlng';
 export { ProjectWebMercatorService } from './projectWebMercator';
-export { WindowService } from './window';
 export { XMLService } from './xml';
