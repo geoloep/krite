@@ -22,12 +22,8 @@ if (!((window as any).L)) {
 
 import 'leaflet-wfst/dist/Leaflet-WFST.src.js';
 
-import pool from '../../servicePool';
+import { Krite } from '../../krite';
 import { MapService } from '../../services/map';
-// import { ProjectService } from '../../services/project';
-
-// let map = pool.getService<MapService>('MapService');
-// let project = pool.getService<ProjectService>('ProjectService');
 
 import { ILayer, ILayerClickHandler, IProjectionService } from '../../types';
 
@@ -46,11 +42,16 @@ export class WFSLayer implements ILayer {
     _leaflet: L.Layer;
 
     private onClickCallbacks: ILayerClickHandler[] = [];
-    private mapService = pool.getService<MapService>('MapService');
-    private projectService = pool.getService<IProjectionService>('ProjectService');
+    private mapService: MapService;
+    private projectService: IProjectionService;
 
     constructor(readonly options: L.WFSOptions) {
         // this.createLayer();
+    }
+
+    added(krite: Krite) {
+        this.mapService = krite.getService<MapService>('MapService');
+        this.projectService = krite.getService<IProjectionService>('ProjectService');
     }
 
     get title() {

@@ -18,10 +18,9 @@ import * as L from 'leaflet';
 
 import { WMTSSource } from './source';
 
+import { Krite } from '../../krite';
 import { XMLService } from '../../services/xml';
 import { ILayer, IProjectionService } from '../../types';
-
-import pool from '../../servicePool';
 
 export class WMTSLayer implements ILayer {
     previewSet = 0;
@@ -37,10 +36,14 @@ export class WMTSLayer implements ILayer {
 
     private xml: XMLService;
 
-    private projectService = pool.getService<IProjectionService>('ProjectService');
+    private projectService: IProjectionService;
 
     constructor(readonly url: string, readonly document: Node) {
         this.xml = new XMLService(document);
+    }
+
+    added(krite: Krite) {
+        this.projectService = krite.getService<IProjectionService>('ProjectionService');
     }
 
     get title(): string {

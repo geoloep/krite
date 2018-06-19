@@ -18,11 +18,11 @@ import * as L from 'leaflet';
 
 import { WFSLayer } from './wfs';
 
-import { ProjectService } from '../../services/project';
+import { Krite } from '../../krite';
 import { XMLService } from '../../services/xml';
 import { ILayer, IProjectionService } from '../../types';
 
-import pool from '../../servicePool';
+// import pool from '../../servicePool';
 
 export class WMSLayer implements ILayer {
     _title: string;
@@ -37,10 +37,14 @@ export class WMSLayer implements ILayer {
 
     bounds = undefined;
 
-    private projectService = pool.getService<IProjectionService>('ProjectService');
+    private projectService: IProjectionService;
 
     constructor(readonly url: string, readonly document: Node, private readonly wfs?: WFSLayer) {
         this.xml = new XMLService(document);
+    }
+
+    added(krite: Krite) {
+        this.projectService = krite.getService<IProjectionService>('ProjectionService');
     }
 
     get hasOperations() {

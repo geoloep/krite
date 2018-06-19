@@ -19,10 +19,11 @@ import * as url from 'url';
 import * as wellknown from 'wellknown';
 
 import { XMLService } from '../../services/xml';
-import { ILayer, ILayerClickHandler } from '../../types';
+import { ILayer, ILayerClickHandler, IProjectionService } from '../../types';
+import { Krite } from '../../krite';
 
-import pool from '../../servicePool';
-import { ProjectService } from '../../services/project';
+// import pool from '../../servicePool';
+// import { ProjectService } from '../../services/project';
 
 /**
  * This layer implements a Web Feature Service interface
@@ -36,7 +37,7 @@ export class WFSLayer implements ILayer {
     hasOnClick = true;
     hasOperations = true;
 
-    private projectServive = pool.getService<ProjectService>('ProjectService');
+    private projectServive: IProjectionService;
 
     private _title: string;
     private _name: string;
@@ -54,6 +55,10 @@ export class WFSLayer implements ILayer {
 
     constructor(readonly url: string, readonly document: Node) {
         this.xml = new XMLService(document);
+    }
+
+    added(krite: Krite) {
+        this.projectServive = krite.getService<IProjectionService>('ProjectionService');
     }
 
     get title(): string {

@@ -19,6 +19,8 @@ import { SourcePool } from './pools/sources';
 
 import { MapService } from './services/map';
 
+import {IDataSource, IService} from './types';
+
 export class Krite {
     service: ServicePool;
     source: SourcePool;

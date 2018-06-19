@@ -19,8 +19,7 @@ import * as esri from 'esri-leaflet';
 import { ILayer } from '../../types';
 import { ESRISource } from './source';
 
-import pool from '../../servicePool';
-import { MapService } from '../../services/map';
+import { Krite } from '../../krite';
 
 export class ESRITiledMapLayer implements ILayer {
     previewSet = 0;
@@ -30,9 +29,13 @@ export class ESRITiledMapLayer implements ILayer {
     hasOperations = true;
 
     private _leaflet: any;
-    private mapService = pool.tryService<MapService>('MapService');
+    private krite: Krite;
 
     constructor(readonly url: string, readonly name: string, readonly capabilities: any) {
+    }
+
+    added(krite: Krite) {
+        this.krite = krite;
     }
 
     get title() {
@@ -67,9 +70,9 @@ export class ESRITiledMapLayer implements ILayer {
     }
 
     async intersectsPoint(point: L.Point) {
-        if (this.mapService) {
+        if (this.krite && this.krite.hasService('MapService')) {
             const features = await new Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>((resolve, reject) => {
-                this._leaflet.identify().on((this.mapService as MapService).map).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
+                this._leaflet.identify().on(this.krite.map.map).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
                     resolve(ft);
                 });
             });
