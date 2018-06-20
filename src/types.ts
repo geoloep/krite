@@ -40,6 +40,12 @@ export interface ILayer {
     maxZoom?: number;
 
     /**
+     * Called when the layer is added to a MapService
+     * @param krite reference to the krite instance
+     */
+    added?(krite: Krite): void;
+
+    /**
      * Register your onClick functions here
      */
     onClick?(func: ILayerClickHandler): void;
