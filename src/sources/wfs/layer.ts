@@ -74,7 +74,7 @@ export class WFSLayer implements ILayer {
         const layer: any = L.geoJSON(this.projectService.geoTo(feature));
 
         // Filter againt the first feature in the GeoJSON feature group
-        const filter = new L.Filter.Intersects().append(layer._layers[Object.keys(layer._layers)[0]], <string> this.options.geometryField, this.mapService.map.options.crs);
+        const filter = new L.Filter.Intersects().append(layer._layers[Object.keys(layer._layers)[0]], <string> this.options.geometryField, this.mapService.leaflet.options.crs);
 
         const resultLayer: any = new L.WFS(Object.assign(this.options, {
             filter,
@@ -93,9 +93,9 @@ export class WFSLayer implements ILayer {
     }
 
     async intersectsPoint(point: L.Point) {
-        const layer = L.marker(this.mapService.map.options.crs.unproject(point));
+        const layer = L.marker(this.mapService.leaflet.options.crs.unproject(point));
 
-        const filter = new L.Filter.Intersects().append(layer, <string> this.options.geometryField, this.mapService.map.options.crs);
+        const filter = new L.Filter.Intersects().append(layer, <string> this.options.geometryField, this.mapService.leaflet.options.crs);
 
         const resultLayer: any = new L.WFS(Object.assign(this.options, {
             filter,

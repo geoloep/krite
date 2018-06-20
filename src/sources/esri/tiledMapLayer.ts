@@ -72,7 +72,7 @@ export class ESRITiledMapLayer implements ILayer {
     async intersectsPoint(point: L.Point) {
         if (this.krite && this.krite.hasService('MapService')) {
             const features = await new Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>((resolve, reject) => {
-                this._leaflet.identify().on(this.krite.map.map).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
+                this._leaflet.identify().on(this.krite.map.leaflet).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
                     resolve(ft);
                 });
             });

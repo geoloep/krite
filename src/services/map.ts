@@ -24,9 +24,11 @@ import { IClickHandler, ILayer, ILayerClickHandler } from '../types';
 
 export interface ICustomMapOptions {
     checkZoom?: boolean;
+    container?: string | HTMLElement;
     defaultMarker?: L.Icon | L.Icon.Default;
     highlightStyle?: L.StyleFunction;
     focusStyle?: L.StyleFunction;
+    leaflet?: L.MapOptions;
 }
 
 interface IMapOptions {
@@ -34,6 +36,7 @@ interface IMapOptions {
     defaultMarker: L.Icon | L.Icon.Default;
     highlightStyle: L.StyleFunction;
     focusStyle: L.StyleFunction;
+    leaflet: L.MapOptions;
 }
 
 /**
@@ -47,7 +50,7 @@ export class MapService {
         [index: string]: ILayer,
     } = {};
 
-    map: L.Map;
+    leaflet: L.Map;
 
     defaultLeafletOptions: L.MapOptions = {
         // crs: rd,
@@ -67,6 +70,7 @@ export class MapService {
                 fill: false,
             };
         },
+        leaflet: {},
     };
 
     // Lagen bijhouden
@@ -83,37 +87,37 @@ export class MapService {
 
     private container: HTMLElement;
 
-    constructor(container?: HTMLElement | string, readonly customOptions?: L.MapOptions, mapOptions?: ICustomMapOptions) {
-        if (container) {
-            if (typeof container === 'string') {
-                const el = document.getElementById(container);
+    constructor(options: ICustomMapOptions) {
+        let container: HTMLElement;
+
+        this.mapOptions = Object.assign(this.mapOptions, options);
+
+        if (options.container) {
+            if (typeof options.container === 'string') {
+                const el = document.getElementById(options.container);
 
                 if (el === null) {
-                    throw new Error(`Mounting point ${container} not found`);
+                    throw new Error(`Mounting point ${options.container} not found`);
                 } else {
-                    this.container = el;
+                    container = this.container = el;
                 }
             } else {
-                this.container = container;
+                container = this.container = options.container;
             }
         } else {
             container = this.container = document.createElement('div');
             container.style.cssText = ('width: 100%; height: 100%');
         }
 
-        this.map = L.map(container,
-            Object.assign(this.defaultLeafletOptions, this.customOptions),
-        );
-
-        this.mapOptions = Object.assign(this.mapOptions, mapOptions);
+        const leaflet = this.leaflet = L.map(container, options.leaflet ? options.leaflet : {});
 
         if (this.mapOptions.checkZoom) {
-            this.map.on('zoomend', () => {
+            this.leaflet.on('zoomend', () => {
                 this.checkZoom();
             });
         }
 
-        // @todo: is dit element gegarandeerd aanwezig op dit moment?
+        // Might not be guarenteed to exist
         this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
     }
 
@@ -121,7 +125,7 @@ export class MapService {
         this.krite = krite;
         this.project = krite.getService<ProjectService>('ProjectService');
 
-        this.map.on('click', (e: L.MouseEvent) => {
+        this.leaflet.on('click', (e: L.MouseEvent) => {
             // latlng does not exist on KeyBoardevents. Enter may fire click'
             if (e.latlng) {
                 for (const func of this.clickHandlers) {
@@ -141,10 +145,10 @@ export class MapService {
 
         parent.appendChild(this.container);
 
-        this.map.invalidateSize(false);
+        this.leaflet.invalidateSize(false);
 
-        if (center && this.customOptions && this.customOptions.zoom) {
-            this.map.setView(this.customOptions.center as L.LatLng, this.customOptions.zoom, {
+        if (center && this.mapOptions.leaflet.center && this.mapOptions.leaflet.zoom) {
+            this.leaflet.setView(this.mapOptions.leaflet.center as L.LatLng, this.mapOptions.leaflet.zoom, {
                 animate: false,
             });
         }
@@ -164,8 +168,8 @@ export class MapService {
      */
     addLayer(layer: ILayer) {
         if (!(layer.name in this.layerByName)) {
-            if (this.visibleOnZoom(layer, this.map.getZoom())) {
-                layer.leaflet.addTo(this.map);
+            if (this.visibleOnZoom(layer, this.leaflet.getZoom())) {
+                layer.leaflet.addTo(this.leaflet);
             }
 
             this.layers.unshift(layer);
@@ -186,7 +190,7 @@ export class MapService {
      * Show previously hidden layers again
      */
     showLayer(layer: ILayer) {
-        layer.leaflet.addTo(this.map);
+        layer.leaflet.addTo(this.leaflet);
     }
 
     hasLayerByName(name: string): boolean {
@@ -240,14 +244,14 @@ export class MapService {
     }
 
     checkZoom = () => {
-        const zoom = this.map.getZoom();
+        const zoom = this.leaflet.getZoom();
 
         for (const layer of this.layers.concat(this.basemap ? [this.basemap] : [])) {
             const visible = this.visibleOnZoom(layer, zoom);
 
-            if (visible && !this.map.hasLayer(layer.leaflet)) {
+            if (visible && !this.leaflet.hasLayer(layer.leaflet)) {
                 this.showLayer(layer);
-            } else if (!visible && this.map.hasLayer(layer.leaflet)) {
+            } else if (!visible && this.leaflet.hasLayer(layer.leaflet)) {
                 this.hideLayer(layer);
             }
         }
@@ -303,10 +307,10 @@ export class MapService {
             },
             style: this.mapOptions.highlightStyle,
         });
-        this.highlight.addTo(this.map);
+        this.highlight.addTo(this.leaflet);
 
         if (fitBounds) {
-            this.map.fitBounds(this.highlight.getBounds(), typeof (fitBounds) === 'boolean' ? undefined : fitBounds);
+            this.leaflet.fitBounds(this.highlight.getBounds(), typeof (fitBounds) === 'boolean' ? undefined : fitBounds);
         }
 
         return this.highlight;
@@ -325,7 +329,7 @@ export class MapService {
      */
     showHighlight() {
         if (this.highlight) {
-            this.highlight.addTo(this.map);
+            this.highlight.addTo(this.leaflet);
         }
     }
 
@@ -345,10 +349,10 @@ export class MapService {
                 return L.circleMarker(latlng);
             },
         });
-        this.focus.addTo(this.map);
+        this.focus.addTo(this.leaflet);
 
         if (zoomTo) {
-            this.map.fitBounds(this.focus.getBounds());
+            this.leaflet.fitBounds(this.focus.getBounds());
         }
     }
 
@@ -382,7 +386,7 @@ export class MapService {
             (this.basemap.leaflet as L.GridLayer).setZIndex(-1);
         }
 
-        this.basemap.leaflet.addTo(this.map);
+        this.basemap.leaflet.addTo(this.leaflet);
     }
 
     /**
@@ -399,7 +403,7 @@ export class MapService {
      */
     showBaseMap() {
         if (this.basemap) {
-            this.basemap.leaflet.addTo(this.map);
+            this.basemap.leaflet.addTo(this.leaflet);
         }
     }
 
@@ -425,7 +429,7 @@ export class MapService {
         } else {
             this.pointer = L.marker(latLng, {
                 icon: this.mapOptions.defaultMarker,
-            }).addTo(this.map);
+            }).addTo(this.leaflet);
         }
     }
 
@@ -435,7 +439,7 @@ export class MapService {
      */
     fitBounds(bounds: L.LatLngBounds | undefined) {
         if (bounds) {
-            this.map.fitBounds(bounds, {});
+            this.leaflet.fitBounds(bounds, {});
         }
     }
 
@@ -457,6 +461,6 @@ export class MapService {
             this.setPointer(point);
         }
 
-        this.map.setView(point, zoom);
+        this.leaflet.setView(point, zoom);
     }
 }

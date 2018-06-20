@@ -20,12 +20,13 @@
         "esri-leaflet": "~2.1.0",
         "leaflet-draw": "~1.0.0",
         "leaflet-wfst": "^1.0.0",
+
+        "numeral": "^2.0.6",
         
         "wicked-good-xpath": "~1.3.0"
     },
     "peerDependencies": {
-        "leaflet": "~1.3.0",
-        "numeral": "^2.0.6"
+        "leaflet": "~1.3.0"
     },
     "devDependencies": {
         "@types/numeral": "*",

@@ -56,19 +56,19 @@ export class DrawService {
     }
 
     marker(icon?: L.Icon) {
-        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new L.Draw.Marker(this.service.map, { icon }));
+        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new L.Draw.Marker(this.service.leaflet, { icon }));
     }
 
     rectangle() {
-        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new L.Draw.Rectangle(this.service.map, {}));
+        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new L.Draw.Rectangle(this.service.leaflet, {}));
     }
 
     polyline() {
-        return this.draw<GeoJSON.Feature<GeoJSON.LineString>>(new L.Draw.Polyline(this.service.map, {}));
+        return this.draw<GeoJSON.Feature<GeoJSON.LineString>>(new L.Draw.Polyline(this.service.leaflet, {}));
     }
 
     polygon() {
-        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new L.Draw.Polygon(this.service.map, {}));
+        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new L.Draw.Polygon(this.service.leaflet, {}));
     }
 
     private draw<T>(draw: L.Draw.Feature): Promise<T> {
@@ -81,12 +81,12 @@ export class DrawService {
                     draw.enable();
 
                     // Only seems to fire when valid geometry is created
-                    this.service.map.once('draw:created', (event: L.LayerEvent) => {
+                    this.service.leaflet.once('draw:created', (event: L.LayerEvent) => {
                         resolve(this.project.geoFrom((event.layer as L.Polygon).toGeoJSON()));
                     });
 
                     // Release lock when draw actions have completed, even when valid geometry was not created
-                    this.service.map.once('draw:drawstop', (event: L.LayerEvent) => {
+                    this.service.leaflet.once('draw:drawstop', (event: L.LayerEvent) => {
                         this.lock = false;
                     });
                 } else {
