@@ -173,10 +173,13 @@ export class MapService {
             }
 
             this.layers.unshift(layer);
-            // this.layers.push(layer);
             this.layerByName[layer.name] = layer;
 
             this.setZIndexes();
+
+            if (layer.added) {
+                layer.added(this.krite);
+            }
 
             if (layer.onClick) {
                 layer.onClick(this.layerClick);
