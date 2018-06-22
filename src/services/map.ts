@@ -16,7 +16,8 @@ limitations under the License.
 
 import * as L from 'leaflet';
 
-// import pool from '../servicePool';
+import Evented from '../util/evented';
+
 import { ProjectService } from './project';
 
 import { Krite } from '../krite';
@@ -42,7 +43,7 @@ interface IMapOptions {
 /**
  * This service controls the leaflet map.
  */
-export class MapService {
+export class MapService extends Evented {
     HTMLElement: HTMLElement;
 
     layers: ILayer[] = [];
@@ -88,6 +89,8 @@ export class MapService {
     private container: HTMLElement;
 
     constructor(options: ICustomMapOptions) {
+        super();
+
         let container: HTMLElement;
 
         this.mapOptions = Object.assign(this.mapOptions, options);
@@ -112,7 +115,7 @@ export class MapService {
         const leaflet = this.leaflet = L.map(container, options.leaflet ? options.leaflet : {});
 
         if (this.mapOptions.checkZoom) {
-            this.leaflet.on('zoomend', () => {
+            leaflet.on('zoomend', () => {
                 this.checkZoom();
             });
         }
@@ -128,9 +131,10 @@ export class MapService {
         this.leaflet.on('click', (e: L.MouseEvent) => {
             // latlng does not exist on KeyBoardevents. Enter may fire click'
             if (e.latlng) {
-                for (const func of this.clickHandlers) {
-                    func(this.project.pointFrom(e.latlng));
-                }
+                // for (const func of this.clickHandlers) {
+                //     func(this.project.pointFrom(e.latlng));
+                // }
+                this.emit('click', this.project.pointFrom(e.latlng));
             }
         });
     }
