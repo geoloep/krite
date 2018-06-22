@@ -43,7 +43,7 @@ export class WMTSLayer implements ILayer {
     }
 
     added(krite: Krite) {
-        this.projectService = krite.getService<IProjectionService>('ProjectionService');
+        this.projectService = krite.getService<IProjectionService>('ProjectService');
     }
 
     get title(): string {

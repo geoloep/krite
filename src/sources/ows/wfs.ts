@@ -18,9 +18,10 @@ import * as L from 'leaflet';
 import * as url from 'url';
 import * as wellknown from 'wellknown';
 
-import { XMLService } from '../../services/xml';
-import { ILayer, ILayerClickHandler, IProjectionService } from '../../types';
 import { Krite } from '../../krite';
+import { XMLService } from '../../services/xml';
+import { ILayer, IProjectionService } from '../../types';
+import Evented from '../../util/evented';
 
 // import pool from '../../servicePool';
 // import { ProjectService } from '../../services/project';
@@ -30,7 +31,7 @@ import { Krite } from '../../krite';
  *
  * Spatial operations depend on the availability of the cql_filter paramater!
  */
-export class WFSLayer implements ILayer {
+export class WFSLayer extends Evented implements ILayer {
     preview = '-';
     legend = '<p>-</p>';
     bounds: undefined;
@@ -51,9 +52,9 @@ export class WFSLayer implements ILayer {
     private xml: XMLService;
     private types: XMLService;
 
-    private onClickCallbacks: ILayerClickHandler[] = [];
-
     constructor(readonly url: string, readonly document: Node) {
+        super();
+        
         this.xml = new XMLService(document);
     }
 
@@ -90,7 +91,7 @@ export class WFSLayer implements ILayer {
             this._leaflet = L.geoJSON(undefined, {
                 onEachFeature: (feature, layer) => {
                     layer.on('click', () => {
-                        this.clickHandler(feature.properties);
+                        this.emit('click', this, feature.properties);
                     });
                 },
             });
@@ -208,16 +209,6 @@ export class WFSLayer implements ILayer {
         }
 
         return await response.json();
-    }
-
-    onClick(fun: ILayerClickHandler) {
-        this.onClickCallbacks.push(fun);
-    }
-
-    private clickHandler(feature: any) {
-        for (const callback of this.onClickCallbacks) {
-            callback(this, feature);
-        }
     }
 
     private async loadData() {

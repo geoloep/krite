@@ -14,12 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { EventEmitter, ListenerFn } from 'eventemitter3';
+import EEE, { EventEmitter, ListenerFn } from 'eventemitter3';
 
 /**
- * Extend form this class to equip your class with events
+ * Extend from this class to equip your class with events
  */
 export default class Evented {
+    hasEvents = true;
+
     private events = new EventEmitter();
 
     /**

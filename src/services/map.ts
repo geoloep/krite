@@ -21,7 +21,7 @@ import Evented from '../util/evented';
 import { ProjectService } from './project';
 
 import { Krite } from '../krite';
-import { IClickHandler, ILayer, ILayerClickHandler } from '../types';
+import { ILayer, ILayerEvented } from '../types';
 
 export interface ICustomMapOptions {
     checkZoom?: boolean;
@@ -82,9 +82,6 @@ export class MapService extends Evented {
 
     private krite: Krite;
     private project: ProjectService;
-
-    private clickHandlers: IClickHandler[] = [];
-    private layerClickCallbacks: ILayerClickHandler[] = [];
 
     private container: HTMLElement;
 
@@ -170,8 +167,12 @@ export class MapService extends Evented {
     /**
      * Add a new layer to the map
      */
-    addLayer(layer: ILayer) {
+    addLayer(layer: ILayer | ILayerEvented) {
         if (!(layer.name in this.layerByName)) {
+            if (layer.added) {
+                layer.added(this.krite);
+            }
+
             if (this.visibleOnZoom(layer, this.leaflet.getZoom())) {
                 layer.leaflet.addTo(this.leaflet);
             }
@@ -181,13 +182,13 @@ export class MapService extends Evented {
 
             this.setZIndexes();
 
-            if (layer.added) {
-                layer.added(this.krite);
+            if ((<ILayerEvented> layer).hasEvents) {
+                (<ILayerEvented> layer).on('click', this.layerClick);
             }
 
-            if (layer.onClick) {
-                layer.onClick(this.layerClick);
-            }
+            // if (layer.onClick) {
+            //     layer.onClick(this.layerClick);
+            // }
         } else {
             console.error('Probeerde een laag met een al in gebruik zijnde naam toe te voegen!');
         }
@@ -216,38 +217,13 @@ export class MapService extends Evented {
     }
 
     /**
-     * Register onclick callbacks here
-     */
-    onClick(fun: IClickHandler) {
-        this.clickHandlers.push(fun);
-    }
-
-    cancelOnClick(fun: IClickHandler) {
-        if (this.clickHandlers.indexOf(fun) !== -1) {
-            this.clickHandlers.splice(this.clickHandlers.indexOf(fun), 1);
-        }
-    }
-
-    /**
-     * Register onLayerClick callbacks here
-     */
-    onLayerClick(func: ILayerClickHandler) {
-        this.layerClickCallbacks.push(func);
-    }
-
-    cancelOnLayerClick(func: ILayerClickHandler) {
-        if (this.layerClickCallbacks.indexOf(func) !== -1) {
-            this.layerClickCallbacks.splice(this.layerClickCallbacks.indexOf(func), 1);
-        }
-    }
-
-    /**
      * Layers can report click events here
      */
     layerClick = (layer: ILayer, attr: any) => {
-        for (const callback of this.layerClickCallbacks) {
-            callback(layer, attr);
-        }
+        // for (const callback of this.layerClickCallbacks) {
+        //     callback(layer, attr);
+        // }
+        this.emit('click-layer', layer, attr);
     }
 
     checkZoom = () => {

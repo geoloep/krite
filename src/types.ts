@@ -1,4 +1,5 @@
 import Krite from './krite';
+import Evented from './util/evented';
 
 export interface IApp {
     name: string;
@@ -46,11 +47,6 @@ export interface ILayer {
     added?(krite: Krite): void;
 
     /**
-     * Register your onClick functions here
-     */
-    onClick?(func: ILayerClickHandler): void;
-
-    /**
      * Intersect the layer with the input GeoJSON Feature
      * @param feature Should be in the CRS of the map
      * @returns Should be in the crs of the map
@@ -83,6 +79,9 @@ export interface ILayer {
     getType?(attr: string): TAttributes | IAttributeTypeFunc;
 }
 
+export interface ILayerEvented extends ILayer, Evented {
+}
+
 export interface IBasemap {
     preview: string;
     url: string;
@@ -101,11 +100,11 @@ export interface IContainer {
     deregister(): void;
 }
 
-export type IClickHandler = (point: L.Point) => void;
+// export type IClickHandler = (point: L.Point) => void;
 
-export type IOnClickHandler = (attr: { [index: string]: any }) => void;
+// export type IOnClickHandler = (attr: { [index: string]: any }) => void;
 
-export type ILayerClickHandler = (layer: ILayer, attr: { [index: string]: any }) => void;
+// export type ILayerClickHandler = (layer: ILayer, attr: { [index: string]: any }) => void;
 
 export type TAttributes = 'skip' | 'string' | 'float' | 'int' | 'percentage' | 'href';
 

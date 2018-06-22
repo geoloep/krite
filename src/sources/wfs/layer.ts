@@ -25,12 +25,13 @@ import 'leaflet-wfst/dist/Leaflet-WFST.src.js';
 import { Krite } from '../../krite';
 import { MapService } from '../../services/map';
 
-import { ILayer, ILayerClickHandler, IProjectionService } from '../../types';
+import { ILayer, IProjectionService } from '../../types';
+import Evented from '../../util/evented';
 
 /**
  * This layer is a wrapper around Leaflet-WFST http://flexberry.github.io/Leaflet-WFST/
  */
-export class WFSLayer implements ILayer {
+export class WFSLayer extends Evented implements ILayer {
     preview = '-';
     legend = '<p>-</p>';
     bounds: undefined;
@@ -41,12 +42,11 @@ export class WFSLayer implements ILayer {
 
     _leaflet: L.Layer;
 
-    private onClickCallbacks: ILayerClickHandler[] = [];
     private mapService: MapService;
     private projectService: IProjectionService;
 
     constructor(readonly options: L.WFSOptions) {
-        // this.createLayer();
+        super();
     }
 
     added(krite: Krite) {
@@ -113,6 +113,7 @@ export class WFSLayer implements ILayer {
         return this.projectService.geoFrom((resultLayer as any).toGeoJSON());
     }
 
+    // @todo needs to update to the new filter spec
     async filter(filters: any) {
         const filter = new L.Filter.EQ();
 
@@ -138,16 +139,6 @@ export class WFSLayer implements ILayer {
         return this.projectService.geoFrom((resultLayer as any).toGeoJSON());
     }
 
-    onClick(fun: ILayerClickHandler) {
-        this.onClickCallbacks.push(fun);
-    }
-
-    private clickHandler(feature: any) {
-        for (const callback of this.onClickCallbacks) {
-            callback(this, feature);
-        }
-    }
-
     private createLayer() {
         this._leaflet = new L.WFS(this.options);
 
@@ -155,7 +146,7 @@ export class WFSLayer implements ILayer {
 
             (this._leaflet as any).eachLayer((layer: L.Layer) => {
                 layer.on('click', () => {
-                    this.clickHandler((layer as any).toGeoJSON().properties);
+                    this.emit('click', this, (<any> layer).toGeoJSON().properties);
                 });
             });
         });
