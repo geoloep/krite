@@ -121,6 +121,16 @@ export class MapService extends Evented {
         this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
     }
 
+    get layerNames() {
+        const names = [];
+
+        for (const layer of this.layers) {
+            names.push(layer.name);
+        }
+
+        return names;
+    }
+
     added(krite: Krite) {
         this.krite = krite;
         this.project = krite.getService<ProjectService>('ProjectService');
@@ -186,11 +196,9 @@ export class MapService extends Evented {
                 (<ILayerEvented> layer).on('click', this.layerClick);
             }
 
-            // if (layer.onClick) {
-            //     layer.onClick(this.layerClick);
-            // }
+            this.emit('layer-add', layer);
         } else {
-            console.error('Probeerde een laag met een al in gebruik zijnde naam toe te voegen!');
+            throw new Error('Tried adding a layer with the same name twice');
         }
     }
 
@@ -199,6 +207,8 @@ export class MapService extends Evented {
      */
     showLayer(layer: ILayer) {
         layer.leaflet.addTo(this.leaflet);
+
+        this.emit('layer-show', layer);
     }
 
     hasLayerByName(name: string): boolean {
@@ -214,6 +224,8 @@ export class MapService extends Evented {
      */
     hideLayer(layer: ILayer) {
         layer.leaflet.remove();
+
+        this.emit('layer-hide', layer);
     }
 
     /**
@@ -353,6 +365,8 @@ export class MapService extends Evented {
 
         this.layers.splice(this.layers.indexOf(layer), 1);
         delete this.layerByName[layer.name];
+
+        this.emit('layer-remove', layer);
     }
 
     /**
@@ -370,6 +384,8 @@ export class MapService extends Evented {
         }
 
         this.basemap.leaflet.addTo(this.leaflet);
+
+        this.emit('basemap-set', layer);
     }
 
     /**
@@ -379,6 +395,8 @@ export class MapService extends Evented {
         if (this.basemap) {
             this.basemap.leaflet.remove();
         }
+
+        this.emit('basemap-hide');
     }
 
     /**
@@ -388,6 +406,8 @@ export class MapService extends Evented {
         if (this.basemap) {
             this.basemap.leaflet.addTo(this.leaflet);
         }
+
+        this.emit('basemap-show');
     }
 
     /**
