@@ -137,9 +137,9 @@ export class OWSSource implements IDataSource {
 
                 const name = wfsCapabilities.string(layer, './wms:Name');
 
-                if (this.layerNames.indexOf(name) === -1) {
-                    this.layerNames.push(name);
-                }
+                // if (this.layerNames.indexOf(name) === -1) {
+                //     this.layerNames.push(name);
+                // }
 
                 const wfsLayer = new WFSLayer(this.baseUrl, layer);
 
