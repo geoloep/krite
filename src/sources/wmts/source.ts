@@ -67,7 +67,7 @@ export class WMTSSource implements IDataSource {
 
         await this.parseCapabilities(data);
 
-        return;
+        this.layersLoaded = true;
     }
 
     private async parseCapabilities(data: any) {
