@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import EEE, { EventEmitter, ListenerFn } from 'eventemitter3';
+import { METHODS } from 'http';
 
 /**
  * Extend from this class to equip your class with events
@@ -64,5 +65,13 @@ export default class Evented {
      */
     clear = (event?: string) => {
         return this.events.removeAllListeners(event);
+    }
+
+    /**
+     * List listeners of the given event
+     * @param event event name
+     */
+    listeners = (event: string | symbol) => {
+        return this.events.listeners(event);
     }
 }
