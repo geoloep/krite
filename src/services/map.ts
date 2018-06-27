@@ -133,9 +133,6 @@ export class MapService extends Evented {
         this.leaflet.on('click', (e: L.MouseEvent) => {
             // latlng does not exist on KeyBoardevents. Enter may fire click'
             if (e.latlng) {
-                // for (const func of this.clickHandlers) {
-                //     func(this.project.pointFrom(e.latlng));
-                // }
                 this.emit('click', this.project.pointFrom(e.latlng));
             }
         });
@@ -271,7 +268,7 @@ export class MapService extends Evented {
                 }
             }
         } else {
-            console.warn('No layers to set a Z-index for');
+            throw new Error('No layers to set a Z-index for');
         }
     }
 
