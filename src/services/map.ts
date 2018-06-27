@@ -44,8 +44,6 @@ interface IMapOptions {
  * This service controls the leaflet map.
  */
 export class MapService extends Evented {
-    HTMLElement: HTMLElement;
-
     layers: ILayer[] = [];
     layerByName: {
         [index: string]: ILayer,
@@ -116,9 +114,6 @@ export class MapService extends Evented {
                 this.checkZoom();
             });
         }
-
-        // Might not be guarenteed to exist
-        this.HTMLElement = document.querySelector('.leaflet-container') as HTMLElement;
     }
 
     get layerNames() {
@@ -415,11 +410,11 @@ export class MapService extends Evented {
      * @todo should probably not be in this class
      */
     startInspect() {
-        this.HTMLElement.style.cursor = 'help';
+        this.container.style.cursor = 'help';
     }
 
     endInspect() {
-        this.HTMLElement.style.cursor = '';
+        this.container.style.cursor = '';
     }
 
     /**
