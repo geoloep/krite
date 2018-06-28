@@ -4,10 +4,11 @@
         "target": "es5",
         "lib": [
             "dom",
+            "scripthost",
             "es5",
             "es2015.promise",
             "es2015.core",
-            "scripthost"
+            "es2016.array.include"
         ],
         "noImplicitAny": true,
         "moduleResolution": "node",

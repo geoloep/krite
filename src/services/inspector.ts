@@ -14,37 +14,147 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import { Krite } from '../krite';
 import { ILayer } from '../types';
+import Evented from '../util/evented';
+import { DrawService } from './draw';
 
-export class InspectorService {
-    onChangeCallBacks: Array<(layer: ILayer) => void> = [];
+export type ToolType = 'cursor' | 'box' | 'polygon' | 'line';
 
-    private _layer: ILayer;
+export class InspectorService extends Evented {
+    layer: ILayer | null;
 
-    get name() {
-        if (this.layer && this.layer.name) {
-            return this.layer.name;
+    // Because layer click can be async from the pov of the interface we save the result of a layer click so interface
+    // elements that appear after the layer-click event can still access the properties
+    layerResult: {
+        layer: ILayer,
+        properties: any,
+    } | null;
+
+    private options = {
+        highlight: true,
+    };
+
+    private krite: Krite;
+    private tool: ToolType = 'cursor';
+
+    private draw: DrawService;
+
+    async added(krite: Krite) {
+        this.krite = krite;
+
+        await krite.promiseService('MapService');
+
+        krite.map.on('click', this.onClick);
+        krite.map.on('click-layer', this.onLayerClick);
+
+        this.draw = await krite.promiseService<DrawService>('DrawService');
+    }
+
+    /**
+     * Set the layer that has inspection focus
+     * @param layer Layer instance of layer name
+     */
+    setLayer(layer: string | ILayer) {
+        if (typeof (layer) === 'string') {
+            this.layer = this.krite.map.layerByName[layer];
         } else {
-            return '';
+            this.layer = layer;
+        }
+
+        if (this.options.highlight) {
+            this.krite.map.hideHighlight();
         }
     }
 
-    get layer() {
-        return this._layer;
+    /**
+     * Deactivate inspection focus
+     */
+    clearLayer() {
+        this.layer = null;
     }
 
-    set layer(layer: ILayer) {
-        this._layer = layer;
-        this.onChangeHandler();
-    }
+    /**
+     * Get a list of tools that are valid for the current layer
+     */
+    get tools() {
+        const tools: ToolType[] = [];
 
-    onChange(callback: (layer: ILayer) => void) {
-        this.onChangeCallBacks.push(callback);
-    }
+        if (this.layer && (this.layer.intersectsPoint || this.layer.hasOnClick)) {
+            tools.push('cursor');
 
-    private onChangeHandler() {
-        for (const callback of this.onChangeCallBacks) {
-            callback(this.layer);
+            if (this.layer.intersects) {
+                tools.push('box', 'polygon', 'line');
+            }
         }
+
+        return tools;
+    }
+
+    /**
+     * Set the active tool
+     * @param tool
+     */
+    setTool(tool: ToolType) {
+        this.tool = tool;
+    }
+
+    /**
+     * Run the active tool, results are reported through the 'result' event
+     * @param tool
+     */
+    async runTool(tool?: ToolType) {
+        const t = tool ? tool : this.tool;
+
+        if (t !== 'cursor' && this.draw && this.layer && this.layer.intersects) {
+            switch (t) {
+                case 'box':
+                    this.intersect(await this.draw.rectangle());
+                    break;
+                case 'polygon':
+                    this.intersect(await this.draw.polygon());
+                    break;
+                case 'line':
+                    this.intersect(await this.draw.polyline());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private async intersect(shape: GeoJSON.Feature<any>) {
+        if (this.layer && this.layer.intersects) {
+            const features = await this.layer.intersects(shape);
+
+            if (this.options.highlight) {
+                this.krite.map.addHighlight(features);
+            }
+
+            this.emit('result', features);
+        }
+    }
+
+    private onClick = async (point: L.Point) => {
+        if (this.listeners('result').length > 0 && this.layer && this.tool === 'cursor' && this.layer.intersectsPoint) {
+            const features = await this.layer.intersectsPoint(point);
+
+            if (this.options.highlight) {
+                this.krite.map.addHighlight(features);
+            }
+
+            this.layerResult = null;
+
+            this.emit('result', features);
+        }
+    }
+
+    private onLayerClick = (layer: ILayer, properties: any) => {
+        this.layerResult = {
+            layer,
+            properties,
+        };
+
+        this.emit('result-layer', layer, properties);
     }
 }
