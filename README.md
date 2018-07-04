@@ -1,32 +1,110 @@
-[![Build Status](https://travis-ci.org/geoloep/krite.svg?branch=master)](https://travis-ci.org/geoloep/krite)
-
 # krite
-Krite is a collection of tools for creating web-based map applications. It mostly consists of wrappers around [Leaflet](https://github.com/Leaflet/Leaflet) and [Vue.js](https://github.com/vuejs/vue). Leaflet is used for creating the map component and Vue.js for rendering the dom of various 'apps'.
+Krite is a collection of tools for quickly setting up interactive maps. It consist of various generic and reusable components that facilitate various common tasks. Tasks inluding managing map state, map interaction, working with projection systems and interfacing with data sources.
 
-The goal of krite is to create a consistent API for interfacing between multiple types of data sources. At the moment krite can consume OWS data sources such as WMS, WMTS and WFS. Support for Arcgis online / ESRI data sources is in the works.
+Krite uses the excellent [Leaflet](https://github.com/Leaflet/Leaflet) library for the actual rendering of the map.
 
-### Demo
-View a demo of the krite tookit here: [DEMO](http://demo.geoloep.nl/krite/)
+With the help of the [krite-vue](https://github.com/geoloep/krite-vue) project you can quickly create a modern web-based map application. This core repository is framework agnostic and can form the base of your own implementation.
 
-To see how this demo was created you can check out it source code in the following repository: [Demo Source Code](https://github.com/geoloep/krite-example)
+## Structure
+The functionality of krite for the most part divided into two parts: services and data sources.
 
-### Usage
-This project is still under development. If you wan't to give krite a test run there are two options. First of all you'll need to clone this project and run `npm install` to install the required dependencies.
+### Services
+Most functionality in krite is subdivided into services. These are dependencies that perfom a specific role such as talking to an API or wrapping around external modules.
 
-If you want to use krite in a node enviroment you'll have to compile the source files using `npm run lib`. Link the krite folder into your project and require the nessecary classes from '/lib/'. I recommend using typescript when extending krite functionality.
+### Data Sources
+Data sources are connectors for interfacing with geospatial data sources. The included data sources wrap differing web services with the same consistent API. They allow you to consume data layers from multiple types of web services in a single application.
 
-If you want to use krite as an standalone library you can create a bundle by first running `npm run lib` and then `npm run bundle`. Include '/dist/krite.js' in your page, all the functionality of krite will then be available in the global variable 'krite'.
+Included in this repository you can find connectors for:
 
-### Development
-Clone and install krite as explained above. You can run tests by first creating the bundle file with `npm run bundle` and then running `npm run test`.
+* WMS
+* WFS
+* WMTS
+* ESRI Tiled Map Layers
 
-### Documentation
-[API Documentation](https://geoloep.github.io/krite/index.html)
+## Installation
+```
+npm install krite
+```
 
-### Further Examples (in dutch)
+## Usage
+Unfortunately detailed docs are not yet available.
+
+Creating a new krite instance:
+```javascript
+import Krite from 'krite';
+
+const krite = new Krite();
+```
+
+Adding services
+```javascript
+import { InspectorService } from 'krite/lib/services/inspector';
+
+krite.addService('InspectorService', new InspectorService);
+
+// Or
+krite.addServices({
+    InspectorService: new InspectorService(),
+    ...
+})
+```
+
+Get service instances
+```javascript
+krite.getService('InspectorService');
+krite.tryService('InspectorService');
+krite.promiseService('InspectorService').then((service) => {
+    // Do something    
+});
+```
+
+Creating the map
+```javascript
+krite.addService<MapService>('MapService', new MapService({
+    container: '#map-container',
+    leaflet: {
+        minZoom: 3,
+        maxZoom: 16,
+        center: [0, 0],
+        zoom: 3,
+        preferCanvas: true,
+    },
+}));
+```
+
+Adding data sources
+```javascript
+import { OWSSource } from 'krite/lib/sources/ows/source';
+
+krite.addSource('Boundless Geoserver', new OWSSource 'https://demo.boundlessgeo.com/geoserver/ows'));
+
+// or
+krite.addSources({
+    'Boundless Geoserver': new OWSSource('https://demo.boundlessgeo.com/geoserver/ows'),
+    ...
+})
+```
+
+Reading data sources
+```javascript
+const source = krite.getSource('Boundless Geoserver');
+
+source.getLayerNames().then((names) => {
+    console.log(names);
+});
+
+source.getLayer('Countries of the World').then((layer) => {
+    krite.map.addLayer(layer);
+});
+```
+
+## Development
+Clone this repository and run `npm install`. Run `tsc -d` to compile the typescript source files. The testst are currently not up to date.
+
+### Examples (in dutch)
 [Geoloep Geoviewer](http://kaart.geoloep.nl/)
 
-[Gratis Kadastrale Kaart](http://kadaster.geoloep.nl/)
+[Gratis Kadastrale Kaart](https://perceelloep.nl/)
 
 ### License
 Krite is licensed under the Apache 2.0 license
