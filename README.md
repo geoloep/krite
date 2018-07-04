@@ -1,5 +1,5 @@
 # krite
-Krite is a collection of tools for quickly setting up interactive maps. It consist of various generic and reusable components that facilitate various common tasks. Tasks inluding managing map state, map interaction, working with projection systems and interfacing with data sources.
+Krite is a collection of tools for quickly setting up interactive maps. It consist of various generic and reusable components that facilitate various common tasks. Tasks including managing map state, map interaction, working with projection systems and interfacing with data sources.
 
 Krite uses the excellent [Leaflet](https://github.com/Leaflet/Leaflet) library for the actual rendering of the map.
 

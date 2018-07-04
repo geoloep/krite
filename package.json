@@ -4,7 +4,7 @@
     "author": {
         "name": "geoloep"
     },
-    "description": "Toolkit for creating web-based map applications",
+    "description": "Toolkit for interactive maps",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
