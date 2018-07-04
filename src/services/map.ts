@@ -369,6 +369,10 @@ export class MapService extends Evented {
             this.basemap.leaflet.remove();
         }
 
+        if (layer.added) {
+            layer.added(this.krite);
+        }
+
         this.basemap = layer;
 
         if ((this.basemap.leaflet as L.GridLayer).setZIndex) {
