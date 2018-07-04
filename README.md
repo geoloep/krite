@@ -60,7 +60,7 @@ krite.promiseService('InspectorService').then((service) => {
 
 Creating the map
 ```javascript
-krite.addService<MapService>('MapService', new MapService({
+krite.addService('MapService', new MapService({
     container: '#map-container',
     leaflet: {
         minZoom: 3,
