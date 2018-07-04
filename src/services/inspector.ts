@@ -65,6 +65,8 @@ export class InspectorService extends Evented {
         if (this.options.highlight) {
             this.krite.map.hideHighlight();
         }
+
+        this.emit('set-layer', this.layer);
     }
 
     /**
@@ -97,6 +99,8 @@ export class InspectorService extends Evented {
      */
     setTool(tool: ToolType) {
         this.tool = tool;
+
+        this.emit('set-tool', tool);
     }
 
     /**
