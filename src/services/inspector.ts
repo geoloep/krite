@@ -82,10 +82,10 @@ export class InspectorService extends Evented {
     get tools() {
         const tools: ToolType[] = [];
 
-        if (this.layer && (this.layer.intersectsPoint || this.layer.hasOnClick)) {
+        if (this.layer && ((this.layer.hasOperations && this.layer.intersectsPoint) || this.layer.hasOnClick)) {
             tools.push('cursor');
 
-            if (this.layer.intersects) {
+            if (this.layer.hasOperations && this.layer.intersects) {
                 tools.push('box', 'polygon', 'line');
             }
         }
@@ -140,7 +140,7 @@ export class InspectorService extends Evented {
     }
 
     private onClick = async (point: L.Point) => {
-        if (this.listeners('result').length > 0 && this.layer && this.tool === 'cursor' && this.layer.intersectsPoint) {
+        if (this.listeners('result').length > 0 && this.layer && this.tool === 'cursor' && this.layer.hasOperations && this.layer.intersectsPoint) {
             const features = await this.layer.intersectsPoint(point);
 
             if (this.options.highlight) {
