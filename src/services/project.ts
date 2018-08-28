@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import { CRS } from 'leaflet';
 import proj4 from 'proj4';
 import * as reproject from 'reproject';
 import { IProjectionService } from '../types';
@@ -27,7 +28,11 @@ export class ProjectService implements IProjectionService {
         krite: '',
     };
 
-    constructor(readonly crs: L.CRS, readonly def: string) {
+    constructor(readonly crs: CRS, readonly def: string) {
+        if (!crs.code) {
+            throw new Error('Cannot use CRS without code property');
+        }
+
         this.identifiers.leaflet = crs.code;
         this.identifiers.krite = crs.code;
     }
@@ -59,7 +64,8 @@ export class ProjectService implements IProjectionService {
      * @param latLng LatLng as returned from leaflet
      */
     project(latLng: L.LatLng) {
-        return this.crs.projection.project(latLng);
+        // @todo fix use of any
+        return (<any> this.crs).projection.project(latLng);
     }
 
     /**
@@ -67,6 +73,7 @@ export class ProjectService implements IProjectionService {
      * @param point Coordinates in the krite crs
      */
     unproject(point: L.Point) {
-        return this.crs.projection.unproject(point);
+        // @todo fix use of any
+        return (<any> this.crs).projection.unproject(point);
     }
 }

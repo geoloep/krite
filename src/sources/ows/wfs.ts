@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as L from 'leaflet';
+import { GeoJSON } from 'leaflet';
 import * as url from 'url';
 import * as wellknown from 'wellknown';
 
@@ -54,7 +54,7 @@ export class WFSLayer extends Evented implements ILayer {
 
     constructor(readonly url: string, readonly document: Node) {
         super();
-        
+
         this.xml = new XMLService(document);
     }
 
@@ -88,7 +88,7 @@ export class WFSLayer extends Evented implements ILayer {
 
     get leaflet() {
         if (!this._leaflet) {
-            this._leaflet = L.geoJSON(undefined, {
+            this._leaflet = new GeoJSON(undefined, {
                 onEachFeature: (feature, layer) => {
                     layer.on('click', () => {
                         this.emit('click', this, feature.properties);

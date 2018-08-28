@@ -16,8 +16,7 @@ limitations under the License.
 
 import 'leaflet-draw';
 
-import * as L from 'leaflet';
-
+import { Draw } from 'leaflet';
 import { Krite } from '../krite';
 import { MapService } from './map';
 import { ProjectService } from './project';
@@ -26,13 +25,13 @@ export class DrawService {
     private service: MapService;
     private project: ProjectService;
     private lock = false;
-    private drawFeature: L.Draw.Feature;
+    private drawFeature: Draw.Feature;
 
     constructor() {
         // Hack for preveting adding points during drag
         // https://github.com/Leaflet/Leaflet.draw/issues/695
-        const originalOnTouch = L.Draw.Polyline.prototype._onTouch;
-        L.Draw.Polyline.prototype._onTouch = function(this: any, e: any) {
+        const originalOnTouch = (<any> Draw).Polyline.prototype._onTouch;
+        (<any> Draw).Polyline.prototype._onTouch = function(this: any, e: any) {
             if (e.originalEvent.pointerType !== 'mouse') {
                 return originalOnTouch.call(this, e);
             }
@@ -56,22 +55,22 @@ export class DrawService {
     }
 
     marker(icon?: L.Icon) {
-        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new L.Draw.Marker(this.service.leaflet, { icon }));
+        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new Draw.Marker(this.service.leaflet, { icon }));
     }
 
     rectangle() {
-        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new L.Draw.Rectangle(this.service.leaflet, {}));
+        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Rectangle(this.service.leaflet, {}));
     }
 
     polyline() {
-        return this.draw<GeoJSON.Feature<GeoJSON.LineString>>(new L.Draw.Polyline(this.service.leaflet, {}));
+        return this.draw<GeoJSON.Feature<GeoJSON.LineString>>(new Draw.Polyline(this.service.leaflet, {}));
     }
 
     polygon() {
-        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new L.Draw.Polygon(this.service.leaflet, {}));
+        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Polygon(this.service.leaflet, {}));
     }
 
-    private draw<T>(draw: L.Draw.Feature): Promise<T> {
+    private draw<T>(draw: Draw.Feature): Promise<T> {
         this.drawFeature = draw;
 
         return new Promise<T>((resolve, reject) => {

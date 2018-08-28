@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as L from 'leaflet';
+import { TileLayer } from 'leaflet';
 
 import { WMTSSource } from './source';
 
@@ -96,7 +96,7 @@ export class WMTSLayer implements ILayer {
             // min- / maxZoom could be determined from the capabilities
             const tileMatrixSet = this.getTileMatrixSet();
 
-            this._leaflet = L.tileLayer(this.url + `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.name}&TILEMATRIXSET=${this.getTileMatrixName(tileMatrixSet)}&TILEMATRIX=${this.getTileMatrixPrefix(tileMatrixSet)}{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png&style=${this.getStyle()}`, {
+            this._leaflet = new TileLayer(this.url + `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.name}&TILEMATRIXSET=${this.getTileMatrixName(tileMatrixSet)}&TILEMATRIX=${this.getTileMatrixPrefix(tileMatrixSet)}{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png&style=${this.getStyle()}`, {
                 maxZoom: 16,
                 minZoom: 3,
                 maxNativeZoom: 14,

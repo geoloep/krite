@@ -14,8 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as L from 'leaflet';
-
 import { IDataSource } from '../../types';
 
 import { WMTSLayer } from '../wmts/layer';

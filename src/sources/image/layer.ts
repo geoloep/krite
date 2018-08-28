@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as L from 'leaflet';
+import { ImageOverlay, LatLngBounds } from 'leaflet';
 
 import { ILayer } from '../../types';
 
@@ -52,7 +52,7 @@ export class ImageLayer implements ILayer {
             const southWest: [number, number] = [(o.yorigin / o.resolution) * -1, (o.xorigin / o.resolution) * -1];
             const northEast: [number, number] = [(o.height / o.resolution) + southWest[0], (o.width / o.resolution) + southWest[1]];
 
-            this._bounds = L.latLngBounds(southWest, northEast);
+            this._bounds = new LatLngBounds(southWest, northEast);
         }
 
         return this._bounds;
@@ -64,7 +64,7 @@ export class ImageLayer implements ILayer {
 
     get leaflet() {
         if (!this._leaflet) {
-            this._leaflet = L.imageOverlay(this.options.url, this.bounds);
+            this._leaflet = new ImageOverlay(this.options.url, this.bounds);
         }
 
         return this._leaflet;

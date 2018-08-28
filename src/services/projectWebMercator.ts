@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as L from 'leaflet';
+import { Point, Projection } from 'leaflet';
 import { IProjectionService } from '../types';
 
 /**
@@ -48,17 +48,17 @@ export class ProjectWebMercatorService implements IProjectionService {
 
     pointFrom(latLng: L.LatLng) {
         if (this.reverse) {
-            return L.point(latLng.lat, latLng.lng);
+            return new Point(latLng.lat, latLng.lng);
         } else {
             return this.project(latLng);
         }
     }
 
     project(latLng: L.LatLng) {
-        return L.Projection.SphericalMercator.project(latLng);
+        return Projection.SphericalMercator.project(latLng);
     }
 
     unproject(point: L.Point) {
-        return L.Projection.SphericalMercator.unproject(point);
+        return Projection.SphericalMercator.unproject(point);
     }
 }

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as L from 'leaflet';
+import { Projection } from 'leaflet';
 import { IProjectionService } from '../types';
 
 /**
@@ -43,10 +43,10 @@ export class ProjectLatLngService implements IProjectionService {
     }
 
     project(latLng: L.LatLng) {
-        return L.Projection.LonLat.project(latLng);
+        return Projection.LonLat.project(latLng);
     }
 
     unproject(point: L.Point) {
-        return L.Projection.LonLat.unproject(point);
+        return Projection.LonLat.unproject(point);
     }
 }

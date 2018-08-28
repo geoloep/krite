@@ -1,6 +1,8 @@
-declare namespace L {
+import { CRS } from 'leaflet';
+
+declare module 'leaflet' {
     interface WFSOptions {
-        crs?: L.CRS;
+        crs?: CRS;
         showExisting?: boolean;
         geometryField?: string;
         url?: string;
@@ -11,12 +13,12 @@ declare namespace L {
     }
 
     interface WFSConstructor {
-        new (options: L.WFSOptions): L.Layer;
+        new (options: WFSOptions): Layer;
     }
 
     interface FilterConstructor {
         new (): FilterConstructor;
-        append(layer: L.Layer, property: string, crs: L.CRS): FilterConstructor;
+        append(layer: Layer, property: string, crs: CRS): FilterConstructor;
     }
 
     interface EQFilterConstructor {

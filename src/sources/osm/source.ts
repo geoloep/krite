@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as L from 'leaflet';
+import { LatLng, LatLngBounds, TileLayer } from 'leaflet';
 
 import { IDataSource, ILayer } from '../../types';
 
@@ -25,7 +25,7 @@ export class OsmLayer implements ILayer {
     title = 'Openstreetmap';
     name = 'Openstreetmap';
     abstract = 'Welcome to OpenStreetMap, the project that creates and distributes free geographic data for the world.';
-    bounds = new L.LatLngBounds(L.latLng(-180, 90), L.latLng(180, 90));
+    bounds = new LatLngBounds(new LatLng(-180, 90), new LatLng(180, 90));
     preview = '<img src="http://tile.osm.org/0/0/0.png">';
 
     legend = '';
@@ -35,7 +35,7 @@ export class OsmLayer implements ILayer {
 
     get leaflet() {
         if (!this._layer) {
-            this._layer = L.tileLayer('http://tile.osm.org/{z}/{x}/{y}.png');
+            this._layer = new TileLayer('http://tile.osm.org/{z}/{x}/{y}.png');
         }
 
         return this._layer;

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as L from 'leaflet';
+import { Bounds, LatLng, Point, TileLayer } from 'leaflet';
 
 import { WFSLayer } from './wfs';
 
@@ -83,7 +83,7 @@ export class WMSLayer implements ILayer {
         if (!this._preview) {
             const bounds = this.getBoundingBox();
 
-            if (bounds) {
+            if (bounds && bounds.max && bounds.min) {
                 const widthHeigth = this.getPreviewSize(bounds, 339);
 
                 this._preview = `<img style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto" src="${this.url}?service=WMS&request=GetMap&layers=${this.name}&srs=${this.projectService.identifiers.leaflet}&bbox=${bounds.min.x},${bounds.min.y},${bounds.max.x},${bounds.max.y}&width=${widthHeigth.width}&height=${widthHeigth.height}&format=image%2Fpng">`;
@@ -118,7 +118,7 @@ export class WMSLayer implements ILayer {
 
     get leaflet() {
         if (!this._leaflet) {
-            this._leaflet = L.tileLayer.wms(this.url, {
+            this._leaflet = new TileLayer.WMS(this.url, {
                 format: 'image/png',
                 layers: this.name,
                 transparent: true,
@@ -134,7 +134,7 @@ export class WMSLayer implements ILayer {
         }
     }
 
-    async intersectsPoint(point: L.Point) {
+    async intersectsPoint(point: Point) {
         if (this.wfs) {
             return await this.wfs.intersectsPoint(point);
         }
@@ -169,15 +169,15 @@ export class WMSLayer implements ILayer {
 
         if (bounds) {
             if (fallback) {
-                const topLeft = L.latLng(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
-                const bottomRight = L.latLng(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
+                const topLeft = new LatLng(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
+                const bottomRight = new LatLng(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
 
-                return L.bounds(this.projectService.project(topLeft), this.projectService.project(bottomRight));
+                return new Bounds(this.projectService.project(topLeft), this.projectService.project(bottomRight));
             } else {
-                const topLeft = L.point(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
-                const bottomRight = L.point(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
+                const topLeft = new Point(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
+                const bottomRight = new Point(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
 
-                return L.bounds(
+                return new Bounds(
                     topLeft,
                     bottomRight,
                 );
@@ -185,7 +185,11 @@ export class WMSLayer implements ILayer {
         }
     }
 
-    private getPreviewSize(bbox: L.Bounds, width: number) {
+    private getPreviewSize(bbox: Bounds, width: number) {
+        if (!bbox.max || !bbox.min) {
+            throw new Error('Min and/or max property of bounds not set!');
+        }
+
         const dx = bbox.max.x - bbox.min.x;
         const dy = bbox.max.y - bbox.min.y;
 

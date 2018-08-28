@@ -1,6 +1,8 @@
 import Krite from './krite';
 import Evented from './util/evented';
 
+import { LatLng, LatLngBounds, Layer, Point, TileLayerOptions } from 'leaflet';
+
 export interface IApp {
     name: string;
 
@@ -28,11 +30,11 @@ export interface ILayer {
 
     abstract: string;
 
-    bounds: L.LatLngBounds | undefined;
+    bounds: LatLngBounds | undefined;
 
     preview: string;
 
-    leaflet: L.Layer;
+    leaflet: Layer;
 
     legend: string;
 
@@ -58,7 +60,7 @@ export interface ILayer {
      * @param point Should be in de crs of the map
      * @returns Should be in de crs of the map
      */
-    intersectsPoint?(point: L.Point): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
+    intersectsPoint?(point: Point): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
 
     /**
      * Perform a non spatial query
@@ -85,7 +87,7 @@ export interface ILayerEvented extends ILayer, Evented {
 export interface IBasemap {
     preview: string;
     url: string;
-    options: L.TileLayerOptions;
+    options: TileLayerOptions;
 }
 
 export interface IDataSource {
@@ -156,20 +158,20 @@ export interface IProjectionService extends IService {
     /**
      * Convert a point for use in leaflet
      */
-    pointTo(point: L.Point): L.LatLng;
+    pointTo(point: Point): LatLng;
 
     /**
      * Convert a point originating from leaflet
      */
-    pointFrom(latLng: L.LatLng): L.Point;
+    pointFrom(latLng: LatLng): Point;
 
     /**
      * Wrapper of the internal project function
      */
-    project(latLng: L.LatLng): L.Point;
+    project(latLng: LatLng): Point;
 
     /**
      * Wrapper of the internal unporject function
      */
-    unproject(point: L.Point): L.LatLng;
+    unproject(point: Point): LatLng;
 }

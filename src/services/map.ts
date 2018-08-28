@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as L from 'leaflet';
+import { CircleMarker, FitBoundsOptions, GeoJSON, GridLayer, Icon, LatLng, LatLngBounds, LatLngExpression, Map, MapOptions, Marker, Point, StyleFunction } from 'leaflet';
 
 import Evented from '../util/evented';
 
@@ -26,18 +26,18 @@ import { ILayer, ILayerEvented } from '../types';
 export interface ICustomMapOptions {
     checkZoom?: boolean;
     container?: string | HTMLElement;
-    defaultMarker?: L.Icon | L.Icon.Default;
-    highlightStyle?: L.StyleFunction;
-    focusStyle?: L.StyleFunction;
-    leaflet?: L.MapOptions;
+    defaultMarker?: Icon | Icon.Default;
+    highlightStyle?: StyleFunction;
+    focusStyle?: StyleFunction;
+    leaflet?: MapOptions;
 }
 
 interface IMapOptions {
     checkZoom: boolean;
-    defaultMarker: L.Icon | L.Icon.Default;
-    highlightStyle: L.StyleFunction;
-    focusStyle: L.StyleFunction;
-    leaflet: L.MapOptions;
+    defaultMarker: Icon | Icon.Default;
+    highlightStyle: StyleFunction;
+    focusStyle: StyleFunction;
+    leaflet: MapOptions;
 }
 
 /**
@@ -49,15 +49,15 @@ export class MapService extends Evented {
         [index: string]: ILayer,
     } = {};
 
-    leaflet: L.Map;
+    leaflet: Map;
 
-    defaultLeafletOptions: L.MapOptions = {
+    defaultLeafletOptions: MapOptions = {
         // crs: rd,
     };
 
     private mapOptions: IMapOptions = {
         checkZoom: false,
-        defaultMarker: new L.Icon.Default(),
+        defaultMarker: new Icon.Default(),
         highlightStyle: () => {
             return {};
         },
@@ -74,9 +74,9 @@ export class MapService extends Evented {
 
     // Lagen bijhouden
     private basemap: ILayer;
-    private highlight: L.GeoJSON;
-    private focus: L.GeoJSON;
-    private pointer: L.Marker;
+    private highlight: GeoJSON;
+    private focus: GeoJSON;
+    private pointer: Marker;
 
     private krite: Krite;
     private project: ProjectService;
@@ -107,7 +107,7 @@ export class MapService extends Evented {
             container.style.cssText = ('width: 100%; height: 100%');
         }
 
-        const leaflet = this.leaflet = L.map(container, options.leaflet ? options.leaflet : {});
+        const leaflet = this.leaflet = new Map(container, options.leaflet ? options.leaflet : {});
 
         if (this.mapOptions.checkZoom) {
             leaflet.on('zoomend', () => {
@@ -130,10 +130,11 @@ export class MapService extends Evented {
         this.krite = krite;
         this.project = krite.getService<ProjectService>('ProjectService');
 
-        this.leaflet.on('click', (e: L.MouseEvent) => {
+        this.leaflet.on('click', (e: MouseEvent) => {
             // latlng does not exist on KeyBoardevents. Enter may fire click'
-            if (e.latlng) {
-                this.emit('click', this.project.pointFrom(e.latlng));
+            // @todo fix use of any
+            if ((<any> e).latlng) {
+                this.emit('click', this.project.pointFrom((<any> e).latlng));
             }
         });
     }
@@ -151,7 +152,7 @@ export class MapService extends Evented {
         this.leaflet.invalidateSize(false);
 
         if (center && this.mapOptions.leaflet.center && this.mapOptions.leaflet.zoom) {
-            this.leaflet.setView(this.mapOptions.leaflet.center as L.LatLng, this.mapOptions.leaflet.zoom, {
+            this.leaflet.setView(this.mapOptions.leaflet.center as LatLng, this.mapOptions.leaflet.zoom, {
                 animate: false,
             });
         }
@@ -263,8 +264,8 @@ export class MapService extends Evented {
     setZIndexes() {
         if (this.layers.length > 0) {
             for (let i = 0; i < this.layers.length; i++) {
-                if ((this.layers[i].leaflet as L.GridLayer).setZIndex) {
-                    (this.layers[i].leaflet as L.GridLayer).setZIndex(this.layers.length - i);
+                if ((this.layers[i].leaflet as GridLayer).setZIndex) {
+                    (this.layers[i].leaflet as GridLayer).setZIndex(this.layers.length - i);
                 }
             }
         } else {
@@ -277,7 +278,7 @@ export class MapService extends Evented {
      * @param geojson   Expected to be in the map crs
      * @param fitBounds set to true to zoom to the highlight, pass FitBoundsOptions to custimize behaviour
      */
-    addHighlight(geojson: any, fitBounds?: L.FitBoundsOptions | true) {
+    addHighlight(geojson: any, fitBounds?: FitBoundsOptions | true) {
         if (this.highlight) {
             this.highlight.remove();
         }
@@ -288,9 +289,9 @@ export class MapService extends Evented {
 
         const reprojected = this.project.geoTo(geojson);
 
-        this.highlight = L.geoJSON(reprojected, {
+        this.highlight = new GeoJSON(reprojected, {
             pointToLayer: (geojsonPoint, latlng) => {
-                return L.circleMarker(latlng);
+                return new CircleMarker(latlng);
             },
             style: this.mapOptions.highlightStyle,
         });
@@ -330,10 +331,10 @@ export class MapService extends Evented {
 
         const reprojected = this.project.geoTo(geojson);
 
-        this.focus = L.geoJSON(reprojected, {
+        this.focus = new GeoJSON(reprojected, {
             style: this.mapOptions.focusStyle,
             pointToLayer: (geojsonPoint, latlng) => {
-                return L.circleMarker(latlng);
+                return new CircleMarker(latlng);
             },
         });
         this.focus.addTo(this.leaflet);
@@ -375,8 +376,8 @@ export class MapService extends Evented {
 
         this.basemap = layer;
 
-        if ((this.basemap.leaflet as L.GridLayer).setZIndex) {
-            (this.basemap.leaflet as L.GridLayer).setZIndex(-1);
+        if ((this.basemap.leaflet as GridLayer).setZIndex) {
+            (this.basemap.leaflet as GridLayer).setZIndex(-1);
         }
 
         this.basemap.leaflet.addTo(this.leaflet);
@@ -422,11 +423,11 @@ export class MapService extends Evented {
      * Set the location of the pointer
      * @param latLng the location in LatLng
      */
-    setPointer(latLng: L.LatLngExpression) {
+    setPointer(latLng: LatLngExpression) {
         if (this.pointer) {
             this.pointer.setLatLng(latLng);
         } else {
-            this.pointer = L.marker(latLng, {
+            this.pointer = new Marker(latLng, {
                 icon: this.mapOptions.defaultMarker,
             }).addTo(this.leaflet);
         }
@@ -436,7 +437,7 @@ export class MapService extends Evented {
      * Fit bounds
      * @todo should accept bounds in krite CRS
      */
-    fitBounds(bounds: L.LatLngBounds | undefined) {
+    fitBounds(bounds: LatLngBounds | undefined) {
         if (bounds) {
             this.leaflet.fitBounds(bounds, {});
         }
@@ -446,8 +447,8 @@ export class MapService extends Evented {
      * Zoom to a point
      * @param point In the CRS of the map
      */
-    zoomToPoint(point: L.Point, zoom: number, marker = true) {
-        const reprojected = this.project.pointTo(L.point(point.x, point.y));
+    zoomToPoint(point: Point, zoom: number, marker = true) {
+        const reprojected = this.project.pointTo(new Point(point.x, point.y));
         this.zoomToLatLng(reprojected, zoom, marker);
     }
 
@@ -455,7 +456,7 @@ export class MapService extends Evented {
      * Zoom to a point
      * @param point In LatLng (WGS84)
      */
-    zoomToLatLng(point: L.LatLngExpression | L.LatLng, zoom: number, marker = true) {
+    zoomToLatLng(point: LatLngExpression | LatLng, zoom: number, marker = true) {
         if (marker) {
             this.setPointer(point);
         }

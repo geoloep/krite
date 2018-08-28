@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+// @todo check ES6 compatibility of leaflet-wfst
 import * as L from 'leaflet';
 
 if (!((window as any).L)) {
@@ -74,7 +75,7 @@ export class WFSLayer extends Evented implements ILayer {
         const layer: any = L.geoJSON(this.projectService.geoTo(feature));
 
         // Filter againt the first feature in the GeoJSON feature group
-        const filter = new L.Filter.Intersects().append(layer._layers[Object.keys(layer._layers)[0]], <string> this.options.geometryField, this.mapService.leaflet.options.crs);
+        const filter = new L.Filter.Intersects().append(layer._layers[Object.keys(layer._layers)[0]], <string> this.options.geometryField, <L.CRS> this.mapService.leaflet.options.crs);
 
         const resultLayer: any = new L.WFS(Object.assign(this.options, {
             filter,
@@ -93,9 +94,10 @@ export class WFSLayer extends Evented implements ILayer {
     }
 
     async intersectsPoint(point: L.Point) {
-        const layer = L.marker(this.mapService.leaflet.options.crs.unproject(point));
+        // const layer = L.marker(this.mapService.leaflet.options.crs.unproject(point));
+        const layer = L.marker(this.projectService.pointTo(point));
 
-        const filter = new L.Filter.Intersects().append(layer, <string> this.options.geometryField, this.mapService.leaflet.options.crs);
+        const filter = new L.Filter.Intersects().append(layer, <string> this.options.geometryField, <L.CRS> this.mapService.leaflet.options.crs);
 
         const resultLayer: any = new L.WFS(Object.assign(this.options, {
             filter,
