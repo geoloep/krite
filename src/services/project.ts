@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { CRS } from 'leaflet';
+import { CRS, LatLng, Point } from 'leaflet';
 import proj4 from 'proj4';
 import * as reproject from 'reproject';
 import { IProjectionService } from '../types';
@@ -51,11 +51,11 @@ export class ProjectService implements IProjectionService {
         return reproject.reproject(geojson, proj4.WGS84, this.def);
     }
 
-    pointTo(point: L.Point) {
+    pointTo(point: Point) {
         return this.unproject(point);
     }
 
-    pointFrom(latLng: L.LatLng) {
+    pointFrom(latLng: LatLng) {
         return this.project(latLng);
     }
 
@@ -63,7 +63,7 @@ export class ProjectService implements IProjectionService {
      * Wrapper of the projection.project function
      * @param latLng LatLng as returned from leaflet
      */
-    project(latLng: L.LatLng) {
+    project(latLng: LatLng) {
         // @todo fix use of any
         return (<any> this.crs).projection.project(latLng);
     }
@@ -72,7 +72,7 @@ export class ProjectService implements IProjectionService {
      * Wrapper of the projection.unproject function
      * @param point Coordinates in the krite crs
      */
-    unproject(point: L.Point) {
+    unproject(point: Point) {
         // @todo fix use of any
         return (<any> this.crs).projection.unproject(point);
     }

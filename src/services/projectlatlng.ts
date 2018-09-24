@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { Projection } from 'leaflet';
+import { LatLng, Point, Projection } from 'leaflet';
 import { IProjectionService } from '../types';
 
 /**
@@ -34,19 +34,19 @@ export class ProjectLatLngService implements IProjectionService {
         return geojson;
     }
 
-    pointTo(point: L.Point) {
+    pointTo(point: Point) {
         return this.unproject(point);
     }
 
-    pointFrom(latLng: L.LatLng) {
+    pointFrom(latLng: LatLng) {
         return this.project(latLng);
     }
 
-    project(latLng: L.LatLng) {
+    project(latLng: LatLng) {
         return Projection.LonLat.project(latLng);
     }
 
-    unproject(point: L.Point) {
+    unproject(point: Point) {
         return Projection.LonLat.unproject(point);
     }
 }

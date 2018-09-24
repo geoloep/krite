@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import { GeoJSON } from 'leaflet';
-import * as url from 'url';
+import url from '../../util/url';
 import * as wellknown from 'wellknown';
 
 import { Krite } from '../../krite';

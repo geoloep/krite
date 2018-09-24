@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as url from 'url';
+import url from '../../util/url';
 import { WMTSLayer } from './layer';
 
 import { IDataSource, ILayer } from '../../types';
