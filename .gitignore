@@ -40,3 +40,4 @@ jspm_packages
 
 yarn.lock
 .local
+.yalc
