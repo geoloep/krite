@@ -2646,10 +2646,10 @@ leaflet-draw@~1.0.0:
   resolved "https://registry.yarnpkg.com/leaflet-draw/-/leaflet-draw-1.0.2.tgz#212d1d958a53b849bec19a2135d39c13ed012559"
   integrity sha512-iCcbXE9okhwznoTXjxVjoGFoKeiWGsgmWPKrPAeHUvtWZWK4t6YF6815D13wZoMxX2UM6tOmD7/VofCxx3S0+w==
 
-leaflet-rd@~2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/leaflet-rd/-/leaflet-rd-2.3.0.tgz#a8abf99887d668bd2de0daef4d86f2f01b7a0b28"
-  integrity sha512-b280qqgpfrdRt4b0OpeP27XBvuCOLt1R8a0gvrMJRkpR0BEyZIcHbCCp11nwUwORZKzk7ih6Dy287hiqemM/BQ==
+leaflet-rd@~2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/leaflet-rd/-/leaflet-rd-2.4.0.tgz#cc3190b0c9ee4b719175ae5cfbaa1cdebb710a2d"
+  integrity sha512-Tgm/DjuKlgArRn7rlYN/BxBZ506RxOcEdLG4adD2g7t3jWkXB+/dTbWsxTWkEEXllYydcKMmIOCA3Ejss50T1w==
   dependencies:
     proj4 "~2.5.0"
 
