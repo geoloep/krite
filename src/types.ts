@@ -3,13 +3,6 @@ import Evented from './util/evented';
 
 import { CRS, LatLng, LatLngBounds, Layer, Point, TileLayerOptions } from 'leaflet';
 
-export interface IApp {
-    name: string;
-
-    insert(element: IContainer | string | undefined): void;
-    detatch(): void;
-}
-
 /**
  * All maps layers should implement this interface.
  */
@@ -95,11 +88,6 @@ export interface IDataSource {
 
     getLayerNames(): Promise<string[]>;
     getLayer(name: string): Promise<ILayer>;
-}
-
-export interface IContainer {
-    register(app: IApp): void;
-    deregister(): void;
 }
 
 // export type IClickHandler = (point: L.Point) => void;
