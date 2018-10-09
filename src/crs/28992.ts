@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import crs from 'leaflet-rd';
+import crs, { RDCRS } from 'leaflet-rd';
 import { ICRS } from '../types';
 
 import proj4 from 'proj4';
@@ -29,7 +29,7 @@ export default class Rijksdriehoekstelsel implements ICRS {
         krite: 'EPSG:28992',
     };
 
-    crs = crs;
+    crs: RDCRS = crs;
 
     geoTo(geojson: GeoJSON.GeoJSON): GeoJSON.GeoJSON {
         return reproject.toWgs84(geojson, rdproj);        
