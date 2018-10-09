@@ -37,14 +37,14 @@ export class WMSLayer implements ILayer {
 
     bounds = undefined;
 
-    private projectService: IProjectionService;
+    private krite: Krite;
 
     constructor(readonly url: string, readonly document: Node, private readonly wfs?: WFSLayer) {
         this.xml = new XMLService(document);
     }
 
     added(krite: Krite) {
-        this.projectService = krite.getService<IProjectionService>('ProjectService');
+        this.krite = krite;
     }
 
     get hasOperations() {
@@ -86,7 +86,7 @@ export class WMSLayer implements ILayer {
             if (bounds && bounds.max && bounds.min) {
                 const widthHeigth = this.getPreviewSize(bounds, 339);
 
-                this._preview = `<img style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto" src="${this.url}?service=WMS&request=GetMap&layers=${this.name}&srs=${this.projectService.identifiers.leaflet}&bbox=${bounds.min.x},${bounds.min.y},${bounds.max.x},${bounds.max.y}&width=${widthHeigth.width}&height=${widthHeigth.height}&format=image%2Fpng">`;
+                this._preview = `<img style="max-width: 100%; max-height: 400px; display: block; margin: 0 auto" src="${this.url}?service=WMS&request=GetMap&layers=${this.name}&srs=${this.krite.crs.identifiers.leaflet}&bbox=${bounds.min.x},${bounds.min.y},${bounds.max.x},${bounds.max.y}&width=${widthHeigth.width}&height=${widthHeigth.height}&format=image%2Fpng">`;
             } else {
                 this._preview = '';
             }
@@ -149,7 +149,7 @@ export class WMSLayer implements ILayer {
     private getBoundingBox() {
         // try to find the bounds in the crs of the application first
         const crsSystems = [
-            this.projectService.identifiers.leaflet,
+            this.krite.crs.identifiers.leaflet,
             'EPSG:4326',
         ];
 
@@ -172,7 +172,7 @@ export class WMSLayer implements ILayer {
                 const topLeft = new LatLng(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
                 const bottomRight = new LatLng(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
 
-                return new Bounds(this.projectService.project(topLeft), this.projectService.project(bottomRight));
+                return new Bounds(this.krite.crs.pointFrom(topLeft), this.krite.crs.pointFrom(bottomRight));
             } else {
                 const topLeft = new Point(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
                 const bottomRight = new Point(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
