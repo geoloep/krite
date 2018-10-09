@@ -38,6 +38,6 @@ jspm_packages
 
 .vscode
 
-yarn.lock
 .local
 .yalc
+yalc.lock

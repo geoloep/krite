@@ -1,7 +1,7 @@
 import Krite from './krite';
 import Evented from './util/evented';
 
-import { LatLng, LatLngBounds, Layer, Point, TileLayerOptions } from 'leaflet';
+import { CRS, LatLng, LatLngBounds, Layer, Point, TileLayerOptions } from 'leaflet';
 
 export interface IApp {
     name: string;
@@ -71,7 +71,7 @@ export interface ILayer {
      */
     filter?(options: {
         id?: string,
-        filters?: {[index: string]: string},
+        filters?: { [index: string]: string },
         properties?: string[],
     }): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
 
@@ -124,6 +124,51 @@ export interface IService {
      * https://blogs.msdn.microsoft.com/typescript/2017/06/12/announcing-typescript-2-4-rc/
      */
     [propName: string]: any;
+}
+
+/**
+ * Krite Coordinate reference system descriptor
+ */
+export interface ICRS {
+    /**
+     * CRS Identifiers
+     */
+    identifiers: {
+        /**
+         * Identifier of the crs used by leaflet
+         */
+        leaflet: string;
+
+        /**
+         * Identifier of the crs used inside krite
+         */
+        krite: string;
+    };
+
+    /**
+     * The CRS that is to be added to the map
+     */
+    crs: CRS;
+
+    /**
+     * Convert GeoJson towards leaflet crs
+     */
+    geoTo(geojson: any): any;
+
+    /**
+     * Convert GeoJson from leaflet
+     */
+    geoFrom(geojson: any): any;
+
+    /**
+     * Convert a point for use in leaflet
+     */
+    pointTo(point: Point): LatLng;
+
+    /**
+     * Convert a point originating from leaflet
+     */
+    pointFrom(latLng: LatLng): Point;
 }
 
 /**
