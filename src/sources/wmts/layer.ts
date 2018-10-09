@@ -36,14 +36,14 @@ export class WMTSLayer implements ILayer {
 
     private xml: XMLService;
 
-    private projectService: IProjectionService;
+    private krite: Krite;
 
     constructor(readonly url: string, readonly document: Node) {
         this.xml = new XMLService(document);
     }
 
     added(krite: Krite) {
-        this.projectService = krite.getService<IProjectionService>('ProjectService');
+        this.krite = krite;
     }
 
     get title(): string {
@@ -115,7 +115,7 @@ export class WMTSLayer implements ILayer {
      * Get the tile matrix set that works with the current map crs
      */
     private getTileMatrixSet() {
-        const identifier = this.projectService.identifiers.leaflet;
+        const identifier = this.krite.crs.identifiers.leaflet;
 
         const tileMatrix = this.xml.node(this.document.ownerDocument, `./wmts:Capabilities/wmts:Contents/wmts:TileMatrixSet[./ows:Identifier = '${identifier}']`);
 
