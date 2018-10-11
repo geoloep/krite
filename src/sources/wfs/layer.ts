@@ -24,9 +24,8 @@ if (!((window as any).L)) {
 import 'leaflet-wfst/dist/Leaflet-WFST.src.js';
 
 import { Krite } from '../../krite';
-import { MapService } from '../../services/map';
 
-import { ILayer, IProjectionService } from '../../types';
+import { ILayer } from '../../types';
 import Evented from '../../util/evented';
 
 /**

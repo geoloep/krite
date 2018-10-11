@@ -20,7 +20,7 @@ import { WFSLayer } from './wfs';
 
 import { Krite } from '../../krite';
 import { XMLService } from '../../services/xml';
-import { ILayer, IProjectionService } from '../../types';
+import { ILayer } from '../../types';
 
 // import pool from '../../servicePool';
 

@@ -18,8 +18,6 @@ import 'leaflet-draw';
 
 import { Draw } from 'leaflet';
 import { Krite } from '../krite';
-import { MapService } from './map';
-import { ProjectService } from './project';
 
 export class DrawService {
     private lock = false;

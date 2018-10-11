@@ -20,7 +20,7 @@ import * as wellknown from 'wellknown';
 
 import { Krite } from '../../krite';
 import { XMLService } from '../../services/xml';
-import { ILayer, IProjectionService } from '../../types';
+import { ILayer } from '../../types';
 import Evented from '../../util/evented';
 
 /**

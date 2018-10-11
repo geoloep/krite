@@ -16,11 +16,9 @@ limitations under the License.
 
 import { TileLayer } from 'leaflet';
 
-import { WMTSSource } from './source';
-
 import { Krite } from '../../krite';
 import { XMLService } from '../../services/xml';
-import { ILayer, IProjectionService } from '../../types';
+import { ILayer } from '../../types';
 
 export class WMTSLayer implements ILayer {
     previewSet = 0;
