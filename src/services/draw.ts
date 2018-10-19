@@ -18,14 +18,12 @@ import 'leaflet-draw';
 
 import { Draw } from 'leaflet';
 import { Krite } from '../krite';
-import { MapService } from './map';
-import { ProjectService } from './project';
 
 export class DrawService {
-    private service: MapService;
-    private project: ProjectService;
     private lock = false;
     private drawFeature: Draw.Feature;
+
+    private krite: Krite;
 
     constructor() {
         // Hack for preveting adding points during drag
@@ -39,8 +37,7 @@ export class DrawService {
     }
 
     async added(krite: Krite) {
-        this.project = await krite.promiseService<ProjectService>('ProjectService');
-        this.service = await krite.promiseService<MapService>('MapService');
+        this.krite = krite;
     }
 
     disable() {
@@ -50,49 +47,45 @@ export class DrawService {
         }
     }
 
-    bindTo(map: MapService) {
-        this.service = map;
-    }
-
     marker(icon?: L.Icon) {
-        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new Draw.Marker(this.service.leaflet, { icon }));
+        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new Draw.Marker(this.krite.map.leaflet, { icon }));
     }
 
     rectangle() {
-        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Rectangle(this.service.leaflet, {}));
+        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Rectangle(this.krite.map.leaflet, {}));
     }
 
     polyline() {
-        return this.draw<GeoJSON.Feature<GeoJSON.LineString>>(new Draw.Polyline(this.service.leaflet, {}));
+        return this.draw<GeoJSON.Feature<GeoJSON.LineString>>(new Draw.Polyline(this.krite.map.leaflet, {}));
     }
 
     polygon() {
-        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Polygon(this.service.leaflet, {}));
+        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Polygon(this.krite.map.leaflet, {}));
     }
 
     private draw<T>(draw: Draw.Feature): Promise<T> {
         this.drawFeature = draw;
 
         return new Promise<T>((resolve, reject) => {
-            if (this.service && this.project) {
+            if (this.krite.map) {
                 if (!this.lock) {
                     this.lock = true;
                     draw.enable();
 
                     // Only seems to fire when valid geometry is created
-                    this.service.leaflet.once('draw:created', (event: L.LayerEvent) => {
-                        resolve(this.project.geoFrom((event.layer as L.Polygon).toGeoJSON()));
+                    this.krite.map.leaflet.once('draw:created', (event: L.LayerEvent) => {
+                        resolve(this.krite.crs.geoFrom((event.layer as L.Polygon).toGeoJSON()));
                     });
 
                     // Release lock when draw actions have completed, even when valid geometry was not created
-                    this.service.leaflet.once('draw:drawstop', (event: L.LayerEvent) => {
+                    this.krite.map.leaflet.once('draw:drawstop', (event: L.LayerEvent) => {
                         this.lock = false;
                     });
                 } else {
                     reject('Draw already in progress');
                 }
             } else {
-                reject('DrawService requires both MapService and ProjectService to be available');
+                reject('DrawService cannot be activated before MapService is present');
             }
         });
     }

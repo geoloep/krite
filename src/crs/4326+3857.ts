@@ -14,17 +14,27 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { LatLng, Point, Projection } from 'leaflet';
-import { IProjectionService } from '../types';
+import { CRS, Point, Projection } from 'leaflet';
+import { ICRS } from '../types';
 
 /**
- * This service simply passes the input geometries without any reprojection
+ * This CRS sets the Web Mercator projection for tile layers and WGS84 LatLngs for vector data. This mirrors the default
+ * Leaflet behavior and is suitable for most projects
  */
-export class ProjectLatLngService implements IProjectionService {
+export default class WebMercator implements ICRS {
     identifiers = {
-        leaflet: 'EPSG:4326',
+        leaflet: 'EPSG:3857',
         krite: 'EPSG:4326',
     };
+
+    crs = CRS.EPSG3857;
+
+    /**
+     * Create a Web Mercator CRS Instance
+     * @param reverse Reverse latitude and longitude during projection
+     */
+    constructor(readonly reverse: boolean = true) {
+    }
 
     geoTo(geojson: GeoJSON.GeoJsonObject | GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.FeatureCollection<GeoJSON.GeometryObject> | GeoJSON.GeometryCollection) {
         return geojson;
@@ -34,19 +44,23 @@ export class ProjectLatLngService implements IProjectionService {
         return geojson;
     }
 
-    pointTo(point: Point) {
+    pointTo(point: L.Point) {
         return this.unproject(point);
     }
 
-    pointFrom(latLng: LatLng) {
-        return this.project(latLng);
+    pointFrom(latLng: L.LatLng) {
+        if (this.reverse) {
+            return new Point(latLng.lat, latLng.lng);
+        } else {
+            return this.project(latLng);
+        }
     }
 
-    project(latLng: LatLng) {
-        return Projection.LonLat.project(latLng);
+    project(latLng: L.LatLng) {
+        return Projection.SphericalMercator.project(latLng);
     }
 
-    unproject(point: Point) {
-        return Projection.LonLat.unproject(point);
+    unproject(point: L.Point) {
+        return Projection.SphericalMercator.unproject(point);
     }
 }

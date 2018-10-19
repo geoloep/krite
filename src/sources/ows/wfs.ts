@@ -20,11 +20,8 @@ import * as wellknown from 'wellknown';
 
 import { Krite } from '../../krite';
 import { XMLService } from '../../services/xml';
-import { ILayer, IProjectionService } from '../../types';
+import { ILayer } from '../../types';
 import Evented from '../../util/evented';
-
-// import pool from '../../servicePool';
-// import { ProjectService } from '../../services/project';
 
 /**
  * This layer implements a Web Feature Service interface
@@ -38,7 +35,7 @@ export class WFSLayer extends Evented implements ILayer {
     hasOnClick = true;
     hasOperations = true;
 
-    private projectServive: IProjectionService;
+    private krite: Krite;
 
     private _title: string;
     private _name: string;
@@ -59,7 +56,7 @@ export class WFSLayer extends Evented implements ILayer {
     }
 
     added(krite: Krite) {
-        this.projectServive = krite.getService<IProjectionService>('ProjectionService');
+        this.krite = krite;
     }
 
     get title(): string {
@@ -228,7 +225,7 @@ export class WFSLayer extends Evented implements ILayer {
 
         const json = await response.json();
 
-        this._leaflet.addData(this.projectServive.geoTo(json));
+        this._leaflet.addData(this.krite.crs.geoTo(json));
     }
 
     /**

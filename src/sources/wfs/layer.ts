@@ -24,9 +24,8 @@ if (!((window as any).L)) {
 import 'leaflet-wfst/dist/Leaflet-WFST.src.js';
 
 import { Krite } from '../../krite';
-import { MapService } from '../../services/map';
 
-import { ILayer, IProjectionService } from '../../types';
+import { ILayer } from '../../types';
 import Evented from '../../util/evented';
 
 /**
@@ -43,16 +42,14 @@ export class WFSLayer extends Evented implements ILayer {
 
     _leaflet: L.Layer;
 
-    private mapService: MapService;
-    private projectService: IProjectionService;
+    private krite: Krite;
 
     constructor(readonly options: L.WFSOptions) {
         super();
     }
 
     added(krite: Krite) {
-        this.mapService = krite.getService<MapService>('MapService');
-        this.projectService = krite.getService<IProjectionService>('ProjectService');
+        this.krite = krite;
     }
 
     get title() {
@@ -72,10 +69,10 @@ export class WFSLayer extends Evented implements ILayer {
     }
 
     async intersects(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject) {
-        const layer: any = L.geoJSON(this.projectService.geoTo(feature));
+        const layer: any = L.geoJSON(this.krite.crs.geoTo(feature));
 
         // Filter againt the first feature in the GeoJSON feature group
-        const filter = new L.Filter.Intersects().append(layer._layers[Object.keys(layer._layers)[0]], <string> this.options.geometryField, <L.CRS> this.mapService.leaflet.options.crs);
+        const filter = new L.Filter.Intersects().append(layer._layers[Object.keys(layer._layers)[0]], <string> this.options.geometryField, <L.CRS> this.krite.map.leaflet.options.crs);
 
         const resultLayer: any = new L.WFS(Object.assign(this.options, {
             filter,
@@ -90,14 +87,14 @@ export class WFSLayer extends Evented implements ILayer {
             });
         });
 
-        return this.projectService.geoFrom((resultLayer as any).toGeoJSON());
+        return this.krite.crs.geoFrom((resultLayer as any).toGeoJSON());
     }
 
     async intersectsPoint(point: L.Point) {
         // const layer = L.marker(this.mapService.leaflet.options.crs.unproject(point));
-        const layer = L.marker(this.projectService.pointTo(point));
+        const layer = L.marker(this.krite.crs.pointTo(point));
 
-        const filter = new L.Filter.Intersects().append(layer, <string> this.options.geometryField, <L.CRS> this.mapService.leaflet.options.crs);
+        const filter = new L.Filter.Intersects().append(layer, <string> this.options.geometryField, <L.CRS> this.krite.map.leaflet.options.crs);
 
         const resultLayer: any = new L.WFS(Object.assign(this.options, {
             filter,
@@ -112,7 +109,7 @@ export class WFSLayer extends Evented implements ILayer {
             });
         });
 
-        return this.projectService.geoFrom((resultLayer as any).toGeoJSON());
+        return this.krite.crs.geoFrom((resultLayer as any).toGeoJSON());
     }
 
     // @todo needs to update to the new filter spec
@@ -138,7 +135,7 @@ export class WFSLayer extends Evented implements ILayer {
             });
         });
 
-        return this.projectService.geoFrom((resultLayer as any).toGeoJSON());
+        return this.krite.crs.geoFrom((resultLayer as any).toGeoJSON());
     }
 
     private createLayer() {

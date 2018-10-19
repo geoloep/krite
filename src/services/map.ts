@@ -18,8 +18,6 @@ import { CircleMarker, FitBoundsOptions, GeoJSON, GridLayer, Icon, LatLng, LatLn
 
 import Evented from '../util/evented';
 
-import { ProjectService } from './project';
-
 import { Krite } from '../krite';
 import { ILayer, ILayerEvented } from '../types';
 
@@ -72,6 +70,8 @@ export class MapService extends Evented {
         leaflet: {},
     };
 
+    // private customOptions: ICustomMapOptions;
+
     // Lagen bijhouden
     private basemap: ILayer;
     private highlight: GeoJSON;
@@ -79,42 +79,9 @@ export class MapService extends Evented {
     private pointer: Marker;
 
     private krite: Krite;
-    private project: ProjectService;
+    // private project: ProjectService;
 
     private container: HTMLElement;
-
-    constructor(options: ICustomMapOptions) {
-        super();
-
-        let container: HTMLElement;
-
-        this.mapOptions = Object.assign(this.mapOptions, options);
-
-        if (options.container) {
-            if (typeof options.container === 'string') {
-                const el = document.getElementById(options.container);
-
-                if (el === null) {
-                    throw new Error(`Mounting point ${options.container} not found`);
-                } else {
-                    container = this.container = el;
-                }
-            } else {
-                container = this.container = options.container;
-            }
-        } else {
-            container = this.container = document.createElement('div');
-            container.style.cssText = ('width: 100%; height: 100%');
-        }
-
-        const leaflet = this.leaflet = new Map(container, options.leaflet ? options.leaflet : {});
-
-        if (this.mapOptions.checkZoom) {
-            leaflet.on('zoomend', () => {
-                this.checkZoom();
-            });
-        }
-    }
 
     get layerNames() {
         const names = [];
@@ -126,15 +93,67 @@ export class MapService extends Evented {
         return names;
     }
 
+    constructor(private customOptions?: ICustomMapOptions) {
+        super();
+
+        // let container: HTMLElement;
+
+        // this.mapOptions = Object.assign(this.mapOptions, options);
+
+        // if (options.container) {
+        //     if (typeof options.container === 'string') {
+        //         const el = document.getElementById(options.container);
+
+        //         if (el === null) {
+        //             throw new Error(`Mounting point ${options.container} not found`);
+        //         } else {
+        //             container = this.container = el;
+        //         }
+        //     } else {
+        //         container = this.container = options.container;
+        //     }
+        // } else {
+        //     container = this.container = document.createElement('div');
+        //     container.style.cssText = ('width: 100%; height: 100%');
+        // }
+
+        // const leaflet = this.leaflet = new Map(container, options.leaflet);
+
+        // if (this.mapOptions.checkZoom) {
+        //     leaflet.on('zoomend', () => {
+        //         this.checkZoom();
+        //     });
+        // }
+    }
+
     added(krite: Krite) {
+        if (this.krite) {
+            throw new Error('MapService cannot be reassigned to a new krite instance')
+        }
+
         this.krite = krite;
-        this.project = krite.getService<ProjectService>('ProjectService');
+
+        // Find the container to put the map in
+        const container = this.findContainer(this.customOptions ? this.customOptions.container : '');
+
+        const options = this.mapOptions = Object.assign(this.mapOptions, this.customOptions);
+
+        // Set leaflet to use the crs of the krite instance
+        options.leaflet.crs = krite.crs.crs;
+
+        const leaflet = this.leaflet = new Map(container, options.leaflet);
+
+        if (this.mapOptions.checkZoom) {
+            leaflet.on('zoomend', () => {
+                this.checkZoom();
+            });
+        }
 
         this.leaflet.on('click', (e: MouseEvent) => {
             // latlng does not exist on KeyBoardevents. Enter may fire click'
             // @todo fix use of any
-            if ((<any> e).latlng) {
-                this.emit('click', this.project.pointFrom((<any> e).latlng));
+            if ((<any>e).latlng) {
+                this.emit('click', this.krite.crs.pointFrom((<any>e).latlng));
             }
         });
     }
@@ -185,8 +204,8 @@ export class MapService extends Evented {
 
             this.setZIndexes();
 
-            if ((<ILayerEvented> layer).hasEvents) {
-                (<ILayerEvented> layer).on('click', this.layerClick);
+            if ((<ILayerEvented>layer).hasEvents) {
+                (<ILayerEvented>layer).on('click', this.layerClick);
             }
 
             this.emit('layer-add', layer);
@@ -287,7 +306,7 @@ export class MapService extends Evented {
             this.focus.remove();
         }
 
-        const reprojected = this.project.geoTo(geojson);
+        const reprojected = this.krite.crs.geoTo(geojson);
 
         this.highlight = new GeoJSON(reprojected, {
             pointToLayer: (geojsonPoint, latlng) => {
@@ -329,7 +348,7 @@ export class MapService extends Evented {
             this.focus.remove();
         }
 
-        const reprojected = this.project.geoTo(geojson);
+        const reprojected = this.krite.crs.geoTo(geojson);
 
         this.focus = new GeoJSON(reprojected, {
             style: this.mapOptions.focusStyle,
@@ -448,7 +467,7 @@ export class MapService extends Evented {
      * @param point In the CRS of the map
      */
     zoomToPoint(point: Point, zoom: number, marker = true) {
-        const reprojected = this.project.pointTo(new Point(point.x, point.y));
+        const reprojected = this.krite.crs.pointTo(new Point(point.x, point.y));
         this.zoomToLatLng(reprojected, zoom, marker);
     }
 
@@ -462,5 +481,28 @@ export class MapService extends Evented {
         }
 
         this.leaflet.setView(point, zoom);
+    }
+
+    private findContainer(option?: string | HTMLElement) {
+        let container: HTMLElement;
+
+        if (option) {
+            if (typeof option === 'string') {
+                const el = document.getElementById(option);
+
+                if (el === null) {
+                    throw new Error(`Mounting point ${option} not found`);
+                } else {
+                    container = this.container = el;
+                }
+            } else {
+                container = option;
+            }
+        } else {
+            container = this.container = document.createElement('div');
+            container.style.cssText = ('width: 100%; height: 100%')
+        }
+
+        return container;
     }
 }

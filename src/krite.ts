@@ -19,13 +19,23 @@ import { SourcePool } from './pools/sources';
 
 import { MapService } from './services/map';
 
-import {IDataSource, IService} from './types';
+import WebMercator from './crs/4326+3857';
+
+import { IDataSource, IService, ICRS } from './types';
+
+export interface IKriteOptions {
+    crs: ICRS,
+}
 
 export class Krite {
     service: ServicePool;
     source: SourcePool;
 
-    constructor() {
+    crs: ICRS = new WebMercator();
+
+    constructor(options?: IKriteOptions) {
+        Object.assign(this, options);
+
         this.service = new ServicePool(this);
         this.source = new SourcePool(this);
     }
