@@ -18,8 +18,6 @@ import { CircleMarker, FitBoundsOptions, GeoJSON, GridLayer, Icon, LatLng, LatLn
 
 import Evented from '../util/evented';
 
-import { ProjectService } from './project';
-
 import { Krite } from '../krite';
 import { ILayer, ILayerEvented } from '../types';
 

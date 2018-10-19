@@ -21,7 +21,4 @@ export { NominatimService } from  './nominatim';
 export { NumeralService } from './numeral';
 export { ParameterService } from './parameter';
 export { PdokLocatieserverService } from './pdokLocatieserver';
-export { ProjectService } from './project';
-export { ProjectLatLngService } from './projectlatlng';
-export { ProjectWebMercatorService } from './projectWebMercator';
 export { XMLService } from './xml';
