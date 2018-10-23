@@ -16,7 +16,7 @@ limitations under the License.
 
 import 'leaflet-draw';
 
-import { Draw } from 'leaflet';
+import { Draw, DrawOptions } from 'leaflet';
 import { Krite } from '../krite';
 
 export class DrawService {
@@ -47,23 +47,23 @@ export class DrawService {
         }
     }
 
-    marker(icon?: L.Icon) {
-        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new Draw.Marker(this.krite.map.leaflet, { icon }));
+    marker(options?: DrawOptions.MarkerOptions) {
+        return this.draw<GeoJSON.Feature<GeoJSON.Point>>(new Draw.Marker(this.krite.map.leaflet, options));
     }
 
-    rectangle() {
-        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Rectangle(this.krite.map.leaflet, {}));
+    rectangle(options?: DrawOptions.RectangleOptions) {
+        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Rectangle(this.krite.map.leaflet, options));
     }
 
-    polyline() {
-        return this.draw<GeoJSON.Feature<GeoJSON.LineString>>(new Draw.Polyline(this.krite.map.leaflet, {}));
+    polyline(options?: DrawOptions.PolylineOptions) {
+        return this.draw<GeoJSON.Feature<GeoJSON.LineString>>(new Draw.Polyline(this.krite.map.leaflet, options));
     }
 
-    polygon() {
-        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Polygon(this.krite.map.leaflet, {}));
+    polygon(options?: DrawOptions.PolygonOptions) {
+        return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Polygon(this.krite.map.leaflet, options));
     }
 
-    private draw<T>(draw: Draw.Feature): Promise<T> {
+    private draw<T>(draw: Draw.Feature): Promise<T | null> {
         this.drawFeature = draw;
 
         return new Promise<T>((resolve, reject) => {
@@ -80,6 +80,7 @@ export class DrawService {
                     // Release lock when draw actions have completed, even when valid geometry was not created
                     this.krite.map.leaflet.once('draw:drawstop', (event: L.LayerEvent) => {
                         this.lock = false;
+                        return null;
                     });
                 } else {
                     reject('Draw already in progress');

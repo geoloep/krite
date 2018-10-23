@@ -127,8 +127,8 @@ export class InspectorService extends Evented {
         }
     }
 
-    private async intersect(shape: GeoJSON.Feature<any>) {
-        if (this.layer && this.layer.intersects) {
+    private async intersect(shape: GeoJSON.Feature<any> | null) {
+        if (shape && this.layer && this.layer.intersects) {
             const features = await this.layer.intersects(shape);
 
             if (this.options.highlight) {
