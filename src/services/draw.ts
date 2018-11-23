@@ -66,7 +66,7 @@ export class DrawService {
     private draw<T>(draw: Draw.Feature): Promise<T | null> {
         this.drawFeature = draw;
 
-        return new Promise<T>((resolve, reject) => {
+        return new Promise<T | null>((resolve, reject) => {
             if (this.krite.map) {
                 if (!this.lock) {
                     this.lock = true;
@@ -80,7 +80,7 @@ export class DrawService {
                     // Release lock when draw actions have completed, even when valid geometry was not created
                     this.krite.map.leaflet.once('draw:drawstop', (event: L.LayerEvent) => {
                         this.lock = false;
-                        return null;
+                        resolve(null);
                     });
                 } else {
                     reject('Draw already in progress');
