@@ -16,20 +16,20 @@ limitations under the License.
 
 import 'leaflet-draw';
 
-import { Draw, DrawOptions } from 'leaflet';
+import { Draw, DrawOptions, FeatureGroup, Marker, Polyline, Polygon, EditToolbar, LayerEvent } from 'leaflet';
 import { Krite } from '../krite';
 
 export class DrawService {
     private lock = false;
-    private drawFeature: Draw.Feature;
+    private drawFeature: Draw.Feature | null;
 
     private krite: Krite;
 
     constructor() {
-        // Hack for preveting adding points during drag
+        // Hack for preventing adding points during drag
         // https://github.com/Leaflet/Leaflet.draw/issues/695
-        const originalOnTouch = (<any> Draw).Polyline.prototype._onTouch;
-        (<any> Draw).Polyline.prototype._onTouch = function(this: any, e: any) {
+        const originalOnTouch = (<any>Draw).Polyline.prototype._onTouch;
+        (<any>Draw).Polyline.prototype._onTouch = function (this: any, e: any) {
             if (e.originalEvent.pointerType !== 'mouse') {
                 return originalOnTouch.call(this, e);
             }
@@ -38,6 +38,14 @@ export class DrawService {
 
     async added(krite: Krite) {
         this.krite = krite;
+    }
+
+    save() {
+        if (this.drawFeature && (this.drawFeature as any).save) {
+            (this.drawFeature as any).save()
+            this.drawFeature.disable();
+            this.lock = false;
+        }
     }
 
     disable() {
@@ -63,6 +71,43 @@ export class DrawService {
         return this.draw<GeoJSON.Feature<GeoJSON.Polygon>>(new Draw.Polygon(this.krite.map.leaflet, options));
     }
 
+    /**
+     * Edit a feature on the map
+     * @param feature Cannot be MultiGeometry
+     */
+    edit(feature: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.Geometry) {
+        if (this.lock) {
+            throw new Error('Draw already in progress');
+        }
+
+        return new Promise<GeoJSON.Feature | null>((resolve, reject) => {
+            this.lock = true;
+
+            const editGroup = new FeatureGroup([this.GeoJSONToLayer(feature)]).addTo(this.krite.map.leaflet);
+
+            // @todo fix types
+            const edit: any = new EditToolbar.Edit(this.krite.map.leaflet, {
+                featureGroup: editGroup,
+            } as any);
+
+            this.drawFeature = edit;
+            edit.enable();
+
+            this.krite.map.leaflet.once('draw:edited', (event: LayerEvent) => {
+                resolve(this.krite.crs.geoFrom(((editGroup.getLayers()[0] as Polygon).toGeoJSON())));
+            });
+
+            this.krite.map.leaflet.once('draw:editstop', () => {
+                editGroup.removeFrom(this.krite.map.leaflet);
+
+                this.drawFeature = null;
+                this.lock = false;
+
+                resolve(null);
+            });
+        });
+    }
+
     private draw<T>(draw: Draw.Feature): Promise<T | null> {
         this.drawFeature = draw;
 
@@ -80,6 +125,7 @@ export class DrawService {
                     // Release lock when draw actions have completed, even when valid geometry was not created
                     this.krite.map.leaflet.once('draw:drawstop', (event: L.LayerEvent) => {
                         this.lock = false;
+                        this.drawFeature = null;
                         resolve(null);
                     });
                 } else {
@@ -89,5 +135,42 @@ export class DrawService {
                 reject('DrawService cannot be activated before MapService is present');
             }
         });
+    }
+
+    /**
+     * Convert GeoJSON to a Leaflet layer
+     * @param feature
+     */
+    private GeoJSONToLayer(feature: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.Geometry) {
+        let geometry: GeoJSON.Geometry;
+
+        if (feature.type === 'Feature') {
+            geometry = feature.geometry;
+        } else {
+            geometry = feature;
+        }
+
+        const reprojected: GeoJSON.Geometry = this.krite.crs.geoTo(geometry);
+
+        if (reprojected.type.slice(0, 5) === 'Multi') {
+            throw new Error('Editing of MultiGeometries is not supported');
+        }
+
+        switch (reprojected.type) {
+            case 'Point':
+                return new Marker(reprojected.coordinates.reverse() as [number, number]);
+            case 'LineString':
+                return new Polyline(reprojected.coordinates.map((coordinate) => {
+                    return coordinate.reverse() as [number, number];
+                }));
+            case 'Polygon':
+                return new Polygon(reprojected.coordinates.map((ring) => {
+                    return ring.map((coordinate) => {
+                        return coordinate.reverse() as [number, number];
+                    })
+                }));
+            default:
+                throw new Error('Input feature is nog of a known type');
+        }
     }
 }
