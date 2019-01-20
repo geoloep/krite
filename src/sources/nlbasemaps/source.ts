@@ -21,7 +21,7 @@ import { WMTSSource } from '../wmts/source';
 
 const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/wmts/');
 const pdokLufoSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wmts/');
-// let openbasiskaartSource = new WMTSSource('http://www.openbasiskaart.nl/mapcache/wmts/');
+const pdokLufoInfraSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wmts/');
 
 /**
  * This source is a convenience for adding basemaps relevant to Dutch mapping projects
@@ -89,9 +89,29 @@ export class NLBasemapsSource implements IDataSource {
         //     source: openbasiskaartSource,
         //     layer: 'openbasiskaart.nl: OpenStreetMap ondergrondkaart',
         // } Tilematrixset heeft ongebruikelijke naam, eerst ondersteuning in WMTSLayer toevoegen
-        'pdok/luchtofoto_actueel': {
+        'pdok/luchtfoto_actueel': {
             source: pdokLufoSource,
             layer: 'Luchtfoto Actueel Ortho 25cm RGB',
+        },
+        'pdok/luchtfoto_2018': {
+            source: pdokLufoSource,
+            layer: 'Luchtfoto 2018 Ortho 25cm RGB',
+        },
+        'pdok/luchtfoto_2017': {
+            source: pdokLufoSource,
+            layer: 'Luchtfoto 2017 Ortho 25cm RGB',
+        },
+        'pdok/luchtfoto_2017_infrarood': {
+            source: pdokLufoInfraSource,
+            layer: 'Luchtfoto 2017 Ortho 25cm Infrarood',
+        },
+        'pdok/luchtfoto_2016': {
+            source: pdokLufoSource,
+            layer: 'Luchtfoto 2016 Ortho 25cm RGB',
+        },
+        'ahn/ahn3_05m_dsm': {
+            source: pdokSource,
+            layer: 'ahn3_05m_dsm',
         },
     };
 
