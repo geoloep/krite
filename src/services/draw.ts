@@ -16,7 +16,7 @@ limitations under the License.
 
 import 'leaflet-draw';
 
-import { Draw, DrawOptions, FeatureGroup, Marker, Polyline, Polygon, EditToolbar, LayerEvent } from 'leaflet';
+import { Draw, DrawOptions, FeatureGroup, Marker, Polyline, Polygon, EditToolbar, LayerEvent, ToolbarOptions, EditOptions } from 'leaflet';
 import { Krite } from '../krite';
 
 export class DrawService {
@@ -75,7 +75,7 @@ export class DrawService {
      * Edit a feature on the map
      * @param feature Cannot be MultiGeometry
      */
-    edit(feature: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.Geometry) {
+    edit(feature: GeoJSON.Feature<GeoJSON.Geometry> | GeoJSON.Geometry, options?: any) {
         if (this.lock) {
             throw new Error('Draw already in progress');
         }
@@ -85,8 +85,10 @@ export class DrawService {
 
             const editGroup = new FeatureGroup([this.GeoJSONToLayer(feature)]).addTo(this.krite.map.leaflet);
 
-            // @todo fix types
+            // @todo fix types, 
+            // should reflect http://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html#editpolyoptions
             const edit: any = new EditToolbar.Edit(this.krite.map.leaflet, {
+                ...options,
                 featureGroup: editGroup,
             } as any);
 
