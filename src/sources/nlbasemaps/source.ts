@@ -19,7 +19,7 @@ import { IDataSource } from '../../types';
 import { WMTSLayer } from '../wmts/layer';
 import { WMTSSource } from '../wmts/source';
 
-const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/wmts/');
+const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/tiles/service/wmts/');
 const pdokLufoSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wmts/');
 const pdokLufoInfraSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wmts/');
 
@@ -109,9 +109,13 @@ export class NLBasemapsSource implements IDataSource {
             source: pdokLufoSource,
             layer: 'Luchtfoto 2016 Ortho 25cm RGB',
         },
-        'ahn/ahn3_05m_dsm': {
+        'ahn/3 50cm dsm': {
             source: pdokSource,
             layer: 'ahn3_05m_dsm',
+        },
+        'ahn/2 50cm ruw': {
+            source: pdokSource,
+            layer: 'ahn2_05m_ruw',
         },
     };
 
