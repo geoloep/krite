@@ -136,6 +136,8 @@ export class InspectorService extends Evented {
             }
 
             this.emit('result', features);
+        } else {
+            this.emit('result', null);
         }
     }
 
