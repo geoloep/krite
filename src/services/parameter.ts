@@ -23,11 +23,11 @@ export class ParameterService implements IService {
     private krite: Krite;
 
     constructor() {
-        this.parseSearch();
     }
 
     added(krite: Krite) {
         this.krite = krite;
+        this.parseSearch();
     }
 
     parseSearch() {
