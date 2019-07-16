@@ -105,7 +105,9 @@ export class OWSSource implements IDataSource {
         const layers = wmsCapabilities.node(wmsCapabilities.document, './wms:WMS_Capabilities/wms:Capability/wms:Layer/wms:Layer');
 
         for (let i = 0; i < layers.snapshotLength; i++) {
-            this.AddWMSLayer(wmsCapabilities, layers.snapshotItem(i));
+            if (layers.snapshotItem(i)) {
+                this.AddWMSLayer(wmsCapabilities, layers.snapshotItem(i) as Node);
+            }
         }
     }
 
@@ -121,7 +123,9 @@ export class OWSSource implements IDataSource {
         const nestedLayers = wmsCapabilities.node(layer, './wms:Layer');
 
         for (let i = 0; i < nestedLayers.snapshotLength; i++) {
-            this.AddWMSLayer(wmsCapabilities, nestedLayers.snapshotItem(i));
+            if (nestedLayers.snapshotItem(i)) {
+                this.AddWMSLayer(wmsCapabilities, nestedLayers.snapshotItem(i) as Node);
+            }
         }
     }
 
@@ -135,20 +139,22 @@ export class OWSSource implements IDataSource {
             for (let i = 0; i < layers.snapshotLength; i++) {
                 const layer = layers.snapshotItem(i);
 
-                const name = wfsCapabilities.string(layer, './wms:Name');
+                if (layer) {
+                    const name = wfsCapabilities.string(layer, './wms:Name');
 
-                // if (this.layerNames.indexOf(name) === -1) {
-                //     this.layerNames.push(name);
-                // }
+                    // if (this.layerNames.indexOf(name) === -1) {
+                    //     this.layerNames.push(name);
+                    // }
 
-                const wfsLayer = new WFSLayer(this.baseUrl, layer);
+                    const wfsLayer = new WFSLayer(this.baseUrl, layer);
 
-                this.wfsLayers[name] = wfsLayer;
+                    this.wfsLayers[name] = wfsLayer;
 
-                // Also push under a name that's stripped of the namespace, needed when using a geoserver virtual ows
-                // service
-                if (name.includes(':')) {
-                    this.wfsLayers[name.split(':').pop() as string] = wfsLayer;
+                    // Also push under a name that's stripped of the namespace, needed when using a geoserver virtual ows
+                    // service
+                    if (name.includes(':')) {
+                        this.wfsLayers[name.split(':').pop() as string] = wfsLayer;
+                    }
                 }
             }
         }

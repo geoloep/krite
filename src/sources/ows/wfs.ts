@@ -241,9 +241,9 @@ export class WFSLayer extends Evented implements ILayer {
             const gmlnode = this.types.node(this.types.document, '//xsd:element[starts-with(@type, \'gml\')][1]');
 
             if (gmlnode.snapshotLength > 0) {
-                this.geomField = this.types.string(gmlnode.snapshotItem(0), './@name');
+                this.geomField = this.types.string(gmlnode.snapshotItem(0) as Node, './@name');
 
-                this.isPoint = (this.types.string(gmlnode.snapshotItem(0), './@type').indexOf('Point') !== -1);
+                this.isPoint = (this.types.string(gmlnode.snapshotItem(0) as Node, './@type').indexOf('Point') !== -1);
             } else {
                 console.warn(`Trying default fieldname for the geometry field of ${this.title}`);
                 this.geomField = 'geom';

@@ -78,7 +78,7 @@ export class WMTSLayer implements ILayer {
 
                 const set = this.getTileMatrixName(tileMatrixSet);
 
-                const tileMatrix = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[${this.previewSet + 1}]`).snapshotItem(0);
+                const tileMatrix = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[${this.previewSet + 1}]`).snapshotItem(0) as Node;
 
                 const matrix = this.xml.string(tileMatrix, './ows:Identifier');
 
@@ -115,10 +115,10 @@ export class WMTSLayer implements ILayer {
     private getTileMatrixSet() {
         const identifier = this.krite.crs.identifiers.leaflet;
 
-        const tileMatrix = this.xml.node(this.document.ownerDocument, `./wmts:Capabilities/wmts:Contents/wmts:TileMatrixSet[./ows:Identifier = '${identifier}']`);
+        const tileMatrix = this.xml.node(this.document.ownerDocument as Document, `./wmts:Capabilities/wmts:Contents/wmts:TileMatrixSet[./ows:Identifier = '${identifier}']`);
 
         if (tileMatrix.snapshotLength > 0) {
-            return tileMatrix.snapshotItem(0);
+            return tileMatrix.snapshotItem(0) as Node;
         } else {
             throw new Error(`Layer ${this.name} is not available in a tile matrix that is compatible with the map crs (${identifier})`);
         }
@@ -137,11 +137,14 @@ export class WMTSLayer implements ILayer {
      */
     private getTileMatrixPrefix(tileMatrixSet: Node) {
         const tileMatrixItem = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[1]`).snapshotItem(0);
+        let prefix: RegExpMatchArray | null = null;
 
-        const identifier = this.xml.string(tileMatrixItem, './ows:Identifier');
+        if (tileMatrixItem) {
+            const identifier = this.xml.string(tileMatrixItem, './ows:Identifier');
 
-        // Match everything preceding the last digit(s)
-        const prefix = identifier.match(/(.*)\d+$/);
+            // Match everything preceding the last digit(s)
+            prefix = identifier.match(/(.*)\d+$/);
+        }
 
         if (prefix !== null && prefix[1]) {
             return prefix[1];
@@ -159,7 +162,11 @@ export class WMTSLayer implements ILayer {
         if (style.snapshotLength > 0) {
             const styleNode = style.snapshotItem(0);
 
-            return this.xml.string(styleNode, './Identifier');
+            if (styleNode) {
+                return this.xml.string(styleNode, './Identifier');
+            } else {
+                return '';
+            }
         } else {
             return '';
         }

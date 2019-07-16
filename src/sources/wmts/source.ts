@@ -78,11 +78,13 @@ export class WMTSSource implements IDataSource {
         for (let i = 0; i < layers.snapshotLength; i++) {
             const layer = layers.snapshotItem(i);
 
-            const title = capabilities.string(layer, './ows:Title');
+            if (layer) {
+                const title = capabilities.string(layer, './ows:Title');
 
-            this.layerNames.push(title);
+                this.layerNames.push(title);
 
-            this.layers[title] = new WMTSLayer(this.baseUrl, layer);
+                this.layers[title] = new WMTSLayer(this.baseUrl, layer);
+            }
         }
     }
 }
