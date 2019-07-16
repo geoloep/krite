@@ -42,7 +42,11 @@ export class XMLService {
 
     namespaceResolver = {
         lookupNamespaceURI: (prefix: string): string => {
-            return this.prefixedNameSpaces.lookupNamespaceURI(prefix) || this.unprefixedNameSpace;
+            if (typeof this.prefixedNameSpaces === 'function') {
+                return this.prefixedNameSpaces(prefix) || this.unprefixedNameSpace;
+            } else {
+                return this.prefixedNameSpaces.lookupNamespaceURI(prefix) || this.unprefixedNameSpace;
+            }
         },
     };
 
@@ -50,8 +54,10 @@ export class XMLService {
         let document: Document;
         if (typeof (text) === 'string') {
             document = this.document = this.parser.parseFromString(text, 'application/xml');
-        } else {
+        } else if (text.ownerDocument) {
             document = this.document = text.ownerDocument;
+        } else {
+            throw new Error('Could not find a document to parse');
         }
 
         this.prefixedNameSpaces = document.createNSResolver(document.ownerDocument == null ? document.documentElement : document.ownerDocument.documentElement);
