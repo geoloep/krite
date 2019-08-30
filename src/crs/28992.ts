@@ -17,9 +17,9 @@ limitations under the License.
 import crs, { RDCRS } from 'leaflet-rd';
 import { ICRS } from '../types';
 
-import proj4 from 'proj4';
+import { LatLng, Point } from 'leaflet';
+import * as proj4 from 'proj4';
 import * as reproject from 'reproject';
-import { Point, LatLng } from 'leaflet';
 
 const rdproj = crs.projection.proj4def;
 
@@ -32,7 +32,7 @@ export default class Rijksdriehoekstelsel implements ICRS {
     crs: RDCRS = crs;
 
     geoTo(geojson: GeoJSON.GeoJSON): GeoJSON.GeoJSON {
-        return reproject.toWgs84(geojson, rdproj);        
+        return reproject.toWgs84(geojson, rdproj);
     }
 
     geoFrom(geojson: GeoJSON.GeoJSON) {
