@@ -59,12 +59,12 @@ export interface ILayer {
      * Perform a non spatial query
      * @param options Filter options
      * @param options.id Request a single feature by id
-     * @param options.filters Keys as fieldnames and strings as contents to match
+     * @param options.filters Keys as fieldnames and value as contents to match
      * @param options.properties List of properties to return, leave blank to return all
      */
     filter?(options: {
         id?: string,
-        filters?: { [index: string]: string },
+        filters?: { [index: string]: string | number | null },
         properties?: string[],
     }): Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>;
 

@@ -153,7 +153,7 @@ export class WFSLayer extends Evented implements ILayer {
 
     async filter(options: {
         id?: string,
-        filters?: { [index: string]: string },
+        filters?: { [index: string]: string | null | number },
         properties?: string[],
     }) {
 
@@ -182,6 +182,8 @@ export class WFSLayer extends Evented implements ILayer {
 
                     if (typeof (options.filters[field]) === 'number') {
                         query.cql_filter += options.filters[field];
+                    } else if (options.filters[field] === null) {
+                        query.cql_filter += ' IS NULL';
                     } else {
                         query.cql_filter += `'${options.filters[field]}'`;
                     }
