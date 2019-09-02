@@ -100,7 +100,7 @@ export class WFSLayer extends Evented implements ILayer {
     }
 
     async intersects(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject) {
-        const wkt = wellknown.stringify(<GeoJSON.GeoJsonObject> feature);
+        const wkt = wellknown.stringify(<GeoJSON.GeoJsonObject>feature);
 
         const fieldname = await this.getGeomField();
 
@@ -170,25 +170,15 @@ export class WFSLayer extends Evented implements ILayer {
         }
 
         if (options.filters) {
-            query.cql_filter = '';
-
-            for (const field in options.filters) {
-                if (options.filters[field]) {
-                    if (query.cql_filter.length > 0) {
-                        query.cql_filter += ' AND ';
-                    }
-
-                    query.cql_filter += `${field} = `;
-
-                    if (typeof (options.filters[field]) === 'number') {
-                        query.cql_filter += options.filters[field];
-                    } else if (options.filters[field] === null) {
-                        query.cql_filter += ' IS NULL';
-                    } else {
-                        query.cql_filter += `'${options.filters[field]}'`;
-                    }
+            query.cql_filter = Object.entries(options.filters).map(([key, value]) => {
+                if (value === null) {
+                    return `${key} IS NULL`;
+                } else if (typeof value === 'number') {
+                    return `${key} = ${value}`;
+                } else {
+                    return `${key} = '${value}'`;
                 }
-            }
+            }).join(' AND ');
         }
 
         if (options.properties) {
