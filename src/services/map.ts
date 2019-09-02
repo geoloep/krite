@@ -399,7 +399,9 @@ export class MapService extends Evented {
             (this.basemap.leaflet as GridLayer).setZIndex(-1);
         }
 
-        this.basemap.leaflet.addTo(this.leaflet);
+        if (this.visibleOnZoom(layer, this.leaflet.getZoom())) {
+            this.basemap.leaflet.addTo(this.leaflet);
+        }
 
         this.emit('basemap-set', layer);
     }
