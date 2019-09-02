@@ -164,7 +164,7 @@ export class MapService extends Evented {
      * @param center recenter map after mounting
      */
     attatch(parent: HTMLElement, center?: boolean) {
-        this.detatch();
+        this.detach();
 
         parent.appendChild(this.container);
 
@@ -178,9 +178,9 @@ export class MapService extends Evented {
     }
 
     /**
-     * Detatch the map from it's current parent element
+     * Detach the map from it's current parent element
      */
-    detatch() {
+    detach() {
         if (this.container.parentElement !== null) {
             this.container.parentElement.removeChild(this.container);
         }
