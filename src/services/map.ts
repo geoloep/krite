@@ -159,11 +159,11 @@ export class MapService extends Evented {
     }
 
     /**
-     * Attatch the leaflet map to the given DOM element
+     * Attach the leaflet map to the given DOM element
      * @param parent target parent node
      * @param center recenter map after mounting
      */
-    attatch(parent: HTMLElement, center?: boolean) {
+    attach(parent: HTMLElement, center?: boolean) {
         this.detach();
 
         parent.appendChild(this.container);
