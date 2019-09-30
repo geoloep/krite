@@ -40,7 +40,7 @@ export class PdokLocatieserverService {
         }));
 
         if (!response.ok) {
-            throw new Error('Response from locatieserver not ok');
+            throw new Error('Response from locatieserver suggest endpoint not ok');
         }
 
         return this.parseResponse(await response.json());
@@ -65,7 +65,7 @@ export class PdokLocatieserverService {
         }));
 
         if (!response.ok) {
-            throw new Error('Response from locatieserver not ok');
+            throw new Error('Response from locatieserver lookup endpoint not ok');
         }
 
         return await response.json();
