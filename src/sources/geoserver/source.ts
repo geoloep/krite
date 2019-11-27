@@ -27,7 +27,7 @@ export interface IOWSSourceoptions {
     wms?: boolean;
 }
 
-export class OWSSource implements IDataSource {
+export class GeoserverSource implements IDataSource {
     private layersLoaded: boolean = false;
     private layerNames: string[] = [];
     private wmsLayers: { [index: string]: WMSLayer } = {};
