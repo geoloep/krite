@@ -6,8 +6,9 @@
             "dom",
             "scripthost",
             "es5",
-            "es2015.promise",
+            "es2015.collection",
             "es2015.core",
+            "es2015.promise",
             "es2016.array.include",
             "es2017.object"
         ],
