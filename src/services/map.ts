@@ -149,7 +149,7 @@ export class MapService extends Evented {
             });
         }
 
-        this.leaflet.on('click', (e: MouseEvent) => {
+        this.leaflet.on('click', (e) => {
             // latlng does not exist on KeyBoardevents. Enter may fire click'
             // @todo fix use of any
             if ((<any>e).latlng) {

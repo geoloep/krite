@@ -24,7 +24,7 @@ import { SourcePool } from './pools/sources';
 import { MapService } from './services/map';
 import { IDataSource, IService } from './types';
 
-export = class KriteStandalone extends Krite {
+export class KriteStandalone extends Krite {
     static services = services;
     static sources = sources;
-};
+}

@@ -1,28 +1,31 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
-        "lib": [
-            "dom",
-            "scripthost",
-            "es5",
-            "es2015.collection",
-            "es2015.core",
-            "es2015.promise",
-            "es2016.array.include",
-            "es2017.object"
-        ],
-        "noImplicitAny": true,
+        "target": "esnext",
+        "module": "esnext",
+        "strict": true,
+        "jsx": "preserve",
+        "importHelpers": true,
         "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "noImplicitAny": true,
         "strictNullChecks": true,
         "allowJs": false,
         "outDir": "lib",
-        "allowSyntheticDefaultImports": true,
         "isolatedModules": false,
-        "experimentalDecorators": true,
         "noImplicitThis": true,
         "removeComments": true,
-        "suppressImplicitAnyIndexErrors": true
+        "suppressImplicitAnyIndexErrors": true,
+        "strictPropertyInitialization": false,
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable",
+            "scripthost"
+        ]
     },
     "include": [
         "src/**/*",

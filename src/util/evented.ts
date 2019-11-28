@@ -15,7 +15,6 @@ limitations under the License.
 */
 
 import EEE, { EventEmitter, ListenerFn } from 'eventemitter3';
-import { METHODS } from 'http';
 
 /**
  * Extend from this class to equip your class with events

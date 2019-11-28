@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as numeral from 'numeral';
+import numeral from 'numeral';
 
 export class NumeralService {
     numeral = numeral;

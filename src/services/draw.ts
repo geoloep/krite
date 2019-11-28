@@ -95,7 +95,7 @@ export class DrawService {
             this.drawFeature = edit;
             edit.enable();
 
-            this.krite.map.leaflet.once('draw:edited', (event: LayerEvent) => {
+            this.krite.map.leaflet.once('draw:edited', (event: any) => {
                 resolve(this.krite.crs.geoFrom(((editGroup.getLayers()[0] as Polygon).toGeoJSON())));
             });
 
@@ -120,12 +120,12 @@ export class DrawService {
                     draw.enable();
 
                     // Only seems to fire when valid geometry is created
-                    this.krite.map.leaflet.once('draw:created', (event: L.LayerEvent) => {
+                    this.krite.map.leaflet.once('draw:created', (event: any) => {
                         resolve(this.krite.crs.geoFrom((event.layer as L.Polygon).toGeoJSON()));
                     });
 
                     // Release lock when draw actions have completed, even when valid geometry was not created
-                    this.krite.map.leaflet.once('draw:drawstop', (event: L.LayerEvent) => {
+                    this.krite.map.leaflet.once('draw:drawstop', (event: any) => {
                         this.lock = false;
                         this.drawFeature = null;
                         resolve(null);

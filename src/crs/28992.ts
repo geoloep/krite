@@ -14,14 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import crs, { RDCRS } from 'leaflet-rd';
+import crs from 'leaflet-rd';
+import { RDCRS } from 'leaflet-rd';
 import { ICRS } from '../types';
 
 import { LatLng, Point } from 'leaflet';
 import * as proj4 from 'proj4';
 import * as reproject from 'reproject';
 
-const rdproj = crs.projection.proj4def;
+let rd: RDCRS;
+
+// UMD shenanigans
+if ((crs as any).default) {
+    rd = (crs as any).default;
+} else {
+    rd = crs;
+}
+
+const rdproj = rd.projection.proj4def;
 
 export default class Rijksdriehoekstelsel implements ICRS {
     identifiers = {
@@ -29,7 +39,7 @@ export default class Rijksdriehoekstelsel implements ICRS {
         krite: 'EPSG:28992',
     };
 
-    crs: RDCRS = crs;
+    crs: RDCRS = rd;
 
     geoTo(geojson: GeoJSON.GeoJSON): GeoJSON.GeoJSON {
         return reproject.toWgs84(geojson, rdproj);
@@ -40,10 +50,10 @@ export default class Rijksdriehoekstelsel implements ICRS {
     }
 
     pointTo(point: Point) {
-        return crs.projection.unproject(point);
+        return rd.projection.unproject(point);
     }
 
     pointFrom(latLng: LatLng) {
-        return crs.projection.project(latLng);
+        return rd.projection.project(latLng);
     }
 }

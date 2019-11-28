@@ -12,41 +12,29 @@
   resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.7.tgz#c8fa532b60a0042219cdf173ca21a975ef0666ad"
   integrity sha512-wE2v81i4C4Ol09RtsWFAqg3BUitWbHSpSlIo+bNdsCJijO9sjme+zm+73ZMCa/qMC8UEERxzGbvmr1cffo2SiQ==
 
-"@types/leaflet-draw@~0.4.13":
+"@types/leaflet-draw@^0.0.0":
   version "0.4.14"
   resolved "https://registry.yarnpkg.com/@types/leaflet-draw/-/leaflet-draw-0.4.14.tgz#81458e1fa782f73d1c5629714e08e7b49d36c633"
   integrity sha512-TyOZtr5SZf9ELR5EMLFwDlZuCGyjG0saUA6hEguZNEoratDiag1G/2eAVeYwK2NOX9N0zxQ9eDCRsjJK420X9g==
   dependencies:
     "@types/leaflet" "*"
 
-"@types/leaflet@*":
+"@types/leaflet@*", "@types/leaflet@^1.4.0":
   version "1.5.5"
   resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.5.5.tgz#006c0aa89c4b5e62941717fa71a09e846423536c"
   integrity sha512-Eyh1LMmW4OFgafL6rjLyGkMqFS5IzgwWHMSgTKbrsvwLjLaWH8Ae8CV5liRe8HSM731oOVDwAMIZgg9P0SO9tg==
   dependencies:
     "@types/geojson" "*"
 
-"@types/leaflet@~1.4.0":
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.4.7.tgz#96c4388e4f9cc599e85dbe2796e7df81dffb7ccb"
-  integrity sha512-wk6zQCFm8qXABeNrOQD4X7eYydhYydSBRdN82JVqyR4APe0i1kgvfBOc6rbtJ/A445tOUDTXdTGdCFh2Gapxgg==
-  dependencies:
-    "@types/geojson" "*"
-
-"@types/node@~10.9.0":
-  version "10.9.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.9.4.tgz#0f4cb2dc7c1de6096055357f70179043c33e9897"
-  integrity sha512-fCHV45gS+m3hH17zgkgADUSi2RR1Vht6wOZ0jyHP8rjiQra9f+mIcgwPQHllmDocYOstIEbKlxbFDYlgrTPYqw==
-
 "@types/numeral@*":
   version "0.0.26"
   resolved "https://registry.yarnpkg.com/@types/numeral/-/numeral-0.0.26.tgz#cfab9842ef9349ce714b06722940ca7ebf8a6298"
   integrity sha512-DwCsRqeOWopdEsm5KLTxKVKDSDoj+pzZD1vlwu1GQJ6IF3RhjuleYlRwyRH6MJLGaf3v8wFTnC6wo3yYfz0bnA==
 
-"@types/proj4@~2.3.4":
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/@types/proj4/-/proj4-2.3.4.tgz#f388b60209c4cb75ec21a17a4b4ac55a71a58558"
-  integrity sha1-84i2AgnEy3XsIaF6S0rFWnGlhVg=
+"@types/proj4@~2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@types/proj4/-/proj4-2.5.0.tgz#40f1ed1cb9ef66e442ab6e57eba32eadc0f0501a"
+  integrity sha512-9bR9qvg4wZE6UiIlmhodCOZ2r38SeN8T35SsmMDuIMfACxxaMvIwiwoTJnEA9f/KEhL+BQSuD+arbZucUzYu7w==
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -1216,6 +1204,11 @@ geojson-stream@0.1.0:
   dependencies:
     JSONStream "^1.0.0"
     through "^2.3.4"
+
+geojson-to-gml-3@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/geojson-to-gml-3/-/geojson-to-gml-3-2.0.2.tgz#7c4f7c8434686cfb74e7385fc54e1519f5e69f92"
+  integrity sha512-5qWpaxs65QccTCf/SmkSQYIatT9OcKokJQit3ABIQOyAhtYXuPwnw4pIXEgNtjXCpZ/n2FJJEeT/+ccQHkidpA==
 
 get-caller-file@^2.0.1:
   version "2.0.5"
