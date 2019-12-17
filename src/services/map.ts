@@ -373,7 +373,9 @@ export class MapService extends Evented {
      * Permanently remove a layer from the map
      */
     removeLayer(layer: ILayer) {
-        layer.leaflet.remove();
+        if (this.leaflet.hasLayer(layer.leaflet)) {
+            layer.leaflet.remove();
+        }
 
         this.layers.splice(this.layers.indexOf(layer), 1);
         delete this.layerByName[layer.name];
