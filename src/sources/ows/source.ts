@@ -203,7 +203,7 @@ export class OWSSource implements IDataSource {
             throw new Error('Exception in remote WMS Server');
         }
 
-        const layerNodes = capabilities.node(capabilities.document, './wms:WMS_Capabilities/wms:Capability/wms:Layer/wms:Layer');
+        const layerNodes = capabilities.node(capabilities.document, './wms:WMS_Capabilities/wms:Capability/wms:Layer');
 
         for (let i = 0; i < layerNodes.snapshotLength; i++) {
             if (layerNodes.snapshotItem(i)) {
