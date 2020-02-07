@@ -1,5 +1,6 @@
 import url from '../../util/url';
 
+import SourceBase from '../../bases/source';
 import { XMLService } from '../../services/xml';
 import { IDataSource } from '../../types';
 import { WFSLayer } from './wfs';
@@ -27,7 +28,7 @@ const defaultOptions: IOWSSourceoptions = {
 
 const servicePattern = '{service}';
 
-export class OWSSource implements IDataSource {
+export class OWSSource extends SourceBase implements IDataSource {
     private options!: {
         wms: string,
         wfs: string,
@@ -42,6 +43,8 @@ export class OWSSource implements IDataSource {
     private wfsLayers: { [index: string]: Node } = {};
 
     constructor(readonly baseUrl: string, options?: IOWSSourceoptions) {
+        super();
+
         this.options = this.parseBaseUrl(baseUrl);
 
         if (options) {
@@ -85,6 +88,8 @@ export class OWSSource implements IDataSource {
         }
 
         if (layer) {
+            layer.added(this.krite);
+
             if (!options) {
                 this.instantiatedLayers[name] = layer;
             }
@@ -137,7 +142,7 @@ export class OWSSource implements IDataSource {
 
         if (this.options.wfs) {
             requests.push(
-                fetch(
+                this.fetch(
                     this.options.wfs +
                     url.format({
                         query: {
@@ -151,7 +156,7 @@ export class OWSSource implements IDataSource {
 
         if (this.options.wms) {
             requests.push(
-                fetch(
+                this.fetch(
                     this.options.wms +
                     url.format({
                         query: {

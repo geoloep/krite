@@ -1,10 +1,11 @@
 import Krite from '../../krite';
 
+import { Point, TileLayer } from 'leaflet';
+import LayerBase from '../../bases/layer';
 import { XMLService } from '../../services/xml';
 import { ILayer } from '../../types';
-import { TileLayer, Point } from 'leaflet';
-import { WFSLayer } from './wfs';
 import { IOWSLayeroptions } from './source';
+import { WFSLayer } from './wfs';
 
 interface WMSOptions {
     transparant: boolean;
@@ -13,17 +14,18 @@ interface WMSOptions {
     maxZoom?: number;
 }
 
-export class WMSLayer implements ILayer {
+export class WMSLayer extends LayerBase implements ILayer {
     readonly isWMS = true;
 
     options!: WMSOptions;
 
     private root!: XMLService;
 
-    private krite!: Krite;
     private cache: { [index: string]: any } = {};
 
     constructor(private url: string, private node: Node, options?: IOWSLayeroptions, private wfs?: WFSLayer) {
+        super();
+
         this.root = new XMLService(node);
 
         this.options = {
@@ -34,10 +36,6 @@ export class WMSLayer implements ILayer {
         if (this.options) {
             Object.assign(this.options, options);
         }
-    }
-
-    added(krite: Krite) {
-        this.krite = krite;
     }
 
     get hasOperations() {

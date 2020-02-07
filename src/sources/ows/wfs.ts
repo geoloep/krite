@@ -1,21 +1,20 @@
 import url from '../../util/url';
 
-import Krite from '../../krite';
 import { ILayer } from '../../types';
-import Evented from '../../util/evented';
 
 import { geomToGml } from 'geojson-to-gml-3';
 import { GeoJSON, Point } from 'leaflet';
 
 import { XMLService } from '../../services/xml';
 import { IOWSLayeroptions } from './source';
+import LayerBase from '../../bases/layer';
 
 interface LayerOptions {
     unit: string;
     withinDistance: number;
 }
 
-export class WFSLayer extends Evented implements ILayer {
+export class WFSLayer extends LayerBase implements ILayer {
     readonly isWFS = true;
 
     hasOperations = true;
@@ -26,7 +25,6 @@ export class WFSLayer extends Evented implements ILayer {
     private root!: XMLService;
     private types!: XMLService;
 
-    private krite!: Krite;
     private cache: { [index: string]: any } = {};
 
     private layer!: GeoJSON;
@@ -37,10 +35,6 @@ export class WFSLayer extends Evented implements ILayer {
         super();
 
         this.root = new XMLService(node);
-    }
-
-    added(krite: Krite) {
-        this.krite = krite;
     }
 
     get title() {
@@ -118,7 +112,7 @@ export class WFSLayer extends Evented implements ILayer {
             }
         }
 
-        const response = await fetch(this.baseUrl + url.format({
+        const response = await this.fetch(this.baseUrl + url.format({
             query,
         }));
 
@@ -137,7 +131,7 @@ export class WFSLayer extends Evented implements ILayer {
         const gml = geomToGml(feature);
         const fieldname = await this.getGeomField();
 
-        const response = await fetch(this.baseUrl + url.format({
+        const response = await this.fetch(this.baseUrl + url.format({
             query: {
                 filter: `<Filter><Intersects><PropertyName>${fieldname}</PropertyName>${gml}</Intersects></Filter>`,
                 outputformat: 'application/json',
@@ -169,7 +163,7 @@ export class WFSLayer extends Evented implements ILayer {
             filter = `<Filter><Intersects><PropertyName>${fieldname}</PropertyName><gml:Point><gml:coordinates>${point.x} ${point.y}</gml:coordinates></gml:Point></Intersects></Filter>`;
         }
 
-        const response = await fetch(this.baseUrl + url.format({
+        const response = await this.fetch(this.baseUrl + url.format({
             query: {
                 filter,
                 outputformat: 'application/json',
@@ -225,7 +219,7 @@ export class WFSLayer extends Evented implements ILayer {
      */
     private async describeFeatureType() {
         if (!this.types) {
-            const response = await fetch(this.baseUrl +
+            const response = await this.fetch(this.baseUrl +
                 url.format({
                     query: {
                         request: 'DescribeFeatureType',
