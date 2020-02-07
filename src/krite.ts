@@ -21,23 +21,36 @@ import { MapService } from './services/map';
 
 import WebMercator from './crs/4326+3857';
 
-import { IDataSource, IService, ICRS } from './types';
+import { ICRS } from './types';
+
+export interface IInternalKriteOptions {
+    crs: ICRS;
+    fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
+}
 
 export interface IKriteOptions {
-    crs: ICRS,
+    crs: ICRS;
+    fetch?: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }
 
 export class Krite {
     service: ServicePool;
     source: SourcePool;
 
-    crs: ICRS = new WebMercator();
+    options: IInternalKriteOptions = {
+        crs: new WebMercator(),
+        fetch,
+    };
 
     constructor(options?: IKriteOptions) {
-        Object.assign(this, options);
+        Object.assign(this.options, options);
 
         this.service = new ServicePool(this);
         this.source = new SourcePool(this);
+    }
+
+    get crs() {
+        return this.options.crs;
     }
 
     get addServices() {
