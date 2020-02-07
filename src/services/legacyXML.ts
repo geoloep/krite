@@ -14,10 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+import * as wgx from 'wicked-good-xpath';
+
+let IE = false;
+
+if (!document.evaluate) {
+    // This must mean we're running inside IE(11)
+
+    // Polyfill xpath support, by installing on the document prototype all following documents and XMLdocuments
+    // should have the evaluate method available
+    //
+    // WGX seems to only work on a very restricted set of xpath functionality
+    wgx.install({ document: Document.prototype });
+
+    IE = true;
+}
+
 /**
- * This service wraps some common xml parse and search functions
+ * This service wraps some common xml parse and search functions and support Internet Explorer 11
  */
-export class XMLService {
+export class LegacyXMLService {
     parser = new DOMParser();
     document: Document;
 
@@ -45,7 +61,14 @@ export class XMLService {
         }
 
         this.prefixedNameSpaces = document.createNSResolver(document.ownerDocument == null ? document.documentElement : document.ownerDocument.documentElement);
-        this.unprefixedNameSpace = <string>document.documentElement.getAttribute('xmlns');
+        this.unprefixedNameSpace = <string> document.documentElement.getAttribute('xmlns');
+    }
+
+    /**
+     * True if document.evaluate was not available, probably running inside Internet Explorer
+     */
+    get IE() {
+        return IE;
     }
 
     /**

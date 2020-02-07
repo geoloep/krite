@@ -15,14 +15,14 @@ limitations under the License.
 */
 
 import { Bounds, LatLng, Point, TileLayer } from 'leaflet';
-
-import { WFSLayer } from './wfs';
-
-import { Krite } from '../../krite';
-import { XMLService } from '../../services/xml';
 import { ILayer } from '../../types';
 
-// import pool from '../../servicePool';
+import { Krite } from '../../krite';
+import { WFSLayer } from './wfs';
+
+import { LegacyXMLService } from 'src/services/legacyXML';
+import { XMLService } from '../../services/xml';
+
 
 export class WMSLayer implements ILayer {
     _title: string;
@@ -33,7 +33,7 @@ export class WMSLayer implements ILayer {
     _leaflet: L.Layer;
     _legend: string;
 
-    xml: XMLService;
+    xml: XMLService | LegacyXMLService;
 
     bounds = undefined;
 
@@ -100,7 +100,7 @@ export class WMSLayer implements ILayer {
         if (!this._legend) {
             let url: string;
 
-            if (this.xml.IE) {
+            if ((this.xml as LegacyXMLService).IE) {
                 url = this.xml.string(this.document, './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@*[local-name() = \'href\']');
             } else {
                 url = this.xml.string(this.document, './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@xlink:href');
