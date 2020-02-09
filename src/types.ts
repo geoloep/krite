@@ -6,7 +6,7 @@ import { CRS, LatLng, LatLngBounds, Layer, Point, TileLayerOptions } from 'leafl
 /**
  * All maps layers should implement this interface.
  */
-export interface ILayer {
+export interface ILayer<T extends Layer = Layer> {
     /**
      * True if this layer supports geoprocessing operations
      */
@@ -27,13 +27,15 @@ export interface ILayer {
 
     preview: string;
 
-    leaflet: Layer;
+    leaflet: T;
 
     legend: string;
 
     minZoom?: number;
 
     maxZoom?: number;
+
+    zIndex?: number;
 
     /**
      * Called when the layer is added to a MapService
