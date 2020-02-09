@@ -16,11 +16,11 @@ limitations under the License.
 
 import { TileLayer } from 'leaflet';
 
-import { Krite } from '../../krite';
+import LayerBase from '../../bases/layer';
 import { XMLService } from '../../services/xml';
 import { ILayer } from '../../types';
 
-export class WMTSLayer implements ILayer {
+export class WMTSLayer extends LayerBase implements ILayer {
     previewSet = 0;
     previewCol = 0;
     previewRow = 0;
@@ -34,14 +34,10 @@ export class WMTSLayer implements ILayer {
 
     private xml: XMLService;
 
-    private krite: Krite;
-
     constructor(readonly url: string, readonly document: Node) {
-        this.xml = new XMLService(document);
-    }
+        super();
 
-    added(krite: Krite) {
-        this.krite = krite;
+        this.xml = new XMLService(document);
     }
 
     get title(): string {

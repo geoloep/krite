@@ -19,16 +19,21 @@ import { WMTSLayer } from './layer';
 
 import { IDataSource, ILayer } from '../../types';
 
+import SourceBase from '../../bases/source';
 import { XMLService } from '../../services/xml';
 
-export class WMTSSource implements IDataSource {
+export class WMTSSource extends SourceBase implements IDataSource {
     capabilities: any | undefined = undefined;
 
+    private layerNames = new Set<string>();
+    private layerNodes: { [index: string]: Node } = {};
+    private instantiatedLayers: { [index: string]: WMTSLayer } = {};
+
+
     private layersLoaded: boolean = false;
-    private layerNames: string[] = [];
-    private layers: { [index: string]: ILayer } = {};
 
     constructor(readonly baseUrl: string, readonly options: any = {}) {
+        super();
     }
 
     async getLayerNames() {
@@ -36,7 +41,7 @@ export class WMTSSource implements IDataSource {
             await this.getCapabilities();
         }
 
-        return this.layerNames;
+        return Array.from(this.layerNames);
     }
 
     async getLayer(name: string) {
@@ -44,15 +49,23 @@ export class WMTSSource implements IDataSource {
             await this.getCapabilities();
         }
 
-        if (!this.layers[name]) {
-            console.error(`Layer ${name} not available`);
+        if (this.instantiatedLayers[name]) {
+            return this.instantiatedLayers[name];
         }
 
-        return this.layers[name];
+        if (this.layerNodes[name]) {
+            const layer = this.instantiatedLayers[name] = new WMTSLayer(this.baseUrl, this.layerNodes[name]);
+
+            layer.added(this.krite);
+
+            return layer;
+        }
+
+        throw new Error(`Unknown layer ${name} }`);
     }
 
     private async getCapabilities() {
-        const response = await fetch(this.baseUrl + url.format({
+        const response = await this.fetch(this.baseUrl + url.format({
             query: {
                 service: 'WMTS',
                 request: 'GetCapabilities',
@@ -60,7 +73,7 @@ export class WMTSSource implements IDataSource {
         }));
 
         if (!response.ok) {
-            console.error('Malformed response');
+            throw new Error(`Malformed response from capabilties of ${this.baseUrl}`);
         }
 
         const data = await response.text();
@@ -81,9 +94,10 @@ export class WMTSSource implements IDataSource {
             if (layer) {
                 const title = capabilities.string(layer, './ows:Title');
 
-                this.layerNames.push(title);
+                this.layerNames.add(title);
+                this.layerNodes[title] = layer;
 
-                this.layers[title] = new WMTSLayer(this.baseUrl, layer);
+                // this.layers[title] = new WMTSLayer(this.baseUrl, layer);
             }
         }
     }
