@@ -16,6 +16,7 @@ limitations under the License.
 
 import { IDataSource } from '../../types';
 
+import SourceBase from '../../bases/source';
 import { WMTSLayer } from '../wmts/layer';
 import { WMTSSource } from '../wmts/source';
 
@@ -26,98 +27,98 @@ const pdokLufoInfraSource = new WMTSSource('https://geodata.nationaalgeoregister
 /**
  * This source is a convenience for adding basemaps relevant to Dutch mapping projects
  */
-export class NLBasemapsSource implements IDataSource {
+export class NLBasemapsSource extends SourceBase implements IDataSource {
     basemaps: {
         [index: string]: {
             source: WMTSSource,
             layer: string,
         },
     } = {
-        'pdok/brtachtergrondkaart': {
-            source: pdokSource,
-            layer: 'brtachtergrondkaart',
-        },
-        'pdok/brtachtergrondkaartgrijs': {
-            source: pdokSource,
-            layer: 'brtachtergrondkaartgrijs',
-        },
-        'pdok/brtachtergrondkaartpastel': {
-            source: pdokSource,
-            layer: 'brtachtergrondkaartpastel',
-        },
-        'pdok/opentopoachtergrondkaart': {
-            source: pdokSource,
-            layer: 'opentopoachtergrondkaart',
-        },
-        'pdok/top25raster': {
-            source: pdokSource,
-            layer: 'top25raster',
-        },
-        'pdok/top50raster': {
-            source: pdokSource,
-            layer: 'top50raster',
-        },
-        'pdok/top100raster': {
-            source: pdokSource,
-            layer: 'top100raster',
-        },
-        'pdok/top250raster': {
-            source: pdokSource,
-            layer: 'top250raster',
-        },
-        'pdok/top500raster': {
-            source: pdokSource,
-            layer: 'top500raster',
-        },
-        'pdok/top1000raster': {
-            source: pdokSource,
-            layer: 'top1000raster',
-        },
-        'pdok/bgtstandaard': {
-            source: pdokSource,
-            layer: 'bgtstandaard',
-        },
-        'pdok/bgtachtergrond': {
-            source: pdokSource,
-            layer: 'bgtachtergrond',
-        },
-        'pdok/bgtpastel': {
-            source: pdokSource,
-            layer: 'bgtpastel',
-        },
-        // 'openbasiskaart/openbasiskaart': {
-        //     source: openbasiskaartSource,
-        //     layer: 'openbasiskaart.nl: OpenStreetMap ondergrondkaart',
-        // } Tilematrixset heeft ongebruikelijke naam, eerst ondersteuning in WMTSLayer toevoegen
-        'pdok/luchtfoto_actueel': {
-            source: pdokLufoSource,
-            layer: 'Luchtfoto Actueel Ortho 25cm RGB',
-        },
-        'pdok/luchtfoto_2018': {
-            source: pdokLufoSource,
-            layer: 'Luchtfoto 2018 Ortho 25cm RGB',
-        },
-        'pdok/luchtfoto_2017': {
-            source: pdokLufoSource,
-            layer: 'Luchtfoto 2017 Ortho 25cm RGB',
-        },
-        'pdok/luchtfoto_2017_infrarood': {
-            source: pdokLufoInfraSource,
-            layer: 'Luchtfoto 2017 Ortho 25cm Infrarood',
-        },
-        'pdok/luchtfoto_2016': {
-            source: pdokLufoSource,
-            layer: 'Luchtfoto 2016 Ortho 25cm RGB',
-        },
-        'ahn/3 50cm dsm': {
-            source: pdokSource,
-            layer: 'ahn3_05m_dsm',
-        },
-        'ahn/2 50cm ruw': {
-            source: pdokSource,
-            layer: 'ahn2_05m_ruw',
-        },
-    };
+            'pdok/brtachtergrondkaart': {
+                source: pdokSource,
+                layer: 'brtachtergrondkaart',
+            },
+            'pdok/brtachtergrondkaartgrijs': {
+                source: pdokSource,
+                layer: 'brtachtergrondkaartgrijs',
+            },
+            'pdok/brtachtergrondkaartpastel': {
+                source: pdokSource,
+                layer: 'brtachtergrondkaartpastel',
+            },
+            'pdok/opentopoachtergrondkaart': {
+                source: pdokSource,
+                layer: 'opentopoachtergrondkaart',
+            },
+            'pdok/top25raster': {
+                source: pdokSource,
+                layer: 'top25raster',
+            },
+            'pdok/top50raster': {
+                source: pdokSource,
+                layer: 'top50raster',
+            },
+            'pdok/top100raster': {
+                source: pdokSource,
+                layer: 'top100raster',
+            },
+            'pdok/top250raster': {
+                source: pdokSource,
+                layer: 'top250raster',
+            },
+            'pdok/top500raster': {
+                source: pdokSource,
+                layer: 'top500raster',
+            },
+            'pdok/top1000raster': {
+                source: pdokSource,
+                layer: 'top1000raster',
+            },
+            'pdok/bgtstandaard': {
+                source: pdokSource,
+                layer: 'bgtstandaard',
+            },
+            'pdok/bgtachtergrond': {
+                source: pdokSource,
+                layer: 'bgtachtergrond',
+            },
+            'pdok/bgtpastel': {
+                source: pdokSource,
+                layer: 'bgtpastel',
+            },
+            // 'openbasiskaart/openbasiskaart': {
+            //     source: openbasiskaartSource,
+            //     layer: 'openbasiskaart.nl: OpenStreetMap ondergrondkaart',
+            // } Tilematrixset heeft ongebruikelijke naam, eerst ondersteuning in WMTSLayer toevoegen
+            'pdok/luchtfoto_actueel': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto Actueel Ortho 25cm RGB',
+            },
+            'pdok/luchtfoto_2018': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto 2018 Ortho 25cm RGB',
+            },
+            'pdok/luchtfoto_2017': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto 2017 Ortho 25cm RGB',
+            },
+            'pdok/luchtfoto_2017_infrarood': {
+                source: pdokLufoInfraSource,
+                layer: 'Luchtfoto 2017 Ortho 25cm Infrarood',
+            },
+            'pdok/luchtfoto_2016': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto 2016 Ortho 25cm RGB',
+            },
+            'ahn/3 50cm dsm': {
+                source: pdokSource,
+                layer: 'ahn3_05m_dsm',
+            },
+            'ahn/2 50cm ruw': {
+                source: pdokSource,
+                layer: 'ahn2_05m_ruw',
+            },
+        };
 
     async getLayerNames() {
         return Object.keys(this.basemaps);
@@ -130,12 +131,18 @@ export class NLBasemapsSource implements IDataSource {
             throw new Error(`Layer ${name} not available`);
         }
 
+        if (basemap.source.added) {
+            basemap.source.added(this.krite);
+        }
+
         const layer = (await basemap.source.getLayer(basemap.layer)) as WMTSLayer;
 
         // Change preview location
         layer.previewSet = 6;
         layer.previewCol = 30;
         layer.previewRow = 32;
+
+        layer.added(this.krite);
 
         return layer;
     }
