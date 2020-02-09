@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { CircleMarker, FitBoundsOptions, GeoJSON, GridLayer, Icon, LatLng, LatLngBounds, LatLngExpression, Map, MapOptions, Marker, Point, StyleFunction } from 'leaflet';
+import { CircleMarker, FitBoundsOptions, GeoJSON, GridLayer, Icon, LatLng, LatLngBounds, LatLngExpression, Map, MapOptions, Marker, Point, StyleFunction, Layer } from 'leaflet';
 
 import Evented from '../util/evented';
 
@@ -280,15 +280,22 @@ export class MapService extends Evented {
         return true;
     }
 
+    hasGridLayer(layer: ILayer<Layer> | ILayer<GridLayer>): layer is ILayer<GridLayer> {
+        return Boolean((layer as ILayer<GridLayer>).leaflet.setZIndex);
+    }
+
     setZIndexes() {
-        if (this.layers.length > 0) {
-            for (let i = 0; i < this.layers.length; i++) {
-                if ((this.layers[i].leaflet as GridLayer).setZIndex) {
-                    (this.layers[i].leaflet as GridLayer).setZIndex(this.layers.length - i);
+        let layer: ILayer;
+
+        for (const i of Array(this.layers.length).keys()) {
+            layer = this.layers[i];
+            if (this.hasGridLayer(layer)) {
+                if (typeof layer.zIndex === 'number') {
+                    layer.leaflet.setZIndex(layer.zIndex);
+                } else {
+                    layer.leaflet.setZIndex(this.layers.length - i);
                 }
             }
-        } else {
-            throw new Error('No layers to set a Z-index for');
         }
     }
 
