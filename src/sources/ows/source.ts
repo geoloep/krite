@@ -12,10 +12,11 @@ export interface IOWSSourceoptions {
 }
 
 export interface IOWSLayeroptions {
-    transparant?: boolean;
-    minZoom?: number;
-    maxZoom?: number;
     layers?: string;
+    maxZoom?: number;
+    minZoom?: number;
+    transparant?: boolean;
+    zIndex?: number;
 }
 
 const defaultLayerOptions = {

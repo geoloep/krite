@@ -8,10 +8,11 @@ import { IOWSLayeroptions } from './source';
 import { WFSLayer } from './wfs';
 
 interface WMSOptions {
-    transparant: boolean;
     layers: string;
-    minZoom?: number;
     maxZoom?: number;
+    minZoom?: number;
+    transparant: boolean;
+    zIndex?: number;
 }
 
 export class WMSLayer extends LayerBase implements ILayer {
@@ -86,6 +87,10 @@ export class WMSLayer extends LayerBase implements ILayer {
 
     get maxZoom() {
         return this.options.maxZoom;
+    }
+
+    get zIndex() {
+        return this.options.zIndex;
     }
 
     async filter(filters: any) {
