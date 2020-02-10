@@ -17,7 +17,7 @@ limitations under the License.
 import { IDataSource } from '../../types';
 
 import SourceBase from '../../bases/source';
-import { WMTSLayer } from '../wmts/layer';
+import { WMTSLayer, WMTSOptions } from '../wmts/layer';
 import { WMTSSource } from '../wmts/source';
 
 const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/tiles/service/wmts');
@@ -94,6 +94,10 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto Actueel Ortho 25cm RGB',
             },
+            'pdok/luchtfoto_2019': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto 2019 Ortho 25cm RGB',
+            },
             'pdok/luchtfoto_2018': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto 2018 Ortho 25cm RGB',
@@ -124,7 +128,7 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
         return Object.keys(this.basemaps);
     }
 
-    async getLayer(name: string) {
+    async getLayer(name: string, options?: WMTSOptions) {
         const basemap = this.basemaps[name];
 
         if (!basemap) {
@@ -135,14 +139,12 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
             basemap.source.added(this.krite);
         }
 
-        const layer = (await basemap.source.getLayer(basemap.layer)) as WMTSLayer;
+        const layer = await basemap.source.getLayer(basemap.layer, options);
 
         // Change preview location
         layer.previewSet = 6;
         layer.previewCol = 30;
         layer.previewRow = 32;
-
-        layer.added(this.krite);
 
         return layer;
     }
