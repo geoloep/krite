@@ -20,48 +20,55 @@ import LayerBase from '../../bases/layer';
 import { XMLService } from '../../services/xml';
 import { ILayer } from '../../types';
 
+export interface WMTSOptions {
+    maxZoom?: number;
+    minZoom?: number;
+    zIndex?: number;
+}
+
 export class WMTSLayer extends LayerBase implements ILayer {
     previewSet = 0;
     previewCol = 0;
     previewRow = 0;
 
-    private _title: string;
-    private _name: string;
-    // _abstract: string;
     private _preview: string;
-    private _legend: string;
     private _leaflet: L.TileLayer;
 
-    private xml: XMLService;
+    private root: XMLService;
+    private cache: { [index: string]: any } = {};
 
-    constructor(readonly url: string, readonly document: Node) {
+    constructor(readonly url: string, readonly node: Node, private options: WMTSOptions = {}) {
         super();
 
-        this.xml = new XMLService(document);
+        this.root = new XMLService(node);
     }
 
-    get title(): string {
-        if (!this._title) {
-            this._title = this.xml.string(this.document, './ows:Title');
-        }
-
-        return this._title;
+    get title() {
+        return this.cachedProperty('title', './ows:Title');
     }
 
-    get name(): string {
-        if (!this._name) {
-            this._name = this.xml.string(this.document, './ows:Identifier');
-        }
-
-        return this._name;
+    get name() {
+        return this.cachedProperty('name', './ows:Identifier');
     }
 
     get abstract() {
         return 'WMTS Layer';
     }
 
-    get bounds(): undefined {
+    get bounds() {
         return undefined;
+    }
+
+    get minZoom() {
+        return this.options.minZoom;
+    }
+
+    get maxZoom() {
+        return this.options.maxZoom;
+    }
+
+    get zIndex() {
+        return this.options.zIndex;
     }
 
     get preview() {
@@ -74,9 +81,9 @@ export class WMTSLayer extends LayerBase implements ILayer {
 
                 const set = this.getTileMatrixName(tileMatrixSet);
 
-                const tileMatrix = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[${this.previewSet + 1}]`).snapshotItem(0) as Node;
+                const tileMatrix = this.root.node(tileMatrixSet, `./wmts:TileMatrix[${this.previewSet + 1}]`).snapshotItem(0) as Node;
 
-                const matrix = this.xml.string(tileMatrix, './ows:Identifier');
+                const matrix = this.root.string(tileMatrix, './ows:Identifier');
 
                 this._preview = `<img src="${this.url}?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.name}&TILEMATRIXSET=${set}&TILEMATRIX=${matrix}&TILEROW=${this.previewRow}&TILECOL=${this.previewCol}&FORMAT=image/png&style=${this.getStyle()}">`;
             }
@@ -105,13 +112,21 @@ export class WMTSLayer extends LayerBase implements ILayer {
         return '<p>-</p>';
     }
 
+    private cachedProperty(key: string, path: string) {
+        if (!this.cache[key]) {
+            this.cache[key] = this.root.string(this.node, path);
+        }
+
+        return this.cache[key];
+    }
+
     /**
      * Get the tile matrix set that works with the current map crs
      */
     private getTileMatrixSet() {
         const identifier = this.krite.crs.identifiers.leaflet;
 
-        const tileMatrix = this.xml.node(this.document.ownerDocument as Document, `./wmts:Capabilities/wmts:Contents/wmts:TileMatrixSet[./ows:Identifier = '${identifier}']`);
+        const tileMatrix = this.root.node(this.node.ownerDocument as Document, `./wmts:Capabilities/wmts:Contents/wmts:TileMatrixSet[./ows:Identifier = '${identifier}']`);
 
         if (tileMatrix.snapshotLength > 0) {
             return tileMatrix.snapshotItem(0) as Node;
@@ -125,18 +140,18 @@ export class WMTSLayer extends LayerBase implements ILayer {
      * @param tileMatrixSet
      */
     private getTileMatrixName(tileMatrixSet: Node) {
-        return this.xml.string(tileMatrixSet, './ows:Identifier');
+        return this.root.string(tileMatrixSet, './ows:Identifier');
     }
 
     /**
      * Find out if tilematrix identifier should be prefixed
      */
     private getTileMatrixPrefix(tileMatrixSet: Node) {
-        const tileMatrixItem = this.xml.node(tileMatrixSet, `./wmts:TileMatrix[1]`).snapshotItem(0);
+        const tileMatrixItem = this.root.node(tileMatrixSet, `./wmts:TileMatrix[1]`).snapshotItem(0);
         let prefix: RegExpMatchArray | null = null;
 
         if (tileMatrixItem) {
-            const identifier = this.xml.string(tileMatrixItem, './ows:Identifier');
+            const identifier = this.root.string(tileMatrixItem, './ows:Identifier');
 
             // Match everything preceding the last digit(s)
             prefix = identifier.match(/(.*)\d+$/);
@@ -153,13 +168,13 @@ export class WMTSLayer extends LayerBase implements ILayer {
      * Find the name of default style
      */
     private getStyle() {
-        const style = this.xml.node(this.document, './wmts:Style[contains(@isDefault, \'true\')]');
+        const style = this.root.node(this.node, './wmts:Style[contains(@isDefault, \'true\')]');
 
         if (style.snapshotLength > 0) {
             const styleNode = style.snapshotItem(0);
 
             if (styleNode) {
-                return this.xml.string(styleNode, './Identifier');
+                return this.root.string(styleNode, './Identifier');
             } else {
                 return '';
             }

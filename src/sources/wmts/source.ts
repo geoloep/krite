@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 import url from '../../util/url';
-import { WMTSLayer } from './layer';
+import { WMTSLayer, WMTSOptions } from './layer';
 
 import { IDataSource, ILayer } from '../../types';
 
@@ -28,7 +28,6 @@ export class WMTSSource extends SourceBase implements IDataSource {
     private layerNames = new Set<string>();
     private layerNodes: { [index: string]: Node } = {};
     private instantiatedLayers: { [index: string]: WMTSLayer } = {};
-
 
     private layersLoaded: boolean = false;
 
@@ -44,19 +43,22 @@ export class WMTSSource extends SourceBase implements IDataSource {
         return Array.from(this.layerNames);
     }
 
-    async getLayer(name: string) {
+    async getLayer(name: string, options?: WMTSOptions) {
         if (!this.layersLoaded) {
             await this.getCapabilities();
         }
 
-        if (this.instantiatedLayers[name]) {
+        if (!options && this.instantiatedLayers[name]) {
             return this.instantiatedLayers[name];
         }
 
         if (this.layerNodes[name]) {
-            const layer = this.instantiatedLayers[name] = new WMTSLayer(this.baseUrl, this.layerNodes[name]);
-
+            const layer = new WMTSLayer(this.baseUrl, this.layerNodes[name]);
             layer.added(this.krite);
+
+            if (!options) {
+                this.instantiatedLayers[name] = layer;
+            }
 
             return layer;
         }
