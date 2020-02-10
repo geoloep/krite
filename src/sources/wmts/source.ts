@@ -53,7 +53,7 @@ export class WMTSSource extends SourceBase implements IDataSource {
         }
 
         if (this.layerNodes[name]) {
-            const layer = new WMTSLayer(this.baseUrl, this.layerNodes[name]);
+            const layer = new WMTSLayer(this.baseUrl, this.layerNodes[name], options);
             layer.added(this.krite);
 
             if (!options) {
