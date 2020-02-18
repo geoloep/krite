@@ -78,7 +78,11 @@ export class OWSSource extends SourceBase implements IDataSource {
                 this.options.wms,
                 this.wmsLayers[name],
                 options,
-                this.wfsLayers[name] ? new WFSLayer(this.baseUrl, this.wfsLayers[name]) : undefined,
+                this.wfsLayers[name] ? (() => {
+                    const wfs = new WFSLayer(this.baseUrl, this.wfsLayers[name]);
+                    wfs.added(this.krite);
+                    return wfs;
+                })() : undefined,
             );
         } else if (this.wfsLayers[name]) {
             layer = new WFSLayer(
@@ -253,7 +257,7 @@ export class OWSSource extends SourceBase implements IDataSource {
     }
 
     private parseWFSLayer(capabilities: XMLService, node: Node) {
-        const name = capabilities.string(node, './wms:Name');
+        const name = capabilities.string(node, './wfs:Name');
 
         this.wfsLayers[name] = node;
 
