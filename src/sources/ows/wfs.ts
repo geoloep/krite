@@ -38,15 +38,15 @@ export class WFSLayer extends LayerBase implements ILayer {
     }
 
     get title() {
-        return this.cachedProperty('title', './wms:Title');
+        return this.cachedProperty('title', './wfs:Title');
     }
 
     get name() {
-        return this.cachedProperty('name', './wms:Name');
+        return this.cachedProperty('name', './wfs:Name');
     }
 
     get abstract() {
-        return this.cachedProperty('abstract', './wms:Abstract');
+        return this.cachedProperty('abstract', './wfs:Abstract');
     }
 
     get preview() {
@@ -95,13 +95,22 @@ export class WFSLayer extends LayerBase implements ILayer {
         }
 
         if (options.filters) {
-            query.filter = '<Filter><AND>' + Object.entries(options.filters).map(([key, value]) => {
+            let wrapStart: string;
+            let wrapEnd: string;
+
+            if (Object.keys(options.filters).length > 1) {
+                [wrapStart, wrapEnd] = ['<AND>', '</AND>'];
+            } else {
+                [wrapStart, wrapEnd] = ['', ''];
+            }
+
+            query.filter = `<Filter>${wrapStart}` + Object.entries(options.filters).map(([key, value]) => {
                 if (value === null) {
-                    throw new Error('Filtering nillable fields not yet supported');
+                    return `<PropertyIsNull><PropertyName>${key}</PropertyName></PropertyIsNull>`;
                 } else {
                     return `<PropertyIsEqualTo><PropertyName>${key}</PropertyName><Literal>${value}</Literal></PropertyIsEqualTo>`;
                 }
-            }).join('') + '</AND></Filter>';
+            }).join('') + `${wrapEnd}</Filter>`;
         }
 
         if (options.properties) {
