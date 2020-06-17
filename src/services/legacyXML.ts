@@ -60,6 +60,8 @@ export class LegacyXMLService {
             throw new Error('Could not find a document to parse');
         }
 
+        // @todo: create better check
+        // @ts-ignore
         this.prefixedNameSpaces = document.createNSResolver(document.ownerDocument == null ? document.documentElement : document.ownerDocument.documentElement);
         this.unprefixedNameSpace = <string> document.documentElement.getAttribute('xmlns');
     }
