@@ -404,7 +404,7 @@ export class MapService extends Evented {
 
         this.basemap = layer;
 
-        if ((this.basemap.leaflet as GridLayer).setZIndex) {
+        if ((this.basemap.leaflet as GridLayer | any).setZIndex) {
             (this.basemap.leaflet as GridLayer).setZIndex(-1);
         }
 
