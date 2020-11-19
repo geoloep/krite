@@ -99,7 +99,7 @@ export class WFSLayer extends LayerBase implements ILayer {
             let wrapEnd: string;
 
             if (Object.keys(options.filters).length > 1) {
-                [wrapStart, wrapEnd] = ['<AND>', '</AND>'];
+                [wrapStart, wrapEnd] = ['<And>', '</And>'];
             } else {
                 [wrapStart, wrapEnd] = ['', ''];
             }
