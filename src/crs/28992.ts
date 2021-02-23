@@ -19,7 +19,7 @@ import { RDCRS } from 'leaflet-rd';
 import { ICRS } from '../types';
 
 import { LatLng, Point } from 'leaflet';
-import * as proj4 from 'proj4';
+import proj4 from 'proj4';
 import * as reproject from 'reproject';
 
 let rd: RDCRS;

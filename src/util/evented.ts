@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import EEE, { EventEmitter, ListenerFn } from 'eventemitter3';
+import EventEmitter, { ListenerFn } from 'eventemitter3';
 
 /**
  * Extend from this class to equip your class with events
