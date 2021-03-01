@@ -94,6 +94,10 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto Actueel Ortho 25cm RGB',
             },
+            'pdok/luchtfoto_2020': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto 2020 Ortho 25cm RGB',
+            },
             'pdok/luchtfoto_2019': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto 2019 Ortho 25cm RGB',
