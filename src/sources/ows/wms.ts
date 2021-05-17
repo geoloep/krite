@@ -1,38 +1,22 @@
-import Krite from '../../krite';
-
-import { Point, TileLayer } from 'leaflet';
+import {Point, TileLayer} from 'leaflet';
 import LayerBase from '../../bases/layer';
-import { XMLService } from '../../services/xml';
-import { ILayer } from '../../types';
-import { IOWSLayeroptions } from './source';
-import { WFSLayer } from './wfs';
-
-interface WMSOptions {
-    layers: string;
-    maxZoom?: number;
-    minZoom?: number;
-    transparant: boolean;
-    zIndex?: number;
-}
+import {XMLService} from '../../services/xml';
+import {ILayer} from '../../types';
+import {IOWSLayeroptions} from './source';
+import {WFSLayer} from './wfs';
 
 export class WMSLayer extends LayerBase implements ILayer {
     readonly isWMS = true;
 
-    options!: WMSOptions;
 
     private root!: XMLService;
 
     private cache: { [index: string]: any } = {};
 
-    constructor(private url: string, private node: Node, options?: IOWSLayeroptions, private wfs?: WFSLayer) {
+    constructor(private url: string, private node: Node, private options: IOWSLayeroptions = {}, private wfs?: WFSLayer) {
         super();
 
         this.root = new XMLService(node);
-
-        this.options = {
-            layers: this.name,
-            transparant: true,
-        };
 
         if (this.options) {
             Object.assign(this.options, options);
@@ -69,8 +53,8 @@ export class WMSLayer extends LayerBase implements ILayer {
         if (!this.cache.leaflet) {
             this.cache.leaflet = new TileLayer.WMS(this.url, {
                 format: 'image/png',
-                layers: this.options.layers,
-                transparent: this.options.transparant,
+                ...this.options.wms,
+                layers: this.options.layers || this.name,
             });
         }
 
@@ -90,7 +74,7 @@ export class WMSLayer extends LayerBase implements ILayer {
     }
 
     get zIndex() {
-        return this.options.zIndex;
+        return this.options.wms?.zIndex;
     }
 
     async filter(filters: any) {

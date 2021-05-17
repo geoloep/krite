@@ -5,6 +5,7 @@ import { XMLService } from '../../services/xml';
 import { IDataSource } from '../../types';
 import { WFSLayer } from './wfs';
 import { WMSLayer } from './wms';
+import {WMSOptions} from "leaflet";
 
 export interface IOWSSourceoptions {
     wfs?: boolean | string;
@@ -15,8 +16,7 @@ export interface IOWSLayeroptions {
     layers?: string;
     maxZoom?: number;
     minZoom?: number;
-    transparant?: boolean;
-    zIndex?: number;
+    wms?: WMSOptions;
 }
 
 const defaultLayerOptions = {
