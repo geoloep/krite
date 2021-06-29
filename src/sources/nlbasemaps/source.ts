@@ -21,8 +21,8 @@ import { WMTSLayer, WMTSOptions } from '../wmts/layer';
 import { WMTSSource } from '../wmts/source';
 
 const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/tiles/service/wmts');
-const pdokLufoSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wmts');
-const pdokLufoInfraSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/luchtfoto/infrarood/wmts');
+const pdokLufoSource = new WMTSSource(' https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0');
+const pdokLufoInfraSource = new WMTSSource('https://service.pdok.nl/hwh/luchtfotocir/wmts/v1_0');
 
 /**
  * This source is a convenience for adding basemaps relevant to Dutch mapping projects
