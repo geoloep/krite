@@ -23,6 +23,7 @@ import { WMTSSource } from '../wmts/source';
 const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/tiles/service/wmts');
 const pdokLufoSource = new WMTSSource(' https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0');
 const pdokLufoInfraSource = new WMTSSource('https://service.pdok.nl/hwh/luchtfotocir/wmts/v1_0');
+const pdokBRTASource = new WMTSSource('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0');
 
 /**
  * This source is a convenience for adding basemaps relevant to Dutch mapping projects
@@ -35,16 +36,20 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
         },
     } = {
             'pdok/brtachtergrondkaart': {
-                source: pdokSource,
-                layer: 'brtachtergrondkaart',
+                source: pdokBRTASource,
+                layer: 'standaard',
             },
             'pdok/brtachtergrondkaartgrijs': {
-                source: pdokSource,
-                layer: 'brtachtergrondkaartgrijs',
+                source: pdokBRTASource,
+                layer: 'grijs',
             },
             'pdok/brtachtergrondkaartpastel': {
-                source: pdokSource,
-                layer: 'brtachtergrondkaartpastel',
+                source: pdokBRTASource,
+                layer: 'pastel',
+            },
+            'pdok/brtachtergrondkaartwater': {
+                source: pdokBRTASource,
+                layer: 'water',
             },
             'pdok/opentopoachtergrondkaart': {
                 source: pdokSource,
