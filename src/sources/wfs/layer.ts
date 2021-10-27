@@ -78,7 +78,7 @@ export class WFSLayer extends Evented implements ILayer {
             filter,
         }));
 
-        await new Promise((resolve, reject) => {
+        await new Promise<void>((resolve, reject) => {
             resultLayer.on('load', () => {
                 resolve();
             });
@@ -100,7 +100,7 @@ export class WFSLayer extends Evented implements ILayer {
             filter,
         }));
 
-        await new Promise((resolve, reject) => {
+        await new Promise<void>((resolve, reject) => {
             resultLayer.on('load', () => {
                 resolve();
             });
@@ -126,7 +126,7 @@ export class WFSLayer extends Evented implements ILayer {
             filter,
         }));
 
-        await new Promise((resolve, reject) => {
+        await new Promise<void>((resolve, reject) => {
             resultLayer.on('load', () => {
                 resolve();
             });
