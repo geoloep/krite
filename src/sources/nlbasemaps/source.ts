@@ -33,6 +33,7 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
         [index: string]: {
             source: WMTSSource,
             layer: string,
+            options?: WMTSOptions,
         },
     } = {
             'pdok/brtachtergrondkaart': {
@@ -54,6 +55,9 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
             'pdok/opentopoachtergrondkaart': {
                 source: pdokSource,
                 layer: 'opentopoachtergrondkaart',
+                options: {
+                    maxNativeZoom: 14,
+                }
             },
             'pdok/top25raster': {
                 source: pdokSource,
@@ -98,6 +102,9 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
             'pdok/luchtfoto_actueel': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto Actueel Ortho 25cm RGB',
+                options: {
+                    maxNativeZoom: 14,
+                }
             },
             'pdok/luchtfoto_2021_hr': {
                 source: pdokLufoSource,
@@ -106,26 +113,37 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
             'pdok/luchtfoto_2020': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto 2020 Ortho 25cm RGB',
+                options: {
+                    maxNativeZoom: 14,
+                }
             },
             'pdok/luchtfoto_2019': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto 2019 Ortho 25cm RGB',
+                options: {
+                    maxNativeZoom: 14,
+                }
             },
             'pdok/luchtfoto_2018': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto 2018 Ortho 25cm RGB',
+                options: {
+                    maxNativeZoom: 14,
+                }
             },
             'pdok/luchtfoto_2017': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto 2017 Ortho 25cm RGB',
-            },
-            'pdok/luchtfoto_2017_infrarood': {
-                source: pdokLufoInfraSource,
-                layer: 'Luchtfoto 2017 Ortho 25cm Infrarood',
+                options: {
+                    maxNativeZoom: 14,
+                }
             },
             'pdok/luchtfoto_2016': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto 2016 Ortho 25cm RGB',
+                options: {
+                    maxNativeZoom: 14,
+                }
             },
             'ahn/3 50cm dsm': {
                 source: pdokSource,
@@ -152,7 +170,10 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
             basemap.source.added(this.krite);
         }
 
-        const layer = await basemap.source.getLayer(basemap.layer, options);
+        const layer = await basemap.source.getLayer(basemap.layer, {
+            ...(basemap.options || {}),
+            ...options,
+        });
 
         // Change preview location
         layer.previewSet = 6;
