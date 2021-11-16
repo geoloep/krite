@@ -21,6 +21,7 @@ import { XMLService } from '../../services/xml';
 import { ILayer } from '../../types';
 
 export interface WMTSOptions {
+    maxNativeZoom?: number;
     maxZoom?: number;
     minZoom?: number;
     zIndex?: number;
@@ -97,12 +98,7 @@ export class WMTSLayer extends LayerBase implements ILayer {
             // min- / maxZoom could be determined from the capabilities
             const tileMatrixSet = this.getTileMatrixSet();
 
-            this._leaflet = new TileLayer(this.url + `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.name}&TILEMATRIXSET=${this.getTileMatrixName(tileMatrixSet)}&TILEMATRIX=${this.getTileMatrixPrefix(tileMatrixSet)}{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png&style=${this.getStyle()}`, {
-                maxZoom: 16,
-                minZoom: 3,
-                maxNativeZoom: 14,
-            });
-
+            this._leaflet = new TileLayer(this.url + `?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=${this.name}&TILEMATRIXSET=${this.getTileMatrixName(tileMatrixSet)}&TILEMATRIX=${this.getTileMatrixPrefix(tileMatrixSet)}{z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png&style=${this.getStyle()}`, this.options);
         }
 
         return this._leaflet;
