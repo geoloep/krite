@@ -102,9 +102,9 @@ source.getLayer('Countries of the World').then((layer) => {
 Clone this repository and run `npm install`. Run `tsc -d` to compile the typescript source files. The testst are currently not up to date.
 
 ### Examples (in dutch)
-[Geoloep Geoviewer](http://kaart.geoloep.nl/)
-
 [Gratis Kadastrale Kaart](https://perceelloep.nl/)
+
+[Gratis Vastgoedkaart](https://vastgoedloep.nl/)
 
 ### License
 Krite is licensed under the Apache 2.0 license
