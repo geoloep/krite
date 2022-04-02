@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Geoloep
+Copyright 2022 Geoloep
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,74 +14,21 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { GeoJSON } from 'leaflet';
+import {GeoJSON, Point} from 'leaflet';
 import url from '../../util/url';
 import * as wellknown from 'wellknown';
-
-import { Krite } from '../../krite';
-import { XMLService } from '../../services/xml';
-import { ILayer } from '../../types';
-import Evented from '../../util/evented';
+import {WFSLayer} from "../ows/wfs";
 
 /**
  * This layer implements a Web Feature Service interface
  *
  * Spatial operations depend on the availability of the cql_filter paramater!
  */
-export class WFSLayer extends Evented implements ILayer {
-    preview = '-';
-    legend = '<p>-</p>';
-    bounds: undefined;
+export class GeoserverWFSLayer extends WFSLayer{
     hasOnClick = true;
-    hasOperations = true;
 
-    private krite: Krite;
-
-    private _title: string;
-    private _name: string;
-    private _abstract: string;
     private _leaflet: L.GeoJSON;
     private data: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>;
-    private geomField: string;
-    private isPoint: boolean;
-    private withinDistance = 5;
-
-    private xml: XMLService;
-    private types: XMLService;
-
-    constructor(readonly url: string, readonly document: Node) {
-        super();
-
-        this.xml = new XMLService(document);
-    }
-
-    added(krite: Krite) {
-        this.krite = krite;
-    }
-
-    get title(): string {
-        if (!this._title) {
-            this._title = this.xml.string(this.document, './wms:Title');
-        }
-
-        return this._title;
-    }
-
-    get name(): string {
-        if (!this._name) {
-            this._name = this.xml.string(this.document, './wms:Name');
-        }
-
-        return this._name;
-    }
-
-    get abstract() {
-        if (!this._abstract) {
-            this._abstract = this.xml.string(this.document, './wms:Abstract');
-        }
-
-        return this._abstract;
-    }
 
     get leaflet() {
         if (!this._leaflet) {
@@ -104,7 +51,7 @@ export class WFSLayer extends Evented implements ILayer {
 
         const fieldname = await this.getGeomField();
 
-        const response = await fetch(this.url + url.format({
+        const response = await fetch(this.baseUrl + url.format({
             query: {
                 cql_filter: `INTERSECTS(${fieldname}, ${wkt})`,
                 outputformat: 'application/json',
@@ -122,7 +69,7 @@ export class WFSLayer extends Evented implements ILayer {
         return await response.json();
     }
 
-    async intersectsPoint(point: L.Point) {
+    async intersectsPoint(point: Point) {
         const fieldname = await this.getGeomField();
         let cql_filter: string;
 
@@ -133,7 +80,7 @@ export class WFSLayer extends Evented implements ILayer {
             cql_filter = `INTERSECTS(${fieldname}, POINT(${point.x} ${point.y}))`;
         }
 
-        const response = await fetch(this.url + url.format({
+        const response = await fetch(this.baseUrl + url.format({
             query: {
                 cql_filter,
                 outputformat: 'application/json',
@@ -189,7 +136,7 @@ export class WFSLayer extends Evented implements ILayer {
             }
         }
 
-        const response = await fetch(this.url + url.format({
+        const response = await fetch(this.baseUrl + url.format({
             query,
         }));
 
@@ -201,7 +148,7 @@ export class WFSLayer extends Evented implements ILayer {
     }
 
     private async loadData() {
-        const response = await fetch(this.url + url.format({
+        const response = await fetch(this.baseUrl + url.format({
             query: {
                 service: 'WFS',
                 version: '2.0.0',
@@ -218,54 +165,5 @@ export class WFSLayer extends Evented implements ILayer {
         const json = await response.json();
 
         this._leaflet.addData(this.krite.crs.geoTo(json));
-    }
-
-    /**
-     * This function determines the fieldname of the geometry of the layer, it is needed for making spatial querys
-     */
-    private async getGeomField() {
-        if (!this.geomField) {
-            if (!this.types) {
-                await this.describeFeatureType();
-            }
-
-            // Will always pick the first gml-node
-            const gmlnode = this.types.node(this.types.document, '//xsd:element[starts-with(@type, \'gml\')][1]');
-
-            if (gmlnode.snapshotLength > 0) {
-                this.geomField = this.types.string(gmlnode.snapshotItem(0) as Node, './@name');
-
-                this.isPoint = (this.types.string(gmlnode.snapshotItem(0) as Node, './@type').indexOf('Point') !== -1);
-            } else {
-                console.warn(`Trying default fieldname for the geometry field of ${this.title}`);
-                this.geomField = 'geom';
-            }
-        }
-
-        return this.geomField;
-    }
-
-    /**
-     * This function performs a WFS Describefeature request for the relevant layer and saves the resulting document
-     */
-    private async describeFeatureType() {
-        if (!this.types) {
-            const response = await fetch(this.url +
-                url.format({
-                    query: {
-                        request: 'DescribeFeatureType',
-                        service: 'WFS',
-                        typename: this.name,
-                    },
-                }));
-
-            if (!response.ok) {
-                throw new Error(`Response from ${response.url} not ok`);
-            }
-
-            this.types = new XMLService(await response.text());
-        }
-
-        return this.types;
     }
 }

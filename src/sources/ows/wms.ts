@@ -24,12 +24,11 @@ import {XMLService} from '../../services/xml';
 export class WMSLayer extends LayerBase implements ILayer {
     readonly isWMS = true;
 
-
     private root!: XMLService;
 
     private cache: { [index: string]: any } = {};
 
-    constructor(private url: string, private node: Node, private options: IOWSLayeroptions = {}, private wfs?: WFSLayer) {
+    constructor(protected url: string, protected node: Node, protected options: IOWSLayeroptions = {}, protected wfs?: WFSLayer) {
         super();
 
         this.root = new XMLService(node);
@@ -101,6 +100,13 @@ export class WMSLayer extends LayerBase implements ILayer {
         return await this.wfs.filter(filters);
     }
 
+    async intersects(feature: GeoJSON.Feature | GeoJSON.GeometryObject) {
+        if (!this.wfs) {
+            throw new Error('Operations not available on this layer');
+        }
+
+        return this.wfs.intersects(feature);
+    }
     async intersectsPoint(point: Point) {
         if (!this.wfs) {
             throw new Error('Operations not available on this layer');

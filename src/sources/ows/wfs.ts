@@ -46,9 +46,9 @@ export class WFSLayer extends LayerBase implements ILayer {
 
     private layer!: GeoJSON;
     private geomField!: string;
-    private isPoint!: boolean;
+    protected isPoint!: boolean;
 
-    constructor(private baseUrl: string, private node: Node, options?: IOWSLayeroptions) {
+    constructor(protected baseUrl: string, protected node: Node, options?: IOWSLayeroptions) {
         super();
 
         this.root = new XMLService(node);
@@ -218,7 +218,7 @@ export class WFSLayer extends LayerBase implements ILayer {
     /**
      * This function determines the fieldname of the geometry of the layer, it is needed for making spatial querys
      */
-    private async getGeomField() {
+    protected async getGeomField() {
         if (!this.geomField) {
             if (!this.types) {
                 await this.describeFeatureType();
@@ -243,7 +243,7 @@ export class WFSLayer extends LayerBase implements ILayer {
     /**
      * This function performs a WFS Describefeature request for the relevant layer and saves the resulting document
      */
-    private async describeFeatureType() {
+    protected async describeFeatureType() {
         if (!this.types) {
             const response = await this.fetch(this.baseUrl +
                 url.format({

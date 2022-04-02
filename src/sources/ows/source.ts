@@ -33,20 +33,20 @@ export interface IOWSLayeroptions {
     maxZoom?: number;
     minZoom?: number;
     wms?: WMSOptions;
+
+    [index: string]: any;
 }
 
 const defaultLayerOptions = {
     transparant: true,
 };
 
-const defaultOptions: IOWSSourceoptions = {
-
-};
+const defaultOptions: IOWSSourceoptions = {};
 
 const servicePattern = '{service}';
 
 export class OWSSource extends SourceBase implements IDataSource {
-    private options!: {
+    protected options!: {
         wms: string,
         wfs: string,
     };
@@ -90,27 +90,12 @@ export class OWSSource extends SourceBase implements IDataSource {
         let layer: WMSLayer | WFSLayer | null = null;
 
         if (this.wmsLayers[name]) {
-            layer = new WMSLayer(
-                this.options.wms,
-                this.wmsLayers[name],
-                options,
-                this.wfsLayers[name] ? (() => {
-                    const wfs = new WFSLayer(this.baseUrl, this.wfsLayers[name]);
-                    wfs.added(this.krite);
-                    return wfs;
-                })() : undefined,
-            );
+            layer = this.createWMSLayer(this.wmsLayers[name], this.wfsLayers[name], options);
         } else if (this.wfsLayers[name]) {
-            layer = new WFSLayer(
-                this.options.wfs,
-                this.wfsLayers[name],
-                options,
-            );
+            layer = this.createWFSLayer(this.wfsLayers[name]);
         }
 
         if (layer) {
-            layer.added(this.krite);
-
             if (!options) {
                 this.instantiatedLayers[name] = layer;
             }
@@ -136,6 +121,31 @@ export class OWSSource extends SourceBase implements IDataSource {
             layers: names.join(','),
             ...options,
         });
+    }
+
+    protected createWMSLayer(wmsNode: Node, wfsNode?: Node, options?: IOWSLayeroptions) {
+        let wfsLayer: WFSLayer | undefined = undefined;
+
+        if (wfsNode) {
+            wfsLayer = this.createWFSLayer(wfsNode)
+        }
+
+        const layer = new WMSLayer(
+            this.options.wms,
+            wmsNode,
+            options,
+            wfsLayer,
+        );
+
+        layer.added(this.krite);
+
+        return layer;
+    }
+
+    protected createWFSLayer(wfsNode: Node) {
+        const layer = new WFSLayer(this.baseUrl, wfsNode);
+        layer.added(this.krite);
+        return layer;
     }
 
     /**
