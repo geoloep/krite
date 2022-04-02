@@ -149,7 +149,7 @@ export class WFSLayer extends LayerBase implements ILayer {
         return await response.json();
     }
 
-    async intersects(feature: GeoJSON.Feature | GeoJSON.GeometryObject) {
+    async intersects(feature: GeoJSON.Feature | GeoJSON.GeometryObject,  parameters: Record<string, string | number> = {}) {
         if (feature.type === 'Feature') {
             feature = feature.geometry;
         }
@@ -165,6 +165,7 @@ export class WFSLayer extends LayerBase implements ILayer {
                 service: 'WFS',
                 typenames: this.name,
                 version: '2.0.0',
+                ...parameters
             },
         }));
 
@@ -175,7 +176,7 @@ export class WFSLayer extends LayerBase implements ILayer {
         return await response.json();
     }
 
-    async intersectsPoint(point: Point) {
+    async intersectsPoint(point: Point, parameters: Record<string, string | number> = {}) {
         const fieldname = await this.getGeomField();
 
         let filter: string;
@@ -197,6 +198,7 @@ export class WFSLayer extends LayerBase implements ILayer {
                 service: 'WFS',
                 typenames: this.name,
                 version: '2.0.0',
+                ...parameters
             },
         }));
 

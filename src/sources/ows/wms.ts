@@ -100,19 +100,19 @@ export class WMSLayer extends LayerBase implements ILayer {
         return await this.wfs.filter(filters);
     }
 
-    async intersects(feature: GeoJSON.Feature | GeoJSON.GeometryObject) {
+    async intersects(feature: GeoJSON.Feature | GeoJSON.GeometryObject, parameters?: Record<string, string | number>) {
         if (!this.wfs) {
             throw new Error('Operations not available on this layer');
         }
 
-        return this.wfs.intersects(feature);
+        return this.wfs.intersects(feature, parameters);
     }
-    async intersectsPoint(point: Point) {
+    async intersectsPoint(point: Point, parameters?: Record<string, string | number>) {
         if (!this.wfs) {
             throw new Error('Operations not available on this layer');
         }
 
-        return this.wfs.intersectsPoint(point);
+        return this.wfs.intersectsPoint(point, parameters);
     }
 
     private cachedProperty(key: string, path: string) {

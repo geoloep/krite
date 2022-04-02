@@ -46,7 +46,7 @@ export class GeoserverWFSLayer extends WFSLayer{
         return this._leaflet;
     }
 
-    async intersects(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject) {
+    async intersects(feature: GeoJSON.Feature<GeoJSON.GeometryObject> | GeoJSON.GeometryObject, parameters: Record<string, string | number> = {}) {
         const wkt = wellknown.stringify(<GeoJSON.GeoJsonObject>feature);
 
         const fieldname = await this.getGeomField();
@@ -59,6 +59,7 @@ export class GeoserverWFSLayer extends WFSLayer{
                 service: 'WFS',
                 typenames: this.name,
                 version: '2.0.0',
+                ...parameters,
             },
         }));
 
@@ -69,7 +70,7 @@ export class GeoserverWFSLayer extends WFSLayer{
         return await response.json();
     }
 
-    async intersectsPoint(point: Point) {
+    async intersectsPoint(point: Point, parameters: Record<string, string | number> = {}) {
         const fieldname = await this.getGeomField();
         let cql_filter: string;
 
@@ -88,6 +89,7 @@ export class GeoserverWFSLayer extends WFSLayer{
                 service: 'WFS',
                 typenames: this.name,
                 version: '2.0.0',
+                ...parameters
             },
         }));
 
