@@ -1,11 +1,11 @@
 import url from '../../util/url';
 
 import SourceBase from '../../bases/source';
-import { XMLService } from '../../services/xml';
-import { IDataSource } from '../../types';
-import { WFSLayer } from './wfs';
-import { WMSLayer } from './wms';
+import {IDataSource} from '../../types';
+import {WFSLayer} from './wfs';
+import {WMSLayer} from './wms';
 import {WMSOptions} from "leaflet";
+import {XMLService} from '../../services/xml';
 
 export interface IOWSSourceoptions {
     wfs?: boolean | string;
@@ -116,16 +116,14 @@ export class OWSSource extends SourceBase implements IDataSource {
             }
         }
 
-        const layer = await this.getLayer(names[0], {
+        return await this.getLayer(names[0], {
             layers: names.join(','),
             ...options,
         });
-
-        return layer;
     }
 
     /**
-     * Create url's for the wms and wfs endpoint
+     * Create urls for the wms and wfs endpoint
      * @param baseUrl constructor url
      */
     private parseBaseUrl(baseUrl: string) {
@@ -177,7 +175,7 @@ export class OWSSource extends SourceBase implements IDataSource {
 
         if (this.options.wfs) {
             if (!responses[0].ok) {
-                throw new Error('Request for WFS capabilties failed');
+                throw new Error('Request for WFS capabilities failed');
             }
 
             try {
@@ -191,7 +189,7 @@ export class OWSSource extends SourceBase implements IDataSource {
 
         if (this.options.wms) {
             if (!responses[responses.length - 1].ok) {
-                throw new Error('Request for WMS capabilties failed');
+                throw new Error('Request for WMS capabilities failed');
             }
 
             try {
@@ -274,10 +272,6 @@ export class OWSSource extends SourceBase implements IDataSource {
     private isException(xml: XMLService) {
         const exception = xml.node(xml.document, './ows:ExceptionReport');
 
-        if (exception.snapshotLength > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return exception.snapshotLength > 0;
     }
 }

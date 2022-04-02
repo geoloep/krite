@@ -1,9 +1,9 @@
-import {Point, TileLayer} from 'leaflet';
 import LayerBase from '../../bases/layer';
-import {XMLService} from '../../services/xml';
 import {ILayer} from '../../types';
 import {IOWSLayeroptions} from './source';
+import {Point, TileLayer} from 'leaflet';
 import {WFSLayer} from './wfs';
+import {XMLService} from '../../services/xml';
 
 export class WMSLayer extends LayerBase implements ILayer {
     readonly isWMS = true;
