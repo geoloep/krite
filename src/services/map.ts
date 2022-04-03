@@ -224,11 +224,7 @@ export class MapService extends Evented {
     }
 
     hasLayerByName(name: string): boolean {
-        if (name in this.layerByName) {
-            return true;
-        } else {
-            return false;
-        }
+        return name in this.layerByName;
     }
 
     /**
@@ -302,7 +298,7 @@ export class MapService extends Evented {
     /**
      * Render a geojson source on the map.
      * @param geojson   Expected to be in the map crs
-     * @param fitBounds set to true to zoom to the highlight, pass FitBoundsOptions to custimize behaviour
+     * @param fitBounds set to true to zoom to the highlight, pass FitBoundsOptions to customize behaviour
      */
     addHighlight(geojson: any, fitBounds?: FitBoundsOptions | true) {
         if (this.highlight) {
