@@ -17,13 +17,13 @@ limitations under the License.
 
 import url from '../../util/url';
 
-import { ILayer } from '../../types';
+import {ILayer} from '../../types';
 
-import { geomToGml } from 'geojson-to-gml-3';
-import { GeoJSON, Point } from 'leaflet';
+import {geomToGml} from 'geojson-to-gml-3';
+import {GeoJSON, Point} from 'leaflet';
 
-import { XMLService } from '../../services/xml';
-import { IOWSLayeroptions } from './source';
+import {XMLService} from '../../services/xml';
+import {IOWSLayeroptions} from './source';
 import LayerBase from '../../bases/layer';
 
 interface LayerOptions {
@@ -94,17 +94,35 @@ export class WFSLayer extends LayerBase implements ILayer {
         return undefined;
     }
 
+    async request(parameters: Record<string, any>) {
+        const response = await this.fetch(this.baseUrl + url.format({
+            query: {
+                service: 'WFS',
+                typenames: this.name,
+                version: '2.0.0',
+                outputformat: 'application/json',
+                ...parameters
+            }
+        }))
+
+        if (!response.ok) {
+            throw new Error('Response of WFS request not ok')
+        }
+
+        try {
+            return await response.json();
+        } catch (e) {
+            throw new Error('Could not decode WFS request response')
+        }
+    }
+
     async filter(options: {
         id?: string,
         filters?: { [index: string]: string | null | number },
         properties?: string[],
     }) {
         const query: any = {
-            outputformat: 'application/json',
             request: 'GetFeature',
-            service: 'WFS',
-            typenames: this.name,
-            version: '2.0.0',
         };
 
         if (options.id) {
@@ -138,18 +156,14 @@ export class WFSLayer extends LayerBase implements ILayer {
             }
         }
 
-        const response = await this.fetch(this.baseUrl + url.format({
-            query,
-        }));
-
-        if (!response.ok) {
+        try {
+            return this.request(query)
+        } catch (e) {
             throw new Error(`Filter operation on layer ${this.name} failed`);
         }
-
-        return await response.json();
     }
 
-    async intersects(feature: GeoJSON.Feature | GeoJSON.GeometryObject,  parameters: Record<string, string | number> = {}) {
+    async intersects(feature: GeoJSON.Feature | GeoJSON.GeometryObject, parameters: Record<string, string | number> = {}) {
         if (feature.type === 'Feature') {
             feature = feature.geometry;
         }
@@ -157,23 +171,15 @@ export class WFSLayer extends LayerBase implements ILayer {
         const gml = geomToGml(feature);
         const fieldname = await this.getGeomField();
 
-        const response = await this.fetch(this.baseUrl + url.format({
-            query: {
+        try {
+            return await this.request({
                 filter: `<Filter><Intersects><PropertyName>${fieldname}</PropertyName>${gml}</Intersects></Filter>`,
-                outputformat: 'application/json',
                 request: 'GetFeature',
-                service: 'WFS',
-                typenames: this.name,
-                version: '2.0.0',
                 ...parameters
-            },
-        }));
-
-        if (!response.ok) {
+            })
+        } catch (e) {
             throw new Error(`Spatial operation on layer ${this.name} failed`);
         }
-
-        return await response.json();
     }
 
     async intersectsPoint(point: Point, parameters: Record<string, string | number> = {}) {
@@ -190,23 +196,15 @@ export class WFSLayer extends LayerBase implements ILayer {
             filter = `<Filter><Intersects><PropertyName>${fieldname}</PropertyName><gml:Point><gml:coordinates>${point.x} ${point.y}</gml:coordinates></gml:Point></Intersects></Filter>`;
         }
 
-        const response = await this.fetch(this.baseUrl + url.format({
-            query: {
+        try {
+            return await this.request({
                 filter,
-                outputformat: 'application/json',
                 request: 'GetFeature',
-                service: 'WFS',
-                typenames: this.name,
-                version: '2.0.0',
                 ...parameters
-            },
-        }));
-
-        if (!response.ok) {
+            })
+        } catch (e) {
             throw new Error(`Spatial operation on layer ${this.name} failed`);
         }
-
-        return await response.json();
     }
 
     private cachedProperty(key: string, path: string) {

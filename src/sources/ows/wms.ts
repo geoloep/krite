@@ -92,6 +92,14 @@ export class WMSLayer extends LayerBase implements ILayer {
         return this.options.wms?.zIndex;
     }
 
+    async request(parameters: Record<string, any>) {
+        if (!this.wfs) {
+            throw new Error('Operations not available on this layer');
+        }
+
+        return await this.wfs.request(parameters);
+    }
+
     async filter(filters: any) {
         if (!this.wfs) {
             throw new Error('Operations not available on this layer');
@@ -107,6 +115,7 @@ export class WMSLayer extends LayerBase implements ILayer {
 
         return this.wfs.intersects(feature, parameters);
     }
+
     async intersectsPoint(point: Point, parameters?: Record<string, string | number>) {
         if (!this.wfs) {
             throw new Error('Operations not available on this layer');

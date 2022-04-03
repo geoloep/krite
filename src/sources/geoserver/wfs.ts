@@ -51,23 +51,15 @@ export class GeoserverWFSLayer extends WFSLayer{
 
         const fieldname = await this.getGeomField();
 
-        const response = await fetch(this.baseUrl + url.format({
-            query: {
+        try {
+            return await this.request({
                 cql_filter: `INTERSECTS(${fieldname}, ${wkt})`,
-                outputformat: 'application/json',
                 request: 'GetFeature',
-                service: 'WFS',
-                typenames: this.name,
-                version: '2.0.0',
-                ...parameters,
-            },
-        }));
-
-        if (!response.ok) {
-            throw new Error(`Repsonse for ${response.url} not ok`);
+                ...parameters
+            })
+        } catch (e) {
+            throw new Error(`Spatial operation on layer ${this.name} failed`);
         }
-
-        return await response.json();
     }
 
     async intersectsPoint(point: Point, parameters: Record<string, string | number> = {}) {
@@ -81,23 +73,15 @@ export class GeoserverWFSLayer extends WFSLayer{
             cql_filter = `INTERSECTS(${fieldname}, POINT(${point.x} ${point.y}))`;
         }
 
-        const response = await fetch(this.baseUrl + url.format({
-            query: {
+        try {
+            return await this.request({
                 cql_filter,
-                outputformat: 'application/json',
                 request: 'GetFeature',
-                service: 'WFS',
-                typenames: this.name,
-                version: '2.0.0',
                 ...parameters
-            },
-        }));
-
-        if (!response.ok) {
-            throw new Error(`Repsonse for ${response.url} not ok`);
+            })
+        } catch (e) {
+            throw new Error(`Spatial operation on layer ${this.name} failed`);
         }
-
-        return await response.json();
     }
 
     async filter(options: {
