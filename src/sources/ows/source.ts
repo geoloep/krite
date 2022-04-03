@@ -32,7 +32,7 @@ export interface IOWSLayeroptions {
     layers?: string;
     maxZoom?: number;
     minZoom?: number;
-    wms?: WMSOptions;
+    wms?: WMSOptions & Record<string, any>;
 
     [index: string]: any;
 }
