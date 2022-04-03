@@ -17,7 +17,7 @@ limitations under the License.
 import LayerBase from '../../bases/layer';
 import {ILayer} from '../../types';
 import {IOWSLayeroptions} from './source';
-import {Point, TileLayer} from 'leaflet';
+import {Point, TileLayer, WMSOptions} from 'leaflet';
 import {WFSLayer} from './wfs';
 import {XMLService} from '../../services/xml';
 
@@ -64,7 +64,7 @@ export class WMSLayer extends LayerBase implements ILayer {
         return '';
     }
 
-    get leaflet() {
+    get leaflet(): TileLayer.WMS {
         if (!this.cache.leaflet) {
             this.cache.leaflet = new TileLayer.WMS(this.url, {
                 format: 'image/png',
@@ -90,6 +90,10 @@ export class WMSLayer extends LayerBase implements ILayer {
 
     get zIndex() {
         return this.options.wms?.zIndex;
+    }
+
+    setParams(params: WMSOptions & Record<string, any>) {
+        this.leaflet.setParams(params as any);
     }
 
     async request(parameters: Record<string, any>) {
