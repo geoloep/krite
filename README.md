@@ -1,9 +1,12 @@
 # krite
-Krite is a collection of tools for quickly setting up interactive maps. It consist of various generic and reusable components that facilitate various common tasks. Tasks including managing map state, map interaction, working with projection systems and interfacing with data sources.
+Krite is a collection of tools for quickly setting up interactive maps. It consists of various generic and reusable components that facilitate various common tasks. For instance:
+ 
+- managing map state
+- interacting with the map
+- working with projection systems 
+- interfacing with data sources.
 
 Krite uses the excellent [Leaflet](https://github.com/Leaflet/Leaflet) library for the actual rendering of the map.
-
-With the help of the [krite-vue](https://github.com/geoloep/krite-vue) project you can quickly create a modern web-based map application. This core repository is framework agnostic and can form the base of your own implementation.
 
 ## Structure
 The functionality of krite for the most part divided into two parts: services and data sources.
@@ -11,15 +14,25 @@ The functionality of krite for the most part divided into two parts: services an
 ### Services
 Most functionality in krite is subdivided into services. These are dependencies that perfom a specific role such as talking to an API or wrapping around external modules.
 
+- DrawService - wrapper for Leaflet.Draw
+- InspectorService - helper for selecting features
+- LocationService - helper for geolocation
+- MapService - wrapper for a Leaflet map
+- NominatimService - wrapper for Openstreetmap Nominatim
+- PdokLocatieserverService - wrapper for Dutch search service
+- XMLService - helper for common xml tasks
+
 ### Data Sources
-Data sources are connectors for interfacing with geospatial data sources. The included data sources wrap differing web services with the same consistent API. They allow you to consume data layers from multiple types of web services in a single application.
+Data sources are connectors for interfacing with geospatial data sources. The included data sources wrap different kinds of web services with the same consistent API. This allows you to combine map data from multiple data sources without worrying about implementation details.
 
 Included in this repository you can find connectors for:
 
-* WMS
-* WFS
-* WMTS
+* OGC OWS endpoints (WMS/WFS)
+* OGC WMTS
+* Geoserver (WMS/WFS using cql_filters)
 * ESRI Tiled Map Layers
+* Basemaps from the Dutch PDOK
+* Openstreetmap
 
 ## Installation
 ```
@@ -27,8 +40,6 @@ npm install krite
 ```
 
 ## Usage
-Unfortunately detailed docs are not yet available.
-
 Creating a new krite instance:
 ```javascript
 import Krite from 'krite';
@@ -51,9 +62,9 @@ krite.addServices({
 
 Get service instances
 ```javascript
-krite.getService('InspectorService');
-krite.tryService('InspectorService');
-krite.promiseService('InspectorService').then((service) => {
+krite.getService('DrawService');
+krite.tryService('DrawService');
+krite.promiseService('DrawService').then((service) => {
     // Do something    
 });
 ```
@@ -98,8 +109,30 @@ source.getLayer('Countries of the World').then((layer) => {
 });
 ```
 
+Interaction
+```javascript
+krite.map.on('click', (point) => {
+    console.log(`Clicked on ${point.x}, ${point.y}`);
+});
+```
+
+Highlighting
+```javascript
+krite.map.on('click', (point) => {
+    // You can also get the layer from the source
+    const layer = krite.map.getLayer('Countries of the World');
+    
+    // Point is in the chosen CRS
+    const featureCollection = layer.intersectsPoint(point);
+    
+    if (featureCollection.features.length > 0) {
+        krite.map.highlight(featureCollection.features[0]);
+    }
+});
+```
+
 ## Development
-Clone this repository and run `npm install`. Run `tsc -d` to compile the typescript source files. The testst are currently not up to date.
+Clone this repository and run `npm install`. Run `tsc -d` to compile the typescript source files.
 
 ### Examples (in dutch)
 [Gratis Kadastrale Kaart](https://perceelloep.nl/)
