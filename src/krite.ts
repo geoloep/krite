@@ -39,7 +39,7 @@ export class Krite {
 
     options: IInternalKriteOptions = {
         crs: new WebMercator(),
-        fetch,
+        fetch: window.fetch.bind(window),
     };
 
     constructor(options?: IKriteOptions) {
