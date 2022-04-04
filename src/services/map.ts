@@ -215,6 +215,18 @@ export class MapService extends Evented {
     }
 
     /**
+     * Get layer from this map, validity of type isn't checked
+     * @param layerName
+     */
+    getLayer<T extends ILayer>(layerName: string) {
+        if (!this.hasLayerByName(layerName)) {
+            throw new Error(`Layer ${layerName} is not part of this map`)
+        }
+
+        return this.layerByName[layerName] as T;
+    }
+
+    /**
      * Show previously hidden layers again
      */
     showLayer(layer: ILayer) {
