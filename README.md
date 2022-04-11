@@ -118,12 +118,12 @@ krite.map.on('click', (point) => {
 
 Highlighting
 ```javascript
-krite.map.on('click', (point) => {
+krite.map.on('click', async (point) => {
     // You can also get the layer from the source
     const layer = krite.map.getLayer('Countries of the World');
     
     // Point is in the chosen CRS
-    const featureCollection = layer.intersectsPoint(point);
+    const featureCollection = await layer.intersectsPoint(point);
     
     if (featureCollection.features.length > 0) {
         krite.map.highlight(featureCollection.features[0]);
