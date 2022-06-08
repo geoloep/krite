@@ -143,7 +143,7 @@ export class OWSSource extends SourceBase implements IDataSource {
     }
 
     protected createWFSLayer(wfsNode: Node) {
-        const layer = new WFSLayer(this.baseUrl, wfsNode);
+        const layer = new WFSLayer(this.options.wfs, wfsNode);
         layer.added(this.krite);
         return layer;
     }
