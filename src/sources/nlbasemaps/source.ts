@@ -24,6 +24,7 @@ const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/tiles
 const pdokLufoSource = new WMTSSource(' https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0');
 const pdokLufoInfraSource = new WMTSSource('https://service.pdok.nl/hwh/luchtfotocir/wmts/v1_0');
 const pdokBRTASource = new WMTSSource('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0');
+const pdokBGTSource = new WMTSSource('https://service.pdok.nl/lv/bgt/wmts/v1_0');
 
 /**
  * This source is a convenience for adding basemaps relevant to Dutch mapping projects
@@ -84,16 +85,16 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
                 layer: 'top1000raster',
             },
             'pdok/bgtstandaard': {
-                source: pdokSource,
-                layer: 'bgtstandaard',
+                source: pdokBGTSource,
+                layer: 'BGT standaardvisualisatie',
             },
             'pdok/bgtachtergrond': {
-                source: pdokSource,
-                layer: 'bgtachtergrond',
+                source: pdokBGTSource,
+                layer: 'BGT achtergrondvisualisatie',
             },
             'pdok/bgtpastel': {
-                source: pdokSource,
-                layer: 'bgtpastel',
+                source: pdokBGTSource,
+                layer: 'BGT pastelvisualisatie',
             },
             // 'openbasiskaart/openbasiskaart': {
             //     source: openbasiskaartSource,
