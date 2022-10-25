@@ -17,7 +17,6 @@ limitations under the License.
 export { InspectorService } from './inspector';
 export { MapService } from './map';
 export { NominatimService } from  './nominatim';
-export { NumeralService } from './numeral';
 export { ParameterService } from './parameter';
 export { PdokLocatieserverService } from './pdokLocatieserver';
 export { XMLService } from './xml';
