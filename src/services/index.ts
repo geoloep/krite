@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export { DrawService } from './draw';
 export { InspectorService } from './inspector';
 export { MapService } from './map';
 export { NominatimService } from  './nominatim';

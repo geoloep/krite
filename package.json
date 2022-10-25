@@ -14,7 +14,6 @@
         "esri-leaflet": "^2",
         "eventemitter3": "^3",
         "geojson-to-gml-3": "^2",
-        "leaflet-draw": "~1.0.0",
         "leaflet-rd": "~2.4.0",
         "leaflet-wfst": "^1.0.0",
         "numeral": "^2",
