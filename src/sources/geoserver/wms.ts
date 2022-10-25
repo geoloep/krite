@@ -16,7 +16,6 @@ limitations under the License.
 
 import {Bounds, LatLng, Point} from 'leaflet';
 
-import {LegacyXMLService} from 'src/services/legacyXML';
 import {XMLService} from '../../services/xml';
 import {WMSLayer} from "../ows/wms";
 
@@ -25,7 +24,7 @@ export class GeoserverWMSLayer extends WMSLayer {
     _preview: string;
     _legend: string;
 
-    xml: XMLService | LegacyXMLService;
+    xml: XMLService;
 
     get preview() {
         if (!this._preview) {
@@ -46,13 +45,7 @@ export class GeoserverWMSLayer extends WMSLayer {
 
     get legend() {
         if (!this._legend) {
-            let url: string;
-
-            if ((this.xml as LegacyXMLService).IE) {
-                url = this.xml.string(this.node, './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@*[local-name() = \'href\']');
-            } else {
-                url = this.xml.string(this.node, './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@xlink:href');
-            }
+            const url = this.xml.string(this.node, './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@xlink:href');
 
             if (url !== '') {
                 this._legend = `<img class="img-responsive" src="${url}">`;
