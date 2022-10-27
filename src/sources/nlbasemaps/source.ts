@@ -17,12 +17,11 @@ limitations under the License.
 import { IDataSource } from '../../types';
 
 import SourceBase from '../../bases/source';
-import { WMTSLayer, WMTSOptions } from '../wmts/layer';
+import { WMTSOptions } from '../wmts/layer';
 import { WMTSSource } from '../wmts/source';
 
 const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/tiles/service/wmts');
 const pdokLufoSource = new WMTSSource(' https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0');
-const pdokLufoInfraSource = new WMTSSource('https://service.pdok.nl/hwh/luchtfotocir/wmts/v1_0');
 const pdokBRTASource = new WMTSSource('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0');
 const pdokBGTSource = new WMTSSource('https://service.pdok.nl/lv/bgt/wmts/v1_0');
 
@@ -153,10 +152,6 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
             'ahn/3 50cm dsm': {
                 source: pdokSource,
                 layer: 'ahn3_05m_dsm',
-            },
-            'ahn/2 50cm ruw': {
-                source: pdokSource,
-                layer: 'ahn2_05m_ruw',
             },
         };
 
