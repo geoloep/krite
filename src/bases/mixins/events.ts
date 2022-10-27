@@ -55,7 +55,7 @@ export default class EventsMixin {
      * @param event event name
      */
     off = (event: string | symbol, fn?: ListenerFn, context?: any, once?: boolean) => {
-        return this.events.removeListener(event, fn, context);
+        return this.events.removeListener(event, fn, context, once);
     }
 
     /**
