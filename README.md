@@ -14,8 +14,6 @@ The functionality of krite for the most part divided into two parts: services an
 ### Services
 Most functionality in krite is subdivided into services. These are dependencies that perfom a specific role such as talking to an API or wrapping around external modules.
 
-- DrawService - wrapper for Leaflet.Draw
-- InspectorService - helper for selecting features
 - LocationService - helper for geolocation
 - MapService - wrapper for a Leaflet map
 - NominatimService - wrapper for Openstreetmap Nominatim
@@ -40,9 +38,12 @@ npm install krite
 ```
 
 ## Usage
-Creating a new krite instance:
+
+A bundle file is provided in `/dist/` but since we don't use it internally it's not properly tested. I recommend you include from `lib` and bundle yourself. 
+
+To create a new krite instance:
 ```javascript
-import Krite from 'krite';
+import Krite from 'krite/lib/krite';
 
 const krite = new Krite();
 ```
@@ -131,10 +132,14 @@ krite.map.on('click', async (point) => {
 });
 ```
 
+## More examples
+
+For development and testing purposes there are some examples views in `/views/`. You can run them by starting vite with `vite dev` or `npm run dev` and going to the provided local url.
+
 ## Development
 Clone this repository and run `npm install`. Run `tsc -d` to compile the typescript source files.
 
-### Examples (in dutch)
+### User by (in dutch)
 [Gratis Kadastrale Kaart](https://perceelloep.nl/)
 
 [Gratis Vastgoedkaart](https://vastgoedloep.nl/)
