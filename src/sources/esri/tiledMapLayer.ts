@@ -17,8 +17,6 @@ limitations under the License.
 import * as esri from 'esri-leaflet';
 
 import { ILayer } from '../../types';
-import { ESRISource } from './source';
-
 import { Krite } from '../../krite';
 
 export class ESRITiledMapLayer implements ILayer {
@@ -71,8 +69,8 @@ export class ESRITiledMapLayer implements ILayer {
 
     async intersectsPoint(point: L.Point) {
         if (this.krite && this.krite.hasService('MapService')) {
-            const features = await new Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>((resolve, reject) => {
-                this._leaflet.identify().on(this.krite.map.leaflet).at([point.x, point.y]).layers('top').run((error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
+            const features = await new Promise<GeoJSON.FeatureCollection<GeoJSON.GeometryObject>>((resolve) => {
+                this._leaflet.identify().on(this.krite.map.leaflet).at([point.x, point.y]).layers('top').run((_error: boolean, ft: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>) => {
                     resolve(ft);
                 });
             });

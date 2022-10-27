@@ -19,10 +19,10 @@ import Krite from './krite';
 import * as services from './services/index';
 import * as sources from './sources/index';
 
-import { ServicePool } from './pools/services';
-import { SourcePool } from './pools/sources';
-import { MapService } from './services/map';
-import { IDataSource, IService } from './types';
+export { ServicePool } from './pools/services';
+export { SourcePool } from './pools/sources';
+export { MapService } from './services/map';
+export { IDataSource, IService } from './types';
 
 export class KriteStandalone extends Krite {
     static services = services;

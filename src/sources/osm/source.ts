@@ -24,14 +24,14 @@ import { IDataSource, ILayer } from '../../types';
 export class OsmLayer implements ILayer {
     title = 'Openstreetmap';
     name = 'Openstreetmap';
-    abstract = 'Welcome to OpenStreetMap, the project that creates and distributes free geographic data for the world.';
+    abstract =
+        'Welcome to OpenStreetMap, the project that creates and distributes free geographic data for the world.';
     bounds = new LatLngBounds(new LatLng(-180, 90), new LatLng(180, 90));
     preview = '<img src="http://tile.osm.org/0/0/0.png">';
 
     legend = '';
 
     private _layer: L.TileLayer;
-    private _legend: string;
 
     get leaflet() {
         if (!this._layer) {
@@ -52,7 +52,7 @@ export class OsmSource implements IDataSource {
         return ['Openstreetmap'];
     }
 
-    async getLayer(name: string) {
+    async getLayer(_name: string) {
         if (!this.instance) {
             this.instance = new OsmLayer();
         }

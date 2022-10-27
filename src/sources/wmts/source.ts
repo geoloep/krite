@@ -17,7 +17,7 @@ limitations under the License.
 import url from '../../util/url';
 import { WMTSLayer, WMTSOptions } from './layer';
 
-import { IDataSource, ILayer } from '../../types';
+import { IDataSource } from '../../types';
 
 import SourceBase from '../../bases/source';
 import { XMLService } from '../../services/xml';

@@ -28,7 +28,6 @@ export class GeoserverWFSLayer extends WFSLayer{
     hasOnClick = true;
 
     private _leaflet: L.GeoJSON;
-    private data: GeoJSON.FeatureCollection<GeoJSON.GeometryObject>;
 
     get leaflet() {
         if (!this._leaflet) {

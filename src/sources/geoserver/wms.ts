@@ -14,11 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import {Bounds, LatLng, Point} from 'leaflet';
+import { Bounds, LatLng, Point } from 'leaflet';
 
-import {XMLService} from '../../services/xml';
-import {WMSLayer} from "../ows/wms";
-
+import { XMLService } from '../../services/xml';
+import { WMSLayer } from '../ows/wms';
 
 export class GeoserverWMSLayer extends WMSLayer {
     _preview: string;
@@ -37,7 +36,6 @@ export class GeoserverWMSLayer extends WMSLayer {
             } else {
                 this._preview = '';
             }
-
         }
 
         return this._preview;
@@ -45,7 +43,10 @@ export class GeoserverWMSLayer extends WMSLayer {
 
     get legend() {
         if (!this._legend) {
-            const url = this.xml.string(this.node, './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@xlink:href');
+            const url = this.xml.string(
+                this.node,
+                './wms:Style[1]/wms:LegendURL/wms:OnlineResource/@xlink:href'
+            );
 
             if (url !== '') {
                 this._legend = `<img class="img-responsive" src="${url}">`;
@@ -59,17 +60,17 @@ export class GeoserverWMSLayer extends WMSLayer {
 
     private getBoundingBox() {
         // try to find the bounds in the crs of the application first
-        const crsSystems = [
-            this.krite.crs.identifiers.leaflet,
-            'EPSG:4326',
-        ];
+        const crsSystems = [this.krite.crs.identifiers.leaflet, 'EPSG:4326'];
 
         let bounds;
         let boundingBoxNode;
         let fallback = false;
 
         for (let i = 0; i < crsSystems.length && !bounds; i++) {
-            boundingBoxNode = this.xml.node(this.node, `./wms:BoundingBox[@CRS='${crsSystems[i]}']`);
+            boundingBoxNode = this.xml.node(
+                this.node,
+                `./wms:BoundingBox[@CRS='${crsSystems[i]}']`
+            );
 
             if (boundingBoxNode.snapshotLength === 1) {
                 bounds = boundingBoxNode.snapshotItem(0);
@@ -80,20 +81,34 @@ export class GeoserverWMSLayer extends WMSLayer {
 
         if (bounds) {
             if (fallback) {
-                const topLeft = new LatLng(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
-                const bottomRight = new LatLng(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
-
-                return new Bounds(this.krite.crs.pointFrom(topLeft), this.krite.crs.pointFrom(bottomRight));
-            } else {
-                const topLeft = new Point(this.xml.number(bounds, './@minx'), this.xml.number(bounds, './@maxy'));
-                const bottomRight = new Point(this.xml.number(bounds, './@maxx'), this.xml.number(bounds, './@miny'));
+                const topLeft = new LatLng(
+                    this.xml.number(bounds, './@minx'),
+                    this.xml.number(bounds, './@maxy')
+                );
+                const bottomRight = new LatLng(
+                    this.xml.number(bounds, './@maxx'),
+                    this.xml.number(bounds, './@miny')
+                );
 
                 return new Bounds(
-                    topLeft,
-                    bottomRight,
+                    this.krite.crs.pointFrom(topLeft),
+                    this.krite.crs.pointFrom(bottomRight)
                 );
+            } else {
+                const topLeft = new Point(
+                    this.xml.number(bounds, './@minx'),
+                    this.xml.number(bounds, './@maxy')
+                );
+                const bottomRight = new Point(
+                    this.xml.number(bounds, './@maxx'),
+                    this.xml.number(bounds, './@miny')
+                );
+
+                return new Bounds(topLeft, bottomRight);
             }
         }
+
+        return;
     }
 
     private getPreviewSize(bbox: Bounds, width: number) {

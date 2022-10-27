@@ -23,20 +23,19 @@ export class SourcePool {
     private sources: { [index: string]: any } = {};
     private promised: { [index: string]: any[] } = {};
 
-    constructor(private krite: Krite) {
-    }
+    constructor(private krite: Krite) {}
 
     /**
      * Add multiple services in one go
      * @param services A dictionary of services
      */
-    addSources = (sources: {[index: string]: IDataSource}) => {
+    addSources = (sources: { [index: string]: IDataSource }) => {
         for (const source in sources) {
             if (sources.hasOwnProperty(source)) {
                 this.add<any>(source, sources[source]);
             }
         }
-    }
+    };
 
     /**
      * Add a single data source
@@ -56,7 +55,7 @@ export class SourcePool {
         }
 
         return source;
-    }
+    };
 
     /**
      * Get a data source or die
@@ -68,7 +67,7 @@ export class SourcePool {
         }
 
         return this.sources[name];
-    }
+    };
 
     /**
      * Try to get a data source
@@ -78,15 +77,17 @@ export class SourcePool {
     try = <T>(name: string): T | undefined => {
         if (name in this.sources) {
             return this.sources[name];
+        } else {
+            return;
         }
-    }
+    };
 
     /**
      * Return a promise that resolves as soon as the data source becomes available
      * @param name Source name
      */
     promise = <T>(name: string): Promise<T> => {
-        return new Promise<T>((resolve, reject) => {
+        return new Promise<T>((resolve) => {
             if (name in this.sources) {
                 resolve(this.sources[name]);
             } else {
@@ -96,15 +97,15 @@ export class SourcePool {
                 this.promised[name].push(resolve);
             }
         });
-    }
+    };
 
     /**
      * Test if a source is available
      * @param name Source name
      */
     has = (name: string) => {
-        return (name in this.sources);
-    }
+        return name in this.sources;
+    };
 
     private resolvePromises(name: string) {
         console.assert(name in this.promised);

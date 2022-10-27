@@ -37,11 +37,11 @@ export interface IOWSLayeroptions {
     [index: string]: any;
 }
 
-const defaultLayerOptions = {
-    transparant: true,
-};
-
-const defaultOptions: IOWSSourceoptions = {};
+// const defaultLayerOptions = {
+//     transparant: true,
+// };
+//
+// const defaultOptions: IOWSSourceoptions = {};
 
 const servicePattern = '{service}';
 

@@ -21,20 +21,19 @@ export class ServicePool {
     private dependencies: { [index: string]: any } = {};
     private promised: { [index: string]: any[] } = {};
 
-    constructor(private krite: Krite) {
-    }
+    constructor(private krite: Krite) {}
 
     /**
      * Add multiple services in one go
      * @param services A dictionary of services
      */
-    addServices = (services: { [index: string]: IService}) => {
+    addServices = (services: { [index: string]: IService }) => {
         for (const service in services) {
             if (services.hasOwnProperty(service)) {
                 this.add<IService>(service, services[service]);
             }
         }
-    }
+    };
 
     /**
      * Add an single service
@@ -53,7 +52,7 @@ export class ServicePool {
         }
 
         return service;
-    }
+    };
 
     /**
      * Get a service or die
@@ -65,7 +64,7 @@ export class ServicePool {
         }
 
         return this.dependencies[name];
-    }
+    };
 
     /**
      * Try to get a service
@@ -75,15 +74,17 @@ export class ServicePool {
     try = <T>(name: string): T | undefined => {
         if (name in this.dependencies) {
             return this.dependencies[name];
+        } else {
+            return;
         }
-    }
+    };
 
     /**
      * Return a promise that resolves as soon as the service becomes available
      * @param name Service name
      */
     promise = <T>(name: string): Promise<T> => {
-        return new Promise<T>((resolve, reject) => {
+        return new Promise<T>((resolve) => {
             if (name in this.dependencies) {
                 resolve(this.dependencies[name]);
             } else {
@@ -93,15 +94,15 @@ export class ServicePool {
                 this.promised[name].push(resolve);
             }
         });
-    }
+    };
 
     /**
      * Test if a service is available
      * @param name Service name
      */
     has = (name: string) => {
-        return (name in this.dependencies);
-    }
+        return name in this.dependencies;
+    };
 
     private resolvePromises(name: string) {
         console.assert(name in this.promised);

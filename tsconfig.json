@@ -20,7 +20,6 @@
         "strictPropertyInitialization": false,
         "suppressImplicitAnyIndexErrors": true,
         "target": "esnext",
-        "noEmit": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,

@@ -14,7 +14,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { CircleMarker, FitBoundsOptions, GeoJSON, GridLayer, Icon, LatLng, LatLngBounds, LatLngExpression, Map, MapOptions, Marker, Point, StyleFunction, Layer } from 'leaflet';
+import {
+    CircleMarker,
+    FitBoundsOptions,
+    GeoJSON,
+    GridLayer,
+    Icon,
+    LatLng,
+    LatLngBounds,
+    LatLngExpression,
+    Map,
+    MapOptions,
+    Marker,
+    Point,
+    StyleFunction,
+    Layer,
+} from 'leaflet';
 
 import Evented from '../util/evented';
 
@@ -44,7 +59,7 @@ interface IMapOptions {
 export class MapService extends Evented {
     layers: ILayer[] = [];
     layerByName: {
-        [index: string]: ILayer,
+        [index: string]: ILayer;
     } = {};
 
     leaflet: Map;
@@ -128,20 +143,27 @@ export class MapService extends Evented {
 
     added(krite: Krite) {
         if (this.krite) {
-            throw new Error('MapService cannot be reassigned to a new krite instance')
+            throw new Error(
+                'MapService cannot be reassigned to a new krite instance'
+            );
         }
 
         this.krite = krite;
 
         // Find the container to put the map in
-        const container = this.findContainer(this.customOptions ? this.customOptions.container : '');
+        const container = this.findContainer(
+            this.customOptions ? this.customOptions.container : ''
+        );
 
-        const options = this.mapOptions = Object.assign(this.mapOptions, this.customOptions);
+        const options = (this.mapOptions = Object.assign(
+            this.mapOptions,
+            this.customOptions
+        ));
 
         // Set leaflet to use the crs of the krite instance
         options.leaflet.crs = krite.crs.crs;
 
-        const leaflet = this.leaflet = new Map(container, options.leaflet);
+        const leaflet = (this.leaflet = new Map(container, options.leaflet));
 
         if (this.mapOptions.checkZoom) {
             leaflet.on('zoomend', () => {
@@ -170,10 +192,18 @@ export class MapService extends Evented {
 
         this.leaflet.invalidateSize(false);
 
-        if (center && this.mapOptions.leaflet.center && this.mapOptions.leaflet.zoom) {
-            this.leaflet.setView(this.mapOptions.leaflet.center as LatLng, this.mapOptions.leaflet.zoom, {
-                animate: false,
-            });
+        if (
+            center &&
+            this.mapOptions.leaflet.center &&
+            this.mapOptions.leaflet.zoom
+        ) {
+            this.leaflet.setView(
+                this.mapOptions.leaflet.center as LatLng,
+                this.mapOptions.leaflet.zoom,
+                {
+                    animate: false,
+                }
+            );
         }
     }
 
@@ -220,7 +250,7 @@ export class MapService extends Evented {
      */
     getLayer<T extends ILayer>(layerName: string) {
         if (!this.hasLayerByName(layerName)) {
-            throw new Error(`Layer ${layerName} is not part of this map`)
+            throw new Error(`Layer ${layerName} is not part of this map`);
         }
 
         return this.layerByName[layerName] as T;
@@ -256,12 +286,14 @@ export class MapService extends Evented {
         //     callback(layer, attr);
         // }
         this.emit('click-layer', layer, attr);
-    }
+    };
 
     checkZoom = () => {
         const zoom = this.leaflet.getZoom();
 
-        for (const layer of this.layers.concat(this.basemap ? [this.basemap] : [])) {
+        for (const layer of this.layers.concat(
+            this.basemap ? [this.basemap] : []
+        )) {
             const visible = this.visibleOnZoom(layer, zoom);
 
             if (visible && !this.leaflet.hasLayer(layer.leaflet)) {
@@ -270,7 +302,7 @@ export class MapService extends Evented {
                 this.hideLayer(layer);
             }
         }
-    }
+    };
 
     visibleOnZoom(layer: ILayer, zoom: number): boolean {
         if (layer.maxZoom) {
@@ -288,7 +320,9 @@ export class MapService extends Evented {
         return true;
     }
 
-    hasGridLayer(layer: ILayer<Layer> | ILayer<GridLayer>): layer is ILayer<GridLayer> {
+    hasGridLayer(
+        layer: ILayer<Layer> | ILayer<GridLayer>
+    ): layer is ILayer<GridLayer> {
         return Boolean((layer as ILayer<GridLayer>).leaflet.setZIndex);
     }
 
@@ -324,7 +358,7 @@ export class MapService extends Evented {
         const reprojected = this.krite.crs.geoTo(geojson);
 
         this.highlight = new GeoJSON(reprojected, {
-            pointToLayer: (geojsonPoint, latlng) => {
+            pointToLayer: (_geojsonPoint, latlng) => {
                 return new CircleMarker(latlng);
             },
             style: this.mapOptions.highlightStyle,
@@ -332,7 +366,10 @@ export class MapService extends Evented {
         this.highlight.addTo(this.leaflet);
 
         if (fitBounds) {
-            this.leaflet.fitBounds(this.highlight.getBounds(), typeof (fitBounds) === 'boolean' ? undefined : fitBounds);
+            this.leaflet.fitBounds(
+                this.highlight.getBounds(),
+                typeof fitBounds === 'boolean' ? undefined : fitBounds
+            );
         }
 
         return this.highlight;
@@ -358,7 +395,7 @@ export class MapService extends Evented {
     /**
      * Temporary solution
      */
-    addFocus(geojson: any, zoomTo: boolean = false) {
+    addFocus(geojson: any, zoomTo = false) {
         if (this.focus) {
             this.focus.remove();
         }
@@ -367,7 +404,7 @@ export class MapService extends Evented {
 
         this.focus = new GeoJSON(reprojected, {
             style: this.mapOptions.focusStyle,
-            pointToLayer: (geojsonPoint, latlng) => {
+            pointToLayer: (_geojsonPoint, latlng) => {
                 return new CircleMarker(latlng);
             },
         });
@@ -494,7 +531,11 @@ export class MapService extends Evented {
      * Zoom to a point
      * @param point In LatLng (WGS84)
      */
-    zoomToLatLng(point: LatLngExpression | LatLng, zoom: number, marker = true) {
+    zoomToLatLng(
+        point: LatLngExpression | LatLng,
+        zoom: number,
+        marker = true
+    ) {
         if (marker) {
             this.setPointer(point);
         }
@@ -519,7 +560,7 @@ export class MapService extends Evented {
             }
         } else {
             container = this.container = document.createElement('div');
-            container.style.cssText = ('width: 100%; height: 100%')
+            container.style.cssText = 'width: 100%; height: 100%';
         }
 
         return container;

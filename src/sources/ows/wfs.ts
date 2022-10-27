@@ -26,10 +26,10 @@ import {XMLService} from '../../services/xml';
 import {IOWSLayeroptions} from './source';
 import LayerBase from '../../bases/layer';
 
-interface LayerOptions {
-    unit: string;
-    withinDistance: number;
-}
+// interface LayerOptions {
+//     unit: string;
+//     withinDistance: number;
+// }
 
 export class WFSLayer extends LayerBase implements ILayer {
     readonly isWFS = true;
@@ -48,7 +48,7 @@ export class WFSLayer extends LayerBase implements ILayer {
     private geomField!: string;
     protected isPoint!: boolean;
 
-    constructor(protected baseUrl: string, protected node: Node, options?: IOWSLayeroptions) {
+    constructor(protected baseUrl: string, protected node: Node, _options?: IOWSLayeroptions) {
         super();
 
         this.root = new XMLService(node);
