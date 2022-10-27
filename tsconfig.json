@@ -1,37 +1,37 @@
 {
     "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "strict": true,
-        "jsx": "preserve",
-        "importHelpers": true,
-        "moduleResolution": "node",
-        "experimentalDecorators": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "sourceMap": false,
-        "baseUrl": ".",
-        "noImplicitAny": true,
-        "strictNullChecks": true,
         "allowJs": false,
-        "outDir": "lib",
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
         "isolatedModules": false,
+        "jsx": "preserve",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
         "noImplicitThis": true,
+        "outDir": "lib",
         "removeComments": true,
-        "suppressImplicitAnyIndexErrors": true,
+        "sourceMap": false,
+        "strict": true,
+        "strictNullChecks": true,
         "strictPropertyInitialization": false,
-        "lib": [
-            "esnext",
-            "dom",
-            "dom.iterable",
-            "scripthost"
-        ]
+        "suppressImplicitAnyIndexErrors": true,
+        "target": "esnext",
+        "noEmit": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "useDefineForClassFields": true,
+        "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+        "paths": {
+            "@/*": ["src/*"]
+        }
     },
-    "include": [
-        "src/**/*",
-        "types/*"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+    "include": ["src/**/*", "types/*"],
+    "exclude": ["node_modules"]
 }

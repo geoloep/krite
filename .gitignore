@@ -42,3 +42,4 @@ jspm_packages
 .local
 .yalc
 yalc.lock
+dist/*
