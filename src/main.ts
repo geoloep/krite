@@ -22,7 +22,7 @@ import * as sources from './sources/index';
 export { ServicePool } from './pools/services';
 export { SourcePool } from './pools/sources';
 export { MapService } from './services/map';
-export { IDataSource, IService } from './types';
+export type { IDataSource, IService } from './types';
 
 export class KriteStandalone extends Krite {
     static services = services;
