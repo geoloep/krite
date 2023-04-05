@@ -16,6 +16,8 @@ limitations under the License.
 
 import url from '../util/url';
 
+const baseUrl = 'https://api.pdok.nl/bzk/locatieserver/search/v3_1'
+
 /**
  * This class facilitates communication with the Dutch Geocode PDOK Locatieserver service
  */
@@ -35,7 +37,7 @@ export class PdokLocatieserverService {
             Object.assign(parameters, options);
         }
 
-        const response = await fetch('https://geodata.nationaalgeoregister.nl/locatieserver/v3/suggest' + url.format({
+        const response = await fetch(`${baseUrl}/suggest` + url.format({
             query: parameters,
         }));
 
@@ -60,7 +62,7 @@ export class PdokLocatieserverService {
             Object.assign(parameters, options);
         }
 
-        const response = await fetch('https://geodata.nationaalgeoregister.nl/locatieserver/v3/lookup' + url.format({
+        const response = await fetch(`${baseUrl}/lookup` + url.format({
             query: parameters,
         }));
 
