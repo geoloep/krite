@@ -139,7 +139,7 @@ For development and testing purposes there are some examples views in `/views/`.
 ## Development
 Clone this repository and run `npm install`. Run `tsc -d` to compile the typescript source files.
 
-### User by (in dutch)
+### Used by (in dutch)
 [Gratis Kadastrale Kaart](https://perceelloep.nl/)
 
 [Gratis Vastgoedkaart](https://vastgoedloep.nl/)
