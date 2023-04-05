@@ -9,6 +9,7 @@ import { owsExample } from './examples/owsExample';
 import { wfsExample } from './examples/wfsExample';
 import { osmExample } from './examples/osmExample';
 import { wmtsExample } from './examples/wmtsExample';
+import { pdokLocatieExample } from './examples/pdokLocatieExample';
 
 const buttons = document.getElementById('button-container');
 
@@ -21,6 +22,7 @@ const examples = {
     ows: owsExample,
     wfs: wfsExample,
     wmts: wmtsExample,
+    pdokLocatie: pdokLocatieExample,
 };
 
 for (const [key, value] of Object.entries(examples)) {
