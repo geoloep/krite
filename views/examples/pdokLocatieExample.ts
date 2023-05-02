@@ -1,4 +1,5 @@
 import { PdokLocatieserverService } from '../../src/services';
+import { createTable } from './utils';
 
 export const pdokLocatieExample = () => {
     const locatieServer = new PdokLocatieserverService();
@@ -13,34 +14,47 @@ export const pdokLocatieExample = () => {
     const input = document.createElement('input');
     const button = document.createElement('button');
 
-    const suggestContainer = document.createElement('ul');
-    suggestContainer.id = 'suggest-list';
+    const [tableElement, tableBody] = createTable([
+        'id',
+        'type',
+        'weergavenaam',
+        'suggest',
+    ]);
 
     button.innerText = 'Zoeken';
 
     container.append(input);
     container.append(button);
-    container.append(suggestContainer);
+    container.append(tableElement);
 
     button.onclick = async () => {
         const suggestions = await locatieServer.search(input.value);
 
-        suggestContainer.replaceChildren();
+        tableBody.replaceChildren();
 
-        for (const [cat, items] of Object.entries(suggestions)) {
+        for (const items of Object.values(suggestions)) {
             for (const item of items) {
-                const el = document.createElement('li');
+                const tableRow = document.createElement('tr');
+                const idData = document.createElement('td');
+                const typeData = document.createElement('td');
+                const weergaveData = document.createElement('td');
+                const suggestData = document.createElement('td');
 
                 const a = document.createElement('a');
 
                 a.href = '#' + item.id;
-                a.innerText = `${cat}: ${item.weergavenaam}`;
+                a.innerText = item.id;
                 a.onclick = () => {
                     inspect(item.id);
                 };
 
-                el.append(a);
-                suggestContainer.append(el);
+                idData.append(a);
+                typeData.innerText = item.type;
+                weergaveData.innerText = item.weergavenaam;
+                suggestData.innerHTML = item.suggest;
+
+                tableRow.append(idData, typeData, weergaveData, suggestData);
+                tableBody.append(tableRow);
             }
         }
     };

@@ -64,3 +64,20 @@ export const addToLog = (message: string) => {
         logContainer.prepend(box);
     }
 };
+
+export const createTable = (headers: string[]) => {
+    const tableElement = document.createElement('table');
+    const tableHead = document.createElement('thead');
+    const tableBody = document.createElement('tbody');
+
+    for (const header of headers) {
+        const th = document.createElement('th');
+        th.innerText = header;
+        tableHead.append(th);
+    }
+
+    tableElement.append(tableHead);
+    tableElement.append(tableBody);
+
+    return [tableElement, tableBody];
+};
