@@ -20,21 +20,26 @@ export const geoserverWfsExample = async () => {
     const krite = createRdMap();
 
     const source = new GeoserverSource(
-        'https://geo.rijkswaterstaat.nl/services/ogc/gdr/weggeg/ows'
+        'https://geo.rijkswaterstaat.nl/services/ogc/gdr/vild/ows'
     );
     source.added(krite);
 
-    const layer = await source.getLayer('bebouwde_kommen_wegvak');
+    const layer = await source.getLayer('bebouwde_kom');
     addToLog('Got layer');
 
     krite.map.addLayer(layer);
     addToLog('Added layer');
 
     const intersection = await layer.intersects({
-        type: 'LineString',
+        type: 'Polygon',
         coordinates: [
-            [85070, 458537],
-            [85120, 458537],
+            [
+                [228340, 563547],
+                [249389, 563547],
+                [249389, 545189],
+                [228340, 545189],
+                [228340, 563547],
+            ],
         ],
     });
 
@@ -42,7 +47,7 @@ export const geoserverWfsExample = async () => {
 
     const filtered = await layer.filter({
         filters: {
-            OBJECTID: 247,
+            oid: 3305,
         },
     });
 
