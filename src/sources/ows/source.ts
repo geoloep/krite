@@ -17,11 +17,11 @@ limitations under the License.
 import url from '../../util/url';
 
 import SourceBase from '../../bases/source';
-import {IDataSource} from '../../types';
-import {WFSLayer} from './wfs';
-import {WMSLayer} from './wms';
-import {WMSOptions} from "leaflet";
-import {XMLService} from '../../services/xml';
+import { IDataSource } from '../../types';
+import { WFSLayer } from './wfs';
+import { WMSLayer } from './wms';
+import { WMSOptions } from 'leaflet';
+import { XMLService } from '../../services/xml';
 
 export interface IOWSSourceoptions {
     wfs?: boolean | string;
@@ -41,11 +41,12 @@ const servicePattern = '{service}';
 
 export class OWSSource extends SourceBase implements IDataSource {
     protected options!: {
-        wms: string,
-        wfs: string,
+        wms: string;
+        wfs: string;
     };
 
     private parsedCapabilities = false;
+    private fetchingCapabilitiesPromise: Promise<void> | null = null;
 
     private layerNames = new Set<string>();
     private instantiatedLayers: { [index: string]: WMSLayer | WFSLayer } = {};
@@ -65,16 +66,19 @@ export class OWSSource extends SourceBase implements IDataSource {
 
     async getLayerNames() {
         if (!this.parsedCapabilities) {
-            await this.parseCapabilities();
+            await this.fetchCapabilities();
         }
 
         // @todo: Change external type to set eventually
         return Array.from(this.layerNames);
     }
 
-    async getLayer(name: string, options?: IOWSLayeroptions): Promise<WMSLayer | WFSLayer> {
+    async getLayer(
+        name: string,
+        options?: IOWSLayeroptions
+    ): Promise<WMSLayer | WFSLayer> {
         if (!this.parsedCapabilities) {
-            await this.parseCapabilities();
+            await this.fetchCapabilities();
         }
 
         if (!options && this.instantiatedLayers[name]) {
@@ -84,7 +88,11 @@ export class OWSSource extends SourceBase implements IDataSource {
         let layer: WMSLayer | WFSLayer | null = null;
 
         if (this.wmsLayers[name]) {
-            layer = this.createWMSLayer(this.wmsLayers[name], this.wfsLayers[name], options);
+            layer = this.createWMSLayer(
+                this.wmsLayers[name],
+                this.wfsLayers[name],
+                options
+            );
         } else if (this.wfsLayers[name]) {
             layer = this.createWFSLayer(this.wfsLayers[name]);
         }
@@ -102,7 +110,7 @@ export class OWSSource extends SourceBase implements IDataSource {
 
     async getCombinedLayer(names: string[], options?: IOWSLayeroptions) {
         if (!this.parsedCapabilities) {
-            await this.parseCapabilities();
+            await this.fetchCapabilities();
         }
 
         for (const name of names) {
@@ -117,18 +125,22 @@ export class OWSSource extends SourceBase implements IDataSource {
         });
     }
 
-    protected createWMSLayer(wmsNode: Node, wfsNode?: Node, options?: IOWSLayeroptions) {
+    protected createWMSLayer(
+        wmsNode: Node,
+        wfsNode?: Node,
+        options?: IOWSLayeroptions
+    ) {
         let wfsLayer: WFSLayer | undefined = undefined;
 
         if (wfsNode) {
-            wfsLayer = this.createWFSLayer(wfsNode)
+            wfsLayer = this.createWFSLayer(wfsNode);
         }
 
         const layer = new WMSLayer(
             this.options.wms,
             wmsNode,
             options,
-            wfsLayer,
+            wfsLayer
         );
 
         layer.added(this.krite);
@@ -160,68 +172,95 @@ export class OWSSource extends SourceBase implements IDataSource {
         }
     }
 
-    private async parseCapabilities() {
-        const requests: Array<Promise<Response>> = [];
+    private fetchCapabilities() {
+        if (!this.fetchingCapabilitiesPromise) {
+            this.fetchingCapabilitiesPromise = new Promise<void>(
+                (resolve, reject) => {
+                    const requests: Array<Promise<Response>> = [];
 
-        if (this.options.wfs) {
-            requests.push(
-                this.fetch(
-                    this.options.wfs +
-                    url.format({
-                        query: {
-                            request: 'GetCapabilities',
-                            service: 'WFS',
-                        },
-                    }),
-                ),
+                    if (this.options.wfs) {
+                        requests.push(
+                            this.fetch(
+                                this.options.wfs +
+                                    url.format({
+                                        query: {
+                                            request: 'GetCapabilities',
+                                            service: 'WFS',
+                                        },
+                                    })
+                            )
+                        );
+                    }
+
+                    if (this.options.wms) {
+                        requests.push(
+                            this.fetch(
+                                this.options.wms +
+                                    url.format({
+                                        query: {
+                                            request: 'GetCapabilities',
+                                            service: 'WMS',
+                                        },
+                                    })
+                            )
+                        );
+                    }
+
+                    Promise.all(requests).then((responses) => {
+                        const parsing: Promise<void>[] = [];
+
+                        if (this.options.wfs) {
+                            if (!responses[0].ok) {
+                                reject('Request for WFS capabilities failed');
+                                return;
+                            }
+
+                            parsing.push(
+                                responses[0]
+                                    .text()
+                                    .then((textValue) => {
+                                        this.parseWFSCapabilities(textValue);
+                                    })
+                                    .catch(() => {
+                                        reject(
+                                            'WFS Capabilities could not be parsed'
+                                        );
+                                    })
+                            );
+                        }
+
+                        if (this.options.wms) {
+                            if (!responses.slice(-1)[0].ok) {
+                                throw new Error(
+                                    'Request for WMS capabilities failed'
+                                );
+                            }
+
+                            parsing.push(
+                                responses
+                                    .slice(-1)[0]
+                                    .text()
+                                    .then((textValue) => {
+                                        this.parseWMSCapabilities(textValue);
+                                    })
+                                    .catch(() => {
+                                        reject(
+                                            'Could not parse WMS capabilities'
+                                        );
+                                    })
+                            );
+                        }
+
+                        Promise.all(parsing).then(() => {
+                            this.parsedCapabilities = true;
+                            resolve();
+                        });
+                    });
+                }
             );
         }
 
-        if (this.options.wms) {
-            requests.push(
-                this.fetch(
-                    this.options.wms +
-                    url.format({
-                        query: {
-                            request: 'GetCapabilities',
-                            service: 'WMS',
-                        },
-                    }),
-                ),
-            );
-        }
-
-        const responses: Response[] = await Promise.all(requests);
-
-        if (this.options.wfs) {
-            if (!responses[0].ok) {
-                throw new Error('Request for WFS capabilities failed');
-            }
-
-            try {
-                this.parseWFSCapabilities(
-                    await responses[0].text(),
-                );
-            } catch (e) {
-                throw new Error('Could not parse WMS capabilities');
-            }
-        }
-
-        if (this.options.wms) {
-            if (!responses[responses.length - 1].ok) {
-                throw new Error('Request for WMS capabilities failed');
-            }
-
-            try {
-                this.parseWMSCapabilities(
-                    await responses[responses.length - 1].text(),
-                );
-            } catch (e) {
-                throw new Error('Could not parse WMS capabilities');
-            }
-        }
-
-        this.parsedCapabilities = true;
+        return this.fetchingCapabilitiesPromise;
     }
 
     private parseWMSCapabilities(body: string) {
@@ -231,11 +270,17 @@ export class OWSSource extends SourceBase implements IDataSource {
             throw new Error('Exception in remote WMS Server');
         }
 
-        const layerNodes = capabilities.node(capabilities.document, './wms:WMS_Capabilities/wms:Capability/wms:Layer');
+        const layerNodes = capabilities.node(
+            capabilities.document,
+            './wms:WMS_Capabilities/wms:Capability/wms:Layer'
+        );
 
         for (let i = 0; i < layerNodes.snapshotLength; i++) {
             if (layerNodes.snapshotItem(i)) {
-                this.parseWMSLayer(capabilities, layerNodes.snapshotItem(i) as Node);
+                this.parseWMSLayer(
+                    capabilities,
+                    layerNodes.snapshotItem(i) as Node
+                );
             }
         }
     }
@@ -253,7 +298,10 @@ export class OWSSource extends SourceBase implements IDataSource {
 
         for (let i = 0; i < nestedLayers.snapshotLength; i++) {
             if (nestedLayers.snapshotItem(i)) {
-                this.parseWMSLayer(capabilities, nestedLayers.snapshotItem(i) as Node);
+                this.parseWMSLayer(
+                    capabilities,
+                    nestedLayers.snapshotItem(i) as Node
+                );
             }
         }
     }
@@ -265,11 +313,17 @@ export class OWSSource extends SourceBase implements IDataSource {
             throw new Error('Exception in remote WMS Server');
         }
 
-        const layerNodes = capabilities.node(capabilities.document, './wfs:WFS_Capabilities/wfs:FeatureTypeList/wfs:FeatureType');
+        const layerNodes = capabilities.node(
+            capabilities.document,
+            './wfs:WFS_Capabilities/wfs:FeatureTypeList/wfs:FeatureType'
+        );
 
         for (let i = 0; i < layerNodes.snapshotLength; i++) {
             if (layerNodes.snapshotItem(i)) {
-                this.parseWFSLayer(capabilities, layerNodes.snapshotItem(i) as Node);
+                this.parseWFSLayer(
+                    capabilities,
+                    layerNodes.snapshotItem(i) as Node
+                );
             }
         }
     }
