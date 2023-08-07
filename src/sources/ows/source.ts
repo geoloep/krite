@@ -37,12 +37,6 @@ export interface IOWSLayeroptions {
     [index: string]: any;
 }
 
-// const defaultLayerOptions = {
-//     transparant: true,
-// };
-//
-// const defaultOptions: IOWSSourceoptions = {};
-
 const servicePattern = '{service}';
 
 export class OWSSource extends SourceBase implements IDataSource {
