@@ -52,13 +52,6 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
                 source: pdokBRTASource,
                 layer: 'water',
             },
-            'pdok/opentopoachtergrondkaart': {
-                source: pdokSource,
-                layer: 'opentopoachtergrondkaart',
-                options: {
-                    maxNativeZoom: 14,
-                }
-            },
             'pdok/top25raster': {
                 source: pdokSource,
                 layer: 'top25raster',
@@ -95,13 +88,27 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
                 source: pdokBGTSource,
                 layer: 'BGT pastelvisualisatie',
             },
-            // 'openbasiskaart/openbasiskaart': {
-            //     source: openbasiskaartSource,
-            //     layer: 'openbasiskaart.nl: OpenStreetMap ondergrondkaart',
-            // } Tilematrixset heeft ongebruikelijke naam, eerst ondersteuning in WMTSLayer toevoegen
+            'pdok/luchtfoto_actueel_hr': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto Actueel Ortho 8cm RGB',
+                options: {
+                    maxNativeZoom: 14,
+                }
+            },
             'pdok/luchtfoto_actueel': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto Actueel Ortho 25cm RGB',
+                options: {
+                    maxNativeZoom: 14,
+                }
+            },
+            'pdok/luchtfoto_2023_hr': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto 2023 Ortho 8cm RGB',
+            },
+            'pdok/luchtfoto_2023': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto 2023 Ortho 25cm RGB',
                 options: {
                     maxNativeZoom: 14,
                 }
@@ -148,10 +155,6 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
                 options: {
                     maxNativeZoom: 14,
                 }
-            },
-            'ahn/3 50cm dsm': {
-                source: pdokSource,
-                layer: 'ahn3_05m_dsm',
             },
         };
 
