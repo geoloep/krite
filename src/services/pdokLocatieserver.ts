@@ -15,6 +15,8 @@ limitations under the License.
 */
 
 import url from '../util/url';
+import { IService } from '@/types';
+import Krite from '@/krite';
 
 const baseUrl = 'https://api.pdok.nl/bzk/locatieserver/search/v3_1';
 
@@ -143,7 +145,21 @@ export interface KriteSuggestResponseDoc extends SuggestDoc {
 /**
  * This class facilitates communication with the Dutch Geocode PDOK Locatieserver service
  */
-export class PdokLocatieserverService {
+export class PdokLocatieserverService implements IService {
+    krite!: Krite;
+
+
+    added(krite: Krite) {
+        this.krite = krite;
+    }
+
+    fetch(input: RequestInfo, init?: RequestInit): Promise<Response> {
+        if (this.krite?.options.fetch) {
+            return this.krite.options.fetch(input, init);
+        }
+        return fetch(input, init);
+    }
+
     /**
      * Perform a request to the suggest service
      * @param searchString string to search for
@@ -161,7 +177,7 @@ export class PdokLocatieserverService {
             Object.assign(parameters, options);
         }
 
-        const response = await fetch(
+        const response = await this.fetch(
             `${baseUrl}/suggest` +
                 url.format({
                     query: parameters,
@@ -194,7 +210,7 @@ export class PdokLocatieserverService {
             Object.assign(parameters, options);
         }
 
-        const response = await fetch(
+        const response = await this.fetch(
             `${baseUrl}/lookup` +
                 url.format({
                     query: parameters,
