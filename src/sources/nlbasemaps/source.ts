@@ -77,6 +77,14 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
                     maxNativeZoom: 14,
                 }
             },
+            'pdok/luchtfoto_2024_quick': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto 2024 Quick Ortho 8cm RGB',
+            },
+            'pdok/luchtfoto_2024_hr': {
+                source: pdokLufoSource,
+                layer: 'Luchtfoto 2024 Ortho 8cm RGB',
+            },
             'pdok/luchtfoto_2023_hr': {
                 source: pdokLufoSource,
                 layer: 'Luchtfoto 2023 Ortho 8cm RGB',
