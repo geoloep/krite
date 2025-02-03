@@ -20,7 +20,6 @@ import SourceBase from '../../bases/source';
 import { WMTSOptions } from '../wmts/layer';
 import { WMTSSource } from '../wmts/source';
 
-const pdokSource = new WMTSSource('https://geodata.nationaalgeoregister.nl/tiles/service/wmts');
 const pdokLufoSource = new WMTSSource(' https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0');
 const pdokBRTASource = new WMTSSource('https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0');
 const pdokBGTSource = new WMTSSource('https://service.pdok.nl/lv/bgt/wmts/v1_0');
@@ -51,30 +50,6 @@ export class NLBasemapsSource extends SourceBase implements IDataSource {
             'pdok/brtachtergrondkaartwater': {
                 source: pdokBRTASource,
                 layer: 'water',
-            },
-            'pdok/top25raster': {
-                source: pdokSource,
-                layer: 'top25raster',
-            },
-            'pdok/top50raster': {
-                source: pdokSource,
-                layer: 'top50raster',
-            },
-            'pdok/top100raster': {
-                source: pdokSource,
-                layer: 'top100raster',
-            },
-            'pdok/top250raster': {
-                source: pdokSource,
-                layer: 'top250raster',
-            },
-            'pdok/top500raster': {
-                source: pdokSource,
-                layer: 'top500raster',
-            },
-            'pdok/top1000raster': {
-                source: pdokSource,
-                layer: 'top1000raster',
             },
             'pdok/bgtstandaard': {
                 source: pdokBGTSource,
