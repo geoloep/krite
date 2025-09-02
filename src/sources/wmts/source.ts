@@ -63,7 +63,7 @@ export class WMTSSource extends SourceBase implements IDataSource {
             return layer;
         }
 
-        throw new Error(`Unknown layer ${name} }`);
+        throw new Error(`Unknown layer ${name}`);
     }
 
     private async getCapabilities() {

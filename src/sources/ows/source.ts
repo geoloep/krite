@@ -105,7 +105,7 @@ export class OWSSource extends SourceBase implements IDataSource {
             return layer;
         }
 
-        throw new Error(`Unknown layer ${name} }`);
+        throw new Error(`Unknown layer ${name}`);
     }
 
     async getCombinedLayer(names: string[], options?: IOWSLayeroptions) {
